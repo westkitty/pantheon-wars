@@ -1,56 +1,56 @@
-# Pantheon Wars v0.1
+# Pantheon Wars v0.2 — The Ten Pantheons
 
 A small browser 4X strategy game. You are a god competing for worshippers on a hex world of mortal settlements.
-- Three pantheons inspired by real traditions, each with cited sources: the Olympian Court (Greek), the Hall of the Ash (Norse) and the Ennead of the Two Lands (Egyptian).
-- 45 turns; one human against one or two AI gods.
-- All content is data (`data/*.json`). The rules engine is deterministic and seeded, and an AI-vs-AI balance harness is included.
+- **Ten pantheons** inspired by real traditions, each with four domains, four powers (explore, expand, exploit, exterminate), its own shrine family, priests, emblem, heraldic pattern, architecture and atmosphere: the Olympian Court, the Hall of the Ash, the Ennead of the Two Lands, the Assembly of the Gods, the Tuatha Dé Danann, the Fifth Sun, the Thousand Gods of Hatti, the Council of the Òrìṣà, the Shrines of the Kami and the Vedic Hymns.
+- 45 turns in three ages (Dawn, Zenith, Twilight). One human against one or two AI gods, or two to three humans at one screen (hot-seat).
+- Mortals have prosperity, safety, trust and memory. Gods swear covenants, answer attacks with counter-rites, send envoys, consecrate pilgrim roads, claim holy places, give shrines and priests callings, and live with the weather.
+- Standard play, two alternative victories (Sacred Ground, The Kept Word) and six authored Trials.
+- Saves, autosave, export/import, challenge files, a Chronicle that replays any finished game turn by turn, and an end-of-age tapestry you can save as PNG and JSON.
+- All content is data (`data/*.json`). The rules engine is deterministic and seeded; an AI-vs-AI balance harness is included.
 
 ## Play
-Open **`index.html`** in Chrome, Edge or Firefox; double-clicking the file works. The game is entirely offline: there are no network requests and no external libraries, and all art is procedural.
+Open **`index.html`** in Chrome, Edge or Firefox; double-clicking the file works. The game is entirely offline: no network requests, no external libraries, no image, font or audio files. All art is drawn and all sound synthesised by code (`reports/offline-proof.json`).
 
-- Pick a pantheon, one or two rivals, rival skill (Acolyte = easy, Hierophant = hard) and a world seed. Then press **Begin the Age**.
-- **Click** a place to inspect it.
-- **Priests:** click your priest's hex, press **Send** (or click the hex again), then click a destination.
-- **Keys:**
-  - `1`–`9` divine powers
-  - `Enter` end turn
-  - `Esc` cancel
-  - `WASD`/arrows to pan
-  - wheel or `+`/`−` to zoom
-  - `L` turn log
-  - `H` help
-  - `Home` jump to your capital
+- On the title screen pick a pantheon (search, Random, or Compare two), the match (Standard, Sacred Ground, Kept Word, Trials), one or two rivals (or let the seed choose them), rival skill (Acolyte = easy, Hierophant = hard), hot-seat humans and a world seed. **Continue** resumes the autosave.
+- **Click** a place to inspect its people, needs, history and every action you can take there.
+- **Priests:** click your priest's place twice (or press **Send**), then click a destination.
+- **Keys** (remappable in Settings): `1`–`9` rites and powers · `Enter` end turn · `Esc` cancel · `WASD`/arrows pan · wheel or `+`/`−` zoom · `L` log · `E` encyclopedia · `V` envoys · `I` influence layer · `M` menu · `H` help · `Home` jump home.
 - **Touch:** drag to pan, pinch to zoom, tap to select.
-- **Graphics:** ⚙ → Graphics quality (Auto drops to Low if frames exceed 24 ms). `prefers-reduced-motion` is honoured.
-- **URL options:** `?seed=42&faction=norse&rivals=2&diff=easy&autostart=1&quality=low`
+- **Settings:** graphics quality, reduced motion, no flashes, patterned borders, high contrast, sound levels, screen-reader round summaries, action previews, key bindings.
+- **URL options:** `?seed=42&faction=yoruba&rivals=norse,vedic&diff=easy&mode=scenario:two_rivers&hotseat=2&autostart=1&quality=low`
 
-The design page with rules, all 12 powers and the sources is **`docs/design.html`**. The AI rules are in **`docs/ai.md`**.
+Rules, all 40 powers and the sources: **`docs/design.html`** (also in-game: ❦ Encyclopedia). AI rules: **`docs/ai.md`**. Art: **`docs/ART_DIRECTION.md`**. Research and representation: **`docs/RESEARCH_AND_REPRESENTATION.md`**. Requirement traceability: **`docs/TRACEABILITY.md`**.
 
-## Develop (Node 18+; developed on Node 24)
+## Develop (Node 18+; developed on Node 22)
 ```
-node --test tests/*.test.js                       # 14 engine tests (determinism, replay, powers, victories, data-only pantheon)
-node tools/simulate.js --games 1000 --seed 1000 --label after --easy-check 150 --out reports/balance-after
-node tools/simulate.js --games 1000 --seed 1000 --label before --data reports/data-before --out reports/balance-before
-node tools/diff-data.js reports/data-before       # what tuning changed
-node tools/bundle-data.js                         # REQUIRED after editing data/*.json (writes data/data.js for file:// use)
-node tools/build-docs.js                          # regenerate docs/design.html from data
-node tools/screenshots.js --seed 11 --faction greek --rivals 2 --diff easy --out screenshots
+node --test tests/*.test.js                 # engine, powers, systems, persistence and content tests
+node tools/validate-data.js                 # schema, sources, art registry (A002)
+node tools/bundle-data.js                   # REQUIRED after editing data/*.json (writes data/data.js and data/legacy-data.js)
+node tools/build-docs.js                    # regenerate docs/design.html from data
+node tools/simulate.js --plan full --duel-seeds 20 --ffa-seeds 10 --label ten-final --out reports/ten-pantheon-balance-final
+node tools/simulate.js --games 900 --seed 7000 --no-lookahead --label sample --out reports/sample   # quick stratified sample
+node tools/journeys.js                      # browser journeys J01–J10 (Playwright + Chromium)
+node tools/screenshots.js --seed 11 --faction greek --rivals 2 --diff easy   # full game by real input + Node replay hash check
+node tools/screen-atlas.js                  # ten-pantheon screenshot atlas (desktop + phone)
+node tools/assets.js                        # asset manifest + QA contact sheets
+node tools/perf.js --label after --out reports/perf-after-run1.json     # frame-time sampler
+node tools/offline-proof.js                 # file:// and local static server, no external requests
 ```
-`tools/screenshots.js` drives headless Chrome through a whole game using real clicks and keypresses. It captures every UI state plus mobile and reduced-motion views, then replays the recorded actions in Node to confirm the final state hash matches. It needs `puppeteer-core` (dev only, not shipped); set `PUPPETEER=/path/to/puppeteer-core` and `CHROME=/path/to/chrome`.
+Browser tools use `require('playwright')` with its Chromium. `tools/screenshots.js` also accepts `PUPPETEER=/path/to/puppeteer-core`.
 
 ## Layout
 | Path | What |
 |---|---|
-| `index.html`, `ui/style.css` | shell and HUD (top resource bar, side panel, power bar with cooldown sweeps, End Turn, minimap, log, event card, victory) |
-| `ui/render.js` | the 2.5D world renderer: extruded, lit hex terrain cached to an offscreen layer, warped through a perspective camera, with fog, haze, water, clouds and FX |
-| `ui/art.js` | procedural pixel art: emblems, power icons, event-card scenes |
+| `index.html`, `ui/style.css` | shell, title gallery, HUD, modals (1440×900 and 390×844 layouts) |
 | `ui/app.js` | UI controller; every change goes through `PWEngine.step` |
+| `ui/render.js` | 2.5D world renderer, weather, marks, villages, fog theatre, 40 VFX signatures |
+| `ui/art.js` | procedural pixel art: emblems, patterns, icons, shrines × 7 conditions, priests × 3 callings, landmarks, event scenes |
+| `ui/audio.js`, `ui/storage.js`, `ui/chronicle.js`, `ui/encyclopedia.js` | synthesised sound, versioned saves, Chronicle and tapestry, encyclopedia |
 | `engine/engine.js`, `engine/ai.js`, `engine/rng.js` | deterministic rules, AI, PRNG (UMD: browser and Node) |
-| `data/*.json` | rules, factions, domains, powers, shrines, events, terrain, sources (`data/data.js` is generated) |
-| `reports/` | balance reports before and after tuning, a 3000-game confirmation, and the pre-tuning data snapshot |
-| `screenshots/` | headless-Chrome captures and `e2e-report.json` |
-| `backlog.md` | ten next steps, including data-only pantheons |
-| `NOTES.md` | build status notes |
+| `engine/legacy/` | frozen v0.1 engine and AI for replaying v0.1 files |
+| `data/*.json` | rules, factions, domains, powers, shrines, events, scenarios, terrain, sources; `data/legacy/v0.1/` frozen v0.1 data; `data/asset-manifest.json` |
+| `reports/` | balance reports and tuning history, perf before/after, journeys, atlas, screenshots, sample Chronicle and tapestry |
+| `docs/` | design page, AI, art direction, research and representation, traceability, implementation ledger |
 
 ## Sources
-Every domain and power cites ids such as `[G1]` that resolve to `data/sources.json`. Theoi Project and Britannica pages are cited, plus Bellows' Poetic Edda and Budge's Book of the Dead at sacred-texts.com. All of them were opened and read while building. See `docs/design.html#src-G1` onward. The mechanics are original abstractions; they do not describe worship practice.
+Every domain, power and shrine cites ids such as `[G1]` or `[Y3]` that resolve to `data/sources.json`. The 18 v0.1 sources (Theoi, Britannica, sacred-texts translations) were opened and read. The 39 v0.2 sources were checked against search-index summaries of each exact URL because the build environment blocked direct page fetches; each record says so in its `verification` field. See `docs/RESEARCH_AND_REPRESENTATION.md`. The mechanics are original abstractions; they do not describe worship practice.

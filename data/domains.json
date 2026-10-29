@@ -1,185 +1,695 @@
 [
-  {
-    "id": "sky_oath",
-    "faction": "greek",
-    "name": "Sky & Oath",
-    "inspiredBy": "Zeus",
-    "sources": [
-      "G1"
-    ],
-    "text": "Zeus watches over oaths, law and order. The Court gains 1 Favor every 4 turns.",
-    "effect": {
-      "type": "favorEveryNTurns",
-      "n": 4,
-      "amount": 1
-    }
+ {
+  "id": "sky_oath",
+  "faction": "greek",
+  "name": "Sky & Oath",
+  "inspiredBy": "Zeus",
+  "sources": [
+   "G1"
+  ],
+  "text": "Zeus watches over oaths, law and order. The Court gains 1 Favor every 4 turns.",
+  "effect": {
+   "type": "favorEveryNTurns",
+   "n": 4,
+   "amount": 1
   },
-  {
-    "id": "wisdom_city",
-    "faction": "greek",
-    "name": "Counsel & the Defended City",
-    "inspiredBy": "Athena",
-    "sources": [
-      "G2"
-    ],
-    "text": "Athena defends towns. Olympian shrines start with +1 Ward.",
-    "effect": {
-      "type": "shrineWard",
-      "amount": 1
-    }
+  "flavor": "Oaths sworn under the open sky are heard."
+ },
+ {
+  "id": "wisdom_city",
+  "faction": "greek",
+  "name": "Counsel & the Defended City",
+  "inspiredBy": "Athena",
+  "sources": [
+   "G2"
+  ],
+  "text": "Athena defends towns. Olympian shrines start with +1 Ward.",
+  "effect": {
+   "type": "shrineWard",
+   "amount": 1
   },
-  {
-    "id": "grain",
-    "faction": "greek",
-    "name": "Grain & Bread",
-    "inspiredBy": "Demeter",
-    "sources": [
-      "G3",
-      "G6"
-    ],
-    "text": "Followers on grassland and plains give extra Faith.",
-    "effect": {
-      "type": "terrainFaith",
-      "terrains": [
-        "grassland",
-        "plains"
-      ],
-      "perFollower": 0.12
-    }
+  "flavor": "The owl sits on the city wall and the wall holds."
+ },
+ {
+  "id": "grain",
+  "faction": "greek",
+  "name": "Grain & Bread",
+  "inspiredBy": "Demeter",
+  "sources": [
+   "G3",
+   "G6"
+  ],
+  "text": "Followers on grassland and plains give extra Faith.",
+  "effect": {
+   "type": "terrainFaith",
+   "terrains": [
+    "grassland",
+    "plains"
+   ],
+   "perFollower": 0.08
   },
-  {
-    "id": "sea",
-    "faction": "greek",
-    "name": "Sea & Shaking Earth",
-    "inspiredBy": "Poseidon",
-    "sources": [
-      "G4"
-    ],
-    "text": "Olympian priests may cross shallow sea; coastal settlements feel stronger Olympian pressure.",
-    "effect": {
-      "type": "seafaring",
-      "coastalPressure": 0.2
-    }
+  "flavor": "Bread is the first gift and the last."
+ },
+ {
+  "id": "sea",
+  "faction": "greek",
+  "name": "Sea & Shaking Earth",
+  "inspiredBy": "Poseidon",
+  "sources": [
+   "G4"
+  ],
+  "text": "Olympian priests may cross shallow sea; coastal settlements feel stronger Olympian pressure.",
+  "effect": {
+   "type": "seafaring",
+   "coastalPressure": 0.15
   },
-  {
-    "id": "runes",
-    "faction": "norse",
-    "name": "Runes & Poetry",
-    "inspiredBy": "Odin",
-    "sources": [
-      "N1",
-      "N5"
-    ],
-    "text": "Each word leads to another word. Winning followers from rivals earns Favor (1 per 10).",
-    "effect": {
-      "type": "favorOnRivalConvert",
-      "per": 10,
-      "amount": 1
-    }
+  "flavor": "The shore belongs to whoever the sea allows."
+ },
+ {
+  "id": "runes",
+  "faction": "norse",
+  "name": "Runes & Poetry",
+  "inspiredBy": "Odin",
+  "sources": [
+   "N1",
+   "N5"
+  ],
+  "text": "Each word leads to another word. Winning followers from rivals earns Favor (1 per 10).",
+  "effect": {
+   "type": "favorOnRivalConvert",
+   "per": 10,
+   "amount": 1
   },
-  {
-    "id": "thunder",
-    "faction": "norse",
-    "name": "Thunder & Shelter",
-    "inspiredBy": "Thor",
-    "sources": [
-      "N2"
-    ],
-    "text": "Eclipses cost 1 less Favor.",
-    "effect": {
-      "type": "eclipseDiscount",
-      "amount": 1
-    }
+  "flavor": "Each word led me on to another word."
+ },
+ {
+  "id": "thunder",
+  "faction": "norse",
+  "name": "Thunder & Shelter",
+  "inspiredBy": "Thor",
+  "sources": [
+   "N2"
+  ],
+  "text": "Eclipses cost 1 less Favor.",
+  "effect": {
+   "type": "eclipseDiscount",
+   "amount": 1
   },
-  {
-    "id": "peace_plenty",
-    "faction": "norse",
-    "name": "Peace, Rain & Sunshine",
-    "inspiredBy": "Freyr",
-    "sources": [
-      "N3"
-    ],
-    "text": "Settlements you control grow by 1 extra every 4 turns.",
-    "effect": {
-      "type": "controlledGrowth",
-      "n": 4,
-      "amount": 1
-    }
+  "flavor": "The hammer goes out and the hammer comes back."
+ },
+ {
+  "id": "peace_plenty",
+  "faction": "norse",
+  "name": "Peace, Rain & Sunshine",
+  "inspiredBy": "Freyr",
+  "sources": [
+   "N3"
+  ],
+  "text": "Settlements you control grow by 1 extra every 4 turns.",
+  "effect": {
+   "type": "controlledGrowth",
+   "n": 4,
+   "amount": 1
   },
-  {
-    "id": "fate",
-    "faction": "norse",
-    "name": "The Woven Fate",
-    "inspiredBy": "The Norns",
-    "sources": [
-      "N4",
-      "N6"
-    ],
-    "text": "The Norns set the fates of men. Your followers are 15% harder for rivals to convert.",
-    "effect": {
-      "type": "conversionResist",
-      "mult": 1.15
-    }
+  "flavor": "Rain at the right time, sun at the right time."
+ },
+ {
+  "id": "fate",
+  "faction": "norse",
+  "name": "The Woven Fate",
+  "inspiredBy": "The Norns",
+  "sources": [
+   "N4",
+   "N6"
+  ],
+  "text": "The Norns set the fates of men. Your followers are 15% harder for rivals to convert.",
+  "effect": {
+   "type": "conversionResist",
+   "mult": 1.15
   },
-  {
-    "id": "sun",
-    "faction": "egyptian",
-    "name": "The Sun's Course",
-    "inspiredBy": "Re",
-    "sources": [
-      "E1"
-    ],
-    "text": "Followers on desert and plains give extra Faith.",
-    "effect": {
-      "type": "terrainFaith",
-      "terrains": [
-        "desert",
-        "plains"
-      ],
-      "perFollower": 0.2
-    }
+  "flavor": "What the Norns have scored in the wood stays scored."
+ },
+ {
+  "id": "sun",
+  "faction": "egyptian",
+  "name": "The Sun's Course",
+  "inspiredBy": "Re",
+  "sources": [
+   "E1"
+  ],
+  "text": "Followers on desert and plains give extra Faith.",
+  "effect": {
+   "type": "terrainFaith",
+   "terrains": [
+    "desert",
+    "plains"
+   ],
+   "perFollower": 0.12
   },
-  {
-    "id": "order",
-    "faction": "egyptian",
-    "name": "Order against Disorder",
-    "inspiredBy": "Maat",
-    "sources": [
-      "E2"
-    ],
-    "text": "Your followers are harder to convert (rivals need 35% more effort).",
-    "effect": {
-      "type": "conversionResist",
-      "mult": 1.35
-    }
+  "flavor": "The sun sails, and the land is warm."
+ },
+ {
+  "id": "order",
+  "faction": "egyptian",
+  "name": "Order against Disorder",
+  "inspiredBy": "Maat",
+  "sources": [
+   "E2"
+  ],
+  "text": "Your followers are harder to convert (rivals need 35% more effort).",
+  "effect": {
+   "type": "conversionResist",
+   "mult": 1.25
   },
-  {
-    "id": "reckoning",
-    "faction": "egyptian",
-    "name": "Reckoning & Writing",
-    "inspiredBy": "Thoth",
-    "sources": [
-      "E4"
-    ],
-    "text": "Read Omens costs half and reveals 1 hex further.",
-    "effect": {
-      "type": "omenMastery",
-      "costMult": 0.5,
-      "radius": 1
-    }
+  "flavor": "Maat in place of isfet."
+ },
+ {
+  "id": "reckoning",
+  "faction": "egyptian",
+  "name": "Reckoning & Writing",
+  "inspiredBy": "Thoth",
+  "sources": [
+   "E4"
+  ],
+  "text": "Read Omens costs half and reveals 1 hex further.",
+  "effect": {
+   "type": "omenMastery",
+   "costMult": 0.5,
+   "radius": 1
   },
-  {
-    "id": "inundation",
-    "faction": "egyptian",
-    "name": "The Inundation",
-    "inspiredBy": "Osiris",
-    "sources": [
-      "E3"
-    ],
-    "text": "Followers in settlements beside water give extra Faith.",
-    "effect": {
-      "type": "waterFaith",
-      "perFollower": 0.2
-    }
+  "flavor": "The scribe counts what the god is owed."
+ },
+ {
+  "id": "inundation",
+  "faction": "egyptian",
+  "name": "The Inundation",
+  "inspiredBy": "Osiris",
+  "sources": [
+   "E3"
+  ],
+  "text": "Followers in settlements beside water give extra Faith.",
+  "effect": {
+   "type": "waterFaith",
+   "perFollower": 0.14
+  },
+  "flavor": "The river rises, and the black land is fed."
+ },
+ {
+  "id": "mes_wind_authority",
+  "faction": "mesopotamian",
+  "name": "The Word of Enlil",
+  "inspiredBy": "Enlil, whose command could not be altered",
+  "sources": [
+   "M1"
+  ],
+  "flavor": "What is decreed at Nippur is not argued with.",
+  "text": "Every 5 turns gain 1 Favor for each 3 settlements you control (at most 2 per decree).",
+  "effect": {
+   "type": "favorFromControl",
+   "n": 5,
+   "per": 3,
+   "max": 2
   }
+ },
+ {
+  "id": "mes_freshwater_craft",
+  "faction": "mesopotamian",
+  "name": "Waters of the Abzu",
+  "inspiredBy": "Enki/Ea, lord of the fresh-water deep and of crafts",
+  "sources": [
+   "M2"
+  ],
+  "flavor": "Canals are a craft, and Enki taught every craft.",
+  "text": "Followers beside water give +0.15 Faith. Your pilgrim routes survive 2 extra turns of disruption.",
+  "effects": [
+   {
+    "type": "waterFaith",
+    "perFollower": 0.18
+   },
+   {
+    "type": "routeGrace",
+    "turns": 2
+   }
+  ]
+ },
+ {
+  "id": "mes_evening_star",
+  "faction": "mesopotamian",
+  "name": "The Morning and Evening Star",
+  "inspiredBy": "Inana/Ištar as the planet Venus",
+  "sources": [
+   "M3"
+  ],
+  "flavor": "She rises over one city at dusk and another at dawn.",
+  "text": "Every 8 followers won from rivals earn 1 Favor (at most 4 Favor in the age).",
+  "effect": {
+   "type": "favorOnRivalConvert",
+   "per": 8,
+   "amount": 1,
+   "max": 4
+  }
+ },
+ {
+  "id": "mes_justice_sun",
+  "faction": "mesopotamian",
+  "name": "The Seeing Sun",
+  "inspiredBy": "Utu/Šamaš, who sees all on his daily path",
+  "sources": [
+   "M4"
+  ],
+  "flavor": "Nothing done under the sun is unseen by the judge.",
+  "text": "Read Omens reveals 1 hex further. Covenants you keep win +1 extra trust in the town.",
+  "effects": [
+   {
+    "type": "omenMastery",
+    "costMult": 1,
+    "radius": 1
+   },
+   {
+    "type": "covenantTrust",
+    "amount": 1
+   }
+  ]
+ },
+ {
+  "id": "irish_abundance",
+  "faction": "irish",
+  "name": "The Undry Cauldron",
+  "inspiredBy": "The Dagda and his cauldron",
+  "sources": [
+   "I4"
+  ],
+  "flavor": "No company went away from it unsatisfied.",
+  "text": "Every 5 turns up to 4 settlements you control grow by 1.",
+  "effect": {
+   "type": "controlledGrowth",
+   "n": 4,
+   "amount": 1,
+   "max": 4
+  }
+ },
+ {
+  "id": "irish_brigid_craft",
+  "faction": "irish",
+  "name": "Brigit of the Forge and Well",
+  "inspiredBy": "Brigit and her sisters of poetry, healing and smithcraft",
+  "sources": [
+   "I5"
+  ],
+  "flavor": "What is broken at the forge is mended at the forge.",
+  "text": "Eclipses on your shrines last 1 turn less. Every 4 turns a damaged shrine of yours regains 1 Ward.",
+  "effects": [
+   {
+    "type": "eclipseShorten",
+    "amount": 1
+   },
+   {
+    "type": "wardRegen",
+    "n": 4,
+    "below": 9,
+    "amount": 1
+   }
+  ]
+ },
+ {
+  "id": "irish_lugh_skills",
+  "faction": "irish",
+  "name": "Master of Every Art",
+  "inspiredBy": "Lugh Samildánach at the gate of Tara",
+  "sources": [
+   "I1",
+   "I3"
+  ],
+  "flavor": "Is there one here who holds every art at once?",
+  "text": "Ordaining a priest costs 3 less Faith, and you may retrain a priest at any shrine of yours for free once per turn.",
+  "effect": {
+   "type": "priestDiscount",
+   "amount": 3,
+   "freeRetrain": true
+  }
+ },
+ {
+  "id": "irish_morrigan_prophecy",
+  "faction": "irish",
+  "name": "The Prophecy of the Morrígan",
+  "inspiredBy": "The Morrígan's prophecies at the close of Cath Maige Tuired",
+  "sources": [
+   "I1",
+   "I2"
+  ],
+  "flavor": "Peace to the sky, and after it a hard age.",
+  "text": "You see coming weather within 4 hexes of your shrines. Counter-rites cost you 1 less Favor.",
+  "effects": [
+   {
+    "type": "forecastSight",
+    "radius": 4
+   },
+   {
+    "type": "counterDiscount",
+    "amount": 1
+   }
+  ]
+ },
+ {
+  "id": "mex_wind_learning",
+  "faction": "mexica",
+  "name": "The Sweeping Wind",
+  "inspiredBy": "Ehecatl-Quetzalcoatl, the wind that sweeps the road for rain",
+  "sources": [
+   "X2"
+  ],
+  "flavor": "The wind goes first; the rain follows its broom.",
+  "text": "Your priests see 1 hex further as they walk, and Seers walk 1 hex further.",
+  "effect": {
+   "type": "priestSight",
+   "radius": 1,
+   "seerMove": 1
+  }
+ },
+ {
+  "id": "mex_rain_cycle",
+  "faction": "mexica",
+  "name": "The Rain Season",
+  "inspiredBy": "Tlaloc, god of rain and the fertility of the fields",
+  "sources": [
+   "X1"
+  ],
+  "flavor": "When the clouds come over the mountains the maize knows it.",
+  "text": "Settlements you control under seasonal rains gain +1 prosperity a turn and +1 population when the rains end (at most 4 towns).",
+  "effect": {
+   "type": "climateBoon",
+   "kinds": [
+    "rains"
+   ],
+   "prosperity": 1,
+   "growth": 1,
+   "max": 4
+  }
+ },
+ {
+  "id": "mex_sun_cycle",
+  "faction": "mexica",
+  "name": "Movement of the Sun",
+  "inspiredBy": "Tonatiuh, the sun of the present era (Nahui Ollin)",
+  "sources": [
+   "X3"
+  ],
+  "flavor": "Four Movement: the sun of this age keeps its course.",
+  "text": "During the Zenith (turns 16–30) gain 2 Favor every 5 turns.",
+  "effect": {
+   "type": "favorEveryNTurns",
+   "n": 5,
+   "amount": 2,
+   "ages": [
+    "zenith"
+   ]
+  }
+ },
+ {
+  "id": "mex_waters",
+  "faction": "mexica",
+  "name": "She of the Jade Skirt",
+  "inspiredBy": "Chalchiuhtlicue, goddess of lakes and running water",
+  "sources": [
+   "X4",
+   "X5"
+  ],
+  "flavor": "Greenstone is water made solid, and water is life.",
+  "text": "Followers in settlements beside water give +0.18 Faith.",
+  "effect": {
+   "type": "waterFaith",
+   "perFollower": 0.24
+  }
+ },
+ {
+  "id": "hat_storm_shelter",
+  "faction": "hittite",
+  "name": "Shelter of the Storm God",
+  "inspiredBy": "Tarḫunna, owner of the land",
+  "sources": [
+   "H2"
+  ],
+  "flavor": "The land is his; the walls on it are his too.",
+  "text": "Your shrines with Ward 2 or more lose 1 less Ward to eclipses and miracles (a hit still eclipses them).",
+  "effect": {
+   "type": "wardShield",
+   "minWard": 2,
+   "reduce": 1
+  }
+ },
+ {
+  "id": "hat_sun_sanctuary",
+  "faction": "hittite",
+  "name": "Sun of Arinna",
+  "inspiredBy": "The Sun goddess of Arinna, chief goddess of the state",
+  "sources": [
+   "H1"
+  ],
+  "flavor": "The king holds the land for her, and she does not forget a gift.",
+  "text": "Every 5 turns gain 1 Favor if one of your shrines has stood for at least 8 turns, +1 more if it is a Sanctuary.",
+  "effect": {
+   "type": "sanctuaryFavor",
+   "n": 5,
+   "amount": 1,
+   "minAge": 8,
+   "sanctuaryBonus": 1
+  }
+ },
+ {
+  "id": "hat_renewal",
+  "faction": "hittite",
+  "name": "The God Who Returns",
+  "inspiredBy": "Telipinu, whose return restores growth",
+  "sources": [
+   "H3"
+  ],
+  "flavor": "The bee found him asleep in a meadow, and the meadows woke with him.",
+  "text": "Drought, storm and frost do half as much harm to your settlements, and they recover twice as fast afterwards.",
+  "effect": {
+   "type": "climateResist",
+   "mult": 0.5
+  }
+ },
+ {
+  "id": "hat_hepat_protection",
+  "faction": "hittite",
+  "name": "Ḫepat's Guard",
+  "inspiredBy": "Ḫepat, Hurrian queen of heaven at Yazılıkaya",
+  "sources": [
+   "H4"
+  ],
+  "flavor": "She stands on her panther; she does not step down.",
+  "text": "When one of your shrines is struck, your followers in that town are 50% harder to convert for 3 turns.",
+  "effect": {
+   "type": "defendResist",
+   "mult": 1.5,
+   "turns": 3
+  }
+ },
+ {
+  "id": "yor_river_prosperity",
+  "faction": "yoruba",
+  "name": "Sweet Water of Ọ̀ṣun",
+  "inspiredBy": "Ọ̀ṣun and the river that runs through her grove",
+  "sources": [
+   "Y1"
+  ],
+  "flavor": "Where the river runs, the town drinks and grows.",
+  "text": "Followers beside water give +0.12 Faith, and towns beside water that you control gain prosperity faster.",
+  "effects": [
+   {
+    "type": "waterFaith",
+    "perFollower": 0.16
+   },
+   {
+    "type": "waterProsperity",
+    "amount": 1
+   }
+  ]
+ },
+ {
+  "id": "yor_iron_routes",
+  "faction": "yoruba",
+  "name": "Ògún Opens the Road",
+  "inspiredBy": "Ògún, òrìṣà of iron who opens roads",
+  "sources": [
+   "Y2"
+  ],
+  "flavor": "The cutlass clears the path; the path carries the people.",
+  "text": "Consecrating a pilgrim route costs half, and each of your active routes gives +0.5 more Faith.",
+  "effect": {
+   "type": "routeMastery",
+   "costMult": 0.5,
+   "faith": 0.5
+  }
+ },
+ {
+  "id": "yor_restoration",
+  "faction": "yoruba",
+  "name": "Hands that Shape",
+  "inspiredBy": "Ọbàtálá, who shaped land and bodies",
+  "sources": [
+   "Y3"
+  ],
+  "flavor": "What was shaped once can be shaped again.",
+  "text": "Every 3 turns each of your shrines with Ward below 3 regains 1 Ward, and the towns around it feel safer.",
+  "effect": {
+   "type": "wardRegen",
+   "n": 3,
+   "below": 3,
+   "amount": 1,
+   "safety": 1
+  }
+ },
+ {
+  "id": "yor_thunder_authority",
+  "faction": "yoruba",
+  "name": "Thunder's Judgment",
+  "inspiredBy": "Ṣàngó, òrìṣà of thunder and lightning",
+  "sources": [
+   "Y4"
+  ],
+  "flavor": "Thunder is heard by everyone; it answers only some.",
+  "text": "Every 2 times your eclipses or miracles strike a rival shrine you gain 1 Favor (at most 4 in the age).",
+  "effect": {
+   "type": "favorOnHit",
+   "per": 2,
+   "max": 4
+  }
+ },
+ {
+  "id": "jpn_first_light",
+  "faction": "japanese",
+  "name": "First Light",
+  "inspiredBy": "Amaterasu, kami of the sun",
+  "sources": [
+   "J1"
+  ],
+  "flavor": "The cave opens, and the world can see again.",
+  "text": "During the Dawn (turns 1–15) Read Omens costs half and reveals 1 hex further.",
+  "effect": {
+   "type": "ageOmen",
+   "ages": [
+    "dawn"
+   ],
+   "costMult": 0.5,
+   "radius": 1
+  }
+ },
+ {
+  "id": "jpn_storm_guard",
+  "faction": "japanese",
+  "name": "After the Storm",
+  "inspiredBy": "Susanoo, linked with wind and rain, who settled in Izumo",
+  "sources": [
+   "J2"
+  ],
+  "flavor": "The serpent of the river was tamed and the fields were watered.",
+  "text": "When a storm or an eclipse falls on one of your shrines it gains 1 Ward afterwards (once every 4 turns per shrine).",
+  "effect": {
+   "type": "stormGuard",
+   "amount": 1,
+   "cooldown": 4
+  }
+ },
+ {
+  "id": "jpn_land_bonds",
+  "faction": "japanese",
+  "name": "Making the Land",
+  "inspiredBy": "Ōkuninushi, who consolidated the land",
+  "sources": [
+   "J3"
+  ],
+  "flavor": "One country is many villages that agree on their borders.",
+  "text": "Followers give +0.1 Faith in towns within 3 hexes of another town you control.",
+  "effect": {
+   "type": "contiguityFaith",
+   "radius": 3,
+   "perFollower": 0.06
+  }
+ },
+ {
+  "id": "jpn_harvest",
+  "faction": "japanese",
+  "name": "Rice of Inari",
+  "inspiredBy": "Inari, tutelary kami of rice and the five grains",
+  "sources": [
+   "J4"
+  ],
+  "flavor": "A full field is a prayer already answered.",
+  "text": "Followers on grassland and plains give +0.15 Faith while their town's prosperity is 5 or more.",
+  "effect": {
+   "type": "terrainFaith",
+   "terrains": [
+    "grassland",
+    "plains"
+   ],
+   "perFollower": 0.1,
+   "minProsperity": 5
+  }
+ },
+ {
+  "id": "ved_indras_storm",
+  "faction": "vedic",
+  "name": "Breaker of the Dam",
+  "inspiredBy": "Indra, who released the waters (RV 1.32)",
+  "sources": [
+   "V1"
+  ],
+  "flavor": "He split the mountain, and the waters ran.",
+  "text": "In towns under a storm your pressure on rival followers is 30% stronger.",
+  "effect": {
+   "type": "stormPressure",
+   "mult": 1.4
+  }
+ },
+ {
+  "id": "ved_agnis_hearth",
+  "faction": "vedic",
+  "name": "The Kept Fire",
+  "inspiredBy": "Agni, the perpetual household fire",
+  "sources": [
+   "V2",
+   "V5"
+  ],
+  "flavor": "The fire received from the father is passed to the son.",
+  "text": "Each shrine of yours that has stood for 6 turns or more gives +1 Faith a turn.",
+  "effect": {
+   "type": "hearthFaith",
+   "minAge": 4,
+   "amount": 1
+  }
+ },
+ {
+  "id": "ved_varunas_order",
+  "faction": "vedic",
+  "name": "Order and Oath",
+  "inspiredBy": "Varuṇa, upholder of ṛta and of the oath",
+  "sources": [
+   "V3"
+  ],
+  "flavor": "The oath is a rope; Varuṇa holds the other end.",
+  "text": "Your followers are 15% harder to convert, 35% while you have broken no covenant this age.",
+  "effect": {
+   "type": "orderResist",
+   "base": 1.15,
+   "kept": 1.35
+  }
+ },
+ {
+  "id": "ved_ushas_dawn",
+  "faction": "vedic",
+  "name": "Eye of the Gods",
+  "inspiredBy": "Uṣas, the dawn who sees everything",
+  "sources": [
+   "V4"
+  ],
+  "flavor": "She comes before the eyes, and the eyes open.",
+  "text": "You start the age seeing 1 hex further, and your Dream Vision recovers 1 turn faster.",
+  "effect": {
+   "type": "dawnSight",
+   "startReveal": 1,
+   "dreamCooldown": 1
+  }
+ }
 ]

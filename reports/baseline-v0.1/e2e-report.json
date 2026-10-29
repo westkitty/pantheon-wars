@@ -1,0 +1,111 @@
+{
+  "seed": 11,
+  "faction": "greek",
+  "rivals": 2,
+  "diff": "easy",
+  "winner": {
+    "pid": 0,
+    "type": "twilight",
+    "turn": 45,
+    "scores": [
+      176,
+      143.5,
+      111
+    ]
+  },
+  "finalTurn": 45,
+  "actions": 334,
+  "browserHash": "6a3687d9",
+  "nodeReplayHash": "6a3687d9",
+  "deterministic": true,
+  "stats": {
+    "uiActions": 127,
+    "byType": {
+      "power": 31,
+      "movePriest": 22,
+      "omen": 6,
+      "endTurn": 45,
+      "event": 9,
+      "dream": 1,
+      "shrine": 8,
+      "priest": 4,
+      "eclipse": 1
+    },
+    "rejected": 0,
+    "fallbacks": 0,
+    "events": 9,
+    "priestMoves": 22
+  },
+  "errors": [],
+  "reducedMotion": {
+    "reduced": true,
+    "quality": "low",
+    "frameMs": 9.199999999953434
+  },
+  "highQualityFrame": {
+    "quality": "high",
+    "frameMs": 22.099999999976717
+  },
+  "shots": [
+    {
+      "file": "../baseline-shots/01-title.png",
+      "note": "Title / setup: pantheon cards, rivals, difficulty, seed; live world drifting behind"
+    },
+    {
+      "file": "../baseline-shots/02-turn1.png",
+      "note": "Turn 1: home shrine, soft fog of war, top resource bar, power bar, panel, minimap"
+    },
+    {
+      "file": "../baseline-shots/06a-targeting.png",
+      "note": "Targeting mode for oracle_oak: valid hexes pulse gold"
+    },
+    {
+      "file": "../baseline-shots/06b-power-cast.png",
+      "note": "Faction power cast: oracle_oak"
+    },
+    {
+      "file": "../baseline-shots/03-early-fog.png",
+      "note": "Early game, turn 3: fog lifting around explored land"
+    },
+    {
+      "file": "../baseline-shots/05-event-card.png",
+      "note": "Illustrated event card (turn 5)"
+    },
+    {
+      "file": "../baseline-shots/06c-miracle-eclipse.png",
+      "note": "power thunderbolt on a rival"
+    },
+    {
+      "file": "../baseline-shots/04-settlement-panel.png",
+      "note": "Settlement selected: follower composition, pressures, contextual actions"
+    },
+    {
+      "file": "../baseline-shots/07-midgame.png",
+      "note": "Mid-game, turn 16, zoomed out: territories, borders, shrines, villages"
+    },
+    {
+      "file": "../baseline-shots/08-turn-log.png",
+      "note": "Turn log (Chronicle) open, turn 22"
+    },
+    {
+      "file": "../baseline-shots/09-late-overview.png",
+      "note": "Turn 30, widest zoom: perspective horizon, haze, parallax clouds"
+    },
+    {
+      "file": "../baseline-shots/10-victory.png",
+      "note": "Victory screen: twilight, winner seat 0"
+    },
+    {
+      "file": "shots/11-mobile-title.png",
+      "note": "Mobile 390x844 title"
+    },
+    {
+      "file": "shots/12-mobile-game.png",
+      "note": "Mobile in-game after tapping home settlement (touch)"
+    },
+    {
+      "file": "shots/13-reduced-motion-low.png",
+      "note": "prefers-reduced-motion + low quality"
+    }
+  ]
+}

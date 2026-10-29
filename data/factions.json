@@ -1,14 +1,418 @@
 [
-  { "id": "greek", "name": "The Olympian Court", "tradition": "Ancient Greek", "deityTitle": "Voice of Olympus",
-    "emblem": "thunderbolt_wreath", "palette": { "primary": "#e9e2cf", "secondary": "#2f6fb3", "accent": "#e2b33c", "glow": "#9fd2ff", "dark": "#1d2f52" },
-    "domains": ["sky_oath", "wisdom_city", "grain", "sea"], "powers": ["oracle_oak", "aegis_polis", "gift_of_grain", "thunderbolt"], "shrine": "columned_temple",
-    "blurb": "Sky, oath, counsel and grain. The Court rules from the heights and binds mortals with law and harvest.", "sources": ["G1", "G2", "G3", "G4", "G5"] },
-  { "id": "norse", "name": "The Hall of the Ash", "tradition": "Old Norse", "deityTitle": "Voice of the Ash",
-    "emblem": "ash_tree", "palette": { "primary": "#c9d6de", "secondary": "#8a2b22", "accent": "#d98a3a", "glow": "#ffb067", "dark": "#2a2a33" },
-    "domains": ["runes", "thunder", "peace_plenty", "fate"], "powers": ["ravens_flight", "rune_hall", "rain_and_sun", "hammer_thunder"], "shrine": "timber_hall",
-    "blurb": "Runes, thunder, plenty and fate. The Hall reads what is carved and endures against what is coming.", "sources": ["N1", "N2", "N3", "N4", "N5", "N6"] },
-  { "id": "egyptian", "name": "The Ennead of the Two Lands", "tradition": "Ancient Egyptian", "deityTitle": "Voice of the Two Lands",
-    "emblem": "winged_sun", "palette": { "primary": "#f1d27a", "secondary": "#c8901e", "accent": "#36b3a8", "glow": "#ffe08a", "dark": "#2b2316" },
-    "domains": ["sun", "order", "reckoning", "inundation"], "powers": ["barque_of_re", "throne_of_isis", "osiris_garden", "feather_of_maat"], "shrine": "pylon_temple",
-    "blurb": "Sun, order, reckoning and flood. The Ennead keeps the world turning and weighs every heart.", "sources": ["E1", "E2", "E3", "E4", "E5", "E6"] }
+ {
+  "id": "greek",
+  "name": "The Olympian Court",
+  "tradition": "Ancient Greek",
+  "shortName": "Greek",
+  "deityTitle": "Voice of Olympus",
+  "emblem": "thunderbolt_wreath",
+  "palette": {
+   "primary": "#e9e2cf",
+   "secondary": "#2f6fb3",
+   "accent": "#e2b33c",
+   "glow": "#9fd2ff",
+   "dark": "#1d2f52"
+  },
+  "pattern": "meander",
+  "atmosphere": "olympus",
+  "priestStyle": "chiton",
+  "motif": "greek",
+  "domains": [
+   "sky_oath",
+   "wisdom_city",
+   "grain",
+   "sea"
+  ],
+  "powers": [
+   "oracle_oak",
+   "aegis_polis",
+   "gift_of_grain",
+   "thunderbolt"
+  ],
+  "shrine": "columned_temple",
+  "blurb": "Sky, oath, counsel and grain. The Court rules from the heights and binds mortals with law and harvest.",
+  "representation": "Drawn from Archaic and Classical Greek sources as summarised by the Theoi Project and Britannica. Hellenic polytheism is practised today; the game shows no real rite and its powers are strategy abstractions.",
+  "sources": [
+   "G1",
+   "G2",
+   "G3",
+   "G4",
+   "G5"
+  ]
+ },
+ {
+  "id": "norse",
+  "name": "The Hall of the Ash",
+  "tradition": "Old Norse",
+  "shortName": "Norse",
+  "deityTitle": "Voice of the Ash",
+  "emblem": "ash_tree",
+  "palette": {
+   "primary": "#c9d6de",
+   "secondary": "#8a2b22",
+   "accent": "#d98a3a",
+   "glow": "#ffb067",
+   "dark": "#2a2a33"
+  },
+  "pattern": "chevron",
+  "atmosphere": "ash",
+  "priestStyle": "cloak",
+  "motif": "norse",
+  "domains": [
+   "runes",
+   "thunder",
+   "peace_plenty",
+   "fate"
+  ],
+  "powers": [
+   "ravens_flight",
+   "rune_hall",
+   "rain_and_sun",
+   "hammer_thunder"
+  ],
+  "shrine": "timber_hall",
+  "blurb": "Runes, thunder, plenty and fate. The Hall reads what is carved and endures against what is coming.",
+  "representation": "Drawn mainly from the Poetic and Prose Eddas, written down in thirteenth-century Iceland. Heathenry is practised today. Runes appear only as general decorative shapes; symbols co-opted by hate groups are deliberately not used.",
+  "sources": [
+   "N1",
+   "N2",
+   "N3",
+   "N4",
+   "N5",
+   "N6"
+  ]
+ },
+ {
+  "id": "egyptian",
+  "name": "The Ennead of the Two Lands",
+  "tradition": "Ancient Egyptian",
+  "shortName": "Egyptian",
+  "deityTitle": "Voice of the Two Lands",
+  "emblem": "winged_sun",
+  "palette": {
+   "primary": "#f1d27a",
+   "secondary": "#c8901e",
+   "accent": "#36b3a8",
+   "glow": "#ffe08a",
+   "dark": "#2b2316"
+  },
+  "pattern": "hbar",
+  "atmosphere": "twolands",
+  "priestStyle": "linen",
+  "motif": "egyptian",
+  "domains": [
+   "sun",
+   "order",
+   "reckoning",
+   "inundation"
+  ],
+  "powers": [
+   "barque_of_re",
+   "throne_of_isis",
+   "osiris_garden",
+   "feather_of_maat"
+  ],
+  "shrine": "pylon_temple",
+  "blurb": "Sun, order, reckoning and flood. The Ennead keeps the world turning and weighs every heart.",
+  "representation": "Drawn from New Kingdom and later sources (the Book of the Dead and temple tradition). Egyptian religion changed over three thousand years; the game pairs figures from different periods for play. Kemetic communities practise today; no real rite is shown.",
+  "sources": [
+   "E1",
+   "E2",
+   "E3",
+   "E4",
+   "E5",
+   "E6"
+  ]
+ },
+ {
+  "id": "mesopotamian",
+  "name": "The Assembly of the Gods",
+  "tradition": "Ancient Mesopotamian",
+  "shortName": "Mesopotamian",
+  "deityTitle": "Voice of the Assembly",
+  "emblem": "eight_pointed_star",
+  "palette": {
+   "primary": "#dccaa0",
+   "secondary": "#4b3d9a",
+   "accent": "#e8c15a",
+   "glow": "#c9b8ff",
+   "dark": "#1e1a36"
+  },
+  "pattern": "grid",
+  "atmosphere": "assembly",
+  "priestStyle": "fringed",
+  "motif": "mesopotamian",
+  "domains": [
+   "mes_wind_authority",
+   "mes_freshwater_craft",
+   "mes_evening_star",
+   "mes_justice_sun"
+  ],
+  "powers": [
+   "mes_crossing_of_utu",
+   "mes_sages_of_eridu",
+   "mes_wells_of_abzu",
+   "mes_star_of_inanna"
+  ],
+  "shrine": "ziggurat_precinct",
+  "blurb": "Command, fresh water, the bright star and the seeing sun. The Assembly builds dense river cities and rules from their terraces.",
+  "representation": "Sumerian and Akkadian names (Enki/Ea, Inana/Ištar, Utu/Šamaš) belong to overlapping but different periods and languages; pairing them is a game convenience, not a claim that they are one timeless figure.",
+  "sources": [
+   "M1",
+   "M2",
+   "M3",
+   "M4",
+   "M5",
+   "M6"
+  ]
+ },
+ {
+  "id": "irish",
+  "name": "The Tuatha Dé Danann",
+  "tradition": "Early Irish",
+  "shortName": "Irish",
+  "deityTitle": "Voice of the Assembly Hill",
+  "emblem": "cauldron_ring",
+  "palette": {
+   "primary": "#e6e1cf",
+   "secondary": "#2e7d4f",
+   "accent": "#c9a04a",
+   "glow": "#b6f0c8",
+   "dark": "#15281e"
+  },
+  "pattern": "dots",
+  "atmosphere": "hearth",
+  "priestStyle": "brat",
+  "motif": "irish",
+  "domains": [
+   "irish_abundance",
+   "irish_brigid_craft",
+   "irish_lugh_skills",
+   "irish_morrigan_prophecy"
+  ],
+  "powers": [
+   "irish_omens_of_the_morrigan",
+   "irish_assembly_of_lugh",
+   "irish_cauldron_of_plenty",
+   "irish_sovereignty_challenge"
+  ],
+  "shrine": "assembly_enclosure",
+  "blurb": "Plenty, craft, many skills and prophecy. The People of the goddess gather, endure, and see trouble coming.",
+  "representation": "Drawn from medieval Irish texts (Cath Maige Tuired, Cormac's Glossary), which were written down centuries after any pre-Christian practice. Gaulish and British material is deliberately not merged in.",
+  "sources": [
+   "I1",
+   "I2",
+   "I3",
+   "I4",
+   "I5",
+   "I6"
+  ]
+ },
+ {
+  "id": "mexica",
+  "name": "The Fifth Sun",
+  "tradition": "Mexica",
+  "shortName": "Mexica",
+  "deityTitle": "Voice of the Fifth Sun",
+  "emblem": "sun_rain_water",
+  "palette": {
+   "primary": "#f0e3c4",
+   "secondary": "#12a38c",
+   "accent": "#e0b33a",
+   "glow": "#9ff5e4",
+   "dark": "#10302a"
+  },
+  "pattern": "zigzag",
+  "atmosphere": "fifthsun",
+  "priestStyle": "tilmatli",
+  "motif": "mexica",
+  "domains": [
+   "mex_wind_learning",
+   "mex_rain_cycle",
+   "mex_sun_cycle",
+   "mex_waters"
+  ],
+  "powers": [
+   "mex_breath_of_quetzalcoatl",
+   "mex_gardens_of_water",
+   "mex_rains_of_tlaloc",
+   "mex_zenith_of_tonatiuh"
+  ],
+  "shrine": "twin_temple",
+  "blurb": "Wind, rain, sun and lake water. The Fifth Sun reads the weather and grows its towns on the water's edge.",
+  "representation": "Inspired by Mexica and wider Nahua sources. The game has no sacrifice mechanic, no offerings of people, and no ritual killing of any kind; its miracles are weather and devotion.",
+  "sources": [
+   "X1",
+   "X2",
+   "X3",
+   "X4",
+   "X5"
+  ]
+ },
+ {
+  "id": "hittite",
+  "name": "The Thousand Gods of Hatti",
+  "tradition": "Hittite",
+  "shortName": "Hittite",
+  "deityTitle": "Voice of Hatti",
+  "emblem": "storm_sun_disc",
+  "palette": {
+   "primary": "#e2d6bf",
+   "secondary": "#64707c",
+   "accent": "#d9a441",
+   "glow": "#ffe2a8",
+   "dark": "#1c2128"
+  },
+  "pattern": "cross",
+  "atmosphere": "hatti",
+  "priestStyle": "longrobe",
+  "motif": "hittite",
+  "domains": [
+   "hat_storm_shelter",
+   "hat_sun_sanctuary",
+   "hat_renewal",
+   "hat_hepat_protection"
+  ],
+  "powers": [
+   "hat_omens_of_hatti",
+   "hat_gates_of_arinna",
+   "hat_return_of_telipinu",
+   "hat_tempest_of_tarhunna"
+  ],
+  "shrine": "arinna_court",
+  "blurb": "Storm, sun, return and protection. Hatti walls its sanctuaries in stone and waits out the weather.",
+  "representation": "The Hittite state cult absorbed Hattian, Hurrian and Luwian deities; Ḫepat is Hurrian and her pairing with Hittite figures reflects the thirteenth-century court, not an original single tradition.",
+  "sources": [
+   "H1",
+   "H2",
+   "H3",
+   "H4",
+   "H5"
+  ]
+ },
+ {
+  "id": "yoruba",
+  "name": "The Council of the Òrìṣà",
+  "tradition": "Yoruba",
+  "shortName": "Yoruba",
+  "deityTitle": "Voice of the Council",
+  "emblem": "river_rings",
+  "palette": {
+   "primary": "#efe6d2",
+   "secondary": "#b0306a",
+   "accent": "#e6b84a",
+   "glow": "#ffc2de",
+   "dark": "#2a1220"
+  },
+  "pattern": "wave",
+  "atmosphere": "orisa",
+  "priestStyle": "agbada",
+  "motif": "yoruba",
+  "domains": [
+   "yor_river_prosperity",
+   "yor_iron_routes",
+   "yor_restoration",
+   "yor_thunder_authority"
+  ],
+  "powers": [
+   "yor_mirror_of_the_river",
+   "yor_hands_of_creation",
+   "yor_ironroads",
+   "yor_thunder_of_shango"
+  ],
+  "shrine": "orisa_courtyard",
+  "blurb": "River, iron road, creation and thunder. The Council keeps its rivers and roads open and its houses repaired.",
+  "representation": "Yoruba religion is a living tradition practised in West Africa and across the diaspora. The game shows no initiation, divination or worship rites, uses no sacred emblems, and its powers are strategy abstractions only.",
+  "sources": [
+   "Y1",
+   "Y2",
+   "Y3",
+   "Y4",
+   "Y5"
+  ]
+ },
+ {
+  "id": "japanese",
+  "name": "The Shrines of the Kami",
+  "tradition": "Japanese",
+  "shortName": "Japanese",
+  "deityTitle": "Voice of the Shrines",
+  "emblem": "rising_field",
+  "palette": {
+   "primary": "#f3ece0",
+   "secondary": "#e5532d",
+   "accent": "#e9c46a",
+   "glow": "#ffd9c2",
+   "dark": "#2a1512"
+  },
+  "pattern": "vbar",
+  "atmosphere": "kami",
+  "priestStyle": "kariginu",
+  "motif": "japanese",
+  "domains": [
+   "jpn_first_light",
+   "jpn_storm_guard",
+   "jpn_land_bonds",
+   "jpn_harvest"
+  ],
+  "powers": [
+   "jpn_light_of_amaterasu",
+   "jpn_shrine_of_the_land",
+   "jpn_inaris_harvest",
+   "jpn_storm_of_susanoo"
+  ],
+  "shrine": "kami_shrine",
+  "blurb": "First light, storm, land and rice. The Shrines bind small prosperous villages into one country.",
+  "representation": "Shintō is practised today. Kami names follow the Kojiki/Nihon shoki tradition as summarised by the Kokugakuin Encyclopedia of Shinto; no shrine rite shown here is presented as real practice.",
+  "sources": [
+   "J1",
+   "J2",
+   "J3",
+   "J4",
+   "J5",
+   "J6"
+  ]
+ },
+ {
+  "id": "vedic",
+  "name": "The Vedic Hymns",
+  "tradition": "Early Vedic",
+  "shortName": "Vedic",
+  "deityTitle": "Voice of the Hymns",
+  "emblem": "flame_dawn",
+  "palette": {
+   "primary": "#f4e6c8",
+   "secondary": "#e0b81f",
+   "accent": "#d4502a",
+   "glow": "#fff0a0",
+   "dark": "#2c220c"
+  },
+  "pattern": "ring",
+  "atmosphere": "vedic",
+  "priestStyle": "dhoti",
+  "motif": "vedic",
+  "domains": [
+   "ved_indras_storm",
+   "ved_agnis_hearth",
+   "ved_varunas_order",
+   "ved_ushas_dawn"
+  ],
+  "powers": [
+   "ved_ushas_first_dawn",
+   "ved_agnis_fire",
+   "ved_order_of_varuna",
+   "ved_indras_rainstorm"
+  ],
+  "shrine": "fire_altar",
+  "blurb": "Storm, fire, order and dawn. The Hymns kindle their altars early and press hardest at the end of the age.",
+  "representation": "Limited to the Rigvedic horizon (gods of the early hymns). It does not represent Hinduism as a whole or the practice of any living community.",
+  "sources": [
+   "V1",
+   "V2",
+   "V3",
+   "V4",
+   "V5",
+   "V6"
+  ]
+ }
 ]

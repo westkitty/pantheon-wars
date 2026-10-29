@@ -1,21 +1,516 @@
 {
-  "_note": "Every myth/domain reference in Pantheon Wars points at one of these ids. All URLs were opened and read on 2026-10-29 while building v0.1. Game mechanics are original abstractions inspired by these descriptions; they are not claims about historical worship practice.",
-  "G1": { "title": "ZEUS - Greek God of the Sky, King of the Gods", "publisher": "Theoi Project (theoi.com)", "url": "https://www.theoi.com/Olympios/Zeus.html", "supports": "Zeus as god of sky, weather, law and order, oaths; thunderbolt attribute; Dodona oak oracle where priests were inspired by rustling oak leaves; source of prophetic signs (panomphaios)." },
-  "G2": { "title": "ATHENA (Athene) - Greek Goddess of Wisdom, War & Crafts", "publisher": "Theoi Project (theoi.com)", "url": "https://www.theoi.com/Olympios/Athena.html", "supports": "Athena as goddess of wisdom and good counsel, war, the defence of towns, heroic endeavour, weaving, pottery and crafts." },
-  "G3": { "title": "DEMETER - Greek Goddess of Grain & Agriculture", "publisher": "Theoi Project (theoi.com)", "url": "https://www.theoi.com/Olympios/Demeter.html", "supports": "Demeter as goddess of agriculture, grain and bread who sustained mankind with the earth's bounty." },
-  "G4": { "title": "POSEIDON - Greek God of the Sea & Earthquakes", "publisher": "Theoi Project (theoi.com)", "url": "https://www.theoi.com/Olympios/Poseidon.html", "supports": "Poseidon as god of the sea, rivers, floods and drought, earthquakes and horses." },
-  "G5": { "title": "Hesiod, Theogony (trans. Evelyn-White)", "publisher": "Theoi Classical Texts Library", "url": "https://www.theoi.com/Text/HesiodTheogony.html", "supports": "Genealogy of the Olympians; Cyclopes arm Zeus with thunder and lightning; Prometheus." },
-  "G6": { "title": "Homeric Hymns (incl. Hymn 2 To Demeter, trans. Evelyn-White)", "publisher": "Theoi Classical Texts Library", "url": "https://www.theoi.com/Text/HomericHymns1.html", "supports": "Hymn to Demeter: Demeter's grief withholding and restoring the grain harvest." },
-  "N1": { "title": "Odin | Myth & History", "publisher": "Encyclopaedia Britannica", "url": "https://www.britannica.com/topic/Odin-Norse-deity", "supports": "Odin as war god, protector of heroes, great magician associated with runes, god of poets; the wolf and the raven dedicated to him; gave an eye for wisdom." },
-  "N2": { "title": "Thor | Germanic God, Norse Mythology, Thunder, & Hammer", "publisher": "Encyclopaedia Britannica", "url": "https://www.britannica.com/topic/Thor-Germanic-deity", "supports": "Thor's name is the Germanic word for thunder; the hammer Mjollnir represents the thunderbolt and returns to the thrower; foe of giants but benevolent toward humankind; widely worshipped in Iceland." },
-  "N3": { "title": "Freyr | God of Fertility, Harvest & Peace", "publisher": "Encyclopaedia Britannica", "url": "https://www.britannica.com/topic/Freyr", "supports": "Freyr as ruler of peace and fertility, rain and sunshine; of the Vanir; the boar sacred to him." },
-  "N4": { "title": "Norn | Norse gods, fate, destiny", "publisher": "Encyclopaedia Britannica", "url": "https://www.britannica.com/topic/Norn", "supports": "Norns as maidens who spun or wove the fate of men (Urd, Verdandi, Skuld), living by Yggdrasill under Urd's well." },
-  "N5": { "title": "Hovamol (Havamal), The Poetic Edda, trans. Henry Adams Bellows (1936)", "publisher": "Internet Sacred Text Archive", "url": "https://www.sacred-texts.com/neu/poe/poe04.htm", "supports": "Stanzas 138-146: Othin hangs on the windy tree (Yggdrasil) and takes up the runes; stanza 142: 'Each word led me on to another word'; runes and charms (Ljothatal)." },
-  "N6": { "title": "Voluspo (Voluspa), The Poetic Edda, trans. Henry Adams Bellows (1936)", "publisher": "Internet Sacred Text Archive", "url": "https://www.sacred-texts.com/neu/poe/poe03.htm", "supports": "Stanzas 19-20: the ash Yggdrasil green by Urth's well; the three maidens Urth, Verthandi and Skuld scored the wood, made laws and set the fates of men." },
-  "E1": { "title": "Re | God, Egypt, Sun", "publisher": "Encyclopaedia Britannica", "url": "https://www.britannica.com/topic/Re", "supports": "Re as sun god and creator who travels across the sky in his solar bark and through the underworld by night, vanquishing the serpent Apopis; father of Maat; centre of worship at Heliopolis." },
-  "E2": { "title": "Maat | Truth, Justice, Balance", "publisher": "Encyclopaedia Britannica", "url": "https://www.britannica.com/topic/Maat-Egyptian-goddess", "supports": "Maat as personification of truth, justice and cosmic order; weighing of the heart against Maat's feather; maat (order) set in place of isfet (disorder)." },
-  "E3": { "title": "Osiris | Description, Myth, Symbols, & Facts", "publisher": "Encyclopaedia Britannica", "url": "https://www.britannica.com/topic/Osiris-Egyptian-god", "supports": "Osiris as god of fertility and ruler of the dead who granted all life from the underworld, from sprouting vegetation to the annual flood of the Nile; 'Osiris garden' of Nile-moistened soil sown with grain." },
-  "E4": { "title": "Thoth | God, Symbol, & Facts", "publisher": "Encyclopaedia Britannica", "url": "https://www.britannica.com/topic/Thoth", "supports": "Thoth as god of the moon, reckoning, learning and writing; scribe and adviser of the gods; ibis and baboon sacred to him." },
-  "E5": { "title": "Isis | Description, Myth, Symbols, History, & Facts (J. Tyldesley)", "publisher": "Encyclopaedia Britannica", "url": "https://www.britannica.com/topic/Isis-Egyptian-goddess", "supports": "Isis's name is the Greek form of the Egyptian word for 'throne'; magical healer and protector; still revered by pagans today." },
-  "E6": { "title": "The Egyptian Book of the Dead, trans. E. A. Wallis Budge (1895)", "publisher": "Internet Sacred Text Archive", "url": "https://www.sacred-texts.com/egy/ebod/index.htm", "supports": "Primary-text context for funerary religion, judgment of the dead and solar hymns." }
+ "_note": "Every myth/domain reference in Pantheon Wars points at one of these ids. G/N/E sources were opened and read on 2026-10-29 while building v0.1. Sources M/I/X/H/Y/J/V were added for v0.2 on 2026-10-29; direct page fetches were blocked by the build environment network policy, so each claim was checked against the search-index summary of the cited page (field verification). Game mechanics are original abstractions; they are not claims about historical or present-day worship practice.",
+ "G1": {
+  "title": "ZEUS - Greek God of the Sky, King of the Gods",
+  "publisher": "Theoi Project (theoi.com)",
+  "url": "https://www.theoi.com/Olympios/Zeus.html",
+  "supports": "Zeus as god of sky, weather, law and order, oaths; thunderbolt attribute; Dodona oak oracle where priests were inspired by rustling oak leaves; source of prophetic signs (panomphaios).",
+  "accessed": "2026-10-29",
+  "verification": "page opened and read (v0.1 build)",
+  "confidence": "high"
+ },
+ "G2": {
+  "title": "ATHENA (Athene) - Greek Goddess of Wisdom, War & Crafts",
+  "publisher": "Theoi Project (theoi.com)",
+  "url": "https://www.theoi.com/Olympios/Athena.html",
+  "supports": "Athena as goddess of wisdom and good counsel, war, the defence of towns, heroic endeavour, weaving, pottery and crafts.",
+  "accessed": "2026-10-29",
+  "verification": "page opened and read (v0.1 build)",
+  "confidence": "high"
+ },
+ "G3": {
+  "title": "DEMETER - Greek Goddess of Grain & Agriculture",
+  "publisher": "Theoi Project (theoi.com)",
+  "url": "https://www.theoi.com/Olympios/Demeter.html",
+  "supports": "Demeter as goddess of agriculture, grain and bread who sustained mankind with the earth's bounty.",
+  "accessed": "2026-10-29",
+  "verification": "page opened and read (v0.1 build)",
+  "confidence": "high"
+ },
+ "G4": {
+  "title": "POSEIDON - Greek God of the Sea & Earthquakes",
+  "publisher": "Theoi Project (theoi.com)",
+  "url": "https://www.theoi.com/Olympios/Poseidon.html",
+  "supports": "Poseidon as god of the sea, rivers, floods and drought, earthquakes and horses.",
+  "accessed": "2026-10-29",
+  "verification": "page opened and read (v0.1 build)",
+  "confidence": "high"
+ },
+ "G5": {
+  "title": "Hesiod, Theogony (trans. Evelyn-White)",
+  "publisher": "Theoi Classical Texts Library",
+  "url": "https://www.theoi.com/Text/HesiodTheogony.html",
+  "supports": "Genealogy of the Olympians; Cyclopes arm Zeus with thunder and lightning; Prometheus.",
+  "accessed": "2026-10-29",
+  "verification": "page opened and read (v0.1 build)",
+  "confidence": "high"
+ },
+ "G6": {
+  "title": "Homeric Hymns (incl. Hymn 2 To Demeter, trans. Evelyn-White)",
+  "publisher": "Theoi Classical Texts Library",
+  "url": "https://www.theoi.com/Text/HomericHymns1.html",
+  "supports": "Hymn to Demeter: Demeter's grief withholding and restoring the grain harvest.",
+  "accessed": "2026-10-29",
+  "verification": "page opened and read (v0.1 build)",
+  "confidence": "high"
+ },
+ "N1": {
+  "title": "Odin | Myth & History",
+  "publisher": "Encyclopaedia Britannica",
+  "url": "https://www.britannica.com/topic/Odin-Norse-deity",
+  "supports": "Odin as war god, protector of heroes, great magician associated with runes, god of poets; the wolf and the raven dedicated to him; gave an eye for wisdom.",
+  "accessed": "2026-10-29",
+  "verification": "page opened and read (v0.1 build)",
+  "confidence": "high"
+ },
+ "N2": {
+  "title": "Thor | Germanic God, Norse Mythology, Thunder, & Hammer",
+  "publisher": "Encyclopaedia Britannica",
+  "url": "https://www.britannica.com/topic/Thor-Germanic-deity",
+  "supports": "Thor's name is the Germanic word for thunder; the hammer Mjollnir represents the thunderbolt and returns to the thrower; foe of giants but benevolent toward humankind; widely worshipped in Iceland.",
+  "accessed": "2026-10-29",
+  "verification": "page opened and read (v0.1 build)",
+  "confidence": "high"
+ },
+ "N3": {
+  "title": "Freyr | God of Fertility, Harvest & Peace",
+  "publisher": "Encyclopaedia Britannica",
+  "url": "https://www.britannica.com/topic/Freyr",
+  "supports": "Freyr as ruler of peace and fertility, rain and sunshine; of the Vanir; the boar sacred to him.",
+  "accessed": "2026-10-29",
+  "verification": "page opened and read (v0.1 build)",
+  "confidence": "high"
+ },
+ "N4": {
+  "title": "Norn | Norse gods, fate, destiny",
+  "publisher": "Encyclopaedia Britannica",
+  "url": "https://www.britannica.com/topic/Norn",
+  "supports": "Norns as maidens who spun or wove the fate of men (Urd, Verdandi, Skuld), living by Yggdrasill under Urd's well.",
+  "accessed": "2026-10-29",
+  "verification": "page opened and read (v0.1 build)",
+  "confidence": "high"
+ },
+ "N5": {
+  "title": "Hovamol (Havamal), The Poetic Edda, trans. Henry Adams Bellows (1936)",
+  "publisher": "Internet Sacred Text Archive",
+  "url": "https://www.sacred-texts.com/neu/poe/poe04.htm",
+  "supports": "Stanzas 138-146: Othin hangs on the windy tree (Yggdrasil) and takes up the runes; stanza 142: 'Each word led me on to another word'; runes and charms (Ljothatal).",
+  "accessed": "2026-10-29",
+  "verification": "page opened and read (v0.1 build)",
+  "confidence": "high"
+ },
+ "N6": {
+  "title": "Voluspo (Voluspa), The Poetic Edda, trans. Henry Adams Bellows (1936)",
+  "publisher": "Internet Sacred Text Archive",
+  "url": "https://www.sacred-texts.com/neu/poe/poe03.htm",
+  "supports": "Stanzas 19-20: the ash Yggdrasil green by Urth's well; the three maidens Urth, Verthandi and Skuld scored the wood, made laws and set the fates of men.",
+  "accessed": "2026-10-29",
+  "verification": "page opened and read (v0.1 build)",
+  "confidence": "high"
+ },
+ "E1": {
+  "title": "Re | God, Egypt, Sun",
+  "publisher": "Encyclopaedia Britannica",
+  "url": "https://www.britannica.com/topic/Re",
+  "supports": "Re as sun god and creator who travels across the sky in his solar bark and through the underworld by night, vanquishing the serpent Apopis; father of Maat; centre of worship at Heliopolis.",
+  "accessed": "2026-10-29",
+  "verification": "page opened and read (v0.1 build)",
+  "confidence": "high"
+ },
+ "E2": {
+  "title": "Maat | Truth, Justice, Balance",
+  "publisher": "Encyclopaedia Britannica",
+  "url": "https://www.britannica.com/topic/Maat-Egyptian-goddess",
+  "supports": "Maat as personification of truth, justice and cosmic order; weighing of the heart against Maat's feather; maat (order) set in place of isfet (disorder).",
+  "accessed": "2026-10-29",
+  "verification": "page opened and read (v0.1 build)",
+  "confidence": "high"
+ },
+ "E3": {
+  "title": "Osiris | Description, Myth, Symbols, & Facts",
+  "publisher": "Encyclopaedia Britannica",
+  "url": "https://www.britannica.com/topic/Osiris-Egyptian-god",
+  "supports": "Osiris as god of fertility and ruler of the dead who granted all life from the underworld, from sprouting vegetation to the annual flood of the Nile; 'Osiris garden' of Nile-moistened soil sown with grain.",
+  "accessed": "2026-10-29",
+  "verification": "page opened and read (v0.1 build)",
+  "confidence": "high"
+ },
+ "E4": {
+  "title": "Thoth | God, Symbol, & Facts",
+  "publisher": "Encyclopaedia Britannica",
+  "url": "https://www.britannica.com/topic/Thoth",
+  "supports": "Thoth as god of the moon, reckoning, learning and writing; scribe and adviser of the gods; ibis and baboon sacred to him.",
+  "accessed": "2026-10-29",
+  "verification": "page opened and read (v0.1 build)",
+  "confidence": "high"
+ },
+ "E5": {
+  "title": "Isis | Description, Myth, Symbols, History, & Facts (J. Tyldesley)",
+  "publisher": "Encyclopaedia Britannica",
+  "url": "https://www.britannica.com/topic/Isis-Egyptian-goddess",
+  "supports": "Isis's name is the Greek form of the Egyptian word for 'throne'; magical healer and protector; still revered by pagans today.",
+  "accessed": "2026-10-29",
+  "verification": "page opened and read (v0.1 build)",
+  "confidence": "high"
+ },
+ "E6": {
+  "title": "The Egyptian Book of the Dead, trans. E. A. Wallis Budge (1895)",
+  "publisher": "Internet Sacred Text Archive",
+  "url": "https://www.sacred-texts.com/egy/ebod/index.htm",
+  "supports": "Primary-text context for funerary religion, judgment of the dead and solar hymns.",
+  "accessed": "2026-10-29",
+  "verification": "page opened and read (v0.1 build)",
+  "confidence": "high"
+ },
+ "M1": {
+  "title": "Enlil/Ellil (god)",
+  "publisher": "Ancient Mesopotamian Gods and Goddesses (Oracc / UK Higher Education Academy)",
+  "url": "https://oracc.museum.upenn.edu/amgg/listofdeities/enlil/index.html",
+  "supports": "Enlil decreed the fates, his command could not be altered, and he granted kingship; main sanctuary the Ekur at Nippur. The 'Lord Wind' reading of the name is a contested, apparently secondary interpretation.",
+  "confidence": "high",
+  "accessed": "2026-10-29",
+  "verification": "search-index summary of this exact URL reviewed; page not opened directly (network policy)"
+ },
+ "M2": {
+  "title": "Enki/Ea (god)",
+  "publisher": "Ancient Mesopotamian Gods and Goddesses (Oracc)",
+  "url": "https://oracc.museum.upenn.edu/amgg/listofdeities/enki/",
+  "supports": "Enki/Ea as god of wisdom, magic and incantations residing in the subterranean fresh-water ocean (abzu); patron of arts and crafts; associated with Eridu and the E-abzu temple. The Akkadian name Ea is attested from the 24th century BCE; when he merged with Enki is unclear.",
+  "confidence": "high",
+  "accessed": "2026-10-29",
+  "verification": "search-index summary of this exact URL reviewed; page not opened directly (network policy)"
+ },
+ "M3": {
+  "title": "Inana/Ištar (goddess)",
+  "publisher": "Ancient Mesopotamian Gods and Goddesses (Oracc)",
+  "url": "https://oracc.museum.upenn.edu/amgg/listofdeities/inanaitar/",
+  "supports": "Inana/Ištar's astral aspect as the planet Venus (morning and evening star); the eight-pointed star as her most common symbol; the rosette also used in later periods.",
+  "confidence": "high",
+  "accessed": "2026-10-29",
+  "verification": "search-index summary of this exact URL reviewed; page not opened directly (network policy)"
+ },
+ "M4": {
+  "title": "Utu/Šamaš (god)",
+  "publisher": "Ancient Mesopotamian Gods and Goddesses (Oracc)",
+  "url": "https://oracc.museum.upenn.edu/amgg/Listofdeities/UtuShamash/index.html",
+  "supports": "Utu/Šamaš as sun god associated with justice and divination; at sunrise he emerges and takes a daily path across the sky, seeing what happens below.",
+  "confidence": "high",
+  "accessed": "2026-10-29",
+  "verification": "search-index summary of this exact URL reviewed; page not opened directly (network policy)"
+ },
+ "M5": {
+  "title": "Apkallu (Iconography of Deities and Demons, electronic pre-publication)",
+  "publisher": "University of Zurich, Department of Religious Studies",
+  "url": "https://www.religionswissenschaft.uzh.ch/idd/prepublications/e_idd_apkallu.pdf",
+  "supports": "The seven apkallu sages associated with Enki/Ea and Eridu, credited with bringing civilising knowledge; apotropaic figurines.",
+  "confidence": "medium",
+  "accessed": "2026-10-29",
+  "verification": "search-index summary of this exact URL reviewed; page not opened directly (network policy)"
+ },
+ "M6": {
+  "title": "Ziggurat of Ur (Art History I, Lumen Learning / SUNY)",
+  "publisher": "Lumen Learning",
+  "url": "https://courses.lumenlearning.com/suny-arthistory1/?p=113",
+  "supports": "The Ur ziggurat (c. 2100 BCE, Ur-Nammu) dedicated to Nanna: mud-brick core, baked-brick casing, three monumental stairways rising to terraces with a temple on top (summit shrine lost).",
+  "confidence": "medium",
+  "accessed": "2026-10-29",
+  "verification": "search-index summary of this exact URL reviewed; page not opened directly (network policy)"
+ },
+ "I1": {
+  "title": "Cath Maige Tuired: The Second Battle of Mag Tuired (trans. Elizabeth A. Gray, CELT document T300010)",
+  "publisher": "CELT: Corpus of Electronic Texts, University College Cork",
+  "url": "https://celt.ucc.ie/document/T300010/",
+  "supports": "Primary narrative (Harleian MS 5280) for Lugh, the Dagda and the Morrígan; English translation from Irish Texts Society vol. 52 (1982).",
+  "confidence": "high",
+  "accessed": "2026-10-29",
+  "verification": "search-index summary of this exact URL reviewed; page not opened directly (network policy)"
+ },
+ "I2": {
+  "title": "Cath Maige Tuired §168 (CELT edition)",
+  "publisher": "CELT, University College Cork",
+  "url": "https://celt.ucc.ie/published/T300010/text168.html",
+  "supports": "After the battle the Morrígan proclaims the victory to the royal heights and síd-hosts of Ireland; her closing prophecies (one of plenty, one of a bleak future).",
+  "confidence": "medium",
+  "accessed": "2026-10-29",
+  "verification": "search-index summary of this exact URL reviewed; page not opened directly (network policy)"
+ },
+ "I3": {
+  "title": "Lugh (Cath Maige Tuired episode at Tara)",
+  "publisher": "Wikipedia (secondary summary citing Gray 1982)",
+  "url": "https://en.wikipedia.org/wiki/Lugh",
+  "supports": "Lugh Samildánach ('equally skilled in many arts') admitted to Tara after showing he holds every skill at once; made chief ollam.",
+  "confidence": "medium",
+  "accessed": "2026-10-29",
+  "verification": "search-index summary of this exact URL reviewed; page not opened directly (network policy)"
+ },
+ "I4": {
+  "title": "The Dagda",
+  "publisher": "Wikipedia (secondary summary of medieval Irish sources)",
+  "url": "https://en.wikipedia.org/wiki/The_Dagda",
+  "supports": "The Dagda associated with abundance; his cauldron (one of the four treasures of the Tuatha Dé Danann) from which no company went away unsatisfied (Lebor Gabála / Cath Maige Tuired tradition).",
+  "confidence": "medium",
+  "accessed": "2026-10-29",
+  "verification": "search-index summary of this exact URL reviewed; page not opened directly (network policy)"
+ },
+ "I5": {
+  "title": "Brigid (Cormac's Glossary entry)",
+  "publisher": "Wikipedia (secondary summary)",
+  "url": "https://en.wikipedia.org/wiki/Brigid",
+  "supports": "Cormac's Glossary (c. 9th–10th c.) calls Brigit a goddess venerated by poets, with two sisters associated with healing and smithcraft, daughters of the Dagda.",
+  "confidence": "medium",
+  "accessed": "2026-10-29",
+  "verification": "search-index summary of this exact URL reviewed; page not opened directly (network policy)"
+ },
+ "I6": {
+  "title": "Hill of Tara",
+  "publisher": "Meath County Council heritage",
+  "url": "https://meath.ie/discover/heritage/heritage-sites/hill-of-tara",
+  "supports": "Tara as an inauguration site and place of assembly; Ráth na Ríogh bank-outside-ditch enclosure read as a ritual (non-defensive) boundary; no evidence of permanent palaces.",
+  "confidence": "medium",
+  "accessed": "2026-10-29",
+  "verification": "search-index summary of this exact URL reviewed; page not opened directly (network policy)"
+ },
+ "X1": {
+  "title": "Templo Mayor museum (Museo del Templo Mayor)",
+  "publisher": "INAH — Instituto Nacional de Antropología e Historia (lugares.inah.gob.mx)",
+  "url": "https://lugares.inah.gob.mx/en/fut-cultura/6494",
+  "supports": "Templo Mayor designed with a twin stairway to two shrines atop a stepped pyramid, dedicated to Tlaloc (rain, fertility) and Huitzilopochtli.",
+  "confidence": "high",
+  "accessed": "2026-10-29",
+  "verification": "search-index summary of this exact URL reviewed; page not opened directly (network policy)"
+ },
+ "X2": {
+  "title": "Temple of Ehecatl-Quetzalcoatl (Under Mexico City)",
+  "publisher": "Archaeology Magazine (Archaeological Institute of America)",
+  "url": "https://archaeology.org/issues/july-august-2014/collection/mexico-city-aztec-temple-of-ehecatl-quetzalcoatl/",
+  "supports": "Round temples dedicated to the wind god Ehecatl-Quetzalcoatl in Tenochtitlan/Tlatelolco; Ehecatl as the wind that sweeps the way for Tlaloc's rain.",
+  "confidence": "medium",
+  "accessed": "2026-10-29",
+  "verification": "search-index summary of this exact URL reviewed; page not opened directly (network policy)"
+ },
+ "X3": {
+  "title": "Tōnatiuh",
+  "publisher": "Wikipedia (secondary summary citing Brundage, The Fifth Sun, 1979)",
+  "url": "https://en.wikipedia.org/wiki/T%C5%8Dnatiuh",
+  "supports": "Tonatiuh as the sun of the present (fifth) era, Nahui Ollin, in the Legend of the Suns; ruler of the eastern daytime sky.",
+  "confidence": "medium",
+  "accessed": "2026-10-29",
+  "verification": "search-index summary of this exact URL reviewed; page not opened directly (network policy)"
+ },
+ "X4": {
+  "title": "Chalchiuhtlicue: Stone kneeling figure",
+  "publisher": "Smarthistory",
+  "url": "https://smarthistory.org/stone-kneeling-figure-of-chalchiuhtlicue",
+  "supports": "Chalchiuhtlicue, 'she of the jade skirt', goddess of lakes, streams and running water used to irrigate fields; greenstone identified with life-giving water.",
+  "confidence": "high",
+  "accessed": "2026-10-29",
+  "verification": "search-index summary of this exact URL reviewed; page not opened directly (network policy)"
+ },
+ "X5": {
+  "title": "Historic Centre of Mexico City and Xochimilco",
+  "publisher": "UNESCO World Heritage Centre",
+  "url": "https://whc.unesco.org/en/list/412/",
+  "supports": "World Heritage property (ref. 412, inscribed 1987) covering the historic centre of Mexico City (site of Tenochtitlan) and three Xochimilco zones, the surviving lake landscape of chinampa raised fields. The chinampa description itself comes from secondary summaries, not the UNESCO page text.",
+  "confidence": "medium",
+  "accessed": "2026-10-29",
+  "verification": "search-index summary of this exact URL reviewed; page not opened directly (network policy)"
+ },
+ "H1": {
+  "title": "Sun goddess of Arinna",
+  "publisher": "Wikipedia (secondary summary of Hittite studies)",
+  "url": "https://en.wikipedia.org/wiki/Sun_goddess_of_Arinna",
+  "supports": "The Sun goddess of Arinna as chief goddess of the Hittite state pantheon, partner of the storm god; temples at Arinna and on the citadel of Ḫattuša; the king ruled under the storm god and sun goddess.",
+  "confidence": "medium",
+  "accessed": "2026-10-29",
+  "verification": "search-index summary of this exact URL reviewed; page not opened directly (network policy)"
+ },
+ "H2": {
+  "title": "Tarḫunna",
+  "publisher": "Wikipedia (secondary summary)",
+  "url": "https://en.wikipedia.org/wiki/Tarhunna",
+  "supports": "Tarḫunna, the Hittite storm god, absorbed the Hattian Taru and was identified with Hurrian Teššub; name linked to the verb 'to overcome'.",
+  "confidence": "medium",
+  "accessed": "2026-10-29",
+  "verification": "search-index summary of this exact URL reviewed; page not opened directly (network policy)"
+ },
+ "H3": {
+  "title": "The Myth of Telepinu, Hittite God of Fertility",
+  "publisher": "Maricopa Open Digital Press, World Mythology vol. 1",
+  "url": "https://open.maricopa.edu/worldmythologyvolume1godsandcreation/chapter/the-myth-of-telepinu-hittite-god-of-fertility/",
+  "supports": "Telipinu's disappearance makes plant and animal fertility fail; a bee finds him; Kamrušepa's rites calm him and growth returns (CTH 324).",
+  "confidence": "medium",
+  "accessed": "2026-10-29",
+  "verification": "search-index summary of this exact URL reviewed; page not opened directly (network policy)"
+ },
+ "H4": {
+  "title": "Yazılıkaya near Hattusa",
+  "publisher": "Turkish Archaeological News",
+  "url": "https://www.turkisharchaeonews.net/node/1112",
+  "supports": "Rock sanctuary of two open limestone chambers with relief processions; central scene Teššub and Ḫepat; labels in Hurrian show Hurrian influence on the 13th-century court; part of the UNESCO Hattusha listing (1986).",
+  "confidence": "medium",
+  "accessed": "2026-10-29",
+  "verification": "search-index summary of this exact URL reviewed; page not opened directly (network policy)"
+ },
+ "H5": {
+  "title": "Lion Gate in Hattusa",
+  "publisher": "Turkish Archaeological News",
+  "url": "https://turkisharchaeonews.net/node/171",
+  "supports": "Hattusa's monumental gates of massive polygonal limestone blocks flanked by towers; city walls of mud-brick on stone foundations; temples entered through a gate into an open courtyard.",
+  "confidence": "medium",
+  "accessed": "2026-10-29",
+  "verification": "search-index summary of this exact URL reviewed; page not opened directly (network policy)"
+ },
+ "Y1": {
+  "title": "Osun-Osogbo Sacred Grove",
+  "publisher": "UNESCO World Heritage Centre",
+  "url": "https://whc.unesco.org/en/list/1118/",
+  "supports": "The grove along the Osun River at Osogbo, abode of the goddess Osun; shrines, sculptures and worship points along the river; inscribed 2005.",
+  "confidence": "high",
+  "accessed": "2026-10-29",
+  "verification": "search-index summary of this exact URL reviewed; page not opened directly (network policy)"
+ },
+ "Y2": {
+  "title": "Ogun",
+  "publisher": "Wikipedia (secondary summary of Yoruba studies, e.g. Barnes, Africa's Ogun)",
+  "url": "https://en.wikipedia.org/wiki/Ogun",
+  "supports": "Ògún associated with iron, metalwork, hunters and the opening of roads; iron objects are his emblem.",
+  "confidence": "medium",
+  "accessed": "2026-10-29",
+  "verification": "search-index summary of this exact URL reviewed; page not opened directly (network policy)"
+ },
+ "Y3": {
+  "title": "Ọbatala",
+  "publisher": "Wikipedia (secondary summary citing Yoruba scholarship)",
+  "url": "https://en.wikipedia.org/wiki/%E1%BB%8Cbatala",
+  "supports": "Ọbàtálá associated with creation of land and of human bodies and with white cloth (purity); Ile-Ife creation tradition (versions differ).",
+  "confidence": "medium",
+  "accessed": "2026-10-29",
+  "verification": "search-index summary of this exact URL reviewed; page not opened directly (network policy)"
+ },
+ "Y4": {
+  "title": "Dance staff for Shango (object record)",
+  "publisher": "University of Michigan Museum of Art",
+  "url": "https://umma.umich.edu/objects/dance-staff-2017-1-613",
+  "supports": "Ṣàngó as òrìṣà of thunder and lightning; double-axe form representing thunderstones. (The game does not reproduce this form.)",
+  "confidence": "medium",
+  "accessed": "2026-10-29",
+  "verification": "search-index summary of this exact URL reviewed; page not opened directly (network policy)"
+ },
+ "Y5": {
+  "title": "Yoruba architecture",
+  "publisher": "Wikipedia (secondary summary)",
+  "url": "https://en.wikipedia.org/wiki/Yoruba_architecture",
+  "supports": "Courtyard compounds with verandas on carved posts and rain-fed impluvia, especially palaces and chiefly houses that also served as shrines.",
+  "confidence": "medium",
+  "accessed": "2026-10-29",
+  "verification": "search-index summary of this exact URL reviewed; page not opened directly (network policy)"
+ },
+ "J1": {
+  "title": "Amaterasu (Encyclopedia of Shinto)",
+  "publisher": "Kokugakuin University",
+  "url": "https://d-museum.kokugakuin.ac.jp/eos/detail/?id=9440",
+  "supports": "Amaterasu as kami of the sun, first of the three noble children; her mirror enshrined at Ise.",
+  "confidence": "high",
+  "accessed": "2026-10-29",
+  "verification": "search-index summary of this exact URL reviewed; page not opened directly (network policy)"
+ },
+ "J2": {
+  "title": "Susanoo (Encyclopedia of Shinto)",
+  "publisher": "Kokugakuin University",
+  "url": "https://d-museum.kokugakuin.ac.jp/eos/detail/?id=9152",
+  "supports": "Susanoo associated with wind and rain (in contrast to Amaterasu and Tsukuyomi), his character otherwise unclear; descends to Izumo and defeats Yamata no orochi.",
+  "confidence": "high",
+  "accessed": "2026-10-29",
+  "verification": "search-index summary of this exact URL reviewed; page not opened directly (network policy)"
+ },
+ "J3": {
+  "title": "Ōkuninushi (Encyclopedia of Shinto)",
+  "publisher": "Kokugakuin University",
+  "url": "https://d-museum.kokugakuin.ac.jp/eos/detail/?id=9030",
+  "supports": "Ōkuninushi with Sukunahikona consolidates the Central Land of the Reed Plains (land-making), later transfers the land and is enshrined at Izumo.",
+  "confidence": "high",
+  "accessed": "2026-10-29",
+  "verification": "search-index summary of this exact URL reviewed; page not opened directly (network policy)"
+ },
+ "J4": {
+  "title": "Inari (Basic Terms of Shinto)",
+  "publisher": "Kokugakuin University",
+  "url": "https://d-museum.kokugakuin.ac.jp/bts/detail/?id=3745",
+  "supports": "Inari as tutelary kami of rice cultivation and the five grains; agricultural prayers at Fushimi Inari Taisha and many Inari shrines; faith has plural strands.",
+  "confidence": "high",
+  "accessed": "2026-10-29",
+  "verification": "search-index summary of this exact URL reviewed; page not opened directly (network policy)"
+ },
+ "J5": {
+  "title": "Torii (Encyclopedia of Shinto)",
+  "publisher": "Kokugakuin University",
+  "url": "https://d-museum.kokugakuin.ac.jp/eos/detail/?id=9635",
+  "supports": "Torii as ritual gateways marking the boundary of sacred space; no single accepted origin theory.",
+  "confidence": "high",
+  "accessed": "2026-10-29",
+  "verification": "search-index summary of this exact URL reviewed; page not opened directly (network policy)"
+ },
+ "J6": {
+  "title": "Shrine architecture types (Encyclopedia of Shinto)",
+  "publisher": "Kokugakuin University",
+  "url": "https://d-museum.kokugakuin.ac.jp/eos/detail/?id=9696",
+  "supports": "Shinmei-zukuri (Ise) and taisha-zukuri (Izumo) gabled honden styles with ancient building elements.",
+  "confidence": "high",
+  "accessed": "2026-10-29",
+  "verification": "search-index summary of this exact URL reviewed; page not opened directly (network policy)"
+ },
+ "V1": {
+  "title": "Rigveda 1.32 (Indra and Vṛtra)",
+  "publisher": "Wikipedia (secondary summary citing Jamison & Brereton 2014)",
+  "url": "https://en.wikipedia.org/wiki/Rigveda_1.32",
+  "supports": "Indra smashes Vṛtra with his mace and releases the waters (RV 1.32).",
+  "confidence": "medium",
+  "accessed": "2026-10-29",
+  "verification": "search-index summary of this exact URL reviewed; page not opened directly (network policy)"
+ },
+ "V2": {
+  "title": "Vedi (altar)",
+  "publisher": "Wikipedia (secondary summary citing Staal 1983)",
+  "url": "https://en.wikipedia.org/wiki/Vedi_(altar)",
+  "supports": "Śrauta fire altars: round gārhapatya (perpetual household fire), square āhavanīya (offering fire), dakṣiṇāgni; the grass-strewn vedi between them; agnicayana brick altar.",
+  "confidence": "medium",
+  "accessed": "2026-10-29",
+  "verification": "search-index summary of this exact URL reviewed; page not opened directly (network policy)"
+ },
+ "V3": {
+  "title": "Varuna",
+  "publisher": "Wikipedia (secondary summary of Rigvedic scholarship)",
+  "url": "https://en.wikipedia.org/wiki/Varuna",
+  "supports": "Varuṇa as upholder of ṛta (cosmic order) and moral law, paired with Mitra as gods of the oath; associated with the waters.",
+  "confidence": "medium",
+  "accessed": "2026-10-29",
+  "verification": "search-index summary of this exact URL reviewed; page not opened directly (network policy)"
+ },
+ "V4": {
+  "title": "Ushas",
+  "publisher": "Wikipedia (secondary summary)",
+  "url": "https://en.wikipedia.org/wiki/Ushas",
+  "supports": "Uṣas, the Rigvedic dawn goddess (about twenty hymns, books 1, 4–7, 10), who sees everything and is the eye of the gods (RV 7.75–77).",
+  "confidence": "medium",
+  "accessed": "2026-10-29",
+  "verification": "search-index summary of this exact URL reviewed; page not opened directly (network policy)"
+ },
+ "V5": {
+  "title": "Agni: The Vedic Ritual of the Fire Altar (F. Staal, 1983), scanned volume 1",
+  "publisher": "Internet Archive",
+  "url": "https://ia600501.us.archive.org/22/items/frits-staal-agni-the-vedic-ritual-of-the-fire-altar.-1-asian-humanities-press-1983/Frits%20Staal%20-%20Agni%20_%20the%20Vedic%20ritual%20of%20the%20fire%20altar.%201-Asian%20Humanities%20Press%20%281983%29.pdf",
+  "supports": "Scholarly study of the agnicayana and the layout of the sacrificial enclosure; Agni as the sacrificial fire and messenger of the gods.",
+  "confidence": "medium",
+  "accessed": "2026-10-29",
+  "verification": "search-index summary of this exact URL reviewed; page not opened directly (network policy)"
+ },
+ "V6": {
+  "title": "About Vedic Heritage Portal",
+  "publisher": "Indira Gandhi National Centre for the Arts, Ministry of Culture, Government of India",
+  "url": "https://vedicheritage.gov.in/about-project/",
+  "supports": "Institutional portal for Vedic texts and recitation; used only as context for the living recitation tradition, not as proof of any game mechanic.",
+  "confidence": "low",
+  "accessed": "2026-10-29",
+  "verification": "search-index summary of this exact URL reviewed; page not opened directly (network policy)"
+ }
 }

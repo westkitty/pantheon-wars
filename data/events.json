@@ -1,50 +1,654 @@
 [
-  { "id": "harvest_festival", "title": "The Harvest Festival", "art": "sheaf", "weight": 3,
-    "text": "In your largest town the mortals heap the first sheaves before your altar and sing until dawn.",
-    "choices": [ { "label": "Accept the offerings", "effects": [ { "type": "faith", "amount": 10 } ] },
-                 { "label": "Bless the fields", "effects": [ { "type": "popControlled", "amount": 1 } ] } ] },
-  { "id": "comet", "title": "A Comet Crosses the Sky", "art": "comet", "weight": 2,
-    "text": "A pale fire hangs over the hills for three nights. Every village is watching the sky, and every village is listening.",
-    "choices": [ { "label": "Read it as an omen", "effects": [ { "type": "revealNearestSettlements", "count": 2, "radius": 1 } ] },
-                 { "label": "Let them feel awe", "effects": [ { "type": "favor", "amount": 2 } ] } ] },
-  { "id": "pilgrims", "title": "Pilgrims at the Crossroads", "art": "road", "weight": 3,
-    "text": "Travellers with staffs and dusty feet ask which road leads to the god who answers.",
-    "choices": [ { "label": "Guide them home", "effects": [ { "type": "followersLargest", "amount": 3 } ] },
-                 { "label": "Send them onward as priests", "effects": [ { "type": "freePriest" } ] } ] },
-  { "id": "drought", "title": "The Dry Season", "art": "sun", "weight": 2,
-    "text": "Wells sink and the river shows its stones. The mortals ask whether anyone is listening.",
-    "choices": [ { "label": "Answer with rain (-8 Faith)", "effects": [ { "type": "faith", "amount": -8 }, { "type": "favor", "amount": 1 }, { "type": "followersLargest", "amount": 1 } ] },
-                 { "label": "Stay silent", "effects": [ { "type": "loseFollowersLargest", "amount": 2 } ] } ] },
-  { "id": "rival_prophet", "title": "A Rival Prophet", "art": "mask", "weight": 2,
-    "text": "A wandering speaker claims another god walks the valleys. Crowds gather in the market square.",
-    "choices": [ { "label": "Out-preach them", "effects": [ { "type": "buff", "stat": "pressureMult", "value": 1.5, "turns": 2 } ] },
-                 { "label": "Ignore them; gather offerings", "effects": [ { "type": "faith", "amount": 5 } ] } ] },
-  { "id": "sculptor", "title": "The Sculptor's Offer", "art": "chisel", "weight": 2,
-    "text": "A master mason offers a lifetime of work to whichever god will give her dreams worth carving.",
-    "choices": [ { "label": "Her next temple is half cost", "effects": [ { "type": "shrineDiscount", "mult": 0.5 } ] },
-                 { "label": "Strengthen what stands (+1 Ward)", "effects": [ { "type": "wardAll", "amount": 1 } ] } ] },
-  { "id": "fever", "title": "Fever in the Lowlands", "art": "drop", "weight": 2,
-    "text": "Sickness moves house to house. Families light lamps and wait for a sign.",
-    "choices": [ { "label": "Heal them (-10 Faith)", "effects": [ { "type": "faith", "amount": -10 }, { "type": "followersLargest", "amount": 2 }, { "type": "favor", "amount": 1 } ] },
-                 { "label": "Withdraw your gaze", "effects": [ { "type": "loseFollowersLargest", "amount": 3 } ] } ] },
-  { "id": "storm_at_sea", "title": "Storm on the Water", "art": "wave", "weight": 2,
-    "text": "Fishing boats are out when the sky turns black. The harbour wives climb the headland to pray.",
-    "choices": [ { "label": "Calm the waters (-6 Faith)", "effects": [ { "type": "faith", "amount": -6 }, { "type": "favor", "amount": 2 } ] },
-                 { "label": "Let the storm pass", "effects": [ { "type": "faith", "amount": 2 } ] } ] },
-  { "id": "poet", "title": "The Wandering Poet", "art": "lyre", "weight": 2,
-    "text": "A poet asks for one true verse about you. Whatever you give will be sung for generations.",
-    "choices": [ { "label": "Give a verse of glory", "effects": [ { "type": "favor", "amount": 2 } ] },
-                 { "label": "Give a verse of plenty", "effects": [ { "type": "faith", "amount": 7 } ] } ] },
-  { "id": "eclipse_foretold", "title": "An Eclipse Foretold", "art": "eclipse", "weight": 2,
-    "text": "Star-watchers warn that the sun will be swallowed. Rivals may use the darkness.",
-    "choices": [ { "label": "Prepare the rites (shrines immune 3 turns)", "effects": [ { "type": "buff", "stat": "eclipseImmune", "value": 1, "turns": 3 } ] },
-                 { "label": "Use the fear (+1 Favor)", "effects": [ { "type": "favor", "amount": 1 } ] } ] },
-  { "id": "market_town", "title": "A Market Town Swells", "art": "coins", "weight": 2,
-    "text": "Traders settle where the roads meet. New faces arrive who have never heard your name.",
-    "choices": [ { "label": "Welcome them (+2 pop, +1 follower)", "effects": [ { "type": "followersLargest", "amount": 1 }, { "type": "popLargest", "amount": 2 } ] },
-                 { "label": "Tax the caravans (+5 Faith)", "effects": [ { "type": "faith", "amount": 5 } ] } ] },
-  { "id": "old_altar", "title": "The Buried Altar", "art": "altar", "weight": 2,
-    "text": "Farmers ploughing a hillside strike a carved stone older than any name they know.",
-    "choices": [ { "label": "Restore it (+1 Ward, +1 Favor)", "effects": [ { "type": "wardRandom", "amount": 1 }, { "type": "favor", "amount": 1 } ] },
-                 { "label": "Follow where it points", "effects": [ { "type": "revealNearestSettlements", "count": 1, "radius": 2 } ] } ] }
+ {
+  "id": "harvest_festival",
+  "title": "The Harvest Festival",
+  "art": "sheaf",
+  "weight": 3,
+  "text": "In your largest town the mortals heap the first sheaves before your altar and sing until dawn.",
+  "choices": [
+   {
+    "label": "Accept the offerings",
+    "effects": [
+     {
+      "type": "faith",
+      "amount": 10
+     }
+    ]
+   },
+   {
+    "label": "Bless the fields",
+    "effects": [
+     {
+      "type": "popControlled",
+      "amount": 1
+     }
+    ]
+   }
+  ],
+  "climate": "rains"
+ },
+ {
+  "id": "comet",
+  "title": "A Comet Crosses the Sky",
+  "art": "comet",
+  "weight": 2,
+  "text": "A pale fire hangs over the hills for three nights. Every village is watching the sky, and every village is listening.",
+  "choices": [
+   {
+    "label": "Read it as an omen",
+    "effects": [
+     {
+      "type": "revealNearestSettlements",
+      "count": 2,
+      "radius": 1
+     }
+    ]
+   },
+   {
+    "label": "Let them feel awe",
+    "effects": [
+     {
+      "type": "favor",
+      "amount": 2
+     }
+    ]
+   }
+  ],
+  "climate": "omen"
+ },
+ {
+  "id": "pilgrims",
+  "title": "Pilgrims at the Crossroads",
+  "art": "road",
+  "weight": 3,
+  "text": "Travellers with staffs and dusty feet ask which road leads to the god who answers.",
+  "choices": [
+   {
+    "label": "Guide them home",
+    "effects": [
+     {
+      "type": "followersLargest",
+      "amount": 3
+     }
+    ]
+   },
+   {
+    "label": "Send them onward as priests",
+    "effects": [
+     {
+      "type": "freePriest"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "drought",
+  "title": "The Dry Season",
+  "art": "sun",
+  "weight": 2,
+  "text": "Wells sink and the river shows its stones. The mortals ask whether anyone is listening.",
+  "choices": [
+   {
+    "label": "Answer with rain (-8 Faith)",
+    "effects": [
+     {
+      "type": "faith",
+      "amount": -8
+     },
+     {
+      "type": "favor",
+      "amount": 1
+     },
+     {
+      "type": "followersLargest",
+      "amount": 1
+     }
+    ]
+   },
+   {
+    "label": "Stay silent",
+    "effects": [
+     {
+      "type": "loseFollowersLargest",
+      "amount": 2
+     }
+    ]
+   }
+  ],
+  "climate": "drought"
+ },
+ {
+  "id": "rival_prophet",
+  "title": "A Rival Prophet",
+  "art": "mask",
+  "weight": 2,
+  "text": "A wandering speaker claims another god walks the valleys. Crowds gather in the market square.",
+  "choices": [
+   {
+    "label": "Out-preach them",
+    "effects": [
+     {
+      "type": "buff",
+      "stat": "pressureMult",
+      "value": 1.5,
+      "turns": 2
+     }
+    ]
+   },
+   {
+    "label": "Ignore them; gather offerings",
+    "effects": [
+     {
+      "type": "faith",
+      "amount": 5
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "sculptor",
+  "title": "The Sculptor's Offer",
+  "art": "chisel",
+  "weight": 2,
+  "text": "A master mason offers a lifetime of work to whichever god will give her dreams worth carving.",
+  "choices": [
+   {
+    "label": "Her next temple is half cost",
+    "effects": [
+     {
+      "type": "shrineDiscount",
+      "mult": 0.5
+     }
+    ]
+   },
+   {
+    "label": "Strengthen what stands (+1 Ward)",
+    "effects": [
+     {
+      "type": "wardAll",
+      "amount": 1
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "fever",
+  "title": "Fever in the Lowlands",
+  "art": "drop",
+  "weight": 2,
+  "text": "Sickness moves house to house. Families light lamps and wait for a sign.",
+  "choices": [
+   {
+    "label": "Heal them (-10 Faith)",
+    "effects": [
+     {
+      "type": "faith",
+      "amount": -10
+     },
+     {
+      "type": "followersLargest",
+      "amount": 2
+     },
+     {
+      "type": "favor",
+      "amount": 1
+     }
+    ]
+   },
+   {
+    "label": "Withdraw your gaze",
+    "effects": [
+     {
+      "type": "loseFollowersLargest",
+      "amount": 3
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "storm_at_sea",
+  "title": "Storm on the Water",
+  "art": "wave",
+  "weight": 2,
+  "text": "Fishing boats are out when the sky turns black. The harbour wives climb the headland to pray.",
+  "choices": [
+   {
+    "label": "Calm the waters (-6 Faith)",
+    "effects": [
+     {
+      "type": "faith",
+      "amount": -6
+     },
+     {
+      "type": "favor",
+      "amount": 2
+     }
+    ]
+   },
+   {
+    "label": "Let the storm pass",
+    "effects": [
+     {
+      "type": "faith",
+      "amount": 2
+     }
+    ]
+   }
+  ],
+  "climate": "storm"
+ },
+ {
+  "id": "poet",
+  "title": "The Wandering Poet",
+  "art": "lyre",
+  "weight": 2,
+  "text": "A poet asks for one true verse about you. Whatever you give will be sung for generations.",
+  "choices": [
+   {
+    "label": "Give a verse of glory",
+    "effects": [
+     {
+      "type": "favor",
+      "amount": 2
+     }
+    ]
+   },
+   {
+    "label": "Give a verse of plenty",
+    "effects": [
+     {
+      "type": "faith",
+      "amount": 7
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "eclipse_foretold",
+  "title": "An Eclipse Foretold",
+  "art": "eclipse",
+  "weight": 2,
+  "text": "Star-watchers warn that the sun will be swallowed. Rivals may use the darkness.",
+  "choices": [
+   {
+    "label": "Prepare the rites (shrines immune 3 turns)",
+    "effects": [
+     {
+      "type": "buff",
+      "stat": "eclipseImmune",
+      "value": 1,
+      "turns": 3
+     }
+    ]
+   },
+   {
+    "label": "Use the fear (+1 Favor)",
+    "effects": [
+     {
+      "type": "favor",
+      "amount": 1
+     }
+    ]
+   }
+  ],
+  "climate": "omen"
+ },
+ {
+  "id": "market_town",
+  "title": "A Market Town Swells",
+  "art": "coins",
+  "weight": 2,
+  "text": "Traders settle where the roads meet. New faces arrive who have never heard your name.",
+  "choices": [
+   {
+    "label": "Welcome them (+2 pop, +1 follower)",
+    "effects": [
+     {
+      "type": "followersLargest",
+      "amount": 1
+     },
+     {
+      "type": "popLargest",
+      "amount": 2
+     }
+    ]
+   },
+   {
+    "label": "Tax the caravans (+5 Faith)",
+    "effects": [
+     {
+      "type": "faith",
+      "amount": 5
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "old_altar",
+  "title": "The Buried Altar",
+  "art": "altar",
+  "weight": 2,
+  "text": "Farmers ploughing a hillside strike a carved stone older than any name they know.",
+  "choices": [
+   {
+    "label": "Restore it (+1 Ward, +1 Favor)",
+    "effects": [
+     {
+      "type": "wardRandom",
+      "amount": 1
+     },
+     {
+      "type": "favor",
+      "amount": 1
+     }
+    ]
+   },
+   {
+    "label": "Follow where it points",
+    "effects": [
+     {
+      "type": "revealNearestSettlements",
+      "count": 1,
+      "radius": 2
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "canal_silt",
+  "title": "Silt in the Canals",
+  "art": "canal",
+  "weight": 2,
+  "factions": [
+   "mesopotamian"
+  ],
+  "sources": [
+   "M2"
+  ],
+  "text": "The flood has left the canals choked with mud. The fields at the far end of the water are drying out.",
+  "choices": [
+   {
+    "label": "Call the work-gangs (-6 Faith)",
+    "effects": [
+     {
+      "type": "faith",
+      "amount": -6
+     },
+     {
+      "type": "popControlled",
+      "amount": 1,
+      "max": 3,
+      "prosperity": 2
+     }
+    ]
+   },
+   {
+    "label": "Let the river choose its course",
+    "effects": [
+     {
+      "type": "loseFollowersLargest",
+      "amount": 1
+     },
+     {
+      "type": "faith",
+      "amount": 3
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "assembly_feast",
+  "title": "The Assembly Gathers",
+  "art": "assembly",
+  "weight": 2,
+  "factions": [
+   "irish"
+  ],
+  "sources": [
+   "I6"
+  ],
+  "text": "The people come up the hill to settle disputes, race horses and hear the poets. They ask whose name opens the gathering.",
+  "choices": [
+   {
+    "label": "Open the gathering (-4 Faith)",
+    "effects": [
+     {
+      "type": "faith",
+      "amount": -4
+     },
+     {
+      "type": "favor",
+      "amount": 2
+     }
+    ]
+   },
+   {
+    "label": "Keep the herds at home",
+    "effects": [
+     {
+      "type": "faith",
+      "amount": 6
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "lake_gardens",
+  "title": "New Fields on the Lake",
+  "art": "chinampa",
+  "weight": 2,
+  "factions": [
+   "mexica"
+  ],
+  "sources": [
+   "X5",
+   "X4"
+  ],
+  "text": "Families stake out reed fences in the shallows and heap them with lake mud. By next season there will be fields there.",
+  "choices": [
+   {
+    "label": "Bless the new fields (-5 Faith)",
+    "effects": [
+     {
+      "type": "faith",
+      "amount": -5
+     },
+     {
+      "type": "popControlled",
+      "amount": 1,
+      "max": 2,
+      "prosperity": 3
+     }
+    ]
+   },
+   {
+    "label": "Bless the fishing instead",
+    "effects": [
+     {
+      "type": "faith",
+      "amount": 5
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "vanished_god",
+  "title": "The Meadows Fall Silent",
+  "art": "meadow",
+  "weight": 2,
+  "factions": [
+   "hittite"
+  ],
+  "sources": [
+   "H3"
+  ],
+  "text": "The grain will not ripen and the sheep will not lamb. The elders say a god has gone away angry and must be found.",
+  "choices": [
+   {
+    "label": "Send out the searchers (-4 Faith)",
+    "effects": [
+     {
+      "type": "faith",
+      "amount": -4
+     },
+     {
+      "type": "popControlled",
+      "amount": 1,
+      "max": 3,
+      "prosperity": 3
+     }
+    ]
+   },
+   {
+    "label": "Wait for the god to return",
+    "effects": [
+     {
+      "type": "loseFollowersLargest",
+      "amount": 1
+     },
+     {
+      "type": "favor",
+      "amount": 1
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "smiths_road",
+  "title": "The Smiths Open a Road",
+  "art": "forge",
+  "weight": 2,
+  "factions": [
+   "yoruba"
+  ],
+  "sources": [
+   "Y2"
+  ],
+  "text": "Blacksmiths cut a new road through the bush to reach the market. Traders and travellers are already on it.",
+  "choices": [
+   {
+    "label": "Bless the road",
+    "effects": [
+     {
+      "type": "buff",
+      "stat": "routeMult",
+      "value": 2,
+      "turns": 3
+     },
+     {
+      "type": "faith",
+      "amount": 2
+     }
+    ]
+   },
+   {
+    "label": "Bless the forge",
+    "effects": [
+     {
+      "type": "wardAll",
+      "amount": 1
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "rice_planting",
+  "title": "Planting the Paddies",
+  "art": "paddy",
+  "weight": 2,
+  "factions": [
+   "japanese"
+  ],
+  "sources": [
+   "J4"
+  ],
+  "climate": "rains",
+  "text": "The water is let into the terraces and whole villages wade out to plant the seedlings together.",
+  "choices": [
+   {
+    "label": "Bless the planting",
+    "effects": [
+     {
+      "type": "popControlled",
+      "amount": 1,
+      "max": 3,
+      "prosperity": 2,
+      "terrains": [
+       "grassland",
+       "plains"
+      ]
+     }
+    ]
+   },
+   {
+    "label": "Accept the first-fruit promise",
+    "effects": [
+     {
+      "type": "favor",
+      "amount": 1
+     },
+     {
+      "type": "faith",
+      "amount": 3
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "late_rains",
+  "title": "The Rains Are Late",
+  "art": "cloudbank",
+  "weight": 2,
+  "factions": [
+   "vedic"
+  ],
+  "sources": [
+   "V1"
+  ],
+  "climate": "drought",
+  "text": "The clouds pile up over the hills and do not break. Cattle stand in the dry river beds.",
+  "choices": [
+   {
+    "label": "Release the waters (-6 Faith)",
+    "effects": [
+     {
+      "type": "faith",
+      "amount": -6
+     },
+     {
+      "type": "popControlled",
+      "amount": 0,
+      "max": 4,
+      "prosperity": 3
+     },
+     {
+      "type": "favor",
+      "amount": 1
+     }
+    ]
+   },
+   {
+    "label": "Let the cattle wait",
+    "effects": [
+     {
+      "type": "loseFollowersLargest",
+      "amount": 2
+     }
+    ]
+   }
+  ]
+ }
 ]

@@ -1,0 +1,159 @@
+{
+ "generated": "2026-10-29T12:03:05.441Z",
+ "browser": "Chromium (Playwright, pre-installed)",
+ "launch": "file:// index.html",
+ "results": [
+  {
+   "id": "J01",
+   "title": "Title gallery: ten pantheons, search, compare, each pantheon starts",
+   "ok": true,
+   "evidence": {
+    "cards": 10,
+    "searchRice": 1,
+    "compareVisible": true,
+    "chosen": "hittite",
+    "started": [
+     "greek",
+     "norse",
+     "egyptian",
+     "mesopotamian",
+     "irish",
+     "mexica",
+     "hittite",
+     "yoruba",
+     "japanese",
+     "vedic"
+    ],
+    "errors": []
+   },
+   "ms": 11835
+  },
+  {
+   "id": "J02",
+   "title": "Real input: key arms a rite, click a highlighted hex, Enter ends the turn",
+   "ok": true,
+   "evidence": {
+    "revealedGain": 15,
+    "turn": 2
+   },
+   "ms": 2380
+  },
+  {
+   "id": "J03",
+   "title": "Full game to a result screen against two Hierophants (Mexica)",
+   "ok": true,
+   "evidence": {
+    "result": {
+     "turn": 45,
+     "winner": "twilight",
+     "pid": 2,
+     "hash": "956225ce",
+     "actions": 437,
+     "title": "The Council of the Òrìṣà Prevails"
+    }
+   },
+   "ms": 34497
+  },
+  {
+   "id": "J04",
+   "title": "Save to slot, reload the page, continue from autosave; hashes match",
+   "ok": true,
+   "evidence": {
+    "hashBefore": "e592fa4a",
+    "turnBefore": 6,
+    "continueLabel": "Continue: Japanese vs Mexica, turn 6",
+    "hashAfter": "e592fa4a",
+    "slotHash": "e592fa4a",
+    "continuedTo": 8
+   },
+   "ms": 8693
+  },
+  {
+   "id": "J05",
+   "title": "Export a finished game file, import it in a fresh page, same final hash",
+   "ok": true,
+   "evidence": {
+    "hash": "956225ce"
+   },
+   "ms": 2239
+  },
+  {
+   "id": "J06",
+   "title": "Chronicle replay scrubs verified turns; tapestry renders; PNG and JSON download",
+   "ok": true,
+   "evidence": {
+    "turns": 45,
+    "mismatches": 0,
+    "at": 3,
+    "pngBytes": 632874,
+    "jsonKeys": [
+     "format",
+     "engine",
+     "seed",
+     "mode",
+     "turns",
+     "winner",
+     "players",
+     "decisive",
+     "scoreTimeline",
+     "finalHash",
+     "record"
+    ]
+   },
+   "ms": 13538
+  },
+  {
+   "id": "J07",
+   "title": "Hot-seat: handoff screen hides the previous god, next human sees only their world",
+   "ok": true,
+   "evidence": {
+    "p1": 0,
+    "blackout": true,
+    "panelEmpty": true,
+    "p2": 1,
+    "p2Faction": "egyptian"
+   },
+   "ms": 3881
+  },
+  {
+   "id": "J08",
+   "title": "Phone 390x844: title and game fit, no horizontal scroll, touch targets at least 44 px",
+   "ok": true,
+   "evidence": {
+    "titleOverflow": 0,
+    "small": [],
+    "docOverflow": 0,
+    "tapSelected": true
+   },
+   "ms": 10383
+  },
+  {
+   "id": "J09",
+   "title": "Settings: reduced motion, remapped key and volume persist across reload; encyclopedia and envoys open",
+   "ok": true,
+   "evidence": {
+    "persisted": {
+     "motion": "reduced",
+     "key": "q",
+     "music": 0.2,
+     "reduced": true
+    },
+    "armedByQ": true,
+    "codexSections": 10,
+    "envoyOpen": true
+   },
+   "ms": 14783
+  },
+  {
+   "id": "J10",
+   "title": "A v0.1 replay file imports into the read-only legacy Chronicle at its recorded hash",
+   "ok": true,
+   "evidence": {
+    "legacyHash": "6a3687d9",
+    "expected": "6a3687d9",
+    "turns": 45
+   },
+   "ms": 5330
+  }
+ ]
+}

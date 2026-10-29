@@ -1,0 +1,327 @@
+[
+  {
+    "id": "oracle_oak",
+    "faction": "greek",
+    "x": "explore",
+    "name": "Oracle of the Oak",
+    "inspiredBy": "Zeus at Dodona",
+    "sources": [
+      "G1"
+    ],
+    "text": "The rustling oak speaks. Reveal every hex within 3 of any target, anywhere on the map.",
+    "cost": {
+      "faith": 8,
+      "favor": 0
+    },
+    "cooldown": 3,
+    "target": "anyTile",
+    "effects": [
+      {
+        "type": "reveal",
+        "radius": 3
+      }
+    ],
+    "icon": "oak"
+  },
+  {
+    "id": "aegis_polis",
+    "faction": "greek",
+    "x": "expand",
+    "name": "Aegis of the Polis",
+    "inspiredBy": "Athena, defender of towns",
+    "sources": [
+      "G2"
+    ],
+    "text": "Target your shrine: +2 Ward, lift any eclipse, and a new priest rises there.",
+    "cost": {
+      "faith": 9,
+      "favor": 0
+    },
+    "cooldown": 4,
+    "target": "ownShrine",
+    "effects": [
+      {
+        "type": "ward",
+        "amount": 2,
+        "max": 5
+      },
+      {
+        "type": "clearEclipse"
+      },
+      {
+        "type": "spawnPriest"
+      }
+    ],
+    "icon": "shield"
+  },
+  {
+    "id": "gift_of_grain",
+    "faction": "greek",
+    "x": "exploit",
+    "name": "Gift of the Grain",
+    "inspiredBy": "Demeter",
+    "sources": [
+      "G3",
+      "G6"
+    ],
+    "text": "For 3 turns your Faith income is x1.5, and every settlement you control gains +1 population.",
+    "cost": {
+      "faith": 6,
+      "favor": 1
+    },
+    "cooldown": 6,
+    "target": "none",
+    "effects": [
+      {
+        "type": "buff",
+        "stat": "faithMult",
+        "value": 1.5,
+        "turns": 3
+      },
+      {
+        "type": "popControlled",
+        "amount": 1
+      }
+    ],
+    "icon": "sheaf"
+  },
+  {
+    "id": "thunderbolt",
+    "faction": "greek",
+    "x": "exterminate",
+    "name": "Thunderbolt",
+    "inspiredBy": "Zeus's thunderbolt (forged by the Cyclopes)",
+    "sources": [
+      "G1",
+      "G5"
+    ],
+    "text": "Miracle. Strike a revealed settlement: rival priests there are scattered, 3 rival followers fall silent (become unaffiliated) and 3 mortals turn to you.",
+    "cost": {
+      "faith": 10,
+      "favor": 2
+    },
+    "cooldown": 4,
+    "target": "revealedSettlement",
+    "effects": [
+      {
+        "type": "strike",
+        "killPriests": true,
+        "rivalLoss": 3,
+        "gain": 3
+      }
+    ],
+    "icon": "bolt"
+  },
+  {
+    "id": "ravens_flight",
+    "faction": "norse",
+    "x": "explore",
+    "name": "Flight of the Ravens",
+    "inspiredBy": "Odin's ravens",
+    "sources": [
+      "N1"
+    ],
+    "text": "Two ravens fly out and return: reveal the 2 nearest hidden settlements and the land around them.",
+    "cost": {
+      "faith": 6,
+      "favor": 0
+    },
+    "cooldown": 3,
+    "target": "none",
+    "effects": [
+      {
+        "type": "revealNearestSettlements",
+        "count": 2,
+        "radius": 2
+      }
+    ],
+    "icon": "raven"
+  },
+  {
+    "id": "rune_hall",
+    "faction": "norse",
+    "x": "expand",
+    "name": "Rune-Carved Hall",
+    "inspiredBy": "Odin winning the runes",
+    "sources": [
+      "N5"
+    ],
+    "text": "Raise a shrine at a revealed settlement within 4 hexes of your land for half cost, even with no followers there.",
+    "cost": {
+      "faith": 0,
+      "favor": 0
+    },
+    "cooldown": 4,
+    "target": "shrineSite",
+    "effects": [
+      {
+        "type": "raiseShrine",
+        "costMult": 0.5,
+        "range": 4
+      }
+    ],
+    "icon": "rune"
+  },
+  {
+    "id": "rain_and_sun",
+    "faction": "norse",
+    "x": "exploit",
+    "name": "Rain and Sunshine",
+    "inspiredBy": "Freyr",
+    "sources": [
+      "N3"
+    ],
+    "text": "For 3 turns gain +1 Faith per settlement you control, and every settlement you control gains +1 population now.",
+    "cost": {
+      "faith": 6,
+      "favor": 1
+    },
+    "cooldown": 6,
+    "target": "none",
+    "effects": [
+      {
+        "type": "buff",
+        "stat": "faithPerControlled",
+        "value": 1,
+        "turns": 3
+      },
+      {
+        "type": "popControlled",
+        "amount": 1
+      }
+    ],
+    "icon": "sunrain"
+  },
+  {
+    "id": "hammer_thunder",
+    "faction": "norse",
+    "x": "exterminate",
+    "name": "Hammer of Thunder",
+    "inspiredBy": "Thor and Mjollnir",
+    "sources": [
+      "N2"
+    ],
+    "text": "Miracle. Strike a rival shrine within 4 hexes of your shrines or priests: -1 Ward and it is eclipsed for 2 turns. The hammer returns.",
+    "cost": {
+      "faith": 10,
+      "favor": 2
+    },
+    "cooldown": 4,
+    "target": "rivalShrine",
+    "range": 4,
+    "effects": [
+      {
+        "type": "shrineHit",
+        "ward": 1,
+        "eclipse": 2
+      }
+    ],
+    "icon": "hammer"
+  },
+  {
+    "id": "barque_of_re",
+    "faction": "egyptian",
+    "x": "explore",
+    "name": "Barque of Re",
+    "inspiredBy": "Re's solar bark crossing the sky",
+    "sources": [
+      "E1"
+    ],
+    "text": "The sun's boat sails across the whole sky: reveal a 3-row band across the entire map through the target.",
+    "cost": {
+      "faith": 10,
+      "favor": 0
+    },
+    "cooldown": 4,
+    "target": "anyTile",
+    "effects": [
+      {
+        "type": "revealBand",
+        "rows": 3
+      }
+    ],
+    "icon": "barque"
+  },
+  {
+    "id": "throne_of_isis",
+    "faction": "egyptian",
+    "x": "expand",
+    "name": "Throne of Isis",
+    "inspiredBy": "Isis, protector and healer",
+    "sources": [
+      "E5"
+    ],
+    "text": "A new priest rises at your target shrine and all your priests preach with double strength for 2 turns.",
+    "cost": {
+      "faith": 12,
+      "favor": 0
+    },
+    "cooldown": 5,
+    "target": "ownShrine",
+    "effects": [
+      {
+        "type": "spawnPriest"
+      },
+      {
+        "type": "buff",
+        "stat": "priestMult",
+        "value": 2,
+        "turns": 2
+      }
+    ],
+    "icon": "throne"
+  },
+  {
+    "id": "osiris_garden",
+    "faction": "egyptian",
+    "x": "exploit",
+    "name": "Osiris Garden",
+    "inspiredBy": "Osiris and the sprouting grain",
+    "sources": [
+      "E3"
+    ],
+    "text": "Target a settlement where you have followers: +3 population who follow you, and +4 Faith now.",
+    "cost": {
+      "faith": 4,
+      "favor": 1
+    },
+    "cooldown": 5,
+    "target": "ownSettlement",
+    "effects": [
+      {
+        "type": "popTarget",
+        "amount": 3
+      },
+      {
+        "type": "faith",
+        "amount": 4
+      }
+    ],
+    "icon": "sprout"
+  },
+  {
+    "id": "feather_of_maat",
+    "faction": "egyptian",
+    "x": "exterminate",
+    "name": "Feather of Maat",
+    "inspiredBy": "The weighing of the heart",
+    "sources": [
+      "E2",
+      "E4"
+    ],
+    "text": "Miracle. Weigh a revealed settlement: 35% of each rival's followers there (rounded up) turn to you.",
+    "cost": {
+      "faith": 8,
+      "favor": 2
+    },
+    "cooldown": 4,
+    "target": "revealedSettlement",
+    "effects": [
+      {
+        "type": "weigh",
+        "fraction": 0.35
+      }
+    ],
+    "icon": "feather"
+  }
+]

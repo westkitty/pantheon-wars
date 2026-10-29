@@ -1,0 +1,185 @@
+[
+  {
+    "id": "sky_oath",
+    "faction": "greek",
+    "name": "Sky & Oath",
+    "inspiredBy": "Zeus",
+    "sources": [
+      "G1"
+    ],
+    "text": "Zeus watches over oaths, law and order. The Court gains 1 Favor every 4 turns.",
+    "effect": {
+      "type": "favorEveryNTurns",
+      "n": 4,
+      "amount": 1
+    }
+  },
+  {
+    "id": "wisdom_city",
+    "faction": "greek",
+    "name": "Counsel & the Defended City",
+    "inspiredBy": "Athena",
+    "sources": [
+      "G2"
+    ],
+    "text": "Athena defends towns. Olympian shrines start with +1 Ward.",
+    "effect": {
+      "type": "shrineWard",
+      "amount": 1
+    }
+  },
+  {
+    "id": "grain",
+    "faction": "greek",
+    "name": "Grain & Bread",
+    "inspiredBy": "Demeter",
+    "sources": [
+      "G3",
+      "G6"
+    ],
+    "text": "Followers on grassland and plains give extra Faith.",
+    "effect": {
+      "type": "terrainFaith",
+      "terrains": [
+        "grassland",
+        "plains"
+      ],
+      "perFollower": 0.12
+    }
+  },
+  {
+    "id": "sea",
+    "faction": "greek",
+    "name": "Sea & Shaking Earth",
+    "inspiredBy": "Poseidon",
+    "sources": [
+      "G4"
+    ],
+    "text": "Olympian priests may cross shallow sea; coastal settlements feel stronger Olympian pressure.",
+    "effect": {
+      "type": "seafaring",
+      "coastalPressure": 0.2
+    }
+  },
+  {
+    "id": "runes",
+    "faction": "norse",
+    "name": "Runes & Poetry",
+    "inspiredBy": "Odin",
+    "sources": [
+      "N1",
+      "N5"
+    ],
+    "text": "Each word leads to another word. Winning followers from rivals earns Favor (1 per 10).",
+    "effect": {
+      "type": "favorOnRivalConvert",
+      "per": 10,
+      "amount": 1
+    }
+  },
+  {
+    "id": "thunder",
+    "faction": "norse",
+    "name": "Thunder & Shelter",
+    "inspiredBy": "Thor",
+    "sources": [
+      "N2"
+    ],
+    "text": "Eclipses cost 1 less Favor.",
+    "effect": {
+      "type": "eclipseDiscount",
+      "amount": 1
+    }
+  },
+  {
+    "id": "peace_plenty",
+    "faction": "norse",
+    "name": "Peace, Rain & Sunshine",
+    "inspiredBy": "Freyr",
+    "sources": [
+      "N3"
+    ],
+    "text": "Settlements you control grow by 1 extra every 4 turns.",
+    "effect": {
+      "type": "controlledGrowth",
+      "n": 4,
+      "amount": 1
+    }
+  },
+  {
+    "id": "fate",
+    "faction": "norse",
+    "name": "The Woven Fate",
+    "inspiredBy": "The Norns",
+    "sources": [
+      "N4",
+      "N6"
+    ],
+    "text": "The Norns set the fates of men. Your followers are 15% harder for rivals to convert.",
+    "effect": {
+      "type": "conversionResist",
+      "mult": 1.15
+    }
+  },
+  {
+    "id": "sun",
+    "faction": "egyptian",
+    "name": "The Sun's Course",
+    "inspiredBy": "Re",
+    "sources": [
+      "E1"
+    ],
+    "text": "Followers on desert and plains give extra Faith.",
+    "effect": {
+      "type": "terrainFaith",
+      "terrains": [
+        "desert",
+        "plains"
+      ],
+      "perFollower": 0.2
+    }
+  },
+  {
+    "id": "order",
+    "faction": "egyptian",
+    "name": "Order against Disorder",
+    "inspiredBy": "Maat",
+    "sources": [
+      "E2"
+    ],
+    "text": "Your followers are harder to convert (rivals need 35% more effort).",
+    "effect": {
+      "type": "conversionResist",
+      "mult": 1.35
+    }
+  },
+  {
+    "id": "reckoning",
+    "faction": "egyptian",
+    "name": "Reckoning & Writing",
+    "inspiredBy": "Thoth",
+    "sources": [
+      "E4"
+    ],
+    "text": "Read Omens costs half and reveals 1 hex further.",
+    "effect": {
+      "type": "omenMastery",
+      "costMult": 0.5,
+      "radius": 1
+    }
+  },
+  {
+    "id": "inundation",
+    "faction": "egyptian",
+    "name": "The Inundation",
+    "inspiredBy": "Osiris",
+    "sources": [
+      "E3"
+    ],
+    "text": "Followers in settlements beside water give extra Faith.",
+    "effect": {
+      "type": "waterFaith",
+      "perFollower": 0.2
+    }
+  }
+]

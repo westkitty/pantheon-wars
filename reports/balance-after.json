@@ -1,0 +1,8232 @@
+{
+ "label": "after",
+ "cmd": "node tools/simulate.js --games 1000 --seed 1000 --label after --easy-check 150 --out /tmp/pwr/balance-after",
+ "seconds": 12.699,
+ "analysis": {
+  "games": 1000,
+  "avgTurns": 43.44,
+  "types": {
+   "twilight": 890,
+   "ascendancy": 110
+  },
+  "factions": {
+   "greek": {
+    "played": 868,
+    "wins": 284,
+    "played3": 600,
+    "wins3": 141,
+    "played2": 268,
+    "wins2": 143
+   },
+   "norse": {
+    "played": 866,
+    "wins": 342,
+    "played3": 600,
+    "wins3": 220,
+    "played2": 266,
+    "wins2": 122
+   },
+   "egyptian": {
+    "played": 866,
+    "wins": 374,
+    "played3": 600,
+    "wins3": 239,
+    "played2": 266,
+    "wins2": 135
+   }
+  },
+  "rates": [
+   0.3271889400921659,
+   0.394919168591224,
+   0.43187066974595845
+  ],
+  "rates3": [
+   0.235,
+   0.36666666666666664,
+   0.3983333333333333
+  ],
+  "rates2": [
+   0.5335820895522388,
+   0.45864661654135336,
+   0.5075187969924813
+  ],
+  "spread": 0.10468172965379252,
+  "spread3": 0.16333333333333333,
+  "spread2": 0.07493547301088549,
+  "seat": {
+   "3p-seat1": {
+    "played": 600,
+    "wins": 208
+   },
+   "3p-seat2": {
+    "played": 600,
+    "wins": 236
+   },
+   "3p-seat3": {
+    "played": 600,
+    "wins": 156
+   },
+   "2p-seat1": {
+    "played": 400,
+    "wins": 241
+   },
+   "2p-seat2": {
+    "played": 400,
+    "wins": 159
+   }
+  },
+  "powerRows": [
+   {
+    "id": "aegis_polis",
+    "name": "Aegis of the Polis",
+    "faction": "greek",
+    "x": "expand",
+    "uses": 8925,
+    "perGame": 10.28
+   },
+   {
+    "id": "throne_of_isis",
+    "name": "Throne of Isis",
+    "faction": "egyptian",
+    "x": "expand",
+    "uses": 7575,
+    "perGame": 8.75
+   },
+   {
+    "id": "gift_of_grain",
+    "name": "Gift of the Grain",
+    "faction": "greek",
+    "x": "exploit",
+    "uses": 6491,
+    "perGame": 7.48
+   },
+   {
+    "id": "osiris_garden",
+    "name": "Osiris Garden",
+    "faction": "egyptian",
+    "x": "exploit",
+    "uses": 6251,
+    "perGame": 7.22
+   },
+   {
+    "id": "thunderbolt",
+    "name": "Thunderbolt",
+    "faction": "greek",
+    "x": "exterminate",
+    "uses": 6203,
+    "perGame": 7.15
+   },
+   {
+    "id": "rain_and_sun",
+    "name": "Rain and Sunshine",
+    "faction": "norse",
+    "x": "exploit",
+    "uses": 5693,
+    "perGame": 6.57
+   },
+   {
+    "id": "oracle_oak",
+    "name": "Oracle of the Oak",
+    "faction": "greek",
+    "x": "explore",
+    "uses": 4607,
+    "perGame": 5.31
+   },
+   {
+    "id": "feather_of_maat",
+    "name": "Feather of Maat",
+    "faction": "egyptian",
+    "x": "exterminate",
+    "uses": 4505,
+    "perGame": 5.2
+   },
+   {
+    "id": "ravens_flight",
+    "name": "Flight of the Ravens",
+    "faction": "norse",
+    "x": "explore",
+    "uses": 4192,
+    "perGame": 4.84
+   },
+   {
+    "id": "rune_hall",
+    "name": "Rune-Carved Hall",
+    "faction": "norse",
+    "x": "expand",
+    "uses": 3801,
+    "perGame": 4.39
+   },
+   {
+    "id": "hammer_thunder",
+    "name": "Hammer of Thunder",
+    "faction": "norse",
+    "x": "exterminate",
+    "uses": 2661,
+    "perGame": 3.07
+   },
+   {
+    "id": "barque_of_re",
+    "name": "Barque of Re",
+    "faction": "egyptian",
+    "x": "explore",
+    "uses": 1040,
+    "perGame": 1.2
+   }
+  ],
+  "actions": {
+   "movePriest": 39133,
+   "power": 61944,
+   "omen": 17126,
+   "endTurn": 113856,
+   "event": 22680,
+   "dream": 1807,
+   "shrine": 16767,
+   "priest": 20551,
+   "eclipse": 3735
+  },
+  "archetypes": {
+   "Seer": {
+    "played": 623,
+    "wins": 222
+   },
+   "Zealot": {
+    "played": 743,
+    "wins": 288
+   },
+   "Steward": {
+    "played": 661,
+    "wins": 258
+   },
+   "Builder": {
+    "played": 573,
+    "wins": 232
+   }
+  },
+  "winners": {
+   "shrinesBuilt": 9.65,
+   "priestsSent": 16.09,
+   "eclipses": 3.06,
+   "convertedFromRivals": 49.39,
+   "faithEarned": 3154.78,
+   "toppled": 0.84
+  },
+  "losers": {
+   "shrinesBuilt": 6.82,
+   "priestsSent": 13.49,
+   "eclipses": 2.09,
+   "convertedFromRivals": 40.88,
+   "faithEarned": 2469.26,
+   "toppled": 0.33
+  },
+  "exterminatePerGame": {
+   "winners": 5.32,
+   "losers": 5.03
+  }
+ },
+ "easy": {
+  "games": 150,
+  "hardWins": 129
+ },
+ "games": [
+  {
+   "seed": 1000,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "9dd30939"
+  },
+  {
+   "seed": 1001,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "d17ed912"
+  },
+  {
+   "seed": 1002,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "aee2702a"
+  },
+  {
+   "seed": 1003,
+   "n": 2,
+   "winner": "greek",
+   "type": "ascendancy",
+   "turn": 27,
+   "hash": "5456c2a0"
+  },
+  {
+   "seed": 1004,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "1b7a6669"
+  },
+  {
+   "seed": 1005,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "63b17356"
+  },
+  {
+   "seed": 1006,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "0c874d13"
+  },
+  {
+   "seed": 1007,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "f42ebf4a"
+  },
+  {
+   "seed": 1008,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "2048b195"
+  },
+  {
+   "seed": 1009,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "878b6d49"
+  },
+  {
+   "seed": 1010,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "54bd01af"
+  },
+  {
+   "seed": 1011,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "61f0f749"
+  },
+  {
+   "seed": 1012,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "bf48d737"
+  },
+  {
+   "seed": 1013,
+   "n": 2,
+   "winner": "norse",
+   "type": "ascendancy",
+   "turn": 28,
+   "hash": "0ef1eac1"
+  },
+  {
+   "seed": 1014,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "81b17a88"
+  },
+  {
+   "seed": 1015,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "cd6c3a38"
+  },
+  {
+   "seed": 1016,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "c1033cde"
+  },
+  {
+   "seed": 1017,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "5fb6d9dd"
+  },
+  {
+   "seed": 1018,
+   "n": 2,
+   "winner": "greek",
+   "type": "ascendancy",
+   "turn": 31,
+   "hash": "3f0e7027"
+  },
+  {
+   "seed": 1019,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "75834090"
+  },
+  {
+   "seed": 1020,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "5a50f20d"
+  },
+  {
+   "seed": 1021,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "9194594b"
+  },
+  {
+   "seed": 1022,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "edd04c10"
+  },
+  {
+   "seed": 1023,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "5c402c34"
+  },
+  {
+   "seed": 1024,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "6a2850a1"
+  },
+  {
+   "seed": 1025,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "ca2e231e"
+  },
+  {
+   "seed": 1026,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "fd5cf673"
+  },
+  {
+   "seed": 1027,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "ad3cd91c"
+  },
+  {
+   "seed": 1028,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "ascendancy",
+   "turn": 23,
+   "hash": "27c58564"
+  },
+  {
+   "seed": 1029,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "5fc09772"
+  },
+  {
+   "seed": 1030,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "52999a40"
+  },
+  {
+   "seed": 1031,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "0cab5a41"
+  },
+  {
+   "seed": 1032,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "b4b788ce"
+  },
+  {
+   "seed": 1033,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "ac3e50af"
+  },
+  {
+   "seed": 1034,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "ea9754a0"
+  },
+  {
+   "seed": 1035,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "272e3bc3"
+  },
+  {
+   "seed": 1036,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "0f16af01"
+  },
+  {
+   "seed": 1037,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "5d1c6b6e"
+  },
+  {
+   "seed": 1038,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "ascendancy",
+   "turn": 25,
+   "hash": "8dd33f21"
+  },
+  {
+   "seed": 1039,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "d69e70df"
+  },
+  {
+   "seed": 1040,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "158a0070"
+  },
+  {
+   "seed": 1041,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "0ab34bbe"
+  },
+  {
+   "seed": 1042,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "82643fe7"
+  },
+  {
+   "seed": 1043,
+   "n": 2,
+   "winner": "norse",
+   "type": "ascendancy",
+   "turn": 33,
+   "hash": "ee0a4130"
+  },
+  {
+   "seed": 1044,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "e6eaf1d6"
+  },
+  {
+   "seed": 1045,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "5e7b5a82"
+  },
+  {
+   "seed": 1046,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "894ba4f3"
+  },
+  {
+   "seed": 1047,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "9ef9667e"
+  },
+  {
+   "seed": 1048,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "85a74df8"
+  },
+  {
+   "seed": 1049,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "4a1c3af1"
+  },
+  {
+   "seed": 1050,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "78ae48b1"
+  },
+  {
+   "seed": 1051,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "bbc54b10"
+  },
+  {
+   "seed": 1052,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "a2ace618"
+  },
+  {
+   "seed": 1053,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "c0591828"
+  },
+  {
+   "seed": 1054,
+   "n": 2,
+   "winner": "greek",
+   "type": "ascendancy",
+   "turn": 31,
+   "hash": "96e8b4de"
+  },
+  {
+   "seed": 1055,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "24129f01"
+  },
+  {
+   "seed": 1056,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "6481ca36"
+  },
+  {
+   "seed": 1057,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "fcdf2ff5"
+  },
+  {
+   "seed": 1058,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "e33b4fb7"
+  },
+  {
+   "seed": 1059,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "97c9e99b"
+  },
+  {
+   "seed": 1060,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "0fae7235"
+  },
+  {
+   "seed": 1061,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "4de96dd8"
+  },
+  {
+   "seed": 1062,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "61790fa0"
+  },
+  {
+   "seed": 1063,
+   "n": 2,
+   "winner": "greek",
+   "type": "ascendancy",
+   "turn": 29,
+   "hash": "1ca77409"
+  },
+  {
+   "seed": 1064,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "b4ea5042"
+  },
+  {
+   "seed": 1065,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "dc6d810b"
+  },
+  {
+   "seed": 1066,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "5149f318"
+  },
+  {
+   "seed": 1067,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "e6404ed1"
+  },
+  {
+   "seed": 1068,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "8566e65e"
+  },
+  {
+   "seed": 1069,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "df16d239"
+  },
+  {
+   "seed": 1070,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "03d21f92"
+  },
+  {
+   "seed": 1071,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "90419f4f"
+  },
+  {
+   "seed": 1072,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "480f6d17"
+  },
+  {
+   "seed": 1073,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "ascendancy",
+   "turn": 37,
+   "hash": "dba29bef"
+  },
+  {
+   "seed": 1074,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "db6b9475"
+  },
+  {
+   "seed": 1075,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "44f4a38d"
+  },
+  {
+   "seed": 1076,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "fe5ec188"
+  },
+  {
+   "seed": 1077,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "d7b9c8eb"
+  },
+  {
+   "seed": 1078,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "cd3f4215"
+  },
+  {
+   "seed": 1079,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "91ebbe40"
+  },
+  {
+   "seed": 1080,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "34e5f323"
+  },
+  {
+   "seed": 1081,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "a0d4965b"
+  },
+  {
+   "seed": 1082,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "ac512679"
+  },
+  {
+   "seed": 1083,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "c8796d89"
+  },
+  {
+   "seed": 1084,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "023e3cc8"
+  },
+  {
+   "seed": 1085,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "ade5ce2d"
+  },
+  {
+   "seed": 1086,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "c6907ad1"
+  },
+  {
+   "seed": 1087,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "2158a77a"
+  },
+  {
+   "seed": 1088,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "ascendancy",
+   "turn": 23,
+   "hash": "230f642b"
+  },
+  {
+   "seed": 1089,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "fe6454b8"
+  },
+  {
+   "seed": 1090,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "916c15a1"
+  },
+  {
+   "seed": 1091,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "a74f0a91"
+  },
+  {
+   "seed": 1092,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "f5ad4cb9"
+  },
+  {
+   "seed": 1093,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "6a04aaaf"
+  },
+  {
+   "seed": 1094,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "7c1043e6"
+  },
+  {
+   "seed": 1095,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "a7c44626"
+  },
+  {
+   "seed": 1096,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "718524b0"
+  },
+  {
+   "seed": 1097,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "e5f5bf8d"
+  },
+  {
+   "seed": 1098,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "16ae6b9e"
+  },
+  {
+   "seed": 1099,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "1471a61f"
+  },
+  {
+   "seed": 1100,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "69ce80ee"
+  },
+  {
+   "seed": 1101,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "a9be6266"
+  },
+  {
+   "seed": 1102,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "c36a1da1"
+  },
+  {
+   "seed": 1103,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "f083bcde"
+  },
+  {
+   "seed": 1104,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "a5bab152"
+  },
+  {
+   "seed": 1105,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "f89b01f0"
+  },
+  {
+   "seed": 1106,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "568e9e89"
+  },
+  {
+   "seed": 1107,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "0abf3556"
+  },
+  {
+   "seed": 1108,
+   "n": 2,
+   "winner": "greek",
+   "type": "ascendancy",
+   "turn": 29,
+   "hash": "ba990011"
+  },
+  {
+   "seed": 1109,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "fbf13ffa"
+  },
+  {
+   "seed": 1110,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "962b87b5"
+  },
+  {
+   "seed": 1111,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "b727e013"
+  },
+  {
+   "seed": 1112,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "70543560"
+  },
+  {
+   "seed": 1113,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "ascendancy",
+   "turn": 43,
+   "hash": "d9f1be5b"
+  },
+  {
+   "seed": 1114,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "bcb000db"
+  },
+  {
+   "seed": 1115,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "de2e623d"
+  },
+  {
+   "seed": 1116,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "56cd2fa3"
+  },
+  {
+   "seed": 1117,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "7cb2d460"
+  },
+  {
+   "seed": 1118,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "10ca050b"
+  },
+  {
+   "seed": 1119,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "ascendancy",
+   "turn": 25,
+   "hash": "bc8172c9"
+  },
+  {
+   "seed": 1120,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "cf4e8d0e"
+  },
+  {
+   "seed": 1121,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "9d698b4f"
+  },
+  {
+   "seed": 1122,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "6c2e739c"
+  },
+  {
+   "seed": 1123,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "b442d5a6"
+  },
+  {
+   "seed": 1124,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "aa333575"
+  },
+  {
+   "seed": 1125,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "5bed67ce"
+  },
+  {
+   "seed": 1126,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "15676ea8"
+  },
+  {
+   "seed": 1127,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "4298e7a2"
+  },
+  {
+   "seed": 1128,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "a028ca1f"
+  },
+  {
+   "seed": 1129,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "ascendancy",
+   "turn": 31,
+   "hash": "495d3db2"
+  },
+  {
+   "seed": 1130,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "5e97880f"
+  },
+  {
+   "seed": 1131,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "7016652d"
+  },
+  {
+   "seed": 1132,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "54ec6b76"
+  },
+  {
+   "seed": 1133,
+   "n": 2,
+   "winner": "norse",
+   "type": "ascendancy",
+   "turn": 31,
+   "hash": "1facd604"
+  },
+  {
+   "seed": 1134,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "ascendancy",
+   "turn": 23,
+   "hash": "d68d4e16"
+  },
+  {
+   "seed": 1135,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "ce590624"
+  },
+  {
+   "seed": 1136,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "28f868a1"
+  },
+  {
+   "seed": 1137,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "e8c7d278"
+  },
+  {
+   "seed": 1138,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "509ba721"
+  },
+  {
+   "seed": 1139,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "0a1bf5c2"
+  },
+  {
+   "seed": 1140,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "90900919"
+  },
+  {
+   "seed": 1141,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "3cc6e752"
+  },
+  {
+   "seed": 1142,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "03ffd7d3"
+  },
+  {
+   "seed": 1143,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "ascendancy",
+   "turn": 27,
+   "hash": "ed8bd8a5"
+  },
+  {
+   "seed": 1144,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "3033976c"
+  },
+  {
+   "seed": 1145,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "e3266dc3"
+  },
+  {
+   "seed": 1146,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "d4763c0c"
+  },
+  {
+   "seed": 1147,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "dbfb1420"
+  },
+  {
+   "seed": 1148,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "6511f098"
+  },
+  {
+   "seed": 1149,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "b9aa3cca"
+  },
+  {
+   "seed": 1150,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "56b7ee5b"
+  },
+  {
+   "seed": 1151,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "7f0ff10a"
+  },
+  {
+   "seed": 1152,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "edaa7db6"
+  },
+  {
+   "seed": 1153,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "17043a76"
+  },
+  {
+   "seed": 1154,
+   "n": 2,
+   "winner": "norse",
+   "type": "ascendancy",
+   "turn": 29,
+   "hash": "e8e4fffd"
+  },
+  {
+   "seed": 1155,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "7cd796e8"
+  },
+  {
+   "seed": 1156,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "9f6ac46b"
+  },
+  {
+   "seed": 1157,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "64a4edc5"
+  },
+  {
+   "seed": 1158,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "39ab1278"
+  },
+  {
+   "seed": 1159,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "c09168e5"
+  },
+  {
+   "seed": 1160,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "8aa9a67d"
+  },
+  {
+   "seed": 1161,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "dfb54e69"
+  },
+  {
+   "seed": 1162,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "bd74b262"
+  },
+  {
+   "seed": 1163,
+   "n": 2,
+   "winner": "norse",
+   "type": "ascendancy",
+   "turn": 44,
+   "hash": "be59deb2"
+  },
+  {
+   "seed": 1164,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "ascendancy",
+   "turn": 25,
+   "hash": "6935a507"
+  },
+  {
+   "seed": 1165,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "fac6a2bc"
+  },
+  {
+   "seed": 1166,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "24dd1746"
+  },
+  {
+   "seed": 1167,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "78e7e229"
+  },
+  {
+   "seed": 1168,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "3ff06e26"
+  },
+  {
+   "seed": 1169,
+   "n": 2,
+   "winner": "greek",
+   "type": "ascendancy",
+   "turn": 27,
+   "hash": "d4fa6fca"
+  },
+  {
+   "seed": 1170,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "8347d883"
+  },
+  {
+   "seed": 1171,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "bb1bb158"
+  },
+  {
+   "seed": 1172,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "979a1276"
+  },
+  {
+   "seed": 1173,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "9a108b4d"
+  },
+  {
+   "seed": 1174,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "a97d1d7f"
+  },
+  {
+   "seed": 1175,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "1b4e7007"
+  },
+  {
+   "seed": 1176,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "c037c865"
+  },
+  {
+   "seed": 1177,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "b1549af2"
+  },
+  {
+   "seed": 1178,
+   "n": 2,
+   "winner": "norse",
+   "type": "ascendancy",
+   "turn": 34,
+   "hash": "81e7b7bc"
+  },
+  {
+   "seed": 1179,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "7aa76603"
+  },
+  {
+   "seed": 1180,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "c28bcb22"
+  },
+  {
+   "seed": 1181,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "4bf6d412"
+  },
+  {
+   "seed": 1182,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "41d03a09"
+  },
+  {
+   "seed": 1183,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "a3eec0f7"
+  },
+  {
+   "seed": 1184,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "101d2098"
+  },
+  {
+   "seed": 1185,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "588b6291"
+  },
+  {
+   "seed": 1186,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "86ff59dd"
+  },
+  {
+   "seed": 1187,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "80980d76"
+  },
+  {
+   "seed": 1188,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "f5c64737"
+  },
+  {
+   "seed": 1189,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "b42ebc71"
+  },
+  {
+   "seed": 1190,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "a86c70c6"
+  },
+  {
+   "seed": 1191,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "cd93e826"
+  },
+  {
+   "seed": 1192,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "f6ee87ab"
+  },
+  {
+   "seed": 1193,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "dc876e89"
+  },
+  {
+   "seed": 1194,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "2ea7227f"
+  },
+  {
+   "seed": 1195,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "bf5a8e63"
+  },
+  {
+   "seed": 1196,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "2a8cec9d"
+  },
+  {
+   "seed": 1197,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "49206081"
+  },
+  {
+   "seed": 1198,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "1fdaf418"
+  },
+  {
+   "seed": 1199,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "76a5124d"
+  },
+  {
+   "seed": 1200,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "f06d7423"
+  },
+  {
+   "seed": 1201,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "bf3d3fff"
+  },
+  {
+   "seed": 1202,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "6c74f1a7"
+  },
+  {
+   "seed": 1203,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "e3afcb56"
+  },
+  {
+   "seed": 1204,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "e6c4b853"
+  },
+  {
+   "seed": 1205,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "636e1792"
+  },
+  {
+   "seed": 1206,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "d2f8f0f6"
+  },
+  {
+   "seed": 1207,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "f5e4d2fd"
+  },
+  {
+   "seed": 1208,
+   "n": 2,
+   "winner": "norse",
+   "type": "ascendancy",
+   "turn": 40,
+   "hash": "201c39c1"
+  },
+  {
+   "seed": 1209,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "cabcde8d"
+  },
+  {
+   "seed": 1210,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "3064671b"
+  },
+  {
+   "seed": 1211,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "956c9446"
+  },
+  {
+   "seed": 1212,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "a20c9b16"
+  },
+  {
+   "seed": 1213,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "4af8db0a"
+  },
+  {
+   "seed": 1214,
+   "n": 2,
+   "winner": "greek",
+   "type": "ascendancy",
+   "turn": 37,
+   "hash": "5eacf098"
+  },
+  {
+   "seed": 1215,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "e9e2130e"
+  },
+  {
+   "seed": 1216,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "c1d975d7"
+  },
+  {
+   "seed": 1217,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "7bc943ce"
+  },
+  {
+   "seed": 1218,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "6c9bb62c"
+  },
+  {
+   "seed": 1219,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "ascendancy",
+   "turn": 38,
+   "hash": "515804ac"
+  },
+  {
+   "seed": 1220,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "a1339674"
+  },
+  {
+   "seed": 1221,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "28920e27"
+  },
+  {
+   "seed": 1222,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "b9d09352"
+  },
+  {
+   "seed": 1223,
+   "n": 2,
+   "winner": "norse",
+   "type": "ascendancy",
+   "turn": 39,
+   "hash": "9355dbb7"
+  },
+  {
+   "seed": 1224,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "ascendancy",
+   "turn": 26,
+   "hash": "40987b3e"
+  },
+  {
+   "seed": 1225,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "24e6e350"
+  },
+  {
+   "seed": 1226,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "4bcce683"
+  },
+  {
+   "seed": 1227,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "fe07117d"
+  },
+  {
+   "seed": 1228,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "6f22ad8c"
+  },
+  {
+   "seed": 1229,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "d6db2a2e"
+  },
+  {
+   "seed": 1230,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "8a7f0bd0"
+  },
+  {
+   "seed": 1231,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "59e4e12e"
+  },
+  {
+   "seed": 1232,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "be65dba7"
+  },
+  {
+   "seed": 1233,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "3fd49d6f"
+  },
+  {
+   "seed": 1234,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "a4237542"
+  },
+  {
+   "seed": 1235,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "b04fcf0b"
+  },
+  {
+   "seed": 1236,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "19045c95"
+  },
+  {
+   "seed": 1237,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "18c3058b"
+  },
+  {
+   "seed": 1238,
+   "n": 2,
+   "winner": "norse",
+   "type": "ascendancy",
+   "turn": 33,
+   "hash": "c587f3c8"
+  },
+  {
+   "seed": 1239,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "72c7e055"
+  },
+  {
+   "seed": 1240,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "8fb7915e"
+  },
+  {
+   "seed": 1241,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "5a6612bf"
+  },
+  {
+   "seed": 1242,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "dea99412"
+  },
+  {
+   "seed": 1243,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "98409553"
+  },
+  {
+   "seed": 1244,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "d33dfcd7"
+  },
+  {
+   "seed": 1245,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "e65a6f12"
+  },
+  {
+   "seed": 1246,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "e2582c23"
+  },
+  {
+   "seed": 1247,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "ff09e335"
+  },
+  {
+   "seed": 1248,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "52349f37"
+  },
+  {
+   "seed": 1249,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "36670387"
+  },
+  {
+   "seed": 1250,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "9822875a"
+  },
+  {
+   "seed": 1251,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "9f211dc3"
+  },
+  {
+   "seed": 1252,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "ebcd773b"
+  },
+  {
+   "seed": 1253,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "1e75dc12"
+  },
+  {
+   "seed": 1254,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "6340e746"
+  },
+  {
+   "seed": 1255,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "2011e145"
+  },
+  {
+   "seed": 1256,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "31eeb93a"
+  },
+  {
+   "seed": 1257,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "2a26c1cd"
+  },
+  {
+   "seed": 1258,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "369f4dac"
+  },
+  {
+   "seed": 1259,
+   "n": 2,
+   "winner": "greek",
+   "type": "ascendancy",
+   "turn": 34,
+   "hash": "7f912a40"
+  },
+  {
+   "seed": 1260,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "ce4ee377"
+  },
+  {
+   "seed": 1261,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "f843b780"
+  },
+  {
+   "seed": 1262,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "fae13278"
+  },
+  {
+   "seed": 1263,
+   "n": 2,
+   "winner": "greek",
+   "type": "ascendancy",
+   "turn": 28,
+   "hash": "8f6e8765"
+  },
+  {
+   "seed": 1264,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "e8484ae4"
+  },
+  {
+   "seed": 1265,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "ea2c24bb"
+  },
+  {
+   "seed": 1266,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "2245e5d9"
+  },
+  {
+   "seed": 1267,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "fe71c8b2"
+  },
+  {
+   "seed": 1268,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "2657746e"
+  },
+  {
+   "seed": 1269,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "96d4e395"
+  },
+  {
+   "seed": 1270,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "c4a3c42f"
+  },
+  {
+   "seed": 1271,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "02bba00f"
+  },
+  {
+   "seed": 1272,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "b34e56a8"
+  },
+  {
+   "seed": 1273,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "5a14e049"
+  },
+  {
+   "seed": 1274,
+   "n": 2,
+   "winner": "greek",
+   "type": "ascendancy",
+   "turn": 31,
+   "hash": "24bef291"
+  },
+  {
+   "seed": 1275,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "b1daca1d"
+  },
+  {
+   "seed": 1276,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "ba471064"
+  },
+  {
+   "seed": 1277,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "07cabad3"
+  },
+  {
+   "seed": 1278,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "471e67ec"
+  },
+  {
+   "seed": 1279,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "2e021266"
+  },
+  {
+   "seed": 1280,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "09c501b3"
+  },
+  {
+   "seed": 1281,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "c8d37e27"
+  },
+  {
+   "seed": 1282,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "eba89f2b"
+  },
+  {
+   "seed": 1283,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "a5a03494"
+  },
+  {
+   "seed": 1284,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "2e2f44de"
+  },
+  {
+   "seed": 1285,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "56a014f6"
+  },
+  {
+   "seed": 1286,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "9525eee7"
+  },
+  {
+   "seed": 1287,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "f22615d0"
+  },
+  {
+   "seed": 1288,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "9e486ad1"
+  },
+  {
+   "seed": 1289,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "217e991d"
+  },
+  {
+   "seed": 1290,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "43dac6c7"
+  },
+  {
+   "seed": 1291,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "b20e7256"
+  },
+  {
+   "seed": 1292,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "a6955af5"
+  },
+  {
+   "seed": 1293,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "492bfd83"
+  },
+  {
+   "seed": 1294,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "2cc12a34"
+  },
+  {
+   "seed": 1295,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "a22f93cd"
+  },
+  {
+   "seed": 1296,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "b0b82f38"
+  },
+  {
+   "seed": 1297,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "7f5fcf1e"
+  },
+  {
+   "seed": 1298,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "533a04e3"
+  },
+  {
+   "seed": 1299,
+   "n": 2,
+   "winner": "norse",
+   "type": "ascendancy",
+   "turn": 31,
+   "hash": "6ddc06dd"
+  },
+  {
+   "seed": 1300,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "de9227ea"
+  },
+  {
+   "seed": 1301,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "1191371e"
+  },
+  {
+   "seed": 1302,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "60b3f847"
+  },
+  {
+   "seed": 1303,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "b47ea003"
+  },
+  {
+   "seed": 1304,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "dfef41cf"
+  },
+  {
+   "seed": 1305,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "867b520f"
+  },
+  {
+   "seed": 1306,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "f1fc4c93"
+  },
+  {
+   "seed": 1307,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "bcc4d15c"
+  },
+  {
+   "seed": 1308,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "82b664d4"
+  },
+  {
+   "seed": 1309,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "fd567e05"
+  },
+  {
+   "seed": 1310,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "398d583d"
+  },
+  {
+   "seed": 1311,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "2982933a"
+  },
+  {
+   "seed": 1312,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "0f492f12"
+  },
+  {
+   "seed": 1313,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "ascendancy",
+   "turn": 43,
+   "hash": "4b70d7ba"
+  },
+  {
+   "seed": 1314,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "ascendancy",
+   "turn": 27,
+   "hash": "7d999d8d"
+  },
+  {
+   "seed": 1315,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "20b5a96d"
+  },
+  {
+   "seed": 1316,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "9e751196"
+  },
+  {
+   "seed": 1317,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "60c13a35"
+  },
+  {
+   "seed": 1318,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "091c2f29"
+  },
+  {
+   "seed": 1319,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "b2e6ba33"
+  },
+  {
+   "seed": 1320,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "9196b627"
+  },
+  {
+   "seed": 1321,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "a0bba5fa"
+  },
+  {
+   "seed": 1322,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "20389827"
+  },
+  {
+   "seed": 1323,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "a6dc3449"
+  },
+  {
+   "seed": 1324,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "ascendancy",
+   "turn": 26,
+   "hash": "7b0ca872"
+  },
+  {
+   "seed": 1325,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "6a2247d1"
+  },
+  {
+   "seed": 1326,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "edd7b409"
+  },
+  {
+   "seed": 1327,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "350b375f"
+  },
+  {
+   "seed": 1328,
+   "n": 2,
+   "winner": "norse",
+   "type": "ascendancy",
+   "turn": 29,
+   "hash": "2f09d6af"
+  },
+  {
+   "seed": 1329,
+   "n": 2,
+   "winner": "norse",
+   "type": "ascendancy",
+   "turn": 28,
+   "hash": "e6084977"
+  },
+  {
+   "seed": 1330,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "57db510f"
+  },
+  {
+   "seed": 1331,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "d9350190"
+  },
+  {
+   "seed": 1332,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "3a2b9e5f"
+  },
+  {
+   "seed": 1333,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "2400205f"
+  },
+  {
+   "seed": 1334,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "bbf1f39b"
+  },
+  {
+   "seed": 1335,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "cbd5b5fb"
+  },
+  {
+   "seed": 1336,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "1a8c1753"
+  },
+  {
+   "seed": 1337,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "1e5fe7a8"
+  },
+  {
+   "seed": 1338,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "8ea60af9"
+  },
+  {
+   "seed": 1339,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "ascendancy",
+   "turn": 23,
+   "hash": "80129f20"
+  },
+  {
+   "seed": 1340,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "af86cb3a"
+  },
+  {
+   "seed": 1341,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "3b19da1e"
+  },
+  {
+   "seed": 1342,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "6a3b6eba"
+  },
+  {
+   "seed": 1343,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "f13c5e02"
+  },
+  {
+   "seed": 1344,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "ad324ba9"
+  },
+  {
+   "seed": 1345,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "23ac3c92"
+  },
+  {
+   "seed": 1346,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "87ce360a"
+  },
+  {
+   "seed": 1347,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "7d10f399"
+  },
+  {
+   "seed": 1348,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "39e3054f"
+  },
+  {
+   "seed": 1349,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "ac16d35e"
+  },
+  {
+   "seed": 1350,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "07499054"
+  },
+  {
+   "seed": 1351,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "bb163db4"
+  },
+  {
+   "seed": 1352,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "4b72a16d"
+  },
+  {
+   "seed": 1353,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "e418eff2"
+  },
+  {
+   "seed": 1354,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "5a0fe0af"
+  },
+  {
+   "seed": 1355,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "b9e940ac"
+  },
+  {
+   "seed": 1356,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "57ef1f1d"
+  },
+  {
+   "seed": 1357,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "be41977f"
+  },
+  {
+   "seed": 1358,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "055a37fa"
+  },
+  {
+   "seed": 1359,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "fba1f748"
+  },
+  {
+   "seed": 1360,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "b65f6304"
+  },
+  {
+   "seed": 1361,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "631fe058"
+  },
+  {
+   "seed": 1362,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "141706eb"
+  },
+  {
+   "seed": 1363,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "c8489022"
+  },
+  {
+   "seed": 1364,
+   "n": 2,
+   "winner": "greek",
+   "type": "ascendancy",
+   "turn": 27,
+   "hash": "9ee63d9b"
+  },
+  {
+   "seed": 1365,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "aff51daf"
+  },
+  {
+   "seed": 1366,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "f4f5b242"
+  },
+  {
+   "seed": 1367,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "20783a3b"
+  },
+  {
+   "seed": 1368,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "fe492478"
+  },
+  {
+   "seed": 1369,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "e64f9254"
+  },
+  {
+   "seed": 1370,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "9a1f922f"
+  },
+  {
+   "seed": 1371,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "0667f4a9"
+  },
+  {
+   "seed": 1372,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "c3d103b4"
+  },
+  {
+   "seed": 1373,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "f47cdfe7"
+  },
+  {
+   "seed": 1374,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "ascendancy",
+   "turn": 22,
+   "hash": "df34a726"
+  },
+  {
+   "seed": 1375,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "bcb97f54"
+  },
+  {
+   "seed": 1376,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "33d45048"
+  },
+  {
+   "seed": 1377,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "529086cb"
+  },
+  {
+   "seed": 1378,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "c0be6582"
+  },
+  {
+   "seed": 1379,
+   "n": 2,
+   "winner": "greek",
+   "type": "ascendancy",
+   "turn": 31,
+   "hash": "2d17464f"
+  },
+  {
+   "seed": 1380,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "a672e04b"
+  },
+  {
+   "seed": 1381,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "aa57e7d8"
+  },
+  {
+   "seed": 1382,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "499ab254"
+  },
+  {
+   "seed": 1383,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "69314395"
+  },
+  {
+   "seed": 1384,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "af7c594e"
+  },
+  {
+   "seed": 1385,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "ccf663a6"
+  },
+  {
+   "seed": 1386,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "2f43bceb"
+  },
+  {
+   "seed": 1387,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "52f77169"
+  },
+  {
+   "seed": 1388,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "13209cb1"
+  },
+  {
+   "seed": 1389,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "184cf456"
+  },
+  {
+   "seed": 1390,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "7ee106f7"
+  },
+  {
+   "seed": 1391,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "eb9fe0a5"
+  },
+  {
+   "seed": 1392,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "cd27c5b9"
+  },
+  {
+   "seed": 1393,
+   "n": 2,
+   "winner": "greek",
+   "type": "ascendancy",
+   "turn": 28,
+   "hash": "caad4a41"
+  },
+  {
+   "seed": 1394,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "a74250b1"
+  },
+  {
+   "seed": 1395,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "97dc6520"
+  },
+  {
+   "seed": 1396,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "ea15fded"
+  },
+  {
+   "seed": 1397,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "8aeed6e1"
+  },
+  {
+   "seed": 1398,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "00fece4a"
+  },
+  {
+   "seed": 1399,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "dcafffc7"
+  },
+  {
+   "seed": 1400,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "0cd6bfac"
+  },
+  {
+   "seed": 1401,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "bbd0a4b5"
+  },
+  {
+   "seed": 1402,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "769ff191"
+  },
+  {
+   "seed": 1403,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "ascendancy",
+   "turn": 23,
+   "hash": "494ebeda"
+  },
+  {
+   "seed": 1404,
+   "n": 2,
+   "winner": "norse",
+   "type": "ascendancy",
+   "turn": 34,
+   "hash": "58ed4911"
+  },
+  {
+   "seed": 1405,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "ascendancy",
+   "turn": 25,
+   "hash": "ecbbed37"
+  },
+  {
+   "seed": 1406,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "d3e85c45"
+  },
+  {
+   "seed": 1407,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "fb2373de"
+  },
+  {
+   "seed": 1408,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "2e2bf372"
+  },
+  {
+   "seed": 1409,
+   "n": 2,
+   "winner": "greek",
+   "type": "ascendancy",
+   "turn": 25,
+   "hash": "4db64631"
+  },
+  {
+   "seed": 1410,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "bc6bb3f6"
+  },
+  {
+   "seed": 1411,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "66646547"
+  },
+  {
+   "seed": 1412,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "d94d8fa3"
+  },
+  {
+   "seed": 1413,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "c0cf150f"
+  },
+  {
+   "seed": 1414,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "09250861"
+  },
+  {
+   "seed": 1415,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "c1afb541"
+  },
+  {
+   "seed": 1416,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "a3f73d8c"
+  },
+  {
+   "seed": 1417,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "fdffedbf"
+  },
+  {
+   "seed": 1418,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "36f462da"
+  },
+  {
+   "seed": 1419,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "ascendancy",
+   "turn": 32,
+   "hash": "26cfe5e9"
+  },
+  {
+   "seed": 1420,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "b94b4a2e"
+  },
+  {
+   "seed": 1421,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "d533c4bf"
+  },
+  {
+   "seed": 1422,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "5878a231"
+  },
+  {
+   "seed": 1423,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "fc5179c2"
+  },
+  {
+   "seed": 1424,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "4b2c4690"
+  },
+  {
+   "seed": 1425,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "deb8d7aa"
+  },
+  {
+   "seed": 1426,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "5a4393b4"
+  },
+  {
+   "seed": 1427,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "56d6de07"
+  },
+  {
+   "seed": 1428,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "8604417e"
+  },
+  {
+   "seed": 1429,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "ascendancy",
+   "turn": 33,
+   "hash": "33826020"
+  },
+  {
+   "seed": 1430,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "6aabb3dd"
+  },
+  {
+   "seed": 1431,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "36d0c0b8"
+  },
+  {
+   "seed": 1432,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "3aaede1c"
+  },
+  {
+   "seed": 1433,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "526f6758"
+  },
+  {
+   "seed": 1434,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "13a1cf9e"
+  },
+  {
+   "seed": 1435,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "b2ccd97b"
+  },
+  {
+   "seed": 1436,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "19c0704a"
+  },
+  {
+   "seed": 1437,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "c9495a2c"
+  },
+  {
+   "seed": 1438,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "6e5795c1"
+  },
+  {
+   "seed": 1439,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "37e7dbed"
+  },
+  {
+   "seed": 1440,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "e3af01d5"
+  },
+  {
+   "seed": 1441,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "a3887758"
+  },
+  {
+   "seed": 1442,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "edbe879d"
+  },
+  {
+   "seed": 1443,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "e87d899d"
+  },
+  {
+   "seed": 1444,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "ascendancy",
+   "turn": 29,
+   "hash": "40a1081d"
+  },
+  {
+   "seed": 1445,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "ef2373a2"
+  },
+  {
+   "seed": 1446,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "e75147b1"
+  },
+  {
+   "seed": 1447,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "6ebce7d7"
+  },
+  {
+   "seed": 1448,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "ascendancy",
+   "turn": 26,
+   "hash": "c44fcdef"
+  },
+  {
+   "seed": 1449,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "ascendancy",
+   "turn": 23,
+   "hash": "7c7b23b6"
+  },
+  {
+   "seed": 1450,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "613059ac"
+  },
+  {
+   "seed": 1451,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "dc5e6a23"
+  },
+  {
+   "seed": 1452,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "cb4216a7"
+  },
+  {
+   "seed": 1453,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "b2cac946"
+  },
+  {
+   "seed": 1454,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "54793bed"
+  },
+  {
+   "seed": 1455,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "75b7f80e"
+  },
+  {
+   "seed": 1456,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "09052ace"
+  },
+  {
+   "seed": 1457,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "feec5dce"
+  },
+  {
+   "seed": 1458,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "ascendancy",
+   "turn": 27,
+   "hash": "6eb0766b"
+  },
+  {
+   "seed": 1459,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "ascendancy",
+   "turn": 27,
+   "hash": "40cec84c"
+  },
+  {
+   "seed": 1460,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "da51703b"
+  },
+  {
+   "seed": 1461,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "37655012"
+  },
+  {
+   "seed": 1462,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "3981814e"
+  },
+  {
+   "seed": 1463,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "b12e0c68"
+  },
+  {
+   "seed": 1464,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "088f63b0"
+  },
+  {
+   "seed": 1465,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "e67d72fb"
+  },
+  {
+   "seed": 1466,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "05e1e30b"
+  },
+  {
+   "seed": 1467,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "35222ef3"
+  },
+  {
+   "seed": 1468,
+   "n": 2,
+   "winner": "norse",
+   "type": "ascendancy",
+   "turn": 29,
+   "hash": "53729c22"
+  },
+  {
+   "seed": 1469,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "a4c446da"
+  },
+  {
+   "seed": 1470,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "b0752b08"
+  },
+  {
+   "seed": 1471,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "179f214d"
+  },
+  {
+   "seed": 1472,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "55cd7339"
+  },
+  {
+   "seed": 1473,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "346c71a0"
+  },
+  {
+   "seed": 1474,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "15e2e550"
+  },
+  {
+   "seed": 1475,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "63cdd1c3"
+  },
+  {
+   "seed": 1476,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "93638033"
+  },
+  {
+   "seed": 1477,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "ed56d6cc"
+  },
+  {
+   "seed": 1478,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "b0783148"
+  },
+  {
+   "seed": 1479,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "26da628f"
+  },
+  {
+   "seed": 1480,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "ffee5a6c"
+  },
+  {
+   "seed": 1481,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "53076d35"
+  },
+  {
+   "seed": 1482,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "dc17d21a"
+  },
+  {
+   "seed": 1483,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "a4cec795"
+  },
+  {
+   "seed": 1484,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "ef0652fd"
+  },
+  {
+   "seed": 1485,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "2d0fe71b"
+  },
+  {
+   "seed": 1486,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "cb527440"
+  },
+  {
+   "seed": 1487,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "6987493f"
+  },
+  {
+   "seed": 1488,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "18aae5ab"
+  },
+  {
+   "seed": 1489,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "47c6763f"
+  },
+  {
+   "seed": 1490,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "d26a403c"
+  },
+  {
+   "seed": 1491,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "301fcc07"
+  },
+  {
+   "seed": 1492,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "5a746862"
+  },
+  {
+   "seed": 1493,
+   "n": 2,
+   "winner": "norse",
+   "type": "ascendancy",
+   "turn": 32,
+   "hash": "59273347"
+  },
+  {
+   "seed": 1494,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "7e89a891"
+  },
+  {
+   "seed": 1495,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "872c3ec5"
+  },
+  {
+   "seed": 1496,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "955dbdf8"
+  },
+  {
+   "seed": 1497,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "36ebf182"
+  },
+  {
+   "seed": 1498,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "dd3b2471"
+  },
+  {
+   "seed": 1499,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "9cde4da4"
+  },
+  {
+   "seed": 1500,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "7765a088"
+  },
+  {
+   "seed": 1501,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "9b33eac3"
+  },
+  {
+   "seed": 1502,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "b8f740a8"
+  },
+  {
+   "seed": 1503,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "14756c83"
+  },
+  {
+   "seed": 1504,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "7ea63c60"
+  },
+  {
+   "seed": 1505,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "ea034844"
+  },
+  {
+   "seed": 1506,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "51dac9a5"
+  },
+  {
+   "seed": 1507,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "28e86bea"
+  },
+  {
+   "seed": 1508,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "02a8343d"
+  },
+  {
+   "seed": 1509,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "ascendancy",
+   "turn": 26,
+   "hash": "53270104"
+  },
+  {
+   "seed": 1510,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "9184a01d"
+  },
+  {
+   "seed": 1511,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "bb6359e8"
+  },
+  {
+   "seed": 1512,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "3ec128c7"
+  },
+  {
+   "seed": 1513,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "aef803ec"
+  },
+  {
+   "seed": 1514,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "06216ec5"
+  },
+  {
+   "seed": 1515,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "bdb97f5e"
+  },
+  {
+   "seed": 1516,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "a362ad2a"
+  },
+  {
+   "seed": 1517,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "db6d7a2b"
+  },
+  {
+   "seed": 1518,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "a313cf3c"
+  },
+  {
+   "seed": 1519,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "d67a49f3"
+  },
+  {
+   "seed": 1520,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "c19422e7"
+  },
+  {
+   "seed": 1521,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "3882ccdb"
+  },
+  {
+   "seed": 1522,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "db952b66"
+  },
+  {
+   "seed": 1523,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "717ad534"
+  },
+  {
+   "seed": 1524,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "03422d7a"
+  },
+  {
+   "seed": 1525,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "e4c6e6f5"
+  },
+  {
+   "seed": 1526,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "7f87e1ed"
+  },
+  {
+   "seed": 1527,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "49b26bcf"
+  },
+  {
+   "seed": 1528,
+   "n": 2,
+   "winner": "greek",
+   "type": "ascendancy",
+   "turn": 31,
+   "hash": "957a3462"
+  },
+  {
+   "seed": 1529,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "cd95dffc"
+  },
+  {
+   "seed": 1530,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "09dc36d2"
+  },
+  {
+   "seed": 1531,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "35015ff7"
+  },
+  {
+   "seed": 1532,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "b15e6641"
+  },
+  {
+   "seed": 1533,
+   "n": 2,
+   "winner": "greek",
+   "type": "ascendancy",
+   "turn": 32,
+   "hash": "fb61b4d1"
+  },
+  {
+   "seed": 1534,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "abed225c"
+  },
+  {
+   "seed": 1535,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "652d9e9c"
+  },
+  {
+   "seed": 1536,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "e0ae8713"
+  },
+  {
+   "seed": 1537,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "5c402f44"
+  },
+  {
+   "seed": 1538,
+   "n": 2,
+   "winner": "norse",
+   "type": "ascendancy",
+   "turn": 43,
+   "hash": "a7243e08"
+  },
+  {
+   "seed": 1539,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "ascendancy",
+   "turn": 31,
+   "hash": "294abcdf"
+  },
+  {
+   "seed": 1540,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "377d3f6b"
+  },
+  {
+   "seed": 1541,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "c28ed0ec"
+  },
+  {
+   "seed": 1542,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "5f8d5351"
+  },
+  {
+   "seed": 1543,
+   "n": 2,
+   "winner": "greek",
+   "type": "ascendancy",
+   "turn": 27,
+   "hash": "0582765f"
+  },
+  {
+   "seed": 1544,
+   "n": 2,
+   "winner": "greek",
+   "type": "ascendancy",
+   "turn": 31,
+   "hash": "03a0887c"
+  },
+  {
+   "seed": 1545,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "6232ee1e"
+  },
+  {
+   "seed": 1546,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "d4c637d9"
+  },
+  {
+   "seed": 1547,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "af3647a5"
+  },
+  {
+   "seed": 1548,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "8023348e"
+  },
+  {
+   "seed": 1549,
+   "n": 2,
+   "winner": "greek",
+   "type": "ascendancy",
+   "turn": 40,
+   "hash": "98b8b3fe"
+  },
+  {
+   "seed": 1550,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "69370eef"
+  },
+  {
+   "seed": 1551,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "0e85a24b"
+  },
+  {
+   "seed": 1552,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "a86184f2"
+  },
+  {
+   "seed": 1553,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "ascendancy",
+   "turn": 25,
+   "hash": "650aa1df"
+  },
+  {
+   "seed": 1554,
+   "n": 2,
+   "winner": "norse",
+   "type": "ascendancy",
+   "turn": 44,
+   "hash": "e1c2c3fa"
+  },
+  {
+   "seed": 1555,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "70e8b5aa"
+  },
+  {
+   "seed": 1556,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "d1e8cf5f"
+  },
+  {
+   "seed": 1557,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "e48da395"
+  },
+  {
+   "seed": 1558,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "d1ad9f79"
+  },
+  {
+   "seed": 1559,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "1bfb9efa"
+  },
+  {
+   "seed": 1560,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "4d542112"
+  },
+  {
+   "seed": 1561,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "58a39a0a"
+  },
+  {
+   "seed": 1562,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "d3af6c5b"
+  },
+  {
+   "seed": 1563,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "ascendancy",
+   "turn": 37,
+   "hash": "5c4191c7"
+  },
+  {
+   "seed": 1564,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "6293cc86"
+  },
+  {
+   "seed": 1565,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "037cfeea"
+  },
+  {
+   "seed": 1566,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "e2f2a7ab"
+  },
+  {
+   "seed": 1567,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "bf9c356e"
+  },
+  {
+   "seed": 1568,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "61684f7c"
+  },
+  {
+   "seed": 1569,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "ascendancy",
+   "turn": 33,
+   "hash": "e511b316"
+  },
+  {
+   "seed": 1570,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "c89f99fb"
+  },
+  {
+   "seed": 1571,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "70a88ba3"
+  },
+  {
+   "seed": 1572,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "5de40fa3"
+  },
+  {
+   "seed": 1573,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "06b095da"
+  },
+  {
+   "seed": 1574,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "3661cae1"
+  },
+  {
+   "seed": 1575,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "9b7097d7"
+  },
+  {
+   "seed": 1576,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "18c75717"
+  },
+  {
+   "seed": 1577,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "b74af12a"
+  },
+  {
+   "seed": 1578,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "76a67f23"
+  },
+  {
+   "seed": 1579,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "c105036c"
+  },
+  {
+   "seed": 1580,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "a5bee8fc"
+  },
+  {
+   "seed": 1581,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "068bc794"
+  },
+  {
+   "seed": 1582,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "9cb738b1"
+  },
+  {
+   "seed": 1583,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "ascendancy",
+   "turn": 31,
+   "hash": "3e1101b8"
+  },
+  {
+   "seed": 1584,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "ascendancy",
+   "turn": 31,
+   "hash": "f2e45374"
+  },
+  {
+   "seed": 1585,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "039fe858"
+  },
+  {
+   "seed": 1586,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "93225922"
+  },
+  {
+   "seed": 1587,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "35d69ab8"
+  },
+  {
+   "seed": 1588,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "f146b324"
+  },
+  {
+   "seed": 1589,
+   "n": 2,
+   "winner": "greek",
+   "type": "ascendancy",
+   "turn": 32,
+   "hash": "24008ad7"
+  },
+  {
+   "seed": 1590,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "eb2509fb"
+  },
+  {
+   "seed": 1591,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "37dcd939"
+  },
+  {
+   "seed": 1592,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "b7bb78a6"
+  },
+  {
+   "seed": 1593,
+   "n": 2,
+   "winner": "greek",
+   "type": "ascendancy",
+   "turn": 32,
+   "hash": "429978ed"
+  },
+  {
+   "seed": 1594,
+   "n": 2,
+   "winner": "greek",
+   "type": "ascendancy",
+   "turn": 26,
+   "hash": "e7d2b471"
+  },
+  {
+   "seed": 1595,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "5a78624e"
+  },
+  {
+   "seed": 1596,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "51a3169e"
+  },
+  {
+   "seed": 1597,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "aee96c5d"
+  },
+  {
+   "seed": 1598,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "3c72e582"
+  },
+  {
+   "seed": 1599,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "57527a86"
+  },
+  {
+   "seed": 1600,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "7ae9c411"
+  },
+  {
+   "seed": 1601,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "76ac9e41"
+  },
+  {
+   "seed": 1602,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "f54135bb"
+  },
+  {
+   "seed": 1603,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "c702d27f"
+  },
+  {
+   "seed": 1604,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "0bcc218a"
+  },
+  {
+   "seed": 1605,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "6a24dced"
+  },
+  {
+   "seed": 1606,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "14c852d8"
+  },
+  {
+   "seed": 1607,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "f2192dad"
+  },
+  {
+   "seed": 1608,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "ascendancy",
+   "turn": 31,
+   "hash": "ebd11aee"
+  },
+  {
+   "seed": 1609,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "579b4104"
+  },
+  {
+   "seed": 1610,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "12a1938e"
+  },
+  {
+   "seed": 1611,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "d461c2f9"
+  },
+  {
+   "seed": 1612,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "16387a56"
+  },
+  {
+   "seed": 1613,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "023cb435"
+  },
+  {
+   "seed": 1614,
+   "n": 2,
+   "winner": "norse",
+   "type": "ascendancy",
+   "turn": 29,
+   "hash": "e8b3f468"
+  },
+  {
+   "seed": 1615,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "5b3645f1"
+  },
+  {
+   "seed": 1616,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "3cadb474"
+  },
+  {
+   "seed": 1617,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "05cfd59e"
+  },
+  {
+   "seed": 1618,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "625d6e10"
+  },
+  {
+   "seed": 1619,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "14645dba"
+  },
+  {
+   "seed": 1620,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "33fb0f31"
+  },
+  {
+   "seed": 1621,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "f3cb6fbe"
+  },
+  {
+   "seed": 1622,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "381f4869"
+  },
+  {
+   "seed": 1623,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "28791105"
+  },
+  {
+   "seed": 1624,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "ascendancy",
+   "turn": 27,
+   "hash": "3991d087"
+  },
+  {
+   "seed": 1625,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "ba08069a"
+  },
+  {
+   "seed": 1626,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "c83debfe"
+  },
+  {
+   "seed": 1627,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "56483276"
+  },
+  {
+   "seed": 1628,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "e9dd543e"
+  },
+  {
+   "seed": 1629,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "ascendancy",
+   "turn": 44,
+   "hash": "35e028df"
+  },
+  {
+   "seed": 1630,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "bd3da890"
+  },
+  {
+   "seed": 1631,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "032839d6"
+  },
+  {
+   "seed": 1632,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "168c43f8"
+  },
+  {
+   "seed": 1633,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "68cbb7fd"
+  },
+  {
+   "seed": 1634,
+   "n": 2,
+   "winner": "norse",
+   "type": "ascendancy",
+   "turn": 28,
+   "hash": "49f4c306"
+  },
+  {
+   "seed": 1635,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "e8416264"
+  },
+  {
+   "seed": 1636,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "3966674d"
+  },
+  {
+   "seed": 1637,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "cd818935"
+  },
+  {
+   "seed": 1638,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "ad561837"
+  },
+  {
+   "seed": 1639,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "60ae885f"
+  },
+  {
+   "seed": 1640,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "f268e7e2"
+  },
+  {
+   "seed": 1641,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "513b2e6e"
+  },
+  {
+   "seed": 1642,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "8767f730"
+  },
+  {
+   "seed": 1643,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "b71cb256"
+  },
+  {
+   "seed": 1644,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "2064dab1"
+  },
+  {
+   "seed": 1645,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "a48169db"
+  },
+  {
+   "seed": 1646,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "c3fb52d0"
+  },
+  {
+   "seed": 1647,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "41649a38"
+  },
+  {
+   "seed": 1648,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "6fc7cf3d"
+  },
+  {
+   "seed": 1649,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "aa87136a"
+  },
+  {
+   "seed": 1650,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "5947f557"
+  },
+  {
+   "seed": 1651,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "cfdb93a3"
+  },
+  {
+   "seed": 1652,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "e2178db4"
+  },
+  {
+   "seed": 1653,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "9b25e141"
+  },
+  {
+   "seed": 1654,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "ascendancy",
+   "turn": 28,
+   "hash": "113e64fe"
+  },
+  {
+   "seed": 1655,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "fe23cbfc"
+  },
+  {
+   "seed": 1656,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "9211cc2d"
+  },
+  {
+   "seed": 1657,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "3a94ff5f"
+  },
+  {
+   "seed": 1658,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "2fd46200"
+  },
+  {
+   "seed": 1659,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "7a8f3db2"
+  },
+  {
+   "seed": 1660,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "5eb6f426"
+  },
+  {
+   "seed": 1661,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "e06a918e"
+  },
+  {
+   "seed": 1662,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "dcf3c1aa"
+  },
+  {
+   "seed": 1663,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "53ace844"
+  },
+  {
+   "seed": 1664,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "47e017c8"
+  },
+  {
+   "seed": 1665,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "03d848f9"
+  },
+  {
+   "seed": 1666,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "070a10e4"
+  },
+  {
+   "seed": 1667,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "f6cbfe07"
+  },
+  {
+   "seed": 1668,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "30efb8af"
+  },
+  {
+   "seed": 1669,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "f4117ec4"
+  },
+  {
+   "seed": 1670,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "56ee808f"
+  },
+  {
+   "seed": 1671,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "bd3402b8"
+  },
+  {
+   "seed": 1672,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "a644b84c"
+  },
+  {
+   "seed": 1673,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "eeedf682"
+  },
+  {
+   "seed": 1674,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "9e6edaa3"
+  },
+  {
+   "seed": 1675,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "1eddb0aa"
+  },
+  {
+   "seed": 1676,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "c1a61c11"
+  },
+  {
+   "seed": 1677,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "68db6eb3"
+  },
+  {
+   "seed": 1678,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "6e01a367"
+  },
+  {
+   "seed": 1679,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "1233fde9"
+  },
+  {
+   "seed": 1680,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "cf48d985"
+  },
+  {
+   "seed": 1681,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "c05bf509"
+  },
+  {
+   "seed": 1682,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "cbff64e2"
+  },
+  {
+   "seed": 1683,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "1bf28e0f"
+  },
+  {
+   "seed": 1684,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "ea6f0163"
+  },
+  {
+   "seed": 1685,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "17321f59"
+  },
+  {
+   "seed": 1686,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "b5f8d2ca"
+  },
+  {
+   "seed": 1687,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "73d073c9"
+  },
+  {
+   "seed": 1688,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "9f0b7c24"
+  },
+  {
+   "seed": 1689,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "0f20867b"
+  },
+  {
+   "seed": 1690,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "884ff55c"
+  },
+  {
+   "seed": 1691,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "5c3aae0a"
+  },
+  {
+   "seed": 1692,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "70eb7e0c"
+  },
+  {
+   "seed": 1693,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "f57072b4"
+  },
+  {
+   "seed": 1694,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "9c575c9b"
+  },
+  {
+   "seed": 1695,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "d9de80b4"
+  },
+  {
+   "seed": 1696,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "ae8976d3"
+  },
+  {
+   "seed": 1697,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "7a91685e"
+  },
+  {
+   "seed": 1698,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "c5fc6f81"
+  },
+  {
+   "seed": 1699,
+   "n": 2,
+   "winner": "greek",
+   "type": "ascendancy",
+   "turn": 26,
+   "hash": "2c61d80a"
+  },
+  {
+   "seed": 1700,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "06abd145"
+  },
+  {
+   "seed": 1701,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "adf0bb82"
+  },
+  {
+   "seed": 1702,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "8a6b42d0"
+  },
+  {
+   "seed": 1703,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "0f5246bb"
+  },
+  {
+   "seed": 1704,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "4f468d1d"
+  },
+  {
+   "seed": 1705,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "efb3c097"
+  },
+  {
+   "seed": 1706,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "d4f7654f"
+  },
+  {
+   "seed": 1707,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "414c7d4b"
+  },
+  {
+   "seed": 1708,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "8517cf94"
+  },
+  {
+   "seed": 1709,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "9361a37a"
+  },
+  {
+   "seed": 1710,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "de5d7f3d"
+  },
+  {
+   "seed": 1711,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "8db7e708"
+  },
+  {
+   "seed": 1712,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "a42d593c"
+  },
+  {
+   "seed": 1713,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "59d89b3c"
+  },
+  {
+   "seed": 1714,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "424ebe19"
+  },
+  {
+   "seed": 1715,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "6f0b6da9"
+  },
+  {
+   "seed": 1716,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "b60352e3"
+  },
+  {
+   "seed": 1717,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "3ad614b3"
+  },
+  {
+   "seed": 1718,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "ascendancy",
+   "turn": 23,
+   "hash": "96d4cbc6"
+  },
+  {
+   "seed": 1719,
+   "n": 2,
+   "winner": "norse",
+   "type": "ascendancy",
+   "turn": 25,
+   "hash": "19312bdb"
+  },
+  {
+   "seed": 1720,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "c0bbf8f1"
+  },
+  {
+   "seed": 1721,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "cc107215"
+  },
+  {
+   "seed": 1722,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "936a27e5"
+  },
+  {
+   "seed": 1723,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "6abef837"
+  },
+  {
+   "seed": 1724,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "8a6e3499"
+  },
+  {
+   "seed": 1725,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "8f9722bd"
+  },
+  {
+   "seed": 1726,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "1564b941"
+  },
+  {
+   "seed": 1727,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "f3cec70e"
+  },
+  {
+   "seed": 1728,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "e1dffb77"
+  },
+  {
+   "seed": 1729,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "620f4bc4"
+  },
+  {
+   "seed": 1730,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "59ffbd3c"
+  },
+  {
+   "seed": 1731,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "d1a54616"
+  },
+  {
+   "seed": 1732,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "7f944af9"
+  },
+  {
+   "seed": 1733,
+   "n": 2,
+   "winner": "norse",
+   "type": "ascendancy",
+   "turn": 40,
+   "hash": "2db114a9"
+  },
+  {
+   "seed": 1734,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "ascendancy",
+   "turn": 45,
+   "hash": "b33a521b"
+  },
+  {
+   "seed": 1735,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "48b7201d"
+  },
+  {
+   "seed": 1736,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "84a6c349"
+  },
+  {
+   "seed": 1737,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "d8f559ac"
+  },
+  {
+   "seed": 1738,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "dc2e801a"
+  },
+  {
+   "seed": 1739,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "50df6227"
+  },
+  {
+   "seed": 1740,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "bda29596"
+  },
+  {
+   "seed": 1741,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "0490fa5d"
+  },
+  {
+   "seed": 1742,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "af24b7fd"
+  },
+  {
+   "seed": 1743,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "7473eacb"
+  },
+  {
+   "seed": 1744,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "3e20fb55"
+  },
+  {
+   "seed": 1745,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "6587152f"
+  },
+  {
+   "seed": 1746,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "88c3a5b8"
+  },
+  {
+   "seed": 1747,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "881f8f11"
+  },
+  {
+   "seed": 1748,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "2c287ff4"
+  },
+  {
+   "seed": 1749,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "a74c7676"
+  },
+  {
+   "seed": 1750,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "35c8d0f5"
+  },
+  {
+   "seed": 1751,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "2b947dbf"
+  },
+  {
+   "seed": 1752,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "974a2e49"
+  },
+  {
+   "seed": 1753,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "c3ec7c4a"
+  },
+  {
+   "seed": 1754,
+   "n": 2,
+   "winner": "greek",
+   "type": "ascendancy",
+   "turn": 27,
+   "hash": "45211f48"
+  },
+  {
+   "seed": 1755,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "5ec021ea"
+  },
+  {
+   "seed": 1756,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "ff255943"
+  },
+  {
+   "seed": 1757,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "71a13903"
+  },
+  {
+   "seed": 1758,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "41b41dde"
+  },
+  {
+   "seed": 1759,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "c5a94979"
+  },
+  {
+   "seed": 1760,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "3c7ca347"
+  },
+  {
+   "seed": 1761,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "b267f128"
+  },
+  {
+   "seed": 1762,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "ee14d436"
+  },
+  {
+   "seed": 1763,
+   "n": 2,
+   "winner": "norse",
+   "type": "ascendancy",
+   "turn": 31,
+   "hash": "c7805ec7"
+  },
+  {
+   "seed": 1764,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "58cb939b"
+  },
+  {
+   "seed": 1765,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "0231bd62"
+  },
+  {
+   "seed": 1766,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "5dfe4ddc"
+  },
+  {
+   "seed": 1767,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "6d2b1708"
+  },
+  {
+   "seed": 1768,
+   "n": 2,
+   "winner": "norse",
+   "type": "ascendancy",
+   "turn": 37,
+   "hash": "fc0673ad"
+  },
+  {
+   "seed": 1769,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "c702d4ed"
+  },
+  {
+   "seed": 1770,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "76d3b758"
+  },
+  {
+   "seed": 1771,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "33ca8e06"
+  },
+  {
+   "seed": 1772,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "1466b0a5"
+  },
+  {
+   "seed": 1773,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "0e436107"
+  },
+  {
+   "seed": 1774,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "ascendancy",
+   "turn": 26,
+   "hash": "7d6ab019"
+  },
+  {
+   "seed": 1775,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "aceeea45"
+  },
+  {
+   "seed": 1776,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "6127540c"
+  },
+  {
+   "seed": 1777,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "5032bad3"
+  },
+  {
+   "seed": 1778,
+   "n": 2,
+   "winner": "norse",
+   "type": "ascendancy",
+   "turn": 37,
+   "hash": "536d60ec"
+  },
+  {
+   "seed": 1779,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "ascendancy",
+   "turn": 26,
+   "hash": "c93b6325"
+  },
+  {
+   "seed": 1780,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "47448d0d"
+  },
+  {
+   "seed": 1781,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "fca3b273"
+  },
+  {
+   "seed": 1782,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "062d6c29"
+  },
+  {
+   "seed": 1783,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "c2f8422a"
+  },
+  {
+   "seed": 1784,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "25463313"
+  },
+  {
+   "seed": 1785,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "ecc10853"
+  },
+  {
+   "seed": 1786,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "10db5a45"
+  },
+  {
+   "seed": 1787,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "ec40a919"
+  },
+  {
+   "seed": 1788,
+   "n": 2,
+   "winner": "greek",
+   "type": "ascendancy",
+   "turn": 27,
+   "hash": "8be92840"
+  },
+  {
+   "seed": 1789,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "ce1f20d7"
+  },
+  {
+   "seed": 1790,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "215a1ea6"
+  },
+  {
+   "seed": 1791,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "f74f82b2"
+  },
+  {
+   "seed": 1792,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "8d66f628"
+  },
+  {
+   "seed": 1793,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "6c20950f"
+  },
+  {
+   "seed": 1794,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "799ec682"
+  },
+  {
+   "seed": 1795,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "3823a59f"
+  },
+  {
+   "seed": 1796,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "0b7be9de"
+  },
+  {
+   "seed": 1797,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "eb6d8f82"
+  },
+  {
+   "seed": 1798,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "09febc74"
+  },
+  {
+   "seed": 1799,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "fafcfbc0"
+  },
+  {
+   "seed": 1800,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "96374868"
+  },
+  {
+   "seed": 1801,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "b4ba3bba"
+  },
+  {
+   "seed": 1802,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "2168762b"
+  },
+  {
+   "seed": 1803,
+   "n": 2,
+   "winner": "greek",
+   "type": "ascendancy",
+   "turn": 32,
+   "hash": "e510599f"
+  },
+  {
+   "seed": 1804,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "dec434f8"
+  },
+  {
+   "seed": 1805,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "1fc365a1"
+  },
+  {
+   "seed": 1806,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "0ab29557"
+  },
+  {
+   "seed": 1807,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "7f1f49bd"
+  },
+  {
+   "seed": 1808,
+   "n": 2,
+   "winner": "norse",
+   "type": "ascendancy",
+   "turn": 31,
+   "hash": "ce8ebb85"
+  },
+  {
+   "seed": 1809,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "12a29da6"
+  },
+  {
+   "seed": 1810,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "0bb63427"
+  },
+  {
+   "seed": 1811,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "3c050de7"
+  },
+  {
+   "seed": 1812,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "b64b99b5"
+  },
+  {
+   "seed": 1813,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "46fdc91a"
+  },
+  {
+   "seed": 1814,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "f9c25ed0"
+  },
+  {
+   "seed": 1815,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "61156709"
+  },
+  {
+   "seed": 1816,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "2307052c"
+  },
+  {
+   "seed": 1817,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "4b09cd8e"
+  },
+  {
+   "seed": 1818,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "db36e461"
+  },
+  {
+   "seed": 1819,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "b31b4162"
+  },
+  {
+   "seed": 1820,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "48d6f5c4"
+  },
+  {
+   "seed": 1821,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "54123e88"
+  },
+  {
+   "seed": 1822,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "48dc6785"
+  },
+  {
+   "seed": 1823,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "65ce3397"
+  },
+  {
+   "seed": 1824,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "ascendancy",
+   "turn": 25,
+   "hash": "c06cfa0f"
+  },
+  {
+   "seed": 1825,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "bf29ffdd"
+  },
+  {
+   "seed": 1826,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "67d024d2"
+  },
+  {
+   "seed": 1827,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "2270942e"
+  },
+  {
+   "seed": 1828,
+   "n": 2,
+   "winner": "greek",
+   "type": "ascendancy",
+   "turn": 28,
+   "hash": "859d9e32"
+  },
+  {
+   "seed": 1829,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "79072b86"
+  },
+  {
+   "seed": 1830,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "bfaa69fb"
+  },
+  {
+   "seed": 1831,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "aa2e6278"
+  },
+  {
+   "seed": 1832,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "add3c3a7"
+  },
+  {
+   "seed": 1833,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "9961cec6"
+  },
+  {
+   "seed": 1834,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "06295d63"
+  },
+  {
+   "seed": 1835,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "ccd18783"
+  },
+  {
+   "seed": 1836,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "adb9401d"
+  },
+  {
+   "seed": 1837,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "b796b12e"
+  },
+  {
+   "seed": 1838,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "5269a8cd"
+  },
+  {
+   "seed": 1839,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "986da3d3"
+  },
+  {
+   "seed": 1840,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "aa9f6c5b"
+  },
+  {
+   "seed": 1841,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "209a00d8"
+  },
+  {
+   "seed": 1842,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "10fa5dd3"
+  },
+  {
+   "seed": 1843,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "fa33c935"
+  },
+  {
+   "seed": 1844,
+   "n": 2,
+   "winner": "greek",
+   "type": "ascendancy",
+   "turn": 37,
+   "hash": "57db2cfe"
+  },
+  {
+   "seed": 1845,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "d4a0058b"
+  },
+  {
+   "seed": 1846,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "eb60d8df"
+  },
+  {
+   "seed": 1847,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "20128a56"
+  },
+  {
+   "seed": 1848,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "cc70b2d0"
+  },
+  {
+   "seed": 1849,
+   "n": 2,
+   "winner": "greek",
+   "type": "ascendancy",
+   "turn": 40,
+   "hash": "d3007ca6"
+  },
+  {
+   "seed": 1850,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "b512acd3"
+  },
+  {
+   "seed": 1851,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "4be86b46"
+  },
+  {
+   "seed": 1852,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "17dc4c5b"
+  },
+  {
+   "seed": 1853,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "7dc76c37"
+  },
+  {
+   "seed": 1854,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "1f9e5cc4"
+  },
+  {
+   "seed": 1855,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "b131b1de"
+  },
+  {
+   "seed": 1856,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "cef8c46c"
+  },
+  {
+   "seed": 1857,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "f4066359"
+  },
+  {
+   "seed": 1858,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "8210cf6d"
+  },
+  {
+   "seed": 1859,
+   "n": 2,
+   "winner": "norse",
+   "type": "ascendancy",
+   "turn": 29,
+   "hash": "11865a1b"
+  },
+  {
+   "seed": 1860,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "2de4c197"
+  },
+  {
+   "seed": 1861,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "70cac688"
+  },
+  {
+   "seed": 1862,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "a2366ab7"
+  },
+  {
+   "seed": 1863,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "55deaa71"
+  },
+  {
+   "seed": 1864,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "f483da43"
+  },
+  {
+   "seed": 1865,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "8b75d781"
+  },
+  {
+   "seed": 1866,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "235f933d"
+  },
+  {
+   "seed": 1867,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "9ce4dd68"
+  },
+  {
+   "seed": 1868,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "14b7dadd"
+  },
+  {
+   "seed": 1869,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "fbbf899b"
+  },
+  {
+   "seed": 1870,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "971fa955"
+  },
+  {
+   "seed": 1871,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "433ceed6"
+  },
+  {
+   "seed": 1872,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "d3be8ff5"
+  },
+  {
+   "seed": 1873,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "195483f1"
+  },
+  {
+   "seed": 1874,
+   "n": 2,
+   "winner": "greek",
+   "type": "ascendancy",
+   "turn": 26,
+   "hash": "5d609d8f"
+  },
+  {
+   "seed": 1875,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "70ba01bd"
+  },
+  {
+   "seed": 1876,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "a2979ba2"
+  },
+  {
+   "seed": 1877,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "691a3c5f"
+  },
+  {
+   "seed": 1878,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "ascendancy",
+   "turn": 28,
+   "hash": "1af96cad"
+  },
+  {
+   "seed": 1879,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "4435ed2f"
+  },
+  {
+   "seed": 1880,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "b0c12b79"
+  },
+  {
+   "seed": 1881,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "45acd8a8"
+  },
+  {
+   "seed": 1882,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "2d843502"
+  },
+  {
+   "seed": 1883,
+   "n": 2,
+   "winner": "norse",
+   "type": "ascendancy",
+   "turn": 39,
+   "hash": "74a9de95"
+  },
+  {
+   "seed": 1884,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "ascendancy",
+   "turn": 26,
+   "hash": "982c31d6"
+  },
+  {
+   "seed": 1885,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "b4b5d8ae"
+  },
+  {
+   "seed": 1886,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "251c208f"
+  },
+  {
+   "seed": 1887,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "0b47b54e"
+  },
+  {
+   "seed": 1888,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "51cfaab9"
+  },
+  {
+   "seed": 1889,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "3bc879c9"
+  },
+  {
+   "seed": 1890,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "8e12d3c5"
+  },
+  {
+   "seed": 1891,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "2fd28892"
+  },
+  {
+   "seed": 1892,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "292ec299"
+  },
+  {
+   "seed": 1893,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "ascendancy",
+   "turn": 29,
+   "hash": "39c757d0"
+  },
+  {
+   "seed": 1894,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "59822444"
+  },
+  {
+   "seed": 1895,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "fc4845a5"
+  },
+  {
+   "seed": 1896,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "2e243ad3"
+  },
+  {
+   "seed": 1897,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "33086793"
+  },
+  {
+   "seed": 1898,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "844168a8"
+  },
+  {
+   "seed": 1899,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "ae12f87b"
+  },
+  {
+   "seed": 1900,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "d030ec45"
+  },
+  {
+   "seed": 1901,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "7bc1af24"
+  },
+  {
+   "seed": 1902,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "3ef18328"
+  },
+  {
+   "seed": 1903,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "774a7b76"
+  },
+  {
+   "seed": 1904,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "37c70bb5"
+  },
+  {
+   "seed": 1905,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "1ff8937d"
+  },
+  {
+   "seed": 1906,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "c9f246fc"
+  },
+  {
+   "seed": 1907,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "08461b5d"
+  },
+  {
+   "seed": 1908,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "7b4c9206"
+  },
+  {
+   "seed": 1909,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "417990a4"
+  },
+  {
+   "seed": 1910,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "ce7a88b5"
+  },
+  {
+   "seed": 1911,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "d900080f"
+  },
+  {
+   "seed": 1912,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "1dd97fc0"
+  },
+  {
+   "seed": 1913,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "063e02a8"
+  },
+  {
+   "seed": 1914,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "d02fe83b"
+  },
+  {
+   "seed": 1915,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "623d33bd"
+  },
+  {
+   "seed": 1916,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "c02e0ca9"
+  },
+  {
+   "seed": 1917,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "c26e5f93"
+  },
+  {
+   "seed": 1918,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "922b4e45"
+  },
+  {
+   "seed": 1919,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "888c4037"
+  },
+  {
+   "seed": 1920,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "1f67ca44"
+  },
+  {
+   "seed": 1921,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "b5935b15"
+  },
+  {
+   "seed": 1922,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "9598f291"
+  },
+  {
+   "seed": 1923,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "d3a1e0a3"
+  },
+  {
+   "seed": 1924,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "ascendancy",
+   "turn": 43,
+   "hash": "49c0074f"
+  },
+  {
+   "seed": 1925,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "561d1b0d"
+  },
+  {
+   "seed": 1926,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "45eb1167"
+  },
+  {
+   "seed": 1927,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "5e6492d2"
+  },
+  {
+   "seed": 1928,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "e61f5554"
+  },
+  {
+   "seed": 1929,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "5bdd2ec5"
+  },
+  {
+   "seed": 1930,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "cc3cef64"
+  },
+  {
+   "seed": 1931,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "d2f0fe38"
+  },
+  {
+   "seed": 1932,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "f65fadda"
+  },
+  {
+   "seed": 1933,
+   "n": 2,
+   "winner": "greek",
+   "type": "ascendancy",
+   "turn": 34,
+   "hash": "fa18b7ef"
+  },
+  {
+   "seed": 1934,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "aa261fda"
+  },
+  {
+   "seed": 1935,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "4dce8637"
+  },
+  {
+   "seed": 1936,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "88497c61"
+  },
+  {
+   "seed": 1937,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "fe53ff4a"
+  },
+  {
+   "seed": 1938,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "e9b4cacc"
+  },
+  {
+   "seed": 1939,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "3d2bec77"
+  },
+  {
+   "seed": 1940,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "5ca7cc74"
+  },
+  {
+   "seed": 1941,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "e03588ab"
+  },
+  {
+   "seed": 1942,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "b0550c3d"
+  },
+  {
+   "seed": 1943,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "30ea7f8e"
+  },
+  {
+   "seed": 1944,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "0cce6941"
+  },
+  {
+   "seed": 1945,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "d80417a4"
+  },
+  {
+   "seed": 1946,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "d31828f7"
+  },
+  {
+   "seed": 1947,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "31ff60c6"
+  },
+  {
+   "seed": 1948,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "1f6e0886"
+  },
+  {
+   "seed": 1949,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "521ebd6b"
+  },
+  {
+   "seed": 1950,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "623603b7"
+  },
+  {
+   "seed": 1951,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "9e388dbc"
+  },
+  {
+   "seed": 1952,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "04b5da0b"
+  },
+  {
+   "seed": 1953,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "33dfe05e"
+  },
+  {
+   "seed": 1954,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "ascendancy",
+   "turn": 26,
+   "hash": "7b223450"
+  },
+  {
+   "seed": 1955,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "94745589"
+  },
+  {
+   "seed": 1956,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "15fa434a"
+  },
+  {
+   "seed": 1957,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "0dd9d357"
+  },
+  {
+   "seed": 1958,
+   "n": 2,
+   "winner": "norse",
+   "type": "ascendancy",
+   "turn": 45,
+   "hash": "87297157"
+  },
+  {
+   "seed": 1959,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "fbc99cc4"
+  },
+  {
+   "seed": 1960,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "8d1d6bcd"
+  },
+  {
+   "seed": 1961,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "9163c8c3"
+  },
+  {
+   "seed": 1962,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "dc348788"
+  },
+  {
+   "seed": 1963,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "2c35345c"
+  },
+  {
+   "seed": 1964,
+   "n": 2,
+   "winner": "norse",
+   "type": "ascendancy",
+   "turn": 35,
+   "hash": "4f226b14"
+  },
+  {
+   "seed": 1965,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "66d8a708"
+  },
+  {
+   "seed": 1966,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "0348feca"
+  },
+  {
+   "seed": 1967,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "0752dff7"
+  },
+  {
+   "seed": 1968,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "5bf88def"
+  },
+  {
+   "seed": 1969,
+   "n": 2,
+   "winner": "greek",
+   "type": "ascendancy",
+   "turn": 28,
+   "hash": "2621cda7"
+  },
+  {
+   "seed": 1970,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "10ff36fb"
+  },
+  {
+   "seed": 1971,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "24063ae9"
+  },
+  {
+   "seed": 1972,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "865feffb"
+  },
+  {
+   "seed": 1973,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "f7fb6aae"
+  },
+  {
+   "seed": 1974,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "9efb6458"
+  },
+  {
+   "seed": 1975,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "559bd18b"
+  },
+  {
+   "seed": 1976,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "10e45741"
+  },
+  {
+   "seed": 1977,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "0e6e04c0"
+  },
+  {
+   "seed": 1978,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "0d97f8a9"
+  },
+  {
+   "seed": 1979,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "832879af"
+  },
+  {
+   "seed": 1980,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "c187b8a7"
+  },
+  {
+   "seed": 1981,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "9f1d99b9"
+  },
+  {
+   "seed": 1982,
+   "n": 3,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "7ed4c849"
+  },
+  {
+   "seed": 1983,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "1a718452"
+  },
+  {
+   "seed": 1984,
+   "n": 2,
+   "winner": "egyptian",
+   "type": "ascendancy",
+   "turn": 28,
+   "hash": "b354bc98"
+  },
+  {
+   "seed": 1985,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "edc70570"
+  },
+  {
+   "seed": 1986,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "27f20ac5"
+  },
+  {
+   "seed": 1987,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "362323be"
+  },
+  {
+   "seed": 1988,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "f625e8fe"
+  },
+  {
+   "seed": 1989,
+   "n": 2,
+   "winner": "norse",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "71de1149"
+  },
+  {
+   "seed": 1990,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "f41d9101"
+  },
+  {
+   "seed": 1991,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "a0db898e"
+  },
+  {
+   "seed": 1992,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "adc0f5b9"
+  },
+  {
+   "seed": 1993,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "fe5412bf"
+  },
+  {
+   "seed": 1994,
+   "n": 2,
+   "winner": "norse",
+   "type": "ascendancy",
+   "turn": 29,
+   "hash": "42bc3f5c"
+  },
+  {
+   "seed": 1995,
+   "n": 3,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "3b70d7a2"
+  },
+  {
+   "seed": 1996,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "1bbcdb73"
+  },
+  {
+   "seed": 1997,
+   "n": 3,
+   "winner": "egyptian",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "6b1c59b2"
+  },
+  {
+   "seed": 1998,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "7c70e4b6"
+  },
+  {
+   "seed": 1999,
+   "n": 2,
+   "winner": "greek",
+   "type": "twilight",
+   "turn": 45,
+   "hash": "455ce1a5"
+  }
+ ]
+}

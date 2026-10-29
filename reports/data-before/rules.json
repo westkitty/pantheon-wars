@@ -1,0 +1,17 @@
+{
+  "turns": 45,
+  "map": { "width": 22, "height": 16, "settlements": 22, "minSpacing": 3, "seaLevel": 0.40, "deepLevel": 0.30, "hillLevel": 0.79, "mountainLevel": 0.91 },
+  "start": { "faith": 20, "favor": 2, "homePop": 8, "homeFollowers": 5, "priests": 1, "revealRadius": 3 },
+  "economy": { "faithPerFollower": 0.5, "favorCap": 15, "favorOnControl": 1, "maxPriestsBase": 1, "maxPriestsPerShrine": 1 },
+  "actions": {
+    "omen": { "faith": 6, "radius": 2, "range": 3 },
+    "dream": { "favor": 2, "cooldown": 3, "radius": 1 },
+    "shrine": { "faith": 24, "faithStep": 8 },
+    "priest": { "faith": 12, "move": 2, "power": 0.6 },
+    "eclipse": { "favor": 4, "cooldown": 2, "duration": 3, "wardDamage": 1, "range": 3 }
+  },
+  "conversion": { "falloff": [1.0, 0.55, 0.3], "controlMomentum": 0.25, "rivalCost": 1.6, "progressCap": 3 },
+  "growth": { "everyTurns": 6, "amount": 1, "maxPop": 14 },
+  "victory": { "ascendancyShare": 0.55, "ascendancyMinTurn": 12, "score": { "followers": 1, "shrines": 3, "settlements": 2, "favor": 0.5 } },
+  "events": { "firstTurn": 5, "everyTurns": 5 }
+}

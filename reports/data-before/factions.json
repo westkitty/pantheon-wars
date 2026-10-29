@@ -1,0 +1,14 @@
+[
+  { "id": "greek", "name": "The Olympian Court", "tradition": "Ancient Greek", "deityTitle": "Voice of Olympus",
+    "emblem": "thunderbolt_wreath", "palette": { "primary": "#e9e2cf", "secondary": "#2f6fb3", "accent": "#e2b33c", "glow": "#9fd2ff", "dark": "#1d2f52" },
+    "domains": ["sky_oath", "wisdom_city", "grain", "sea"], "powers": ["oracle_oak", "aegis_polis", "gift_of_grain", "thunderbolt"], "shrine": "columned_temple",
+    "blurb": "Sky, oath, counsel and grain. The Court rules from the heights and binds mortals with law and harvest.", "sources": ["G1", "G2", "G3", "G4", "G5"] },
+  { "id": "norse", "name": "The Hall of the Ash", "tradition": "Old Norse", "deityTitle": "Voice of the Ash",
+    "emblem": "ash_tree", "palette": { "primary": "#c9d6de", "secondary": "#8a2b22", "accent": "#d98a3a", "glow": "#ffb067", "dark": "#2a2a33" },
+    "domains": ["runes", "thunder", "peace_plenty", "fate"], "powers": ["ravens_flight", "rune_hall", "rain_and_sun", "hammer_thunder"], "shrine": "timber_hall",
+    "blurb": "Runes, thunder, plenty and fate. The Hall reads what is carved and endures against what is coming.", "sources": ["N1", "N2", "N3", "N4", "N5", "N6"] },
+  { "id": "egyptian", "name": "The Ennead of the Two Lands", "tradition": "Ancient Egyptian", "deityTitle": "Voice of the Two Lands",
+    "emblem": "winged_sun", "palette": { "primary": "#f1d27a", "secondary": "#1f5fa8", "accent": "#36b3a8", "glow": "#ffe08a", "dark": "#2b2316" },
+    "domains": ["sun", "order", "reckoning", "inundation"], "powers": ["barque_of_re", "throne_of_isis", "osiris_garden", "feather_of_maat"], "shrine": "pylon_temple",
+    "blurb": "Sun, order, reckoning and flood. The Ennead keeps the world turning and weighs every heart.", "sources": ["E1", "E2", "E3", "E4", "E5", "E6"] }
+]

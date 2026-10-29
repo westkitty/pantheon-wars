@@ -1,0 +1,5 @@
+[
+  { "id": "columned_temple", "faction": "greek", "name": "Columned Temple", "faith": 2, "pressure": 1.2, "radius": 2, "ward": 2, "sight": 2, "art": "columns" },
+  { "id": "timber_hall", "faction": "norse", "name": "Timber Hall", "faith": 2, "pressure": 1.2, "radius": 2, "ward": 2, "sight": 2, "art": "hall" },
+  { "id": "pylon_temple", "faction": "egyptian", "name": "Pylon Temple", "faith": 2, "pressure": 1.2, "radius": 2, "ward": 2, "sight": 2, "art": "pylon" }
+]

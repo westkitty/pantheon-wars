@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pantheon Wars v0.1</title>
+<link rel="stylesheet" href="ui/style.css">
+</head>
+<body>
+<canvas id="world" aria-label="The mortal world: a hex map of settlements seen from the heavens" role="img"></canvas>
+
+<div id="hud" hidden>
+  <header id="topbar" aria-label="Resources">
+    <div class="tb-god"><canvas id="tb-emblem" width="34" height="34" aria-hidden="true"></canvas><div><div id="tb-name" class="tb-title"></div><div id="tb-sub" class="tb-small"></div></div></div>
+    <div class="tb-res" title="Faith: produced by followers, domains and shrines. Spent on shrines, priests, omens and powers.">
+      <span class="res-ico faith" aria-hidden="true"></span>
+      <div><div class="tb-val"><b id="tb-faith">0</b> <span id="tb-inc" class="pos"></span></div>
+      <div class="meter" id="faith-meter" role="meter" aria-label="Faith toward next shrine" aria-valuemin="0" aria-valuemax="100"><i></i><span id="faith-meter-label"></span></div></div>
+    </div>
+    <div class="tb-res" title="Favor: the attention of the heavens. Earned by winning settlements and domains; spent on dream visions, eclipses and miracles.">
+      <span class="res-ico favor" aria-hidden="true"></span><div><div class="tb-val"><b id="tb-favor">0</b><span class="tb-small" id="tb-favcap"></span></div><div class="tb-small">Favor</div></div>
+    </div>
+    <div class="tb-res" title="Your followers and their share of all mortals.">
+      <span class="res-ico folk" aria-hidden="true"></span><div><div class="tb-val"><b id="tb-follow">0</b> <span id="tb-share" class="tb-small"></span></div><div class="tb-small">Followers</div></div>
+    </div>
+    <div class="tb-asc" title="Ascendancy: the share of all mortals following each god. Reach the gold line to win.">
+      <div class="tb-small">Ascendancy</div><div id="asc-meter" class="asc"></div>
+    </div>
+    <div class="tb-turn"><div class="tb-small">Turn</div><div class="tb-val"><b id="tb-turn">1</b><span class="tb-small" id="tb-maxturn"></span></div></div>
+    <nav class="tb-btns">
+      <button id="btn-log" class="iconbtn" aria-label="Turn log (L)" title="Turn log (L)">☰</button>
+      <button id="btn-help" class="iconbtn" aria-label="How to play (H)" title="How to play (H)">?</button>
+      <button id="btn-menu" class="iconbtn" aria-label="Menu" title="Menu">⚙</button>
+    </nav>
+  </header>
+
+  <aside id="logpanel" aria-label="Turn log" hidden><h2>Chronicle</h2><ol id="log" aria-live="polite"></ol></aside>
+  <aside id="panel" aria-label="Selected place" aria-live="polite"></aside>
+
+  <div id="minimap-wrap"><canvas id="minimap" width="220" height="128" aria-label="Minimap. Click to move the camera."></canvas></div>
+
+  <footer id="powerbar" aria-label="Divine powers"></footer>
+  <button id="endturn" aria-label="End turn (Enter)"><span id="endturn-label">End Turn</span><small id="endturn-sub"></small></button>
+  <div id="targetbar" hidden role="status"><span id="target-text"></span><button id="target-cancel">Cancel (Esc)</button></div>
+  <div id="turnbanner" aria-hidden="true"></div>
+  <div id="toasts" role="status" aria-live="polite"></div>
+</div>
+
+<div id="title" class="screen">
+  <div class="title-inner">
+    <div class="logo"><span class="logo-sm">v0.1</span><h1>Pantheon Wars</h1><p class="tagline">Three ancient pantheons. One mortal world. Forty-five turns to be remembered.</p></div>
+    <div id="faction-cards" class="cards" role="radiogroup" aria-label="Choose your pantheon"></div>
+    <div class="opts">
+      <fieldset><legend>Rival gods</legend><div class="seg" role="radiogroup" aria-label="Number of rivals"><button data-rivals="1" class="on" role="radio" aria-checked="true">One</button><button data-rivals="2" role="radio" aria-checked="false">Two</button></div></fieldset>
+      <fieldset><legend>Rival skill</legend><div class="seg" role="radiogroup" aria-label="Rival difficulty"><button data-diff="easy" role="radio" aria-checked="false">Acolyte</button><button data-diff="hard" class="on" role="radio" aria-checked="true">Hierophant</button></div></fieldset>
+      <fieldset><legend>World seed</legend><div class="seedrow"><input id="seed" inputmode="numeric" aria-label="World seed" value="1"><button id="seed-rand" class="iconbtn" aria-label="Random seed" title="Random seed">⟳</button></div></fieldset>
+    </div>
+    <div class="title-actions"><button id="begin" class="primary">Begin the Age</button><a class="link" href="docs/design.html">Design &amp; sources</a></div>
+  </div>
+</div>
+
+<div id="event" class="modal" hidden role="dialog" aria-modal="true" aria-labelledby="ev-title">
+  <div class="card">
+    <div class="card-art"><canvas id="ev-art" width="96" height="54"></canvas><canvas id="ev-emblem" width="32" height="32" class="card-emblem"></canvas></div>
+    <div class="card-body"><div class="card-kicker">Event · Turn <span id="ev-turn"></span></div><h2 id="ev-title"></h2><p id="ev-text"></p><div id="ev-choices" class="choices"></div></div>
+  </div>
+</div>
+
+<div id="help" class="modal" hidden role="dialog" aria-modal="true" aria-labelledby="help-title">
+  <div class="sheet"><h2 id="help-title">How to play</h2>
+    <p>You are a god. Win worshippers among mortal settlements before the age ends on turn 45.</p>
+    <ul>
+      <li><b>Explore</b> — <i>Read Omens</i> lifts the fog near the known world; a <i>Dream Vision</i> reveals the nearest hidden settlement.</li>
+      <li><b>Expand</b> — <i>Raise a Shrine</i> where you have followers, a priest or territory. Shrines convert nearby mortals every turn. <i>Ordain Priests</i> at shrines and send them to preach.</li>
+      <li><b>Exploit</b> — followers produce Faith; your four domains add bonuses. Winning a settlement (half its people) earns Favor.</li>
+      <li><b>Exterminate</b> — convert rival followers, cast miracles, and <i>Eclipse</i> rival shrines (each eclipse removes 1 Ward; at 0 the shrine falls).</li>
+    </ul>
+    <p><b>Victory:</b> Ascendancy (60% of all mortals follow you, from turn 12), Dominion (every rival forgotten) or Twilight Judgment (highest devotion score when turn 45 ends).</p>
+    <p><b>Controls:</b> click a place to inspect it · click your priest, then a destination · <kbd>1</kbd>–<kbd>9</kbd> powers · <kbd>Enter</kbd> end turn · <kbd>Esc</kbd> cancel · drag / arrows / WASD to pan · wheel, pinch or <kbd>+</kbd>/<kbd>−</kbd> to zoom · <kbd>L</kbd> log · <kbd>H</kbd> help.</p>
+    <p><a class="link" href="docs/design.html">Full design page with sources</a></p>
+    <button class="primary" data-close>Close</button></div>
+</div>
+
+<div id="menu" class="modal" hidden role="dialog" aria-modal="true" aria-labelledby="menu-title">
+  <div class="sheet"><h2 id="menu-title">Menu</h2>
+    <fieldset><legend>Graphics quality</legend><div class="seg" id="quality-seg"><button data-q="auto" class="on">Auto</button><button data-q="high">High</button><button data-q="low">Low</button></div></fieldset>
+    <p class="tb-small">Seed <b id="menu-seed"></b> · State hash <code id="menu-hash"></code></p>
+    <div class="title-actions"><button id="menu-new" class="ghost">New game</button><button class="primary" data-close>Resume</button></div></div>
+</div>
+
+<div id="victory" class="screen" hidden role="dialog" aria-modal="true" aria-labelledby="vic-title">
+  <div class="vic-inner"><canvas id="vic-emblem" width="96" height="96"></canvas><div class="card-kicker" id="vic-kicker"></div><h1 id="vic-title"></h1><p id="vic-sub"></p>
+    <table id="vic-table"></table><p class="tb-small" id="vic-meta"></p>
+    <div class="title-actions"><button id="vic-replay" class="ghost">Replay this seed</button><button id="vic-new" class="primary">New game</button><a class="link" href="docs/design.html">Design &amp; sources</a></div></div>
+</div>
+
+<script src="data/data.js"></script>
+<script src="engine/rng.js"></script>
+<script src="engine/engine.js"></script>
+<script src="engine/ai.js"></script>
+<script src="ui/art.js"></script>
+<script src="ui/render.js"></script>
+<script src="ui/app.js"></script>
+</body>
+</html>

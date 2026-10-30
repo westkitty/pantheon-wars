@@ -79,3 +79,45 @@ games against 48–64% in duels in every round and seed set. Levers that raise i
 duel rate, and the duel-weighted levers tried (Thunderbolt's conversion) did not move its duels.
 Text drift fixed alongside: eleven domain and power texts showed numbers from before earlier tuning (e.g. Indra's Rainstorm "2 rival
 followers" while the rule took 3; Order "35%" while the rule gave 25%); a new test now fails on any such mismatch.
+
+## Independent validation and duel repair (2026-10-30, second pass)
+
+**Independent fresh-seed validation** of the release candidate (data `4b22c717aa09`, engine 0.2.0, git 34e542d; 9000 games,
+`--plan full --duel-seeds 20 --ffa-seeds 10 --seed 200000`, never used before): `reports/balance-independent-validation.md`.
+Spread overall **9.3**, FFA **12.0**, duel **18.9** — the duel miss reproduced (previous held-out run: 16.1).
+Olympian Court 57.5% [52.3–62.5] and Vedic Hymns 38.6% [33.7–43.7] in duels: the same two pantheons at the same extremes as before, with
+non-overlapping intervals, so the gap is persistent rather than sampling noise. Seats 49.1 / 50.9 and 33.0 / 33.5 / 33.5; 0 illegal AI actions.
+
+Diagnosis. Vedic loses most of its duels (25–48% against seven of nine rivals) and converts the fewest rival followers of any pantheon
+(27 per game; the others 31–57). In a duel the only way up is taking the one rival's people, so the bottleneck is conversion offence.
+Its core is Agni's Fire (ablation: 39 → 17% in duels without it).
+
+Candidates on new dev seeds (`--seed 70000 --duel-seeds 12 --ffa-seeds 1`, 1800 games each, matched seeds; never used for validation):
+
+| Candidate | Change | Overall | FFA | Duel | Vedic duel / FFA | Greek duel / FFA |
+|---|---|---|---|---|---|---|
+| base | release candidate | 17.1 | 13.4 | 21.8 | 36.6 / 27.8 | 56.5 / 30.6 |
+| C1 | Indra's Rainstorm converts 2, pressure boon 3 turns | 15.7 | 13.9 | 20.4 | 38.0 / 28.2 | 58.3 / 29.6 |
+| C3 | C1 + Rainstorm 1 Favor, Order of Varuna 0 Favor | 17.8 | 13.0 | 22.7 | 34.7 / 27.8 | 57.4 / 29.2 |
+| C4 | C3 + Thunderbolt 3 Favor | 19.2 | 15.3 | 23.6 | 34.7 / 27.8 | 55.1 / 27.3 |
+| **C5a** | **C1 + Agni's Fire preaching boost ×2.0** | **13.9** | **12.5** | **17.6** | **39.8 / 30.6** | 56.9 / 29.6 |
+| C5b | C5a + Rainstorm converts 3 + Thunderbolt 3 Favor | 17.4 | 15.7 | 19.0 | 40.3 / 25.9 | 54.2 / 29.6 |
+
+C3 shows these Vedic powers are value traps for the AI (cheaper casts made it worse), so prices were left alone. The Thunderbolt Favor
+price lowers the Olympian Court in both modes about equally and pushed the FFA spread up, so it was not kept. C5a — two changes inside the
+Vedic identity (Indra's rain converts, Agni's fire makes its priests preach harder) — was chosen (data `69711eb776a8`) and validated on a
+second untouched seed set (300000).
+
+Validation of C5a on untouched seeds 300000 (`reports/balance-candidate-validation.md`, 9000 games) against the **unchanged** release
+candidate on the same seeds (`reports/balance-rc-on-seed300000.md`, 9000 games, matched):
+
+| Seeds 300000 | Overall | FFA | Duel | Vedic duel | Greek duel |
+|---|---|---|---|---|---|
+| release candidate (data `4b22c717aa09`) | 10.3 | 13.7 | 18.3 | 41.4% | 59.7% |
+| C5a (data `69711eb776a8`) | 10.7 | 14.0 | 20.3 | 40.0% | 60.3% |
+
+The dev-seed improvement did **not** reproduce on untouched seeds, so C5a was **rejected and reverted**; the shipped data stays at the
+release candidate (`4b22c717aa09`). Across three independent 9000-game seed sets the release candidate measures duel spreads of
+16.1, 18.9 and 18.3 points — consistently over the 15-point target — while overall (9.3–11.5) and three-god (12.0–14.2) pass.
+The duel gap is a real, persistent Olympian Court (56–60%) vs Vedic Hymns (39–41%) asymmetry; no data change tried in two bounded
+cycles fixed it without breaking three-god balance. **Balance gate: PARTIAL.**

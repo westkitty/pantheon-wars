@@ -1,0 +1,79 @@
+name: CI
+
+# Validates every pull request into main and every push to the working branch.
+# The shipped game has no dependencies; Node and Playwright are used only by the tests and tools.
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [claude/vibrant-feynman-x1fjq9]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  engine:
+    name: Engine, data and balance smoke
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Unit, system, persistence and content tests (includes deterministic replay and v0.1 legacy replay)
+        run: node --test tests/*.test.js
+      - name: Data schema, sources and art registry (10 pantheons, 40 domains, 40 powers)
+        run: node tools/validate-data.js
+      - name: Generated bundles and design page match their sources
+        run: |
+          node tools/bundle-data.js --check
+          node tools/build-docs.js --check
+      - name: Deterministic balance smoke (integrity, AI legality)
+        run: node tools/balance-smoke.js --out ci-artifacts
+      - name: Upload smoke report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: balance-smoke
+          path: ci-artifacts/
+          if-no-files-found: ignore
+          retention-days: 7
+
+  browser:
+    name: Browser journeys, real-input replay and offline proof
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install pinned dev tools
+        run: npm ci --ignore-scripts
+      - name: Install Chromium for Playwright
+        run: npx playwright install --with-deps chromium
+      - name: Browser journeys J01-J10
+        run: node tools/journeys.js
+      - name: Full game by real input, browser hash equals Node replay
+        run: node tools/screenshots.js --seed 11 --faction greek --rivals 2 --diff easy
+      - name: Offline proof (file:// and local static server, no external requests)
+        run: node tools/offline-proof.js
+      - name: Upload browser diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: browser-diagnostics
+          path: |
+            reports/journeys.json
+            reports/offline-proof.json
+            reports/screens/J*.png
+            reports/screens/e2e/
+          if-no-files-found: ignore
+          retention-days: 7

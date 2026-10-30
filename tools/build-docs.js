@@ -108,5 +108,7 @@ code{background:#1a1f2b;padding:1px 5px;border-radius:3px;font-size:14px}img{max
 <p class="small">${esc(src._note || '')}</p>
 </main></body></html>`;
 fs.mkdirSync(path.join(__dirname, '..', 'docs'), { recursive: true });
-fs.writeFileSync(path.join(__dirname, '..', 'docs', 'design.html'), html);
+const outPath = path.join(__dirname, '..', 'docs', 'design.html');
+if (process.argv.includes('--check')) { const same = fs.existsSync(outPath) && fs.readFileSync(outPath, 'utf8') === html; console.log(same ? 'ok: docs/design.html' : 'STALE: docs/design.html (run node tools/build-docs.js)'); process.exit(same ? 0 : 1); }
+fs.writeFileSync(outPath, html);
 console.log('wrote docs/design.html (' + html.length + ' bytes)');

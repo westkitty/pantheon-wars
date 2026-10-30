@@ -1,0 +1,20 @@
+{
+  "name": "pantheon-wars",
+  "version": "0.2.0",
+  "private": true,
+  "description": "Pantheon Wars: a turn-based strategy game of rival gods. The game itself has no dependencies and runs offline from index.html; these dev tools are for tests and CI only.",
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "validate": "node tools/validate-data.js",
+    "check:bundles": "node tools/bundle-data.js --check && node tools/build-docs.js --check",
+    "smoke:balance": "node tools/balance-smoke.js",
+    "journeys": "node tools/journeys.js",
+    "e2e": "node tools/screenshots.js --seed 11 --faction greek --rivals 2 --diff easy",
+    "offline": "node tools/offline-proof.js",
+    "balance:full": "node tools/simulate.js --plan full --duel-seeds 20 --ffa-seeds 10"
+  },
+  "devDependencies": {
+    "playwright": "1.63.0"
+  }
+}

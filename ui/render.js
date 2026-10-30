@@ -17,22 +17,6 @@
   var EDGE_NB = [5, 4, 3, 2, 1, 0]; // edge k (VERTS[k]→VERTS[k+1]) borders neighbour index EDGE_NB[k]
   var DASH = { meander: [6, 2, 2, 2], chevron: [5, 3], hbar: [], grid: [2, 2], dots: [1, 3], zigzag: [4, 2, 1, 2], cross: [8, 2, 2, 2], wave: [3, 3], vbar: [10, 3], ring: [1, 2, 4, 2] };
 
-  /* Village architecture per culture (P031): wall, shade, roof colours and a roof form. Neutral towns use the biome style. */
-  var ARCH = {
-    greek: { wall: '#ece6d6', side: '#b8b0a0', roof: '#c0583a', roofR: '#8a3a28', form: 'gable', extra: 'column' },
-    norse: { wall: '#6a5240', side: '#463628', roof: '#5a6470', roofR: '#3a424c', form: 'steep', extra: 'smoke' },
-    egyptian: { wall: '#e0c48c', side: '#b0925e', roof: null, form: 'flat', extra: 'palm' },
-    mesopotamian: { wall: '#c8a878', side: '#9a7a50', roof: null, form: 'flat', extra: 'stair' },
-    irish: { wall: '#d8d0c0', side: '#a89c88', roof: '#9a8448', roofR: '#6a5a30', form: 'round', extra: 'fence' },
-    mexica: { wall: '#e8e0d0', side: '#b8a890', roof: null, form: 'flat', extra: 'paint' },
-    hittite: { wall: '#a8a294', side: '#7a766c', roof: null, form: 'flat', extra: 'stone' },
-    yoruba: { wall: '#b8784a', side: '#8a5430', roof: '#8a6a3a', roofR: '#6a4a2a', form: 'hip', extra: 'post' },
-    japanese: { wall: '#e8dcc4', side: '#b4a68c', roof: '#4a3a2a', roofR: '#2a2018', form: 'steep', extra: 'torii' },
-    vedic: { wall: '#d8c090', side: '#a88a5a', roof: '#b89a5a', roofR: '#8a6a3a', form: 'thatch', extra: 'fire' },
-    mud: { wall: '#d8bc88', side: '#a88a5a', roof: null, form: 'flat' }, timber: { wall: '#6a5240', side: '#463628', roof: '#5a6470', roofR: '#3a424c', form: 'steep' },
-    tile: { wall: '#e8dcc4', side: '#b4a68c', roof: '#c0583a', roofR: '#8a3a28', form: 'gable' }
-  };
-
   /* Forty faction-power signatures plus core rites (P043/P044). Each is three beats built from shared primitives:
    *   a: anticipation (sky tint, gathering motes at the target), m: manifestation (the motif), c: consequence (aftermath on the ground).
    * Distinct compositions, not recolours: motif primitive, path, palette, duration and aftermath all differ. */
@@ -99,7 +83,7 @@
     this.spriteCache = {};
   }
   var P = Renderer.prototype;
-  Renderer.VFX = VFX; Renderer.VFX_IDS = VFX_IDS; Renderer.ARCH = ARCH;
+  Renderer.VFX = VFX; Renderer.VFX_IDS = VFX_IDS;
   P.setEngine = function (E) { this.E = E; };
   P.rand = function () { return this.fxr(); };
 
@@ -123,7 +107,7 @@
     this.buildPatterns();
     this.staticLayer = this.buildStatic(state);
     this.buildWaterPaths(state);
-    this.villageCache = {}; this.spriteCache = {}; this.plaqueCache = {}; this.plaqueCount = 0; this.vilMemoState = null; this.marksKey = null; this.marksLayer = null; this.overlay = null;
+    this.villageCache = {}; this.spriteCache = {}; this.plaqueCache = {}; this.plaqueCount = 0; this.vilMemoState = null; this.vilLast = {}; this.marksKey = null; this.marksLayer = null; this.overlay = null;
     var mid = this.center(state.map.tiles[Math.floor(H / 2) * W + Math.floor(W / 2)]);
     this.cam.x = this.cam.tx = mid.x; this.cam.y = this.cam.ty = mid.y;
     this.clouds = []; var r = A.rng(state.seed * 7 + 3);
@@ -509,7 +493,7 @@
         case 'eclipse': g.strokeStyle = 'rgba(20,10,30,0.55)'; g.lineWidth = 2; g.beginPath(); g.ellipse(p.x + 8, p.y + 2, 18, 7, 0, 0, 7); g.stroke(); break;
         case 'storm': for (i = 0; i < 4; i++) { var sx = p.x + (r() - 0.5) * 34, sy = p.y + (r() - 0.5) * 14; A.line(g, sx, sy, sx + 6, sy + 1, '#4a3420'); A.disc(g, sx + 6, sy, 1.5, '#3a5a2a'); } break;
         case 'drought': g.strokeStyle = 'rgba(90,60,30,0.55)'; g.lineWidth = 1; for (i = 0; i < 5; i++) { var cx = p.x + (r() - 0.5) * 30, cy = p.y + (r() - 0.5) * 12; g.beginPath(); g.moveTo(cx, cy); g.lineTo(cx + 4, cy + 1); g.lineTo(cx + 6, cy - 1); g.stroke(); } break;
-        case 'ruin': var ft = (m.x && m.x.type) ? self.shrineDefs[m.x.type] : null; if (ft && !state.settlements[t.settlement].shrine) { g.drawImage(self.shrineImage(ft.art, self.fac[ft.faction].palette, 'ruined', null), Math.round(p.x - 6), Math.round(p.y - 44)); } break;
+        case 'ruin': var ft = (m.x && m.x.type) ? self.shrineDefs[m.x.type] : null; if (ft && !state.settlements[t.settlement].shrine) { g.imageSmoothingEnabled = true; g.drawImage(self.shrineImage(ft.art, self.fac[ft.faction].palette, 'ruined', null), Math.round(p.x - 6), Math.round(p.y - 44), 44, 50); g.imageSmoothingEnabled = false; } break;
         case 'rebuilt': A.rect(g, p.x + 22, p.y - 20, 1, 10, '#6a4a2a'); A.rect(g, p.x + 23, p.y - 20, 4, 3, '#9fe07a'); break;
         case 'covenant': A.rect(g, p.x - 26, p.y - 8, 4, 8, '#b8b0a0'); A.rect(g, p.x - 26, p.y - 9, 4, 1, '#d8d0c0'); A.px(g, p.x - 25, p.y - 6, '#b8302a', 2, 2); break;
       }
@@ -526,9 +510,10 @@
     for (var i = pats.length - 1; i >= 0; i--) layers.push({ f: pats[i].f, since: pats[i].t });
     return { biome: biome, layers: layers, key: biome + ':' + layers.map(function (l) { return l.f + '@' + Math.min(9, Math.floor((state.turn - l.since) / 2)); }).join('>') };
   };
-  /* Village sprite (P031/P032, C3): plaza and lanes, houses with directional contact shadows, lit roof edges, doors and windows that
-     glow in the Twilight. Tier (population), decline (ruined houses) and layered patronage (newest patron's style spreads from the
-     centre) drive it; the result is cached per settlement state. Canvas 72×52, ground centre at (36, 38). */
+  /* Village sprite (P031/P032): composed by PWArt.village (ui/kits.js) from the ten architectural kits at 2× resolution and drawn at its
+     world size (72×52, ground centre 36, 38). Tier (population), decline (roofless houses), the age (lit windows at Twilight), cold climate
+     (snow on roofs) and layered patronage (the newest patron's kit spreads from the plaza one plot every 2 turns) drive it; cached per
+     settlement state. */
   var VW = 72, VH = 52, VX = 36, VY = 38;
   P.village = function (state, s) {
     // memo per game state: the cache key below is rebuilt only when the state object changes, not on every frame
@@ -536,74 +521,29 @@
     var hit = this.vilMemo[s.id]; if (hit) return hit;
     return (this.vilMemo[s.id] = this.villageBuild(state, s));
   };
+  /* While drawing, at most three village sprites are composed per frame; a town whose new sprite is still waiting keeps its previous one
+     for a frame or two, so an age change (every town rebuilds) never stalls a single frame. */
+  P.villageForDraw = function (state, s) {
+    if (this.vilMemoState === state && this.vilMemo[s.id]) return this.vilMemo[s.id];
+    var old = this.vilLast && this.vilLast[s.id];
+    if (old && (this.vilBuilds || 0) >= 3) return old;
+    this.vilBuilds = (this.vilBuilds || 0) + 1;
+    var v = this.village(state, s); (this.vilLast || (this.vilLast = {}))[s.id] = v; return v;
+  };
   P.villageBuild = function (state, s) {
     var t = state.map.tiles[s.tile], tier = Math.max(1, Math.min(5, Math.floor(s.pop / 2.6))), decline = (s.peak || s.pop) - s.pop >= 3 ? 1 : 0;
-    var night = state.age === 'twilight' ? 1 : 0;
-    var st = this.villageStyle(state, s, t), key = s.id + ':' + tier + ':' + decline + ':' + night + ':' + st.key;
+    var night = state.age === 'twilight' ? 1 : 0, cold = t.t < 0.35 ? 1 : 0, sh = s.shrine ? 1 : 0;
+    var st = this.villageStyle(state, s, t), key = s.id + ':' + tier + ':' + decline + ':' + night + ':' + cold + ':' + sh + ':' + st.key;
     if (this.villageCache[key]) return this.villageCache[key];
     if (Object.keys(this.villageCache).length > 400) this.villageCache = {}; // bounded cache
-    var c = A.cv(VW, VH), g = c.getContext('2d'), r = A.rng(s.id * 131 + tier);
-    var n = 2 + tier + (tier > 2 ? 1 : 0), houses = [], chim = [];
-    for (var i = 0; i < n; i++) { var a = r() * Math.PI * 2, d = Math.sqrt(r()) * (8 + tier * 2.2); houses.push({ x: VX + Math.cos(a) * d * 1.5, y: VY + Math.sin(a) * d * 0.6, w: 6 + (r() * 3 | 0), h: 4 + (r() * 3 | 0), big: i === 0 && tier >= 3, d: d }); }
-    houses.sort(function (a, b) { return a.d - b.d; });
-    houses.forEach(function (h, i) {
+    var n = 2 + tier + (tier > 2 ? 1 : 0), styles = [];
+    for (var i = 0; i < n; i++) {
       var style = st.biome;
       if (st.layers.length) { var newest = st.layers[0], spread = 1 + Math.floor((state.turn - newest.since) / 2); style = i < spread ? newest.f : (st.layers[1] ? st.layers[1].f : st.biome); }
-      h.style = style;
-    });
-    houses.sort(function (a, b) { return a.y - b.y; });
-    var ground = st.biome === 'mud' ? '#c9ad7a' : st.biome === 'timber' ? '#8f8a74' : '#b8a678';
-    // worn ground and lanes that lead out of the plaza toward the edges of the hex
-    if (tier >= 2) {
-      g.strokeStyle = A.rgba(ground, 0.55); g.lineWidth = 2; g.lineCap = 'round';
-      for (i = 0; i < Math.min(4, tier); i++) { var la = r() * Math.PI * 2; g.beginPath(); g.moveTo(VX, VY); g.quadraticCurveTo(VX + Math.cos(la) * 12, VY + Math.sin(la) * 6 + 2, VX + Math.cos(la) * (20 + tier * 2), VY + Math.sin(la) * (8 + tier)); g.stroke(); }
-      var pg = g.createRadialGradient(VX, VY, 1, VX, VY, 11 + tier * 2.5); pg.addColorStop(0, A.rgba(A.shade(ground, 0.12), 0.75)); pg.addColorStop(1, A.rgba(ground, 0));
-      g.fillStyle = pg; g.beginPath(); g.ellipse(VX, VY, 11 + tier * 2.5, 4.5 + tier, 0, 0, 7); g.fill();
-      if (tier >= 3) { A.disc(g, VX, VY, 2, '#8a8070'); A.px(g, VX, VY - 1, night ? '#ffe2a0' : '#6aa8c8'); } // well or fountain at the heart of the town
+      styles.push(style);
     }
-    if (tier >= 4) { g.fillStyle = 'rgba(0,0,0,0.18)'; g.beginPath(); g.ellipse(VX, VY + 1, 30, 11, 0, 0, 7); g.fill(); g.strokeStyle = st.biome === 'mud' ? '#b89a68' : '#6a5038'; g.lineWidth = 2; g.beginPath(); g.ellipse(VX, VY, 29, 10.5, 0, Math.PI * 0.05, Math.PI * 0.95); g.stroke(); A.rect(g, VX - 2, VY + 9, 4, 3, '#3a2a1a'); }
-    if (tier >= 3) for (i = 0; i < 2; i++) { var mx = VX - 14 + i * 24; A.rect(g, mx, VY + 3, 6, 2, ['#b8302a', '#2f6fb3'][i]); A.rect(g, mx, VY + 2, 6, 1, A.shade(['#b8302a', '#2f6fb3'][i], 0.3)); A.rect(g, mx, VY + 5, 1, 2, '#3a2a1a'); A.rect(g, mx + 5, VY + 5, 1, 2, '#3a2a1a'); }
-    // contact shadows first, cast away from the upper-left light, so they sit under every house
-    houses.forEach(function (h) { var w = h.big ? 11 : h.w, hh = h.big ? 7 : h.h, x = Math.round(h.x), y = Math.round(h.y);
-      g.fillStyle = 'rgba(14,12,24,0.32)'; g.beginPath(); g.moveTo(x - w / 2, y + 1); g.lineTo(x + w / 2 + 3, y + 1); g.lineTo(x + w / 2 + 3 + hh * 0.7, y + 1 + hh * 0.35); g.lineTo(x - w / 2 + hh * 0.7, y + 1 + hh * 0.35); g.closePath(); g.fill(); });
-    houses.forEach(function (h, idx) {
-      var S = ARCH[h.style] || ARCH.tile, x = Math.round(h.x), y = Math.round(h.y), w = h.big ? 11 : h.w, hh = h.big ? 7 : h.h, dep = 3, ruined = decline && idx % 3 === 2;
-      g.fillStyle = ruined ? A.shade(S.wall, -0.4) : S.wall; g.fillRect(x - w / 2 | 0, y - hh, w, hh + 1);
-      g.fillStyle = A.shade(S.wall, 0.12); g.fillRect(x - w / 2 | 0, y - hh, 1, hh + 1); // lit west edge
-      g.fillStyle = S.side; g.beginPath(); g.moveTo(x + w / 2, y + 1); g.lineTo(x + w / 2 + dep, y - 1); g.lineTo(x + w / 2 + dep, y - hh - 1); g.lineTo(x + w / 2, y - hh); g.closePath(); g.fill();
-      if (ruined) { A.rect(g, x - w / 2, y - hh - 1, w, 1, '#3a3020'); A.px(g, x - w / 2 + 1, y - hh - 2, '#5a5040', 2, 1); A.px(g, x + w / 2 + 1, y - 1, '#6a5a48', 2, 1); return; }
-      if (!S.roof) { g.fillStyle = A.shade(S.wall, 0.18); g.fillRect(x - w / 2 | 0, y - hh - 1, w + dep, 1); g.fillStyle = A.shade(S.wall, -0.15); g.fillRect(x - w / 2 | 0, y - hh, w, 1); if (S.extra === 'stair' && h.big) { A.rect(g, x - 3, y - hh - 4, 7, 3, S.wall); A.rect(g, x - 3, y - hh - 4, 7, 1, A.shade(S.wall, 0.15)); A.rect(g, x - 1, y - hh - 7, 3, 3, S.wall); } if (S.extra === 'paint') { A.rect(g, x - w / 2, y - hh + 1, w, 1, '#12a38c'); A.rect(g, x - w / 2, y - hh + 2, w, 1, '#e0b33a'); } if (S.extra === 'stone') { A.px(g, x - 1, y - 2, S.side); A.px(g, x + 1, y - hh + 1, S.side); A.px(g, x - w / 2 + 1, y - hh + 2, S.side); } }
-      else {
-        var rh = S.form === 'steep' ? 6 : S.form === 'thatch' || S.form === 'round' ? 5 : 4;
-        if (S.form === 'round') { g.fillStyle = S.roof; g.beginPath(); g.ellipse(x + 1, y - hh, w / 2 + 2, rh, 0, Math.PI, 0); g.fill(); g.fillStyle = A.shade(S.roof, 0.18); g.beginPath(); g.ellipse(x - 1, y - hh - 1, w / 4, rh * 0.6, 0, Math.PI, 0); g.fill(); }
-        else {
-          g.fillStyle = S.roof; g.beginPath(); g.moveTo(x - w / 2 - 1, y - hh); g.lineTo(x + 0.5, y - hh - rh); g.lineTo(x + w / 2 + 1, y - hh); g.closePath(); g.fill();
-          g.fillStyle = S.roofR; g.beginPath(); g.moveTo(x + 0.5, y - hh - rh); g.lineTo(x + dep + 0.5, y - hh - rh - 2); g.lineTo(x + w / 2 + dep + 1, y - hh - 2); g.lineTo(x + w / 2 + 1, y - hh); g.closePath(); g.fill();
-          g.strokeStyle = A.shade(S.roof, 0.28); g.lineWidth = 1; g.beginPath(); g.moveTo(x - w / 2 - 0.5, y - hh - 0.5); g.lineTo(x + 0.5, y - hh - rh + 0.5); g.stroke(); // sunlit verge
-          g.fillStyle = A.shade(S.roofR, -0.2); g.fillRect(x + 0.5 | 0, y - hh - rh - 1 | 0, dep + 1, 1); // ridge
-        }
-        if (S.form === 'steep' && h.style === 'japanese') { A.line(g, x - w / 2 - 1, y - hh, x - w / 2 - 3, y - hh - 2, S.roof); A.line(g, x + w / 2 + dep + 1, y - hh - 2, x + w / 2 + dep + 3, y - hh - 4, S.roofR); }
-        if (h.style === 'timber' || h.style === 'norse') { g.fillStyle = 'rgba(240,245,250,0.85)'; if (t.t < 0.35) g.fillRect(x - 2, y - hh - rh + 1, 4, 1); A.line(g, x - 1, y - hh - rh - 1, x - 2, y - hh - rh - 3, '#5a3a20'); A.line(g, x + 2, y - hh - rh - 1, x + 3, y - hh - rh - 3, '#5a3a20'); }
-        if (S.extra === 'post') { A.rect(g, x - w / 2, y - hh + 1, 1, hh, '#5a3a20'); A.rect(g, x + w / 2 - 1, y - hh + 1, 1, hh, '#5a3a20'); }
-        if (S.extra === 'column' && w >= 7) for (var cc = x - w / 2 + 1; cc < x + w / 2 - 1; cc += 2) A.rect(g, cc, y - hh + 1, 1, hh - 1, A.shade(S.wall, 0.1));
-      }
-      // door and windows; at Twilight the windows are lit
-      g.fillStyle = '#3a2a1a'; g.fillRect(x - 1 | 0, y - 2, 2, 3);
-      var win = night ? '#ffd27a' : A.shade(S.wall, -0.35);
-      g.fillStyle = win; g.fillRect(x - w / 2 + 1 | 0, y - hh + 1 + (hh > 5 ? 1 : 0), 1, 1); g.fillRect(x + w / 2 - 2 | 0, y - hh + 1 + (hh > 5 ? 1 : 0), 1, 1); if (h.big) { g.fillRect(x - 3, y - hh + 2, 1, 1); g.fillRect(x + 3, y - hh + 2, 1, 1); }
-      if (night) { g.fillStyle = 'rgba(255,200,110,0.22)'; g.fillRect(x - w / 2 - 1 | 0, y - hh, w + 2, hh + 2); }
-      chim.push([x + 1, y - hh - 5]);
-    });
-    // culture markers that identify the current patron even from afar (shape, not only colour)
-    var cur = st.layers[0] ? ARCH[st.layers[0].f] : null;
-    if (cur && cur.extra === 'column') { A.rect(g, VX + 20, 30, 2, 10, '#f2ecd8'); A.rect(g, VX + 19, 29, 4, 1, '#e2dcc6'); A.rect(g, VX + 21, 30, 1, 10, '#c8c0aa'); }
-    if (cur && cur.extra === 'palm') { A.line(g, VX - 22, 40, VX - 21, 30, '#7a5a32'); A.line(g, VX - 21, 30, VX - 26, 32, '#4f8a3a'); A.line(g, VX - 21, 30, VX - 16, 32, '#4f8a3a'); A.line(g, VX - 21, 30, VX - 22, 27, '#5f9a4a'); }
-    if (cur && cur.extra === 'fence') for (i = 0; i < 6; i++) A.rect(g, VX - 26 + i * 3, 41, 1, 3, '#6a5a3a');
-    if (cur && cur.extra === 'torii') { A.rect(g, VX + 15, 31, 9, 1, '#e5532d'); A.rect(g, VX + 14, 30, 11, 1, '#2a2018'); A.rect(g, VX + 16, 32, 1, 8, '#e5532d'); A.rect(g, VX + 22, 32, 1, 8, '#e5532d'); }
-    if (cur && cur.extra === 'fire') { A.disc(g, VX + 18, 40, 2, '#ffb070'); A.px(g, VX + 18, 37, '#fff0a0', 1, 2); A.rect(g, VX + 15, 42, 7, 1, '#6a4a2a'); }
-    if (cur && cur.extra === 'stair') { A.rect(g, VX - 25, 38, 7, 2, '#c8a878'); A.rect(g, VX - 24, 36, 5, 2, '#d8b888'); A.rect(g, VX - 23, 34, 3, 2, '#e8c898'); }
-    if (cur && cur.extra === 'smoke') A.rect(g, VX + 18, 36, 4, 5, '#5a4030');
-    var out = { c: c, chim: chim.slice(0, 3), tier: tier, night: night };
+    var v = A.village({ id: s.id, tier: tier, decline: decline, night: night, cold: cold, shrine: sh, styles: styles, current: st.layers[0] ? st.layers[0].f : null, biome: st.biome });
+    var out = { c: v.c, chim: v.chim.map(function (c) { return [c[0] / 2, c[1] / 2]; }), tier: tier, night: night };
     this.villageCache[key] = out; return out;
   };
   P.shrineImage = function (art, pal, cond, spec) {
@@ -782,7 +722,7 @@
     var c = this.cam, f = 1 - Math.exp(-dt * 9); c.x += (c.tx - c.x) * f; c.y += (c.ty - c.y) * f; c.z += (c.tz - c.z) * f;
     if (!this.state) return;
     if (this.blackout) { var ctx = this.ctx; ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.fillStyle = '#05070c'; ctx.fillRect(0, 0, this.canvas.width, this.canvas.height); this.lastFrameMs = 0; return; }
-    this.view = this.viewRect();
+    this.view = this.viewRect(); this.vilBuilds = 0;
     this.composeWorld(dt);
     this.drawScreen(dt);
     var ms = (root.performance || Date).now() - t0;
@@ -847,13 +787,14 @@
     g.globalCompositeOperation = 'lighter';
     objs.forEach(function (o) { if (o.s && o.s.shrine && !o.s.shrine.eclipsed) self.drawShrineGlow(g, st, o.s, time); });
     g.globalCompositeOperation = 'source-over';
-    objs.forEach(function (o) { if (o.s) self.drawSettlement(g, st, o.s, time); else if (o.lm) self.drawLandmark(g, st, o.lm, time); else self.drawPriest(g, st, o.pr, time); });
+    // standing objects are drawn later, in screen space at full screen resolution (drawObjects), so the 2× asset kits keep their detail
+    this.objs = objs;
     this.drawWeather(g, st, time, dt);
     if (this.influence) this.drawInfluence(g, st);
     g.drawImage(this.fog, 0, 0);
     if (this.oldFog && this.fogFade > 0) { g.globalAlpha = this.fogFade; g.drawImage(this.oldFog, 0, 0); g.globalAlpha = 1; this.fogFade -= dt / 1.3; if (this.fogFade <= 0) this.oldFog = null; }
     this.drawRevealTheatre(g, st, dt);
-    this.drawFx(g, dt);
+    this.drawFx(g, dt, false);
     g.restore();
   };
 
@@ -896,7 +837,7 @@
   };
   P.drawLandmark = function (g, st, l, time) {
     var p = this.top(st.map.tiles[l.tile]), img = this.landmarkImage(l.kind);
-    g.drawImage(img, Math.round(p.x - 16), Math.round(p.y - 24));
+    this.blit2(g, img, Math.round(p.x - 16), Math.round(p.y - 24), 32, 28);
     if (l.holder >= 0) { var pal = this.fac[st.players[l.holder].faction].palette; A.rect(g, p.x + 12, p.y - 26, 1, 12, '#3a2a1a'); A.rect(g, p.x + 13, p.y - 26, 6, 4, pal.secondary); A.rect(g, p.x + 13, p.y - 22, 6, 1, pal.accent); }
   };
   P.drawWeather = function (g, st, time, dt) {
@@ -965,13 +906,13 @@
     var bg = g.createLinearGradient(0, p.y - 120, 0, p.y - 10); bg.addColorStop(0, A.rgba(pal.glow, 0)); bg.addColorStop(1, A.rgba(pal.glow, (s.shrine.spec === 'beacon' ? 0.3 : 0.12) * pulse)); g.fillStyle = bg; g.fillRect(p.x + 5, p.y - 120, s.shrine.spec === 'beacon' ? 10 : 6, 110);
   };
   P.drawSettlement = function (g, st, s, time) {
-    var p = this.top(st.map.tiles[s.tile]), v = this.village(st, s), self = this, viewer = this.viewer;
+    var p = this.top(st.map.tiles[s.tile]), v = this.villageForDraw(st, s), self = this, viewer = this.viewer;
     var ctrl = s.controlledBy;
     if (ctrl >= 0) { var pal = this.fac[st.players[ctrl].faction].palette; g.strokeStyle = A.rgba(pal.accent, 0.8); g.lineWidth = 1.5; g.beginPath(); g.ellipse(p.x - 2, p.y + 2, 24, 9, 0, 0, 7); g.stroke(); }
-    g.drawImage(v.c, Math.round(p.x - VX - 2), Math.round(p.y - VY + 2));
+    this.blit2(g, v.c, Math.round(p.x - VX - 2), Math.round(p.y - VY + 2), VW, VH);
     if (s.shrine) {
       var def = this.shrineDefs[s.shrine.type], spal = this.fac[st.players[s.shrine.owner].faction].palette, cond = this.shrineCondition(st, s);
-      g.drawImage(this.shrineImage(def.art, spal, cond, s.shrine.spec), Math.round(p.x - 6), Math.round(p.y - 50));
+      this.blit2(g, this.shrineImage(def.art, spal, cond, s.shrine.spec), Math.round(p.x - 6), Math.round(p.y - 50), 44, 50);
       // ward stones: one per point of Ward; hollow when eclipsed (matches the architecture state)
       for (var i = 0; i < s.shrine.ward; i++) { g.fillStyle = s.shrine.eclipsed ? '#6a6070' : '#ffe9a0'; g.fillRect(Math.round(p.x + 10 + i * 4), Math.round(p.y - 54), 3, 3); if (s.shrine.eclipsed) { g.fillStyle = '#2a2030'; g.fillRect(Math.round(p.x + 11 + i * 4), Math.round(p.y - 53), 1, 1); } }
       var th = s.shrine.threat;
@@ -989,24 +930,56 @@
     // the viewer's own covenants are marked with a sealed scroll
     if (st.covenants && st.covenants.some(function (c) { return c.status === 'active' && c.p === viewer && c.s === s.id; })) { A.rect(g, p.x - 34, p.y - 22, 7, 5, '#e9dcc0'); A.px(g, p.x - 31, p.y - 20, '#b8302a', 2, 2); }
   };
+  /* Priests walk on the ground: no hop, sub-pixel positions (they are drawn in screen space), and the four walk frames advance with the
+     distance covered (one frame per 2.5 world px), so feet never slide. Smoothstep timing gives a start and a stop; on arrival the figure
+     settles to idle, and now and then gestures with its calling while standing in a town. */
   P.drawPriest = function (g, st, pr, time) {
-    var t = st.map.tiles[pr.tile], p = this.top(t), an = this.priestAnim[pr.id], walking = false;
-    if (an) { var k = (this.time - an.t0) / an.dur; if (k >= 1) delete this.priestAnim[pr.id]; else { walking = true; var a = this.top(st.map.tiles[an.from]); k = k * k * (3 - 2 * k); p = { x: a.x + (p.x - a.x) * k, y: a.y + (p.y - a.y) * k - Math.sin(k * Math.PI) * 4 }; } }
+    var t = st.map.tiles[pr.tile], p = this.top(t), an = this.priestAnim[pr.id], walking = false, dist = 0;
+    if (an) { var k = (this.time - an.t0) / an.dur; if (k >= 1) delete this.priestAnim[pr.id]; else { walking = true; var a = this.top(st.map.tiles[an.from]), e = k * k * (3 - 2 * k); dist = Math.hypot(p.x - a.x, p.y - a.y) * e; p = { x: a.x + (p.x - a.x) * e, y: a.y + (p.y - a.y) * e }; } }
     var fid = st.players[pr.owner].faction, role = pr.role || 'emissary';
-    var frame = this.reduced ? 0 : walking ? (Math.floor(this.time * 8) % 2 ? 1 : 2) : (st.settlements[t.settlement] && Math.sin(time * 1.3 + pr.id) > 0.7 ? 3 : 0);
-    var x = Math.round(p.x - 20 + (pr.id % 3) * 6), y = Math.round(p.y - 12);
-    var bob = (!walking && !this.reduced && Math.sin(time * 1.7 + pr.id * 1.3) > 0.6) ? -1 : 0;
-    g.fillStyle = 'rgba(12,10,22,0.35)'; g.beginPath(); g.ellipse(x + 8, y + 19.5, walking ? 4.5 : 5.5, 1.8, 0, 0, 7); g.fill(); // grounded: a soft contact shadow under the feet
+    var frame = this.reduced ? 0 : walking ? 1 + Math.floor(dist / 2.5) % 4 : (st.settlements[t.settlement] && Math.sin(time * 1.3 + pr.id) > 0.82 ? 5 : 0);
+    var x = p.x - 20 + (pr.id % 3) * 6, y = p.y - 12;
+    var bob = (!walking && !this.reduced) ? Math.max(0, Math.sin(time * 1.7 + pr.id * 1.3)) * -0.5 : 0; // a slow half-pixel breath
+    g.fillStyle = 'rgba(12,10,22,0.38)'; g.beginPath(); g.ellipse(x + 7.5, y + 19.2, walking ? 4.2 : 5, 1.6, 0, 0, 7); g.fill(); // contact shadow under the feet
     var img = this.priestImage(fid, role, frame);
-    if (walking && an && this.top(st.map.tiles[an.from]).x > this.top(t).x + 1) { g.save(); g.translate(x + 14, y + bob); g.scale(-1, 1); g.drawImage(img, 0, 0); g.restore(); } // faces the way it walks
-    else g.drawImage(img, x, y + bob);
+    if (walking && an && this.top(st.map.tiles[an.from]).x > this.top(t).x + 1) { g.save(); g.translate(x + 14, y + bob); g.scale(-1, 1); this.blit2(g, img, 0, 0, 14, 20); g.restore(); } // faces the way it walks
+    else this.blit2(g, img, x, y + bob, 14, 20);
     if (this.selPriest === pr.id) { g.strokeStyle = 'rgba(255,230,140,0.95)'; g.lineWidth = 1; g.beginPath(); g.ellipse(x + 7, y + 19, 8, 3.5, 0, 0, 7); g.stroke(); }
   };
 
-  P.drawFx = function (g, dt) {
+
+  /* Local projection: the perspective strips are affine to first order around any world point, so a standing object drawn under this
+     transform lands exactly where (and as large as) it would in the world frame, but rasterised at screen resolution. */
+  P.localAffine = function (g, wx, wy) {
+    var p0 = this.project(wx, wy), px = this.project(wx + 1, wy), py = this.project(wx, wy + 1), sh = this.shakeXY || [0, 0];
+    var a = px.x - p0.x, b = px.y - p0.y, c = py.x - p0.x, d = py.y - p0.y;
+    g.setTransform(a, b, c, d, p0.x - a * wx - c * wy + sh[0], p0.y - b * wx - d * wy + sh[1]);
+    return p0;
+  };
+  P.drawObjects = function (ctx, st, time) {
+    var self = this, W = this.canvas.width, H = this.canvas.height, hz = H * 0.55 + (-H0 / this.k() * 0.98) * this.cam.z * this.dpr;
+    (this.objs || []).forEach(function (o) {
+      var t = st.map.tiles[o.s ? o.s.tile : o.lm ? o.lm.tile : o.pr.tile], tp = self.top(t), p = self.project(tp.x, tp.y);
+      if (p.x < -160 * p.s || p.x > W + 160 * p.s || p.y < hz || p.y - 120 * p.s > H) return;
+      self.localAffine(ctx, tp.x, tp.y); ctx.imageSmoothingEnabled = false; self.objScale = p.s;
+      if (o.s) self.drawSettlement(ctx, st, o.s, time); else if (o.lm) self.drawLandmark(ctx, st, o.lm, time); else self.drawPriest(ctx, st, o.pr, time);
+    });
+    ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.imageSmoothingEnabled = false;
+  };
+  /* Draw a 2× source sprite at its world size: smooth when the screen shows it at or below its native resolution, crisp pixels above. */
+  P.blit2 = function (g, img, x, y, w, h) {
+    var native = (this.objScale || 1) * w / img.width; g.imageSmoothingEnabled = native < 1.3;
+    g.drawImage(img, x, y, w, h); g.imageSmoothingEnabled = false;
+  };
+  /* Ground effects (light pools, rings, sweeps, ripples) are painted into the world frame under the towns; everything that rises above
+     the ground is drawn in screen space over the towns (air = true), each effect under the local projection at its own anchor. */
+  var GROUND_FX = { worldlight: 1, shadow: 1, band: 1, ring: 1, ripples: 1, rings: 1, paddy: 1, sprouts: 1 };
+  P.drawFx = function (g, dt, air) {
     var self = this, keep = [];
     this.fx.forEach(function (e) {
+      if (!GROUND_FX[e.k] !== air) { keep.push(e); return; }
       if (e.delay > 0) { e.delay -= dt; keep.push(e); return; }
+      if (air) self.localAffine(g, e.x, e.y);
       e.t += dt; var k = e.t / e.life; if (k >= 1) return; keep.push(e);
       var R = A.rng((e.seed || 1) * 1000 | 0), i, x, y;
       switch (e.k) {
@@ -1130,6 +1103,9 @@
       if (srcW <= 0) continue;
       ctx.drawImage(this.frame, srcX, srcY, srcW, srcH, dx + sx, y + sy, dw, step + 0.5);
     }
+    this.shakeXY = [sx, sy];
+    this.drawObjects(ctx, st, time);
+    this.drawFx(ctx, dt, true); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over';
     ctx.imageSmoothingEnabled = true;
     ctx.drawImage(this.screenLayer('haze', W + '|' + H + '|' + mid, W, H, function (g, w, h) { var hz = g.createLinearGradient(0, 0, 0, h * 0.55); hz.addColorStop(0, A.rgba(mid, 0.55)); hz.addColorStop(0.35, A.rgba(mid, 0.18)); hz.addColorStop(1, A.rgba(mid, 0)); g.fillStyle = hz; g.fillRect(0, 0, w, h * 0.55); }), 0, 0, W, H);
     ctx.imageSmoothingEnabled = false;

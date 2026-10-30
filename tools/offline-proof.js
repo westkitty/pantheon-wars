@@ -26,7 +26,7 @@ const ROOT = path.join(__dirname, '..'), PORT = 8765;
   }
   await browser.close(); srv.kill();
   // static scan: no absolute http(s) URLs in shipped code paths other than source citations (opened only on player click)
-  const shipped = ['index.html', 'ui/style.css', 'ui/app.js', 'ui/art.js', 'ui/render.js', 'ui/audio.js', 'ui/storage.js', 'ui/chronicle.js', 'ui/encyclopedia.js', 'engine/engine.js', 'engine/ai.js', 'engine/rng.js'];
+  const shipped = ['index.html', 'ui/style.css', 'ui/app.js', 'ui/art.js', 'ui/kits.js', 'ui/render.js', 'ui/audio.js', 'ui/storage.js', 'ui/chronicle.js', 'ui/encyclopedia.js', 'engine/engine.js', 'engine/ai.js', 'engine/rng.js'];
   out.staticScan = shipped.map(f => ({ file: f, absoluteUrls: (fs.readFileSync(path.join(ROOT, f), 'utf8').match(/https?:\/\/[^\s'"<>)]+/g) || []) }));
   out.pass = out.runs.every(r => r.started && !r.externalRequests.length && !r.errors.length) && out.staticScan.every(s => !s.absoluteUrls.length);
   fs.writeFileSync(path.join(ROOT, 'reports', 'offline-proof.json'), JSON.stringify(out, null, 1));

@@ -162,177 +162,10 @@
   };
   function pattern(id, color, scale) { var c = cv(12, 12), g = c.getContext('2d'); (PATTERNS[id] || (function () { throw new Error('no pattern ' + id); })())(g, color); return scale ? up(c, 12 * scale) : c; }
 
-  /* ---------------- priest families (P042): 10 silhouettes x 3 roles x 4 frames (idle, step A, step B, preach). 14x20 sprites.
-   * Garments are generic, inspired silhouettes (robe length, mantle, headwear block) — not reconstructions of real religious dress. */
-  var PRIEST_STYLES = {
-    chiton:   { robe: 'long', mantle: 'diag', head: 'band', skin: '#e0c098' },
-    cloak:    { robe: 'mid', mantle: 'hood', head: 'hood', skin: '#e8d0b0' },
-    linen:    { robe: 'long', mantle: 'none', head: 'bare', skin: '#c89a6a', light: true },
-    fringed:  { robe: 'tiers', mantle: 'wrap', head: 'cap', skin: '#c8946a' },
-    brat:     { robe: 'mid', mantle: 'cape', head: 'bare', skin: '#ecd4b8' },
-    tilmatli: { robe: 'short', mantle: 'knot', head: 'plume', skin: '#b8865a' },
-    longrobe: { robe: 'long', mantle: 'none', head: 'tall', skin: '#d0a478' },
-    agbada:   { robe: 'wide', mantle: 'none', head: 'cap', skin: '#8a5a3a' },
-    kariginu: { robe: 'wide', mantle: 'none', head: 'tall', skin: '#e8cca8' },
-    dhoti:    { robe: 'short', mantle: 'shawl', head: 'bare', skin: '#b07a50' }
-  };
-  function priestSprite(style, role, pal, frame) {
-    var S = PRIEST_STYLES[style]; if (!S) throw new Error('no priest style ' + style);
-    var c = cv(14, 20), g = c.getContext('2d'), bob = frame === 1 || frame === 2 ? 0 : 0, legA = frame === 1, legB = frame === 2, arms = frame === 3;
-    var body = S.light ? mix(pal.primary, '#ffffff', 0.3) : pal.secondary, dark = shade(body, -0.35), trim = pal.accent, x0 = 4, y0 = 6 + bob;
-    px(g, 3, 19, 'rgba(0,0,0,0.35)', 8, 1);
-    // legs / hem
-    var hem = S.robe === 'short' ? 15 : S.robe === 'mid' ? 17 : 18;
-    if (hem < 18) { px(g, x0 + (legA ? 0 : 1), hem, '#3a2a1a', 1, 19 - hem); px(g, x0 + 4 - (legB ? 0 : 1), hem, '#3a2a1a', 1, 19 - hem); }
-    // robe
-    var w = S.robe === 'wide' ? 8 : 6, xl = x0 + 3 - w / 2;
-    rect(g, xl, y0 + 3, w, hem - y0 - 3, body); rect(g, xl + w / 2, y0 + 3, w / 2, hem - y0 - 3, dark);
-    if (S.robe === 'tiers') { for (var t = y0 + 6; t < hem; t += 3) rect(g, xl, t, w, 1, trim); }
-    rect(g, xl, hem - 1, w, 1, trim);
-    // mantle
-    if (S.mantle === 'diag') line(g, xl, y0 + 3, xl + w - 1, y0 + 8, pal.primary);
-    if (S.mantle === 'cape' || S.mantle === 'hood') rect(g, xl - 1, y0 + 3, w + 2, 4, shade(pal.dark, 0.25));
-    if (S.mantle === 'wrap') rect(g, xl, y0 + 5, w, 2, pal.primary);
-    if (S.mantle === 'knot') { poly(g, [xl - 1, y0 + 3, xl + w + 1, y0 + 3, xl + w, y0 + 10, xl, y0 + 10], trim); px(g, xl + w - 1, y0 + 3, pal.primary, 2, 2); }
-    if (S.mantle === 'shawl') line(g, xl + w - 1, y0 + 3, xl, y0 + 9, trim);
-    // arms
-    if (arms) { line(g, xl - 1, y0 + 4, xl - 2, y0 + 1, S.skin); line(g, xl + w, y0 + 4, xl + w + 1, y0 + 1, S.skin); }
-    // head
-    var hx = x0 + 2, hy = y0 - 1;
-    rect(g, hx, hy, 3, 3, S.skin);
-    if (S.head === 'band') rect(g, hx, hy, 3, 1, trim);
-    if (S.head === 'hood') { rect(g, hx - 1, hy - 1, 5, 2, shade(pal.dark, 0.25)); px(g, hx - 1, hy, shade(pal.dark, 0.25), 1, 3); px(g, hx + 3, hy, shade(pal.dark, 0.25), 1, 3); }
-    if (S.head === 'cap') rect(g, hx, hy - 1, 3, 2, trim);
-    if (S.head === 'tall') rect(g, hx, hy - 3, 3, 3, pal.dark);
-    if (S.head === 'plume') { rect(g, hx, hy - 1, 3, 1, trim); line(g, hx + 1, hy - 1, hx + 3, hy - 4, pal.glow); }
-    // role overlays: shape-coded so roles read without colour
-    if (role === 'seer') { line(g, 12, 2, 12, 18, '#8a6a3a'); disc(g, 12, 2, 1.4, pal.glow); px(g, 11, 2, '#ffffff'); }
-    else if (role === 'warden') { poly(g, [0, 8, 4, 8, 4, 13, 2, 15, 0, 13], '#9aa4ad'); px(g, 1, 9, trim, 2, 3); }
-    else { line(g, 12, 3, 12, 18, '#6a4a2a'); rect(g, 12, 3, 2, 3, trim); }
-    return c;
-  }
-
-  /* ---------------- landmarks (P034): 32x28 props */
-  var LANDMARKS = {
-    summit: function (g) { poly(g, [2, 26, 16, 6, 30, 26], '#8a8478'); poly(g, [16, 6, 30, 26, 20, 26], '#5a564e'); poly(g, [13, 9, 16, 6, 19, 9, 16, 11], '#f2f4f6'); for (var i = 0; i < 4; i++) rect(g, 14 + (i % 2), 13 - i * 2, 4 - (i % 2), 2, '#b8b0a0'); line(g, 17, 3, 17, 9, '#6a4a2a'); poly(g, [17, 3, 23, 4, 17, 6], '#e9c46a'); poly(g, [17, 6, 22, 7, 17, 8], '#9fd2ff'); },
-    spring: function (g) { g.fillStyle = 'rgba(0,0,0,0.25)'; g.beginPath(); g.ellipse(16, 22, 13, 5, 0, 0, 7); g.fill(); g.fillStyle = '#3f97a6'; g.beginPath(); g.ellipse(16, 21, 11, 4, 0, 0, 7); g.fill(); for (var a = 0; a < 6.3; a += 0.7) rect(g, 16 + Math.cos(a) * 11, 21 + Math.sin(a) * 4, 2, 2, '#b8b0a0'); for (var i = 0; i < 4; i++) line(g, 16, 20, 12 + i * 3, 10 + (i % 2) * 2, '#d8f4ff'); disc(g, 16, 9, 1.4, '#ffffff'); },
-    grove: function (g) { rect(g, 9, 16, 3, 9, '#4a3420'); rect(g, 20, 14, 3, 11, '#4a3420'); disc(g, 10, 12, 7, '#2f5a2a'); disc(g, 21, 10, 8, '#3a6a30'); disc(g, 16, 7, 6, '#4a7a3a'); disc(g, 14, 5, 2, '#6a9a4a'); rect(g, 13, 22, 6, 3, '#8a8478'); rect(g, 14, 21, 4, 1, '#a8a294'); },
-    stones: function (g) { rect(g, 13, 4, 7, 21, '#8c8a84'); rect(g, 13, 4, 3, 21, '#a9a7a0'); poly(g, [13, 4, 16, 1, 20, 4], '#a9a7a0'); rect(g, 6, 16, 4, 9, '#7a7872'); rect(g, 23, 18, 4, 7, '#7a7872'); for (var i = 0; i < 3; i++) rect(g, 15, 9 + i * 4, 3, 1, '#6a6862'); }
-  };
-  function landmarkSprite(kind) { var c = cv(32, 28), g = c.getContext('2d'); if (!LANDMARKS[kind]) throw new Error('no landmark ' + kind); LANDMARKS[kind](g); return c; }
-
-  /* ---------------- shrine families (P028–P030, P041): 10 architectures x 7 conditions, 44x50, base sits on y=46.
-   * Conditions: healthy, fortified (Ward 4+), eclipsed, damaged (Ward 2 after a hit), nearlyToppled (Ward 1), ruined (no shrine; a ruin mark), restored (rebuilt or answered).
-   * Damage removes pieces and leans masonry so a ruin never looks like a working shrine. */
-  var SHRINES = {
-    columns: function (g, P, d) { // stepped stone platform, peristyle, pediment [G1]
-      rect(g, 4, 42, 36, 4, '#b8b098'); rect(g, 6, 39, 32, 3, '#d4ccb4'); rect(g, 8, 37, 28, 2, '#e8e2cc');
-      rect(g, 9, 22, 26, 15, '#3a3428'); rect(g, 15, 25, 14, 12, rgba(P.glow, 0.85));
-      for (var i = 0; i < 7; i++) { if (d >= 2 && (i === 5 || (d >= 3 && i === 1))) continue; var cx = 8 + i * 4.3; rect(g, cx, 22, 2, 15, '#f2ecd8'); rect(g, cx + 2, 22, 1, 15, '#b4ac94'); }
-      if (d < 3) { rect(g, 7, 19, 30, 3, '#e2dcc6'); rect(g, 7, 20, 30, 1, P.secondary); poly(g, [6, 19, 22, 10, 38, 19], '#efe8d2'); poly(g, [22, 10, 38, 19, 29, 19], '#c4bca4'); px(g, 21, 8, P.accent, 2, 2); }
-      else { poly(g, [6, 21, 20, 15, 30, 21], '#d8d2bc'); }
-    },
-    hall: function (g, P, d) { // timber hall, crossed gable finials, hearth stone [N5]
-      rect(g, 6, 28, 30, 16, '#4a3626'); for (var i = 0; i < 8; i++) rect(g, 6 + i * 4, 28, 1, 16, '#5e4632');
-      poly(g, [36, 44, 40, 41, 40, 26, 36, 28], '#2e2218');
-      if (d < 3) { poly(g, [3, 29, 21, 12, 39, 29], '#3a2c22'); poly(g, [21, 12, 39, 29, 41, 26, 23, 10], '#2a2018'); for (i = 0; i < 6; i++) rect(g, 8 + i * 4, 17 + (i % 2) * 5, 6, 1, 'rgba(0,0,0,0.25)'); line(g, 21, 12, 16, 5, '#6a4a30'); line(g, 21, 12, 26, 5, '#6a4a30'); px(g, 15, 4, P.accent); px(g, 26, 4, P.accent); }
-      else { poly(g, [5, 31, 18, 22, 30, 31], '#2e2218'); }
-      rect(g, 18, 33, 6, 11, rgba(P.glow, 0.95)); rect(g, 9, 30, 3, 3, P.secondary); rect(g, 30, 30, 3, 3, P.secondary);
-      rect(g, 1, 30, 4, 14, '#7a7872'); rect(g, 1, 30, 2, 14, '#9a9890');
-    },
-    pylon: function (g, P, d) { // twin sloping pylons, relief bands, flagstaff [E1]
-      poly(g, [3, 46, 6, 16, 16, 16, 18, 46], '#d8bc84'); if (d < 3) poly(g, [24, 46, 26, 16, 36, 16, 39, 46], '#c8a870'); else poly(g, [24, 46, 26, 30, 34, 26, 39, 46], '#c8a870');
-      poly(g, [32, 16, 36, 16, 39, 46, 35, 46], '#a8885a');
-      rect(g, 6, 19, 10, 2, P.secondary); rect(g, 26, 19, 10, 2, P.secondary); rect(g, 6, 21, 10, 1, P.accent); rect(g, 26, 21, 10, 1, P.accent);
-      rect(g, 16, 24, 10, 3, '#b89a68'); rect(g, 16, 25, 10, 1, P.secondary); rect(g, 18, 27, 6, 19, rgba(P.glow, 0.95));
-      if (d < 2) { poly(g, [40, 46, 41, 10, 42, 46], '#e0c48a'); px(g, 40, 8, P.accent, 2, 2); }
-      for (var i = 0; i < 6; i++) { px(g, 8 + i * 1.4, 25 + i * 3, 'rgba(90,60,30,0.5)'); px(g, 28 + i * 1.4, 25 + i * 3, 'rgba(90,60,30,0.5)'); }
-    },
-    ziggurat: function (g, P, d) { // mud-brick stepped terraces, triple stair, small top temple [M6]
-      rect(g, 2, 38, 40, 8, '#a8885c'); rect(g, 8, 30, 28, 8, '#b8986a'); rect(g, 13, 23, 18, 7, '#c8a878');
-      for (var y = 39; y < 46; y += 2) rect(g, 2, y, 40, 1, 'rgba(60,40,20,0.25)'); for (y = 31; y < 38; y += 2) rect(g, 8, y, 28, 1, 'rgba(60,40,20,0.22)');
-      rect(g, 20, 23, 4, 23, '#d8bc8c'); for (y = 24; y < 46; y += 2) rect(g, 20, y, 4, 1, '#a8885c');
-      poly(g, [6, 46, 20, 33, 20, 35, 9, 46], '#d0b484'); poly(g, [38, 46, 24, 33, 24, 35, 35, 46], '#c0a474');
-      if (d < 3) { rect(g, 16, 15, 12, 8, '#e0c898'); rect(g, 19, 17, 6, 6, rgba(P.glow, 0.9)); rect(g, 15, 14, 14, 2, P.secondary); px(g, 21, 11, P.accent, 2, 3); }
-      else { rect(g, 15, 19, 6, 4, '#c8a878'); }
-      rect(g, 2, 37, 40, 1, P.secondary);
-    },
-    enclosure: function (g, P, d) { // round bank with ditch inside, mound and timber hall [I6]
-      g.fillStyle = '#4f7a3a'; g.beginPath(); g.ellipse(22, 40, 21, 7, 0, 0, 7); g.fill();
-      g.fillStyle = '#2f4a24'; g.beginPath(); g.ellipse(22, 40, 17, 5.2, 0, 0, 7); g.fill();
-      g.fillStyle = '#6f9a4a'; g.beginPath(); g.ellipse(22, 39, 13, 4, 0, 0, 7); g.fill();
-      if (d < 3) { rect(g, 13, 26, 18, 12, '#5a4030'); for (var i = 0; i < 5; i++) rect(g, 13 + i * 4, 26, 1, 12, '#6e5038'); poly(g, [11, 27, 22, 17, 33, 27], '#8a7448'); poly(g, [22, 17, 33, 27, 30, 27], '#6a5a38'); rect(g, 20, 30, 4, 8, rgba(P.glow, 0.9)); }
-      else { rect(g, 15, 33, 6, 5, '#4a3424'); line(g, 22, 34, 27, 30, '#4a3424'); }
-      rect(g, 36, 30, 2, 10, '#8c8a84'); px(g, 36, 29, P.accent, 2, 1);
-    },
-    twin: function (g, P, d) { // stepped platform, twin stair, two shrines side by side [X1]
-      rect(g, 3, 38, 38, 8, '#c8b08a'); rect(g, 7, 31, 30, 7, '#d4bc94'); rect(g, 11, 25, 22, 6, '#dcc6a0');
-      for (var y = 26; y < 46; y += 2) { rect(g, 15, y, 4, 1, '#9a8060'); rect(g, 25, y, 4, 1, '#9a8060'); }
-      rect(g, 3, 37, 38, 1, P.secondary); rect(g, 7, 30, 30, 1, P.accent);
-      if (d < 3) { rect(g, 11, 16, 9, 9, '#e8e0d0'); rect(g, 13, 19, 5, 6, rgba(P.glow, 0.9)); poly(g, [10, 16, 15, 11, 21, 16], P.secondary);
-        rect(g, 24, 16, 9, 9, '#e8e0d0'); rect(g, 26, 19, 5, 6, rgba(P.glow, 0.9)); poly(g, [23, 16, 28, 11, 34, 16], '#d4502a');
-        for (var i = 0; i < 3; i++) px(g, 25 + i * 3, 13, '#ffffff'); }
-      else { rect(g, 12, 21, 6, 4, '#d8d0c0'); rect(g, 26, 22, 5, 3, '#d8d0c0'); }
-    },
-    court: function (g, P, d) { // polygonal stone gate between towers, walled court [H5]
-      rect(g, 2, 32, 40, 14, '#8a847a'); for (var i = 0; i < 6; i++) line(g, 2 + i * 7, 32, 6 + i * 7, 46, '#6e6a62');
-      rect(g, 4, 18, 9, 28, '#a09a8e'); rect(g, 31, 18, 9, 28, '#a09a8e'); rect(g, 4, 16, 9, 2, '#bab4a8'); rect(g, 31, 16, 9, 2, '#bab4a8');
-      for (i = 0; i < 5; i++) { line(g, 4, 21 + i * 5, 12, 23 + i * 5, '#77736a'); line(g, 31, 23 + i * 5, 39, 21 + i * 5, '#77736a'); }
-      if (d < 3) { poly(g, [13, 46, 13, 28, 22, 22, 31, 28, 31, 46], '#2a2620'); rect(g, 16, 32, 12, 14, rgba(P.glow, 0.7)); px(g, 6, 13, P.accent, 2, 3); px(g, 34, 13, P.accent, 2, 3); }
-      else { rect(g, 13, 38, 18, 8, '#3a362e'); rect(g, 31, 26, 9, 20, '#8a847a'); }
-      disc(g, 22, 20, 2, P.accent);
-    },
-    courtyard: function (g, P, d) { // compound round a courtyard, veranda on carved posts, rain basin, grove trees [Y5, Y1]
-      disc(g, 6, 18, 6, '#2f5a2a'); disc(g, 39, 16, 6, '#3a6a30'); rect(g, 5, 22, 2, 8, '#4a3420'); rect(g, 38, 21, 2, 9, '#4a3420');
-      rect(g, 4, 30, 36, 16, '#b8784a'); rect(g, 10, 34, 24, 8, '#d8c8a8'); rect(g, 18, 36, 8, 4, '#4aa8c8');
-      if (d < 3) { poly(g, [2, 31, 22, 22, 42, 31], '#8a6a3a'); poly(g, [22, 22, 42, 31, 36, 31], '#6a4a2a'); for (var i = 0; i < 6; i++) { rect(g, 7 + i * 6, 31, 2, 7, '#5a3a20'); px(g, 7 + i * 6, 33, P.accent, 2, 1); } rect(g, 20, 26, 4, 5, rgba(P.glow, 0.9)); }
-      else { poly(g, [4, 33, 14, 27, 20, 33], '#6a4a2a'); rect(g, 26, 32, 3, 6, '#5a3a20'); }
-      rect(g, 4, 45, 36, 1, P.secondary);
-    },
-    honden: function (g, P, d) { // raised gabled honden with crossed finials, torii before it [J6, J5]
-      rect(g, 13, 26, 22, 12, '#c84a2a'); for (var i = 0; i < 4; i++) rect(g, 14 + i * 6, 26, 2, 16, '#8a2a18'); rect(g, 12, 38, 24, 2, '#6a4a2a');
-      if (d < 3) { poly(g, [9, 27, 24, 17, 39, 27], '#4a3a2a'); poly(g, [24, 17, 39, 27, 36, 27], '#2a2018'); line(g, 24, 17, 20, 11, '#d8b878'); line(g, 24, 17, 28, 11, '#d8b878'); rect(g, 18, 29, 12, 9, rgba(P.glow, 0.85)); }
-      else { poly(g, [12, 30, 22, 25, 30, 31], '#4a3a2a'); }
-      if (d < 2) { rect(g, 1, 28, 12, 2, '#e5532d'); rect(g, 2, 31, 10, 1, '#e5532d'); rect(g, 3, 30, 2, 16, '#e5532d'); rect(g, 9, 30, 2, 16, '#e5532d'); }
-      else { rect(g, 3, 38, 2, 8, '#a8402a'); }
-      rect(g, 14, 42, 22, 4, '#9a948a');
-    },
-    altar: function (g, P, d) { // open enclosure: round fire, square fire, grass-strewn vedi, shed roof [V2]
-      rect(g, 2, 40, 40, 6, '#b8a070'); rect(g, 4, 41, 36, 1, '#d8c890');
-      g.fillStyle = '#9a8a5a'; g.beginPath(); g.ellipse(10, 39, 5, 2.5, 0, 0, 7); g.fill(); rect(g, 29, 36, 9, 5, '#9a8a5a');
-      poly(g, [16, 40, 28, 40, 26, 36, 18, 36], '#7a9a4a');
-      if (d < 3) { rect(g, 4, 22, 2, 18, '#6a4a2a'); rect(g, 38, 22, 2, 18, '#6a4a2a'); poly(g, [1, 23, 22, 14, 43, 23, 43, 25, 1, 25], '#a88a5a'); rect(g, 1, 25, 42, 1, '#7a5e3a');
-        poly(g, [10, 30, 13, 36, 10, 38, 7, 36], P.accent); px(g, 9, 34, '#fff0a0', 2, 2); poly(g, [33, 28, 37, 35, 33, 36, 30, 35], P.accent); px(g, 33, 32, '#fff0a0', 2, 2); }
-      else { line(g, 4, 30, 14, 26, '#6a4a2a'); }
-      rect(g, 18, 18, 8, 1, P.secondary);
-    }
-  };
+  /* ---------------- priests (P042), landmarks (P034), shrine families (P028–P030, P041): authored at 2× in ui/kits.js (v0.4), which
+   * registers priestSprite, landmarkSprite and shrineArt on PWArt and fills ids.priests, ids.landmarks and ids.shrines. Garments stay
+   * generic, inspired silhouettes (robe length, mantle, headwear block), not reconstructions of real religious dress. */
   var CONDITIONS = ['healthy', 'fortified', 'eclipsed', 'damaged', 'nearlyToppled', 'ruined', 'restored'];
-  function shrineArt(art, pal, cond, spec) {
-    var c = cv(44, 50), g = c.getContext('2d');
-    if (!SHRINES[art]) throw new Error('no shrine art ' + art);
-    g.fillStyle = 'rgba(0,0,0,0.35)'; g.beginPath(); g.ellipse(22, 47, 19, 4, 0, 0, 7); g.fill();
-    if (cond === 'ruined') { ruin(g, art, pal); return c; }
-    var dmg = cond === 'damaged' ? 2 : cond === 'nearlyToppled' ? 3 : 0;
-    if (cond === 'nearlyToppled') { g.save(); g.translate(22, 46); g.rotate(-0.06); g.translate(-22, -46); }
-    SHRINES[art](g, pal, dmg);
-    if (cond === 'nearlyToppled') g.restore();
-    if (dmg) { var r = rng(art.length * 31 + dmg); for (var i = 0; i < 8 * dmg; i++) px(g, 6 + r() * 32, 18 + r() * 26, 'rgba(20,14,8,0.55)', 1 + (r() * 2 | 0), 1); for (i = 0; i < 3 * dmg; i++) rect(g, 4 + r() * 36, 44 + r() * 2, 2, 1, '#8a8070'); line(g, 14, 22, 18, 34, 'rgba(20,14,8,0.6)'); }
-    if (cond === 'fortified') { rect(g, 0, 40, 4, 6, '#9a948a'); rect(g, 40, 40, 4, 6, '#9a948a'); rect(g, 0, 39, 44, 1, '#bab4a8'); for (var b = 0; b < 3; b++) { rect(g, 1 + b * 20, 34, 1, 6, '#6a4a2a'); rect(g, 2 + b * 20, 34, 3, 2, pal.accent); } }
-    if (cond === 'restored') { for (i = 0; i < 4; i++) rect(g, 6 + i * 10, 30, 1, 16, '#c8a878'); rect(g, 5, 30, 34, 1, '#c8a878'); for (i = 0; i < 6; i++) px(g, 8 + i * 6, 28, '#9fe07a', 2, 1); }
-    if (spec === 'oracle') { disc(g, 22, 4, 3, '#efe6d2'); disc(g, 22, 4, 1.6, '#8a5ad8'); }
-    if (spec === 'sanctuary') { g.strokeStyle = '#bab4a8'; g.lineWidth = 2; g.beginPath(); g.ellipse(22, 44, 21, 5, 0, Math.PI * 0.05, Math.PI * 0.95); g.stroke(); }
-    if (spec === 'beacon') { rect(g, 41, 6, 2, 40, '#c8bca0'); poly(g, [40, 6, 44, 6, 42, 1], '#ffe08a'); }
-    if (cond === 'eclipsed') { g.globalCompositeOperation = 'source-atop'; g.fillStyle = 'rgba(15,10,25,0.62)'; g.fillRect(0, 0, 44, 50); g.globalCompositeOperation = 'source-over'; disc(g, 22, 6, 4, 'rgba(255,200,120,0.7)'); disc(g, 23, 6, 3.6, '#0a0810'); }
-    return c;
-  }
-  function ruin(g, art, pal) {
-    var r = rng(art.length * 97 + 5), base = { columns: '#d4ccb4', hall: '#4a3626', pylon: '#d8bc84', ziggurat: '#b8986a', enclosure: '#4f7a3a', twin: '#d4bc94', court: '#a09a8e', courtyard: '#b8784a', honden: '#c84a2a', altar: '#b8a070' }[art];
-    rect(g, 6, 42, 32, 4, shade(base, -0.25));
-    for (var i = 0; i < 14; i++) { var x = 6 + r() * 30, y = 34 + r() * 10, w = 2 + r() * 5, h = 2 + r() * 3; rect(g, x, y, w, h, i % 3 ? shade(base, -0.1) : shade(base, 0.12)); }
-    rect(g, 10, 30, 3, 12, shade(base, 0.05)); rect(g, 30, 34, 3, 8, shade(base, -0.05));
-    for (i = 0; i < 6; i++) px(g, 8 + r() * 28, 40 + r() * 4, '#5f8a3a', 2, 1);
-  }
 
   /* ---------------- atmospheres (P027): per-pantheon sky and grade. Applied subtly on top of the shared age/turn sky. */
   var ATMOS = {
@@ -388,8 +221,8 @@
     return c;
   }
 
-  var ids = { emblems: Object.keys(EMBLEMS), icons: Object.keys(ICONS), patterns: Object.keys(PATTERNS), priests: Object.keys(PRIEST_STYLES), landmarks: Object.keys(LANDMARKS),
-    shrines: Object.keys(SHRINES), atmospheres: Object.keys(ATMOS), events: ['sheaf', 'comet', 'road', 'sun', 'mask', 'chisel', 'drop', 'wave', 'lyre', 'eclipse', 'coins', 'altar', 'canal', 'assembly', 'chinampa', 'meadow', 'forge', 'paddy', 'cloudbank'], conditions: CONDITIONS, roles: ['emissary', 'seer', 'warden'] };
+  var ids = { emblems: Object.keys(EMBLEMS), icons: Object.keys(ICONS), patterns: Object.keys(PATTERNS), priests: [], landmarks: [],
+    shrines: [], atmospheres: Object.keys(ATMOS), events: ['sheaf', 'comet', 'road', 'sun', 'mask', 'chisel', 'drop', 'wave', 'lyre', 'eclipse', 'coins', 'altar', 'canal', 'assembly', 'chinampa', 'meadow', 'forge', 'paddy', 'cloudbank'], conditions: CONDITIONS, roles: ['emissary', 'seer', 'warden'] };
   root.PWArt = { cv: cv, rng: rng, hex2rgb: hex2rgb, rgb: rgb, rgba: rgba, shade: shade, mix: mix, gray: gray, px: px, disc: disc, ring: ring, line: line, poly: poly, rect: rect, up: up, star: star, arc: arc,
-    emblem: emblem, icon: icon, eventArt: eventArt, pattern: pattern, priestSprite: priestSprite, landmarkSprite: landmarkSprite, shrineArt: shrineArt, ATMOS: ATMOS, ids: ids };
+    emblem: emblem, icon: icon, eventArt: eventArt, pattern: pattern, ATMOS: ATMOS, ids: ids };
 })(typeof self !== 'undefined' ? self : this);

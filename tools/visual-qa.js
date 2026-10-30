@@ -4,6 +4,9 @@
  * validated action path as clicks) and captures:
  *   pantheons.jpg  each of the ten pantheons at turn 14, BEFORE (--before <root>) and AFTER (this tree), same seed per pantheon
  *   ages.jpg       one game at turns 3 (Dawn), 20 (Zenith) and 33 (Twilight), before and after
+ *   close.jpg      each pantheon's home town at zoom 3.2, before and after
+ *   sprites.jpg    source sprites (shrine healthy, damaged, priest) at world size ×3, before and after
+ *   walk.jpg       a priest walking in the running game, 8 frames
  *   vfx.jpg        all 40 power signatures (after) at the three beats: anticipation 0.2 s, manifestation 0.75 s, consequence 1.6 s
  * Display-only VFX frames are cast on the home tile of a live game; they are labelled as such. Writes reports/visual-qa/.
  *   node tools/visual-qa.js --before /path/to/old/checkout
@@ -56,6 +59,38 @@ async function sheet(browser, cells, cols, cw, ch, file) {
   const ages = [];
   for (const [tag, root] of roots) for (const t of [3, 20, 33]) { const { ctx, page } = await play(browser, root, 'mexica', 51, t); ages.push({ label: tag + ' · turn ' + t + ' · ' + (t < 16 ? 'Dawn' : t < 31 ? 'Zenith' : 'Twilight'), url: await frame(page) }); await ctx.close(); }
   await sheet(browser, ages, 3, 480, 300, 'ages.jpg'); manifest.sheets.push({ file: 'reports/visual-qa/ages.jpg', content: 'one Mexica game at turns 3, 20 and 33, ' + roots.map(r => r[0]).join(' vs ') });
+  // 2b. close inspection: the same game and camera at zoom 3.2, before and after (where the 2× asset detail shows most)
+  const close = [];
+  for (const [i, f] of D.factions.entries()) for (const [tag, root] of roots) {
+    const { ctx, page } = await play(browser, root, f.id, 31 + i, 14);
+    close.push({ label: f.shortName + ' · ' + tag + ' · close zoom', url: await page.evaluate(() => { const R = PW.renderer, s = PW.state, h = s.settlements[s.players[0].home].tile; PW.focus(h); R.cam.tz = 3.2; PW.settle(); R.time = 12; R.fx = []; R.texts = []; R.flash = null; R.tint = null; R.revealAnims = []; R.oldFog = null; R.render(0); R.render(0);
+      const p = PW.tileScreen(h), d = R.dpr || 1, o = document.createElement('canvas'); o.width = 520; o.height = 340; o.getContext('2d').drawImage(R.canvas, Math.round(p.x * d - 260), Math.round(p.y * d - 250), 520, 340, 0, 0, 520, 340); return o.toDataURL('image/png'); }) });
+    await ctx.close();
+  }
+  await sheet(browser, close, roots.length * 2, 390, 255, 'close.jpg'); manifest.sheets.push({ file: 'reports/visual-qa/close.jpg', content: 'home town of each pantheon at zoom 3.2 (close inspection), same game and camera, ' + roots.map(r => r[0]).join(' vs ') });
+  // 2c. native source sprites at their gameplay size ×3 (shrine healthy and damaged, priest emissary), before and after
+  const sprites = [];
+  for (const [tag, root] of roots) {
+    const ctx = await browser.newContext(), page = await ctx.newPage(); await page.goto('file://' + path.join(root, 'index.html') + '?nosave=1'); await page.waitForFunction(() => window.PWArt && window.PW_DATA);
+    const cells = await page.evaluate(tag => { const A = PWArt, D = PW_DATA, out = [];
+      const fit = (img, w, h) => { const c = document.createElement('canvas'); c.width = w * 3; c.height = h * 3; const g = c.getContext('2d'); g.fillStyle = '#6f7a5a'; g.fillRect(0, 0, c.width, c.height); g.imageSmoothingEnabled = img.width < w * 3 * 0.75; g.drawImage(img, 0, 0, w * 3, h * 3); return c.toDataURL('image/png'); };
+      D.factions.forEach(f => { const s = D.shrines.find(x => x.id === f.shrine);
+        out.push({ label: f.shortName + ' shrine · ' + tag, url: fit(A.shrineArt(s.art, f.palette, 'healthy', null), 44, 50) });
+        out.push({ label: f.shortName + ' damaged · ' + tag, url: fit(A.shrineArt(s.art, f.palette, 'damaged', null), 44, 50) });
+        out.push({ label: f.shortName + ' priest · ' + tag, url: fit(A.priestSprite(f.priestStyle, 'emissary', f.palette, 0), 14, 20) }); });
+      return out; }, tag);
+    sprites.push(cells); await ctx.close();
+  }
+  const merged = []; for (let i = 0; i < sprites[0].length; i++) sprites.forEach(set => merged.push(set[i]));
+  await sheet(browser, merged, roots.length * 3, 150, 160, 'sprites.jpg'); manifest.sheets.push({ file: 'reports/visual-qa/sprites.jpg', content: 'source sprites shown at their world size ×3 (the size they reach at zoom 3): shrine healthy, shrine damaged, priest; ' + roots.map(r => r[0]).join(' vs ') });
+  // 2d. walk cycle in the running game: a priest crossing one hex, 8 frames 0.1 s apart (after)
+  { const { ctx, page } = await play(browser, ROOT, 'yoruba', 4, 1);
+    const walk = await page.evaluate(() => { const R = PW.renderer, s = PW.state, pr = s.priests.find(q => q.owner === 0), out = []; if (!pr) return out;
+      const nb = PW.E.helpers.inRadius(s, pr.tile, 1).find(t => t !== pr.tile && s.map.tiles[t].terrain !== 'water') || pr.tile; PW.focus(pr.tile); R.cam.tz = 3.2; PW.settle(); R.fx = []; R.texts = [];
+      R.priestAnim[pr.id] = { from: nb, t0: R.time, dur: 0.8 };
+      for (let k = 0; k < 8; k++) { R.render(0.1); const p = PW.tileScreen(pr.tile), d = R.dpr || 1, o = document.createElement('canvas'); o.width = 260; o.height = 170; o.getContext('2d').drawImage(R.canvas, Math.round(p.x * d - 170), Math.round(p.y * d - 120), 260, 170, 0, 0, 260, 170); out.push({ label: 'walk t=' + ((k + 1) / 10).toFixed(1) + ' s', url: o.toDataURL('image/png') }); }
+      return out; });
+    await ctx.close(); if (walk.length) { await sheet(browser, walk, 4, 260, 170, 'walk.jpg'); manifest.sheets.push({ file: 'reports/visual-qa/walk.jpg', content: 'a priest walking between two hexes in the running game at zoom 3.2, 0.1 s apart (distance-driven four-frame cycle, no hop)' }); } else errors.push('walk: no priest'); }
   // 3. forty power signatures, three beats each (display-only casts on a live map)
   const { ctx, page } = await play(browser, ROOT, 'greek', 2, 1);
   const vfxIds = D.powers.map(p => p.vfx);

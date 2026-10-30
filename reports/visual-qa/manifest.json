@@ -1,7 +1,7 @@
 {
- "generated": "2026-10-30T20:38:02.106Z",
+ "generated": "2026-10-30T23:40:05.375Z",
  "tool": "node tools/visual-qa.js",
- "before": "checkout at base-rc",
+ "before": "checkout at b642",
  "sheets": [
   {
    "file": "reports/visual-qa/pantheons.jpg",
@@ -10,6 +10,18 @@
   {
    "file": "reports/visual-qa/ages.jpg",
    "content": "one Mexica game at turns 3, 20 and 33, before vs after"
+  },
+  {
+   "file": "reports/visual-qa/close.jpg",
+   "content": "home town of each pantheon at zoom 3.2 (close inspection), same game and camera, before vs after"
+  },
+  {
+   "file": "reports/visual-qa/sprites.jpg",
+   "content": "source sprites shown at their world size ×3 (the size they reach at zoom 3): shrine healthy, shrine damaged, priest; before vs after"
+  },
+  {
+   "file": "reports/visual-qa/walk.jpg",
+   "content": "a priest walking between two hexes in the running game at zoom 3.2, 0.1 s apart (distance-driven four-frame cycle, no hop)"
   },
   {
    "file": "reports/visual-qa/vfx.jpg",

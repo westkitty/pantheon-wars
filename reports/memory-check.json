@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-30T20:37:38.493Z",
+ "generated": "2026-10-30T23:56:27.536Z",
  "games": 10,
  "heapGrowth": 0,
  "canvasesStable": true,
@@ -11,7 +11,7 @@
    "turn": 6,
    "heapMB": 9.5,
    "screenLayers": 3,
-   "villageCache": 20,
+   "villageCache": 15,
    "spriteCache": 16,
    "canvases": 46
   },
@@ -20,8 +20,8 @@
    "turn": 6,
    "heapMB": 9.5,
    "screenLayers": 3,
-   "villageCache": 14,
-   "spriteCache": 12,
+   "villageCache": 13,
+   "spriteCache": 16,
    "canvases": 46
   },
   {
@@ -29,7 +29,7 @@
    "turn": 6,
    "heapMB": 9.5,
    "screenLayers": 3,
-   "villageCache": 26,
+   "villageCache": 17,
    "spriteCache": 20,
    "canvases": 46
   },
@@ -38,8 +38,8 @@
    "turn": 6,
    "heapMB": 9.5,
    "screenLayers": 3,
-   "villageCache": 22,
-   "spriteCache": 22,
+   "villageCache": 21,
+   "spriteCache": 29,
    "canvases": 46
   },
   {
@@ -47,8 +47,8 @@
    "turn": 6,
    "heapMB": 9.5,
    "screenLayers": 3,
-   "villageCache": 16,
-   "spriteCache": 19,
+   "villageCache": 13,
+   "spriteCache": 21,
    "canvases": 46
   },
   {
@@ -56,7 +56,7 @@
    "turn": 6,
    "heapMB": 9.5,
    "screenLayers": 3,
-   "villageCache": 20,
+   "villageCache": 16,
    "spriteCache": 16,
    "canvases": 46
   },
@@ -65,8 +65,8 @@
    "turn": 6,
    "heapMB": 9.5,
    "screenLayers": 3,
-   "villageCache": 19,
-   "spriteCache": 18,
+   "villageCache": 16,
+   "spriteCache": 17,
    "canvases": 46
   },
   {
@@ -74,7 +74,7 @@
    "turn": 6,
    "heapMB": 9.5,
    "screenLayers": 3,
-   "villageCache": 18,
+   "villageCache": 12,
    "spriteCache": 16,
    "canvases": 46
   },
@@ -83,8 +83,8 @@
    "turn": 6,
    "heapMB": 9.5,
    "screenLayers": 3,
-   "villageCache": 21,
-   "spriteCache": 15,
+   "villageCache": 15,
+   "spriteCache": 12,
    "canvases": 46
   },
   {
@@ -92,8 +92,8 @@
    "turn": 6,
    "heapMB": 9.5,
    "screenLayers": 3,
-   "villageCache": 16,
-   "spriteCache": 10,
+   "villageCache": 13,
+   "spriteCache": 11,
    "canvases": 46
   }
  ]

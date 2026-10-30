@@ -116,14 +116,14 @@
 
   /* ---------------------------------------------------------- build static layers once per map */
   P.setMap = function (state) {
-    this.map = state.map; var W = state.map.w, H = state.map.h;
+    this.map = state.map; this.mapSeed = state.seed; var W = state.map.w, H = state.map.h;
     this.WW = M * 2 + COL * W + 26; this.WH = M * 2 + ROW * (H - 1) + 60;
     this.frame = A.cv(this.WW, this.WH); this.fg = this.frame.getContext('2d');
     this.waterDepth = this.computeDepth(state);
     this.buildPatterns();
     this.staticLayer = this.buildStatic(state);
     this.buildWaterPaths(state);
-    this.villageCache = {}; this.spriteCache = {}; this.marksKey = null; this.marksLayer = null; this.overlay = null;
+    this.villageCache = {}; this.spriteCache = {}; this.plaqueCache = {}; this.plaqueCount = 0; this.vilMemoState = null; this.marksKey = null; this.marksLayer = null; this.overlay = null;
     var mid = this.center(state.map.tiles[Math.floor(H / 2) * W + Math.floor(W / 2)]);
     this.cam.x = this.cam.tx = mid.x; this.cam.y = this.cam.ty = mid.y;
     this.clouds = []; var r = A.rng(state.seed * 7 + 3);
@@ -155,10 +155,11 @@
     var dk = A.cv(240, 110), dkg = dk.getContext('2d'); dkg.drawImage(cc, 0, 0); dkg.globalCompositeOperation = 'source-in'; dkg.fillStyle = 'rgba(40,46,60,1)'; dkg.fillRect(0, 0, 240, 110);
     this.stormSprite = dk;
     var fc = A.cv(256, 256), fgc = fc.getContext('2d'); r = A.rng(11);
-    fgc.fillStyle = '#2b3446'; fgc.fillRect(0, 0, 256, 256);
+    fgc.fillStyle = '#3e4c66'; fgc.fillRect(0, 0, 256, 256);
     function blob(fx, fy, fr, col) { for (var ox = -256; ox <= 256; ox += 256) for (var oy = -256; oy <= 256; oy += 256) { var gr = fgc.createRadialGradient(fx + ox, fy + oy, 0, fx + ox, fy + oy, fr); gr.addColorStop(0, col); gr.addColorStop(1, 'rgba(0,0,0,0)'); fgc.fillStyle = gr; fgc.fillRect(fx + ox - fr, fy + oy - fr, fr * 2, fr * 2); } }
-    for (i = 0; i < 26; i++) blob(r() * 256, r() * 256, 40 + r() * 50, 'rgba(12,16,26,0.45)');
-    for (i = 0; i < 70; i++) { var bx2 = r() * 256, by2 = r() * 256, br2 = 14 + r() * 30; blob(bx2, by2 + br2 * 0.3, br2, 'rgba(14,18,30,0.35)'); blob(bx2, by2, br2, 'rgba(120,136,165,0.30)'); blob(bx2 - br2 * 0.25, by2 - br2 * 0.3, br2 * 0.5, 'rgba(190,200,220,0.16)'); }
+    // a painted cloud sea seen from above: deep cool hollows, billows with shadowed undersides and sunlit cream crowns (C/D)
+    for (i = 0; i < 18; i++) blob(r() * 256, r() * 256, 40 + r() * 50, 'rgba(26,34,58,0.30)');
+    for (i = 0; i < 70; i++) { var bx2 = r() * 256, by2 = r() * 256, br2 = 14 + r() * 30; blob(bx2 + br2 * 0.15, by2 + br2 * 0.35, br2, 'rgba(28,36,62,0.28)'); blob(bx2, by2, br2, 'rgba(164,178,204,0.38)'); blob(bx2 - br2 * 0.3, by2 - br2 * 0.32, br2 * 0.55, 'rgba(242,234,216,0.30)'); }
     this.fogTex = fc;
   };
 
@@ -179,17 +180,33 @@
     this.waterPath = water; this.foamPath = foam; this.shallowPath = shallow;
   };
 
+  /* One key light from the upper left in every age; the ages change its colour and contrast (P038, D). The static layer is regraded
+     and rebuilt when the age changes (twice per game), so the grade costs nothing per frame. */
+  var AGE_LIGHT = {
+    dawn: { mul: '#ffe9d6', warm: 'rgba(255,206,160,', cool: 'rgba(60,46,120,', lift: 0.12 },
+    zenith: { mul: '#ffffff', warm: 'rgba(255,246,220,', cool: 'rgba(20,30,70,', lift: 0.06 },
+    twilight: { mul: '#d9cdf0', warm: 'rgba(255,170,110,', cool: 'rgba(62,36,116,', lift: 0.14 }
+  };
+  Renderer.AGE_LIGHT = AGE_LIGHT;
   P.buildStatic = function (state) {
     var self = this, c = A.cv(this.WW, this.WH), g = c.getContext('2d'), tiles = state.map.tiles, T = this.T, W = state.map.w;
-    var og = g.createLinearGradient(0, 0, 0, this.WH); og.addColorStop(0, '#173f5c'); og.addColorStop(1, '#0f3049');
+    var light = AGE_LIGHT[state.age] || AGE_LIGHT.zenith; this.light = light; this.staticAge = state.age;
+    var og = g.createLinearGradient(0, 0, 0, this.WH); og.addColorStop(0, '#163c58'); og.addColorStop(1, '#0c2a42');
     g.fillStyle = og; g.fillRect(0, 0, this.WW, this.WH);
+    // water depth as one continuous material: every water hex painted by its distance to land, then blurred, so shallows fade into the
+    // deep instead of stepping hex by hex (C2)
+    var wd = A.cv(this.WW, this.WH), wg = wd.getContext('2d'), DEPTH = ['#5fb4b4', '#3f9aaa', '#2e7c9c', '#215f84', '#194c6e'];
+    tiles.forEach(function (t) { if (!T[t.terrain].water) return; var p = self.top(t), d = Math.min(4, self.waterDepth[t.id]); self.hexPath(wg, p.x, p.y, 1.08); wg.fillStyle = DEPTH[d]; wg.fill(); });
+    g.save(); g.filter = 'blur(9px)'; g.drawImage(wd, 0, 0); g.filter = 'none'; g.restore();
     var r0 = A.rng(state.seed + 1);
-    for (var i = 0; i < 900; i++) { g.fillStyle = 'rgba(120,180,210,' + (0.04 + r0() * 0.08).toFixed(2) + ')'; g.fillRect(r0() * this.WW | 0, r0() * this.WH | 0, 3 + r0() * 8 | 0, 1); }
+    for (var i = 0; i < 900; i++) { g.fillStyle = 'rgba(150,200,225,' + (0.03 + r0() * 0.07).toFixed(2) + ')'; g.fillRect(r0() * this.WW | 0, r0() * this.WH | 0, 3 + r0() * 8 | 0, 1); }
     function landNb(t) { return t.n.map(function (n) { return n >= 0 && !T[tiles[n].terrain].water; }); }
     for (var r = 0; r < state.map.h; r++) for (var q = 0; q < W; q++) self.drawTile(g, state, tiles[r * W + q], landNb);
     tiles.forEach(function (t) { self.drawCliffShadow(g, state, t); });
     tiles.forEach(function (t) { self.drawShadows(g, t); });
     for (r = 0; r < state.map.h; r++) for (q = 0; q < W; q++) self.drawDecor(g, state, tiles[r * W + q]);
+    // age grade: multiply the whole miniature by the age's light colour
+    g.globalCompositeOperation = 'multiply'; g.fillStyle = light.mul; g.fillRect(0, 0, this.WW, this.WH); g.globalCompositeOperation = 'source-over';
     return c;
   };
 
@@ -207,15 +224,12 @@
     var rng = A.rng(t.id * 9973 + 17), k, a, b, n, i;
     if (tt.water) {
       var depth = this.waterDepth ? this.waterDepth[t.id] : 2, coastal = depth <= 1;
-      var col = coastal ? '#3f97a6' : depth === 2 ? '#2f7d9a' : t.terrain === 'sea' ? '#2a7090' : this.tileColor(t);
-      this.hexPath(g, x, y, 1.03); g.fillStyle = col; g.fill();
       if (coastal) {
         for (k = 0; k < 6; k++) { n = t.n[EDGE_NB[k]]; if (n < 0 || T[tiles[n].terrain].water) continue; a = VERTS[k]; b = VERTS[(k + 1) % 6];
           var gr = g.createLinearGradient(x + (a[0] + b[0]) / 2, y + (a[1] + b[1]) / 2, x, y); gr.addColorStop(0, 'rgba(170,210,175,0.6)'); gr.addColorStop(1, 'rgba(160,200,170,0)');
           g.fillStyle = gr; g.beginPath(); g.moveTo(x + a[0], y + a[1]); g.lineTo(x + b[0], y + b[1]); g.lineTo(x, y); g.closePath(); g.fill(); }
         for (i = 0; i < 3; i++) { g.fillStyle = 'rgba(210,200,160,0.35)'; g.fillRect(x - 14 + rng() * 28 | 0, y - 6 + rng() * 12 | 0, 2, 1); } // sand ripples through clear water
       }
-      if (depth >= 3) { g.fillStyle = 'rgba(8,24,40,0.18)'; this.hexPath(g, x, y, 1.03); g.fill(); }
       for (i = 0; i < 6; i++) { g.fillStyle = 'rgba(200,235,255,0.12)'; g.fillRect(x - 18 + rng() * 36 | 0, y - 10 + rng() * 20 | 0, 3 + rng() * 6 | 0, 1); }
       return;
     }
@@ -237,11 +251,25 @@
     var col2 = this.tileColor(t);
     this.hexPath(g, x, y); g.fillStyle = col2; g.fill();
     g.save(); this.hexPath(g, x, y); g.clip();
+    // soft biome transitions: each different land neighbour bleeds its colour a short way across the shared edge (C1)
+    for (k = 0; k < 6; k++) {
+      n = t.n[EDGE_NB[k]]; if (n < 0) continue; var on = tiles[n]; if (T[on.terrain].water || on.terrain === t.terrain) continue;
+      a = VERTS[k]; b = VERTS[(k + 1) % 6]; var mx = x + (a[0] + b[0]) / 2, my = y + (a[1] + b[1]) / 2;
+      var tg = g.createLinearGradient(mx, my, x + (a[0] + b[0]) * 0.18, y + (a[1] + b[1]) * 0.18); tg.addColorStop(0, A.rgba(this.tileColor(on), 0.55)); tg.addColorStop(1, A.rgba(this.tileColor(on), 0));
+      g.fillStyle = tg; g.beginPath(); g.moveTo(x + a[0], y + a[1]); g.lineTo(x + b[0], y + b[1]); g.lineTo(x, y); g.closePath(); g.fill();
+    }
+    // slope light: land rising toward the light (upper left) faces away from it and darkens; land falling toward it brightens
+    var hl = 0, hr = 0, nl = 0, nr = 0;
+    [2, 3].forEach(function (kk) { var nn = t.n[EDGE_NB[kk]]; if (nn >= 0 && !T[tiles[nn].terrain].water) { hl += self.elev(tiles[nn]); nl++; } });
+    [0, 5].forEach(function (kk) { var nn = t.n[EDGE_NB[kk]]; if (nn >= 0 && !T[tiles[nn].terrain].water) { hr += self.elev(tiles[nn]); nr++; } });
+    var slope = ((nl ? hl / nl : h) - (nr ? hr / nr : h)) / 15, Lc = this.light || AGE_LIGHT.zenith;
+    if (slope > 0.05) { g.fillStyle = Lc.cool + Math.min(0.32, slope * 0.3).toFixed(3) + ')'; g.fillRect(x - 30, y - 20, 60, 40); }
+    else if (slope < -0.05) { g.fillStyle = Lc.warm + Math.min(0.22, -slope * 0.22).toFixed(3) + ')'; g.fillRect(x - 30, y - 20, 60, 40); }
     for (i = 0; i < 7; i++) { var bx = x - 20 + rng() * 40, by = y - 12 + rng() * 24, br = 6 + rng() * 10, lt = rng() < 0.5, bgr = g.createRadialGradient(bx, by, 0, bx, by, br);
       bgr.addColorStop(0, A.rgba(A.shade(col2, lt ? 0.14 : -0.14), 0.55)); bgr.addColorStop(1, A.rgba(A.shade(col2, lt ? 0.14 : -0.14), 0)); g.fillStyle = bgr; g.fillRect(bx - br, by - br, br * 2, br * 2); }
     var light = A.shade(col2, 0.09), dark = A.shade(col2, -0.1);
     for (i = 0; i < 46; i++) { var px = x - 26 + rng() * 52, py = y - 18 + rng() * 36, rr = rng(); g.fillStyle = rr < 0.5 ? light : dark; g.fillRect(px | 0, py | 0, rr < 0.25 ? 2 : 1, 1); }
-    var lg = g.createLinearGradient(x - 22, y - 16, x + 22, y + 16); lg.addColorStop(0, 'rgba(255,236,190,0.22)'); lg.addColorStop(0.5, 'rgba(255,236,190,0)'); lg.addColorStop(1, 'rgba(10,15,40,0.22)');
+    var LL = this.light || AGE_LIGHT.zenith, lg = g.createLinearGradient(x - 22, y - 16, x + 22, y + 16); lg.addColorStop(0, LL.warm + (0.14 + LL.lift).toFixed(2) + ')'); lg.addColorStop(0.5, LL.warm + '0)'); lg.addColorStop(1, LL.cool + '0.20)');
     g.fillStyle = lg; g.fillRect(x - 30, y - 20, 60, 40);
     for (k = 0; k < 6; k++) {
       n = t.n[EDGE_NB[k]]; if (n >= 0 && !T[tiles[n].terrain].water) continue;
@@ -260,7 +288,8 @@
       if ((t.terrain === 'hills' || t.terrain === 'mountains') && tiles[n].terrain === t.terrain && (k === 3 || k === 4)) { g.strokeStyle = 'rgba(255,245,220,0.12)'; g.beginPath(); g.moveTo(x, y); g.lineTo(x + (a[0] + b[0]) / 2, y + (a[1] + b[1]) / 2); g.stroke(); }
     }
     g.restore();
-    g.strokeStyle = 'rgba(20,20,10,0.16)'; g.lineWidth = 1; this.hexPath(g, x, y); g.stroke();
+    // hex edges stay legible for picking but recede: a faint seam, darker only where the ground changes height
+    g.strokeStyle = 'rgba(20,20,10,0.07)'; g.lineWidth = 1; this.hexPath(g, x, y); g.stroke();
   };
   /* cast shadow of a tall tile onto the lower land south-east of it (sun from the upper left) — P036 */
   P.drawCliffShadow = function (g, state, t) {
@@ -347,32 +376,46 @@
         if (rng() < 0.5) { var tp = inHex(); conifer(g, tp[0], tp[1], 4, '#2a4a2a', '#3a6a3a'); }
         break;
       case 'mountains':
-        var peaks = [[x - 7 + rng() * 4, 30 + rng() * 6, 18], [x + 9 + rng() * 4, 22 + rng() * 6, 14]];
-        if (rng() < 0.5) peaks.reverse();
-        peaks.sort(function (a, b) { return b[1] - a[1]; });
-        var snow = t.t < 0.75;
+        // a massif, not a stamp: 1-3 asymmetric peaks sized by height, lit faces toward the upper-left light, cool shaded faces,
+        // strata lines, scree at the foot and snow by altitude and climate (C1)
+        var LM = this.light || AGE_LIGHT.zenith, alt = Math.max(0, Math.min(1, (t.e - 0.85) * 6)), tiles2 = state.map.tiles;
+        // ranges, not stamps: the heart of a range (mostly mountain neighbours) rises as one dominant wide peak, its edges break into foothills
+        var mnb = t.n.filter(function (nn) { return nn >= 0 && tiles2[nn].terrain === 'mountains'; }).length, heart = mnb >= 5, edge = mnb <= 2;
+        var np = heart ? (rng() < 0.6 ? 1 : 2) : edge ? 2 + (rng() < 0.5 ? 1 : 0) : 1 + (rng() < 0.75 ? 1 : 0) + (alt > 0.5 && rng() < 0.5 ? 1 : 0);
+        var peaks = [];
+        for (i = 0; i < np; i++) {
+          var big = heart && i === 0, hgt = big ? 30 + alt * 14 + rng() * 6 : edge ? 11 + alt * 6 + rng() * 7 : 18 + alt * 12 + rng() * 9 - (i === 1 ? 0 : 4);
+          peaks.push({ px: x + (np === 1 ? (rng() - 0.5) * 8 : -12 + i * (24 / Math.max(1, np - 1)) + (rng() - 0.5) * 8), ph: hgt, bw: big ? 17 + rng() * 5 : edge ? 8 + rng() * 5 : 11 + rng() * 6, lean: (rng() - 0.5) * 0.6 });
+        }
+        peaks.sort(function (a, b) { return a.ph - b.ph; });
+        var snow = t.t < 0.75, rockL = A.mix('#9a9384', '#b8ad98', alt * 0.4), rockD = A.mix('#4a4654', '#3e3a4c', alt);
         peaks.forEach(function (pk, idx) {
-          var px = pk[0], ph = pk[1], bw = pk[2], by = y + 6 + idx * 2, top = by - ph;
-          g.fillStyle = '#8a8478'; g.beginPath(); g.moveTo(px - bw, by); g.lineTo(px, top); g.lineTo(px + bw * 0.15, by); g.closePath(); g.fill();
-          g.fillStyle = '#4a4650'; g.beginPath(); g.moveTo(px, top); g.lineTo(px + bw, by); g.lineTo(px + bw * 0.15, by); g.closePath(); g.fill();
-          for (var s2 = 0; s2 < 14; s2++) { var tt = rng(), yy = top + tt * ph, half = bw * tt; g.fillStyle = rng() < 0.5 ? 'rgba(255,240,220,0.12)' : 'rgba(0,0,0,0.15)'; g.fillRect(px - half + rng() * half * 1.6 | 0, yy | 0, 2, 1); }
+          var px = pk.px, ph = pk.ph, bw = pk.bw, by = y + 7 + (idx % 2) * 2, top = by - ph, ax = px + pk.lean * bw;
+          g.fillStyle = 'rgba(10,12,24,0.25)'; g.beginPath(); g.moveTo(px - bw, by + 1); g.lineTo(px + bw * 1.6, by + 3); g.lineTo(px + bw, by - 2); g.closePath(); g.fill();
+          g.fillStyle = rockL; g.beginPath(); g.moveTo(px - bw, by); g.lineTo(ax, top); g.lineTo(ax + bw * 0.12, by); g.closePath(); g.fill();
+          g.fillStyle = rockD; g.beginPath(); g.moveTo(ax, top); g.lineTo(px + bw, by); g.lineTo(ax + bw * 0.12, by); g.closePath(); g.fill();
+          // secondary ridge on the lit face
+          g.fillStyle = A.shade(rockL, -0.12); g.beginPath(); g.moveTo(ax - bw * 0.15, top + ph * 0.35); g.lineTo(px - bw * 0.55, by); g.lineTo(px - bw * 0.3, by); g.closePath(); g.fill();
+          for (var s2 = 0; s2 < 9; s2++) { var tt = 0.25 + rng() * 0.7, yy = top + tt * ph, half = bw * tt; g.fillStyle = s2 % 2 ? 'rgba(0,0,0,0.16)' : LM.warm + '0.18)'; g.fillRect(ax - half * 0.9 + rng() * half * 1.6 | 0, yy | 0, 2 + (rng() * 3 | 0), 1); }
           if (snow) {
-            var sh = ph * 0.38;
-            g.fillStyle = '#f2f4f6'; g.beginPath(); g.moveTo(px, top); g.lineTo(px - bw * sh / ph, top + sh); g.lineTo(px - bw * 0.25 * sh / ph, top + sh * 0.8); g.lineTo(px, top + sh * 1.05); g.closePath(); g.fill();
-            g.fillStyle = '#b8c4d6'; g.beginPath(); g.moveTo(px, top); g.lineTo(px + bw * sh / ph, top + sh); g.lineTo(px + bw * 0.3 * sh / ph, top + sh * 0.85); g.lineTo(px, top + sh * 1.05); g.closePath(); g.fill();
+            var sh = ph * (0.3 + alt * 0.18), wob = function (f) { return (rng() - 0.5) * f; };
+            g.fillStyle = '#f4f6f8'; g.beginPath(); g.moveTo(ax, top); g.lineTo(ax - bw * sh / ph, top + sh + wob(2)); g.lineTo(ax - bw * 0.35 * sh / ph, top + sh * 0.75); g.lineTo(ax - bw * 0.1 * sh / ph, top + sh * 1.1); g.lineTo(ax, top + sh * 0.85); g.closePath(); g.fill();
+            g.fillStyle = '#aebcd2'; g.beginPath(); g.moveTo(ax, top); g.lineTo(ax + bw * sh / ph * 0.9, top + sh + wob(2)); g.lineTo(ax + bw * 0.3 * sh / ph, top + sh * 0.8); g.lineTo(ax, top + sh * 1.05); g.closePath(); g.fill();
           }
-          g.strokeStyle = 'rgba(255,245,220,0.35)'; g.lineWidth = 1; g.beginPath(); g.moveTo(px, top); g.lineTo(px - bw * 0.55, by - 2); g.stroke();
+          g.strokeStyle = LM.warm + '0.45)'; g.lineWidth = 1; g.beginPath(); g.moveTo(ax, top); g.lineTo(px - bw * 0.6, by - 2); g.stroke();
         });
+        for (i = 0; i < 6; i++) { var sr = inHex(); g.fillStyle = i % 2 ? 'rgba(120,112,100,0.7)' : 'rgba(170,160,140,0.6)'; g.fillRect(sr[0] | 0, sr[1] + 5 | 0, 2, 1); }
         break;
       case 'desert':
-        for (i = 0; i < 4; i++) { var d = inHex(), dw = 8 + rng() * 8; g.strokeStyle = 'rgba(255,240,200,0.55)'; g.lineWidth = 1; g.beginPath(); g.ellipse(d[0], d[1] + 3, dw, 4, 0, Math.PI * 1.1, Math.PI * 1.9); g.stroke(); g.strokeStyle = 'rgba(120,80,40,0.30)'; g.beginPath(); g.ellipse(d[0] + 1, d[1] + 4, dw, 4, 0, Math.PI * 1.2, Math.PI * 1.9); g.stroke(); }
+        for (i = 0; i < 4; i++) { var d = inHex(), dw = 8 + rng() * 8; g.strokeStyle = 'rgba(255,240,205,0.28)'; g.lineWidth = 1; g.beginPath(); g.ellipse(d[0], d[1] + 3, dw, 4, 0, Math.PI * 1.1, Math.PI * 1.9); g.stroke(); g.strokeStyle = 'rgba(120,80,40,0.22)'; g.beginPath(); g.ellipse(d[0] + 1, d[1] + 4, dw, 4, 0, Math.PI * 1.2, Math.PI * 1.9); g.stroke(); }
         if (t.coast && rng() < 0.7) { var pp = inHex(); palm(g, pp[0], pp[1]); pp = inHex(); palm(g, pp[0], pp[1]); }
         for (i = 0; i < 2; i++) { var rk = inHex(); g.fillStyle = '#8a6a48'; g.fillRect(rk[0] | 0, rk[1] | 0, 3, 2); g.fillStyle = '#b8946a'; g.fillRect(rk[0] | 0, rk[1] | 0, 2, 1); }
         if (rng() < 0.6) { var sb = inHex(); shrub(g, sb[0], sb[1], '#8a8a4a'); }
         break;
       case 'plains':
         g.save(); this.hexPath(g, x, y, 0.82); g.clip();
-        for (var sx = -30; sx < 30; sx += 4) { g.strokeStyle = (sx / 4) % 2 ? 'rgba(220,190,90,0.35)' : 'rgba(120,110,40,0.25)'; g.lineWidth = 2; g.beginPath(); g.moveTo(x + sx, y - 20); g.lineTo(x + sx + 14, y + 20); g.stroke(); }
+        var fdir = rng() < 0.5 ? 14 : -14, fstep = 4 + (rng() * 2 | 0);
+        for (var sx = -34; sx < 34; sx += fstep) { g.strokeStyle = (sx / fstep | 0) % 2 ? 'rgba(232,206,110,0.20)' : 'rgba(110,100,40,0.15)'; g.lineWidth = 2; g.beginPath(); g.moveTo(x + sx, y - 20); g.lineTo(x + sx + fdir, y + 20); g.stroke(); }
         g.restore();
         if (rng() < 0.5) { var hs = inHex(); g.fillStyle = '#d8b850'; g.fillRect(hs[0] | 0, hs[1] - 2 | 0, 3, 3); g.fillStyle = '#a88a30'; g.fillRect(hs[0] + 2 | 0, hs[1] - 1 | 0, 1, 2); }
         if (rng() < 0.35) { var bt = inHex(); broadleaf(g, bt[0], bt[1], 3.5, '#6a8a32'); }
@@ -413,8 +456,8 @@
     tiles.forEach(function (t) {
       var o = own[t.id]; if (o < 0) return;
       var f = self.fac[state.players[o].faction], pal = f.palette, p = self.top(t);
-      self.hexPath(g, p.x, p.y, 0.98); g.fillStyle = A.rgba(pal.secondary, hc ? 0.22 : 0.14); g.fill();
-      if (self.patterns) { g.save(); self.hexPath(g, p.x, p.y, 0.9); g.clip(); g.globalAlpha = hc ? 0.5 : 0.28; g.fillStyle = g.createPattern(self.factionPattern(f.id), 'repeat'); g.fillRect(p.x - 30, p.y - 20, 60, 40); g.restore(); }
+      self.hexPath(g, p.x, p.y, 0.98); g.fillStyle = A.rgba(pal.secondary, hc ? 0.22 : 0.10); g.fill();
+      if (self.patterns) { g.save(); self.hexPath(g, p.x, p.y, 0.9); g.clip(); g.globalAlpha = hc ? 0.5 : 0.17; g.fillStyle = g.createPattern(self.factionPattern(f.id), 'repeat'); g.fillRect(p.x - 30, p.y - 20, 60, 40); g.restore(); }
     });
     tiles.forEach(function (t) {
       var o = own[t.id]; if (o < 0) return;
@@ -423,9 +466,12 @@
         var n = t.n[EDGE_NB[k]]; if (n >= 0 && own[n] === o) continue;
         var a = VERTS[k], b = VERTS[(k + 1) % 6], s = 0.9;
         g.lineCap = 'round';
-        g.strokeStyle = hc ? 'rgba(0,0,0,0.85)' : A.rgba(pal.secondary, 0.35); g.lineWidth = hc ? 6 : 5; g.beginPath(); g.moveTo(p.x + a[0] * s, p.y + a[1] * s); g.lineTo(p.x + b[0] * s, p.y + b[1] * s); g.stroke();
+        if (!hc) { // a soft inner band of the realm's colour, so a border reads as the inside of a territory, not a line on the map
+          var mx2 = p.x + (a[0] + b[0]) / 2, my2 = p.y + (a[1] + b[1]) / 2, ib = g.createLinearGradient(mx2, my2, p.x + (a[0] + b[0]) * 0.25, p.y + (a[1] + b[1]) * 0.25);
+          ib.addColorStop(0, A.rgba(pal.secondary, 0.34)); ib.addColorStop(1, A.rgba(pal.secondary, 0)); g.fillStyle = ib; g.beginPath(); g.moveTo(p.x + a[0], p.y + a[1]); g.lineTo(p.x + b[0], p.y + b[1]); g.lineTo(p.x, p.y); g.closePath(); g.fill();
+          g.strokeStyle = 'rgba(10,8,6,0.45)'; g.lineWidth = 3.5; g.beginPath(); g.moveTo(p.x + a[0] * s, p.y + a[1] * s); g.lineTo(p.x + b[0] * s, p.y + b[1] * s); g.stroke();
+        } else { g.strokeStyle = 'rgba(0,0,0,0.85)'; g.lineWidth = 6; g.beginPath(); g.moveTo(p.x + a[0] * s, p.y + a[1] * s); g.lineTo(p.x + b[0] * s, p.y + b[1] * s); g.stroke(); }
         g.setLineDash(DASH[f.pattern] || []); g.strokeStyle = hc ? '#ffffff' : pal.accent; g.lineWidth = hc ? 3 : 2; g.beginPath(); g.moveTo(p.x + a[0] * s, p.y + a[1] * s); g.lineTo(p.x + b[0] * s, p.y + b[1] * s); g.stroke(); g.setLineDash([]);
-        if (!hc) { g.strokeStyle = 'rgba(255,255,255,0.5)'; g.lineWidth = 1; g.beginPath(); g.moveTo(p.x + a[0] * s, p.y + a[1] * s - 1); g.lineTo(p.x + b[0] * s, p.y + b[1] * s - 1); g.stroke(); }
       }
     });
     this.overlay = c;
@@ -440,7 +486,7 @@
     bg.globalCompositeOperation = 'source-in';
     bg.fillStyle = bg.createPattern(this.fogTex, 'repeat'); bg.fillRect(0, 0, this.WW, this.WH);
     var rim = A.cv(this.WW, this.WH), rg = rim.getContext('2d');
-    rg.filter = 'blur(3px)'; rg.drawImage(c, 0, 0); rg.filter = 'none'; rg.globalCompositeOperation = 'source-in'; rg.fillStyle = 'rgba(180,150,100,0.18)'; rg.fillRect(0, 0, this.WW, this.WH);
+    rg.filter = 'blur(4px)'; rg.drawImage(c, 0, 0); rg.filter = 'none'; rg.globalCompositeOperation = 'source-in'; rg.fillStyle = 'rgba(232,196,120,0.30)'; rg.fillRect(0, 0, this.WW, this.WH); // gilded edge of the known world
     bg.globalCompositeOperation = 'destination-over'; bg.drawImage(rim, 0, 0);
     bg.globalCompositeOperation = 'source-over';
     var E = 150, WW = this.WW, WH = this.WH, edge = [[0, 0, E, 0, 0, 0, E, WH], [WW, 0, WW - E, 0, WW - E, 0, E, WH], [0, 0, 0, E, 0, 0, WW, E], [0, WH, 0, WH - E, 0, WH - E, WW, E]];
@@ -480,52 +526,84 @@
     for (var i = pats.length - 1; i >= 0; i--) layers.push({ f: pats[i].f, since: pats[i].t });
     return { biome: biome, layers: layers, key: biome + ':' + layers.map(function (l) { return l.f + '@' + Math.min(9, Math.floor((state.turn - l.since) / 2)); }).join('>') };
   };
+  /* Village sprite (P031/P032, C3): plaza and lanes, houses with directional contact shadows, lit roof edges, doors and windows that
+     glow in the Twilight. Tier (population), decline (ruined houses) and layered patronage (newest patron's style spreads from the
+     centre) drive it; the result is cached per settlement state. Canvas 72×52, ground centre at (36, 38). */
+  var VW = 72, VH = 52, VX = 36, VY = 38;
   P.village = function (state, s) {
+    // memo per game state: the cache key below is rebuilt only when the state object changes, not on every frame
+    if (this.vilMemoState !== state) { this.vilMemoState = state; this.vilMemo = {}; }
+    var hit = this.vilMemo[s.id]; if (hit) return hit;
+    return (this.vilMemo[s.id] = this.villageBuild(state, s));
+  };
+  P.villageBuild = function (state, s) {
     var t = state.map.tiles[s.tile], tier = Math.max(1, Math.min(5, Math.floor(s.pop / 2.6))), decline = (s.peak || s.pop) - s.pop >= 3 ? 1 : 0;
-    var st = this.villageStyle(state, s, t), key = s.id + ':' + tier + ':' + decline + ':' + st.key;
+    var night = state.age === 'twilight' ? 1 : 0;
+    var st = this.villageStyle(state, s, t), key = s.id + ':' + tier + ':' + decline + ':' + night + ':' + st.key;
     if (this.villageCache[key]) return this.villageCache[key];
     if (Object.keys(this.villageCache).length > 400) this.villageCache = {}; // bounded cache
-    var c = A.cv(64, 48), g = c.getContext('2d'), r = A.rng(s.id * 131 + tier);
+    var c = A.cv(VW, VH), g = c.getContext('2d'), r = A.rng(s.id * 131 + tier);
     var n = 2 + tier + (tier > 2 ? 1 : 0), houses = [], chim = [];
-    for (var i = 0; i < n; i++) { var a = r() * Math.PI * 2, d = Math.sqrt(r()) * (8 + tier * 2); houses.push({ x: 32 + Math.cos(a) * d * 1.5, y: 34 + Math.sin(a) * d * 0.6, w: 5 + (r() * 3 | 0), h: 3 + (r() * 3 | 0), big: i === 0 && tier >= 3, d: d }); }
+    for (var i = 0; i < n; i++) { var a = r() * Math.PI * 2, d = Math.sqrt(r()) * (8 + tier * 2.2); houses.push({ x: VX + Math.cos(a) * d * 1.5, y: VY + Math.sin(a) * d * 0.6, w: 6 + (r() * 3 | 0), h: 4 + (r() * 3 | 0), big: i === 0 && tier >= 3, d: d }); }
     houses.sort(function (a, b) { return a.d - b.d; });
-    // assign styles: centre houses take the newest patron, spreading outward with time
     houses.forEach(function (h, i) {
       var style = st.biome;
       if (st.layers.length) { var newest = st.layers[0], spread = 1 + Math.floor((state.turn - newest.since) / 2); style = i < spread ? newest.f : (st.layers[1] ? st.layers[1].f : st.biome); }
       h.style = style;
     });
     houses.sort(function (a, b) { return a.y - b.y; });
-    if (tier >= 2) { g.fillStyle = 'rgba(200,190,150,0.35)'; g.beginPath(); g.ellipse(32, 35, 10 + tier * 2, 4 + tier, 0, 0, 7); g.fill(); } // plaza
-    if (tier >= 4) { g.fillStyle = 'rgba(0,0,0,0.25)'; g.beginPath(); g.ellipse(32, 35, 26, 10, 0, 0, 7); g.fill(); g.strokeStyle = st.biome === 'mud' ? '#b89a68' : '#6a5038'; g.lineWidth = 2; g.beginPath(); g.ellipse(32, 34, 25, 9.5, 0, Math.PI * 0.05, Math.PI * 0.95); g.stroke(); A.rect(g, 30, 42, 4, 3, '#3a2a1a'); } // palisade with gate
-    if (tier >= 3) for (i = 0; i < 2; i++) { A.rect(g, 20 + i * 20, 37, 5, 2, ['#b8302a', '#2f6fb3'][i]); A.rect(g, 20 + i * 20, 39, 1, 2, '#3a2a1a'); A.rect(g, 24 + i * 20, 39, 1, 2, '#3a2a1a'); } // market stalls
+    var ground = st.biome === 'mud' ? '#c9ad7a' : st.biome === 'timber' ? '#8f8a74' : '#b8a678';
+    // worn ground and lanes that lead out of the plaza toward the edges of the hex
+    if (tier >= 2) {
+      g.strokeStyle = A.rgba(ground, 0.55); g.lineWidth = 2; g.lineCap = 'round';
+      for (i = 0; i < Math.min(4, tier); i++) { var la = r() * Math.PI * 2; g.beginPath(); g.moveTo(VX, VY); g.quadraticCurveTo(VX + Math.cos(la) * 12, VY + Math.sin(la) * 6 + 2, VX + Math.cos(la) * (20 + tier * 2), VY + Math.sin(la) * (8 + tier)); g.stroke(); }
+      var pg = g.createRadialGradient(VX, VY, 1, VX, VY, 11 + tier * 2.5); pg.addColorStop(0, A.rgba(A.shade(ground, 0.12), 0.75)); pg.addColorStop(1, A.rgba(ground, 0));
+      g.fillStyle = pg; g.beginPath(); g.ellipse(VX, VY, 11 + tier * 2.5, 4.5 + tier, 0, 0, 7); g.fill();
+      if (tier >= 3) { A.disc(g, VX, VY, 2, '#8a8070'); A.px(g, VX, VY - 1, night ? '#ffe2a0' : '#6aa8c8'); } // well or fountain at the heart of the town
+    }
+    if (tier >= 4) { g.fillStyle = 'rgba(0,0,0,0.18)'; g.beginPath(); g.ellipse(VX, VY + 1, 30, 11, 0, 0, 7); g.fill(); g.strokeStyle = st.biome === 'mud' ? '#b89a68' : '#6a5038'; g.lineWidth = 2; g.beginPath(); g.ellipse(VX, VY, 29, 10.5, 0, Math.PI * 0.05, Math.PI * 0.95); g.stroke(); A.rect(g, VX - 2, VY + 9, 4, 3, '#3a2a1a'); }
+    if (tier >= 3) for (i = 0; i < 2; i++) { var mx = VX - 14 + i * 24; A.rect(g, mx, VY + 3, 6, 2, ['#b8302a', '#2f6fb3'][i]); A.rect(g, mx, VY + 2, 6, 1, A.shade(['#b8302a', '#2f6fb3'][i], 0.3)); A.rect(g, mx, VY + 5, 1, 2, '#3a2a1a'); A.rect(g, mx + 5, VY + 5, 1, 2, '#3a2a1a'); }
+    // contact shadows first, cast away from the upper-left light, so they sit under every house
+    houses.forEach(function (h) { var w = h.big ? 11 : h.w, hh = h.big ? 7 : h.h, x = Math.round(h.x), y = Math.round(h.y);
+      g.fillStyle = 'rgba(14,12,24,0.32)'; g.beginPath(); g.moveTo(x - w / 2, y + 1); g.lineTo(x + w / 2 + 3, y + 1); g.lineTo(x + w / 2 + 3 + hh * 0.7, y + 1 + hh * 0.35); g.lineTo(x - w / 2 + hh * 0.7, y + 1 + hh * 0.35); g.closePath(); g.fill(); });
     houses.forEach(function (h, idx) {
-      var S = ARCH[h.style] || ARCH.tile, x = Math.round(h.x), y = Math.round(h.y), w = h.big ? 9 : h.w, hh = h.big ? 6 : h.h, dep = 3, ruined = decline && idx % 3 === 2;
-      g.fillStyle = 'rgba(0,0,0,0.3)'; g.fillRect(x - w / 2 + 2 | 0, y + 1, w + 3, 2);
+      var S = ARCH[h.style] || ARCH.tile, x = Math.round(h.x), y = Math.round(h.y), w = h.big ? 11 : h.w, hh = h.big ? 7 : h.h, dep = 3, ruined = decline && idx % 3 === 2;
       g.fillStyle = ruined ? A.shade(S.wall, -0.4) : S.wall; g.fillRect(x - w / 2 | 0, y - hh, w, hh + 1);
+      g.fillStyle = A.shade(S.wall, 0.12); g.fillRect(x - w / 2 | 0, y - hh, 1, hh + 1); // lit west edge
       g.fillStyle = S.side; g.beginPath(); g.moveTo(x + w / 2, y + 1); g.lineTo(x + w / 2 + dep, y - 1); g.lineTo(x + w / 2 + dep, y - hh - 1); g.lineTo(x + w / 2, y - hh); g.closePath(); g.fill();
-      if (ruined) { A.rect(g, x - w / 2, y - hh - 1, w, 1, '#3a3020'); return; }
-      if (!S.roof) { g.fillStyle = A.shade(S.wall, 0.15); g.fillRect(x - w / 2 | 0, y - hh - 1, w + dep, 1); if (S.extra === 'stair' && h.big) { A.rect(g, x - 2, y - hh - 4, 5, 3, S.wall); A.rect(g, x - 1, y - hh - 6, 3, 2, S.wall); } if (S.extra === 'paint') A.rect(g, x - w / 2, y - hh + 1, w, 1, '#12a38c'); if (S.extra === 'stone') { A.px(g, x - 1, y - 2, S.side); A.px(g, x + 1, y - hh + 1, S.side); } }
+      if (ruined) { A.rect(g, x - w / 2, y - hh - 1, w, 1, '#3a3020'); A.px(g, x - w / 2 + 1, y - hh - 2, '#5a5040', 2, 1); A.px(g, x + w / 2 + 1, y - 1, '#6a5a48', 2, 1); return; }
+      if (!S.roof) { g.fillStyle = A.shade(S.wall, 0.18); g.fillRect(x - w / 2 | 0, y - hh - 1, w + dep, 1); g.fillStyle = A.shade(S.wall, -0.15); g.fillRect(x - w / 2 | 0, y - hh, w, 1); if (S.extra === 'stair' && h.big) { A.rect(g, x - 3, y - hh - 4, 7, 3, S.wall); A.rect(g, x - 3, y - hh - 4, 7, 1, A.shade(S.wall, 0.15)); A.rect(g, x - 1, y - hh - 7, 3, 3, S.wall); } if (S.extra === 'paint') { A.rect(g, x - w / 2, y - hh + 1, w, 1, '#12a38c'); A.rect(g, x - w / 2, y - hh + 2, w, 1, '#e0b33a'); } if (S.extra === 'stone') { A.px(g, x - 1, y - 2, S.side); A.px(g, x + 1, y - hh + 1, S.side); A.px(g, x - w / 2 + 1, y - hh + 2, S.side); } }
       else {
-        var rh = S.form === 'steep' ? 5 : S.form === 'thatch' || S.form === 'round' ? 4 : 3;
-        if (S.form === 'round') { g.fillStyle = S.roof; g.beginPath(); g.ellipse(x + 1, y - hh, w / 2 + 2, rh, 0, Math.PI, 0); g.fill(); }
-        else { g.fillStyle = S.roof; g.beginPath(); g.moveTo(x - w / 2 - 1, y - hh); g.lineTo(x + 0.5, y - hh - rh); g.lineTo(x + w / 2 + 1, y - hh); g.closePath(); g.fill(); g.fillStyle = S.roofR; g.beginPath(); g.moveTo(x + 0.5, y - hh - rh); g.lineTo(x + dep + 0.5, y - hh - rh - 2); g.lineTo(x + w / 2 + dep + 1, y - hh - 2); g.lineTo(x + w / 2 + 1, y - hh); g.closePath(); g.fill(); }
-        if (S.form === 'steep' && h.style === 'japanese') { A.line(g, x - w / 2 - 1, y - hh, x - w / 2 - 3, y - hh - 2, S.roof); }
-        if (h.style === 'timber' || h.style === 'norse') { g.fillStyle = 'rgba(240,245,250,0.85)'; if (t.t < 0.35) g.fillRect(x - 1, y - hh - rh + 1, 3, 1); }
-        if (S.extra === 'post') A.rect(g, x - w / 2, y - hh + 1, 1, hh, '#5a3a20');
+        var rh = S.form === 'steep' ? 6 : S.form === 'thatch' || S.form === 'round' ? 5 : 4;
+        if (S.form === 'round') { g.fillStyle = S.roof; g.beginPath(); g.ellipse(x + 1, y - hh, w / 2 + 2, rh, 0, Math.PI, 0); g.fill(); g.fillStyle = A.shade(S.roof, 0.18); g.beginPath(); g.ellipse(x - 1, y - hh - 1, w / 4, rh * 0.6, 0, Math.PI, 0); g.fill(); }
+        else {
+          g.fillStyle = S.roof; g.beginPath(); g.moveTo(x - w / 2 - 1, y - hh); g.lineTo(x + 0.5, y - hh - rh); g.lineTo(x + w / 2 + 1, y - hh); g.closePath(); g.fill();
+          g.fillStyle = S.roofR; g.beginPath(); g.moveTo(x + 0.5, y - hh - rh); g.lineTo(x + dep + 0.5, y - hh - rh - 2); g.lineTo(x + w / 2 + dep + 1, y - hh - 2); g.lineTo(x + w / 2 + 1, y - hh); g.closePath(); g.fill();
+          g.strokeStyle = A.shade(S.roof, 0.28); g.lineWidth = 1; g.beginPath(); g.moveTo(x - w / 2 - 0.5, y - hh - 0.5); g.lineTo(x + 0.5, y - hh - rh + 0.5); g.stroke(); // sunlit verge
+          g.fillStyle = A.shade(S.roofR, -0.2); g.fillRect(x + 0.5 | 0, y - hh - rh - 1 | 0, dep + 1, 1); // ridge
+        }
+        if (S.form === 'steep' && h.style === 'japanese') { A.line(g, x - w / 2 - 1, y - hh, x - w / 2 - 3, y - hh - 2, S.roof); A.line(g, x + w / 2 + dep + 1, y - hh - 2, x + w / 2 + dep + 3, y - hh - 4, S.roofR); }
+        if (h.style === 'timber' || h.style === 'norse') { g.fillStyle = 'rgba(240,245,250,0.85)'; if (t.t < 0.35) g.fillRect(x - 2, y - hh - rh + 1, 4, 1); A.line(g, x - 1, y - hh - rh - 1, x - 2, y - hh - rh - 3, '#5a3a20'); A.line(g, x + 2, y - hh - rh - 1, x + 3, y - hh - rh - 3, '#5a3a20'); }
+        if (S.extra === 'post') { A.rect(g, x - w / 2, y - hh + 1, 1, hh, '#5a3a20'); A.rect(g, x + w / 2 - 1, y - hh + 1, 1, hh, '#5a3a20'); }
+        if (S.extra === 'column' && w >= 7) for (var cc = x - w / 2 + 1; cc < x + w / 2 - 1; cc += 2) A.rect(g, cc, y - hh + 1, 1, hh - 1, A.shade(S.wall, 0.1));
       }
-      g.fillStyle = '#ffd27a'; g.fillRect(x - 1, y - (hh >> 1), 1, 1); if (w > 6) g.fillRect(x + 2, y - (hh >> 1), 1, 1);
-      g.fillStyle = '#3a2a1a'; g.fillRect(x - w / 2 + 1 | 0, y - 1, 1, 2);
-      chim.push([x + 1, y - hh - 4]);
+      // door and windows; at Twilight the windows are lit
+      g.fillStyle = '#3a2a1a'; g.fillRect(x - 1 | 0, y - 2, 2, 3);
+      var win = night ? '#ffd27a' : A.shade(S.wall, -0.35);
+      g.fillStyle = win; g.fillRect(x - w / 2 + 1 | 0, y - hh + 1 + (hh > 5 ? 1 : 0), 1, 1); g.fillRect(x + w / 2 - 2 | 0, y - hh + 1 + (hh > 5 ? 1 : 0), 1, 1); if (h.big) { g.fillRect(x - 3, y - hh + 2, 1, 1); g.fillRect(x + 3, y - hh + 2, 1, 1); }
+      if (night) { g.fillStyle = 'rgba(255,200,110,0.22)'; g.fillRect(x - w / 2 - 1 | 0, y - hh, w + 2, hh + 2); }
+      chim.push([x + 1, y - hh - 5]);
     });
     // culture markers that identify the current patron even from afar (shape, not only colour)
     var cur = st.layers[0] ? ARCH[st.layers[0].f] : null;
-    if (cur && cur.extra === 'column') { A.rect(g, 52, 28, 2, 9, '#f2ecd8'); A.rect(g, 51, 27, 4, 1, '#e2dcc6'); }
-    if (cur && cur.extra === 'palm') { A.line(g, 10, 36, 11, 28, '#7a5a32'); A.line(g, 11, 28, 7, 30, '#4f8a3a'); A.line(g, 11, 28, 15, 30, '#4f8a3a'); }
-    if (cur && cur.extra === 'fence') for (i = 0; i < 5; i++) A.rect(g, 8 + i * 3, 38, 1, 3, '#6a5a3a');
-    if (cur && cur.extra === 'torii') { A.rect(g, 48, 30, 8, 1, '#e5532d'); A.rect(g, 49, 31, 1, 7, '#e5532d'); A.rect(g, 54, 31, 1, 7, '#e5532d'); }
-    if (cur && cur.extra === 'fire') { A.disc(g, 52, 38, 1.5, '#ffb070'); A.px(g, 52, 36, '#fff0a0'); }
-    var out = { c: c, chim: chim.slice(0, 3), tier: tier };
+    if (cur && cur.extra === 'column') { A.rect(g, VX + 20, 30, 2, 10, '#f2ecd8'); A.rect(g, VX + 19, 29, 4, 1, '#e2dcc6'); A.rect(g, VX + 21, 30, 1, 10, '#c8c0aa'); }
+    if (cur && cur.extra === 'palm') { A.line(g, VX - 22, 40, VX - 21, 30, '#7a5a32'); A.line(g, VX - 21, 30, VX - 26, 32, '#4f8a3a'); A.line(g, VX - 21, 30, VX - 16, 32, '#4f8a3a'); A.line(g, VX - 21, 30, VX - 22, 27, '#5f9a4a'); }
+    if (cur && cur.extra === 'fence') for (i = 0; i < 6; i++) A.rect(g, VX - 26 + i * 3, 41, 1, 3, '#6a5a3a');
+    if (cur && cur.extra === 'torii') { A.rect(g, VX + 15, 31, 9, 1, '#e5532d'); A.rect(g, VX + 14, 30, 11, 1, '#2a2018'); A.rect(g, VX + 16, 32, 1, 8, '#e5532d'); A.rect(g, VX + 22, 32, 1, 8, '#e5532d'); }
+    if (cur && cur.extra === 'fire') { A.disc(g, VX + 18, 40, 2, '#ffb070'); A.px(g, VX + 18, 37, '#fff0a0', 1, 2); A.rect(g, VX + 15, 42, 7, 1, '#6a4a2a'); }
+    if (cur && cur.extra === 'stair') { A.rect(g, VX - 25, 38, 7, 2, '#c8a878'); A.rect(g, VX - 24, 36, 5, 2, '#d8b888'); A.rect(g, VX - 23, 34, 3, 2, '#e8c898'); }
+    if (cur && cur.extra === 'smoke') A.rect(g, VX + 18, 36, 4, 5, '#5a4030');
+    var out = { c: c, chim: chim.slice(0, 3), tier: tier, night: night };
     this.villageCache[key] = out; return out;
   };
   P.shrineImage = function (art, pal, cond, spec) {
@@ -551,6 +629,8 @@
   /* ---------------------------------------------------------- state sync */
   P.setState = function (state, viewer) {
     var prev = this.state; this.state = state; this.viewer = viewer;
+    // the land is regraded for the new age (state objects are new on every engine step, so match the map by seed and size, not identity)
+    if (this.staticLayer && this.mapSeed === state.seed && this.map && this.map.tiles.length === state.map.tiles.length && state.age && state.age !== this.staticAge) this.staticLayer = this.buildStatic(state);
     var rev = state.players[viewer].revealed, rk = 0; for (var i = 0; i < rev.length; i++) rk += rev[i] * (i % 97 + 1);
     var fogKey = viewer + ':' + rk + ':' + this.quality;
     if (fogKey !== this.fogKey) {
@@ -645,6 +725,10 @@
     }
     var A1 = 0.35, M1 = A1, C1 = A1 + 0.8;
     function push(e, delay) { e.t = 0; e.delay = delay; e.c = e.c || col; self.fx.push(e); }
+    // world light (F): the land answers every miracle — it dims as the power gathers, is lit in the power's colour as it lands and keeps
+    // a soft afterglow; stronger, wider and darker for forceful powers (those with a flash or shake)
+    var force = Math.min(1, 0.45 + (V.flash || 0) * 1.2 + (V.shake || 0) * 0.06 + (V.wide ? 0.15 : 0));
+    if (this.quality !== 'low') push({ k: 'worldlight', x: p.x, y: p.y, life: C1 + 1.1, a1: A1 / (C1 + 1.1), m1: (C1 - 0.2) / (C1 + 1.1), force: force, c: col }, 0);
     // beat 1: anticipation
     if (V.tint) this.tintIt(V.tint, 0.16, 1.5);
     switch (V.a) {
@@ -874,7 +958,7 @@
   };
 
   P.drawShrineGlow = function (g, st, s, time) {
-    var p = this.top(st.map.tiles[s.tile]), pal = this.fac[st.players[s.shrine.owner].faction].palette, pulse = this.reduced ? 0.8 : 0.8 + 0.2 * Math.sin(time * 2 + s.id);
+    var p = this.top(st.map.tiles[s.tile]), pal = this.fac[st.players[s.shrine.owner].faction].palette, pulse = (this.reduced ? 0.8 : 0.8 + 0.2 * Math.sin(time * 2 + s.id)) * (st.age === 'twilight' ? 1.35 : st.age === 'dawn' ? 1.1 : 1); // shrines carry the light as the age darkens
     var gr = g.createRadialGradient(p.x + 8, p.y - 10, 2, p.x + 8, p.y - 10, 46 * pulse); gr.addColorStop(0, A.rgba(pal.glow, 0.55)); gr.addColorStop(0.4, A.rgba(pal.glow, 0.16)); gr.addColorStop(1, A.rgba(pal.glow, 0));
     g.fillStyle = gr; g.fillRect(p.x - 50, p.y - 60, 116, 100);
     g.fillStyle = A.rgba(pal.glow, 0.18 * pulse); g.beginPath(); g.ellipse(p.x + 6, p.y + 2, 34, 12, 0, 0, 7); g.fill();
@@ -884,7 +968,7 @@
     var p = this.top(st.map.tiles[s.tile]), v = this.village(st, s), self = this, viewer = this.viewer;
     var ctrl = s.controlledBy;
     if (ctrl >= 0) { var pal = this.fac[st.players[ctrl].faction].palette; g.strokeStyle = A.rgba(pal.accent, 0.8); g.lineWidth = 1.5; g.beginPath(); g.ellipse(p.x - 2, p.y + 2, 24, 9, 0, 0, 7); g.stroke(); }
-    g.drawImage(v.c, Math.round(p.x - 34), Math.round(p.y - 32));
+    g.drawImage(v.c, Math.round(p.x - VX - 2), Math.round(p.y - VY + 2));
     if (s.shrine) {
       var def = this.shrineDefs[s.shrine.type], spal = this.fac[st.players[s.shrine.owner].faction].palette, cond = this.shrineCondition(st, s);
       g.drawImage(this.shrineImage(def.art, spal, cond, s.shrine.spec), Math.round(p.x - 6), Math.round(p.y - 50));
@@ -899,7 +983,7 @@
       }
     }
     if (!this.reduced && this.quality !== 'low') v.chim.forEach(function (ch, k) {
-      for (var j = 0; j < 4; j++) { var ph = ((time * 0.35 + j / 4 + k * 0.37 + s.id * 0.13) % 1); var sx = p.x - 34 + ch[0] + Math.sin(ph * 6 + k) * 2 + ph * 6, sy = p.y - 32 + ch[1] - ph * 18; g.fillStyle = 'rgba(210,210,215,' + (0.35 * (1 - ph)).toFixed(3) + ')'; var sz = 1 + ph * 3; g.fillRect(Math.round(sx), Math.round(sy), Math.round(sz), Math.round(sz)); }
+      for (var j = 0; j < 4; j++) { var ph = ((time * 0.35 + j / 4 + k * 0.37 + s.id * 0.13) % 1); var sx = p.x - VX - 2 + ch[0] + Math.sin(ph * 6 + k) * 2 + ph * 6, sy = p.y - VY + 2 + ch[1] - ph * 18; g.fillStyle = 'rgba(210,210,215,' + (0.35 * (1 - ph)).toFixed(3) + ')'; var sz = 1 + ph * 3; g.fillRect(Math.round(sx), Math.round(sy), Math.round(sz), Math.round(sz)); }
     });
     if (ctrl >= 0) { var pal2 = this.fac[st.players[ctrl].faction].palette, wave = this.reduced ? 0 : Math.sin(time * 5 + s.id) * 1; g.fillStyle = '#3a2a1a'; g.fillRect(Math.round(p.x - 22), Math.round(p.y - 30), 1, 14); g.fillStyle = pal2.secondary; g.fillRect(Math.round(p.x - 21), Math.round(p.y - 30), 6, 3); g.fillStyle = pal2.accent; g.fillRect(Math.round(p.x - 21 + 6), Math.round(p.y - 30 + wave), 2, 3); }
     // the viewer's own covenants are marked with a sealed scroll
@@ -911,7 +995,11 @@
     var fid = st.players[pr.owner].faction, role = pr.role || 'emissary';
     var frame = this.reduced ? 0 : walking ? (Math.floor(this.time * 8) % 2 ? 1 : 2) : (st.settlements[t.settlement] && Math.sin(time * 1.3 + pr.id) > 0.7 ? 3 : 0);
     var x = Math.round(p.x - 20 + (pr.id % 3) * 6), y = Math.round(p.y - 12);
-    g.drawImage(this.priestImage(fid, role, frame), x, y);
+    var bob = (!walking && !this.reduced && Math.sin(time * 1.7 + pr.id * 1.3) > 0.6) ? -1 : 0;
+    g.fillStyle = 'rgba(12,10,22,0.35)'; g.beginPath(); g.ellipse(x + 8, y + 19.5, walking ? 4.5 : 5.5, 1.8, 0, 0, 7); g.fill(); // grounded: a soft contact shadow under the feet
+    var img = this.priestImage(fid, role, frame);
+    if (walking && an && this.top(st.map.tiles[an.from]).x > this.top(t).x + 1) { g.save(); g.translate(x + 14, y + bob); g.scale(-1, 1); g.drawImage(img, 0, 0); g.restore(); } // faces the way it walks
+    else g.drawImage(img, x, y + bob);
     if (this.selPriest === pr.id) { g.strokeStyle = 'rgba(255,230,140,0.95)'; g.lineWidth = 1; g.beginPath(); g.ellipse(x + 7, y + 19, 8, 3.5, 0, 0, 7); g.stroke(); }
   };
 
@@ -922,6 +1010,12 @@
       e.t += dt; var k = e.t / e.life; if (k >= 1) return; keep.push(e);
       var R = A.rng((e.seed || 1) * 1000 | 0), i, x, y;
       switch (e.k) {
+        case 'worldlight': {
+          var dim, lit, f = e.force, rad = 120 + 80 * f;
+          if (k < e.a1) { dim = k / e.a1; lit = 0; } else if (k < e.m1) { var u = (k - e.a1) / (e.m1 - e.a1); dim = 1 - u; lit = Math.sin(Math.min(1, u * 1.6) * Math.PI * 0.5); } else { dim = 0; lit = 1 - (k - e.m1) / (1 - e.m1); }
+          if (dim > 0.01) { var dg = g.createRadialGradient(e.x, e.y, rad * 0.25, e.x, e.y, rad * 1.6); dg.addColorStop(0, 'rgba(6,4,16,0)'); dg.addColorStop(1, 'rgba(6,4,16,' + (0.32 * f * dim).toFixed(3) + ')'); g.fillStyle = dg; g.fillRect(e.x - rad * 1.6, e.y - rad, rad * 3.2, rad * 2); }
+          if (lit > 0.01) { g.globalCompositeOperation = 'lighter'; var lg2 = g.createRadialGradient(e.x, e.y - 6, 0, e.x, e.y - 6, rad * 0.8); lg2.addColorStop(0, A.rgba(e.c, (0.42 * f * lit).toFixed(3))); lg2.addColorStop(0.5, A.rgba(e.c, (0.14 * f * lit).toFixed(3))); lg2.addColorStop(1, A.rgba(e.c, 0)); g.fillStyle = lg2; g.beginPath(); g.ellipse(e.x, e.y - 6, rad * 0.8, rad * 0.8 * SQ, 0, 0, 7); g.fill(); g.globalCompositeOperation = 'source-over'; }
+          break; }
         case 'mote': e.x += e.vx * dt; e.y += e.vy * dt; g.fillStyle = A.rgba(e.c, (1 - k).toFixed(3)); g.fillRect(Math.round(e.x), Math.round(e.y), 2, 2); break;
         case 'spark': e.x += e.vx * dt; e.y += e.vy * dt; e.vy += 160 * dt; g.fillStyle = A.rgba(e.c, (1 - k).toFixed(3)); g.fillRect(Math.round(e.x), Math.round(e.y), 1, 1); break;
         case 'dust': e.x += e.vx * dt; e.y += e.vy * dt; g.fillStyle = A.rgba(e.c || '#8c826e', (0.6 * (1 - k)).toFixed(3)); var ds = 2 + k * 6; g.fillRect(Math.round(e.x - ds / 2), Math.round(e.y - ds / 2), Math.round(ds), Math.round(ds)); break;
@@ -941,8 +1035,11 @@
         case 'band':
           var bandY = e.y, sweepX = -100 + (self.WW + 200) * k, hb = (e.rows / 2 + 0.5) * ROW, x0 = e.hw ? e.x - e.hw * COL : -1e9, x1 = e.hw ? e.x + e.hw * COL : 1e9;
           g.save(); g.beginPath(); g.rect(Math.max(0, x0), bandY - hb - 20, Math.min(self.WW, x1) - Math.max(0, x0), hb * 2 + 20); g.clip();
-          var bgr = g.createLinearGradient(sweepX - 260, 0, sweepX, 0); bgr.addColorStop(0, 'rgba(255,220,140,0)'); bgr.addColorStop(1, 'rgba(255,230,160,0.45)'); g.fillStyle = bgr; g.fillRect(sweepX - 260, bandY - hb, 260, hb * 2);
-          A.disc(g, sweepX, bandY - hb - 10, 6, 'rgba(255,240,180,0.95)'); g.restore(); break;
+          // a travelling light with a feathered top, bottom and tail that rises and fades over the cast, not a hard-edged slab
+          var bgr = g.createLinearGradient(sweepX - 260, 0, sweepX + 18, 0); bgr.addColorStop(0, 'rgba(255,220,140,0)'); bgr.addColorStop(0.85, 'rgba(255,232,168,0.42)'); bgr.addColorStop(1, 'rgba(255,240,200,0)'); g.fillStyle = bgr;
+          var env = Math.sin(Math.min(1, k * 1.15) * Math.PI) * 0.9 + 0.1, slices = 10;
+          for (var si = 0; si < slices; si++) { var v0 = si / slices, w8 = Math.sin((v0 + 0.5 / slices) * Math.PI); g.globalAlpha = env * w8 * w8; g.fillRect(sweepX - 260, bandY - hb - 10 + (hb * 2 + 20) * v0, 278, (hb * 2 + 20) / slices + 0.5); }
+          g.globalAlpha = env; A.disc(g, sweepX, bandY - hb - 14, 5, 'rgba(255,244,196,0.95)'); A.disc(g, sweepX, bandY - hb - 14, 9, 'rgba(255,230,160,0.25)'); g.globalAlpha = 1; g.restore(); break;
         // ---- signature motifs
         case 'shadow': var sg = g.createRadialGradient(e.x, e.y, 0, e.x, e.y, 120); sg.addColorStop(0, 'rgba(5,0,15,' + (0.45 * Math.sin(k * Math.PI)).toFixed(3) + ')'); sg.addColorStop(1, 'rgba(5,0,15,0)'); g.fillStyle = sg; g.fillRect(e.x - 120, e.y - 120, 240, 240); break;
         case 'cloud': g.globalAlpha = 0.7 * Math.sin(k * Math.PI); g.drawImage(e.dark ? self.stormSprite : self.cloudSprite, e.x - 90 + k * 10, e.y - 30, 180, 80); g.globalAlpha = 1; break;
@@ -1055,26 +1152,41 @@
     if (this.flash) { this.flash.t += dt; var fa = this.flash.a * Math.max(0, 1 - this.flash.t / 0.5); if (fa <= 0) this.flash = null; else { ctx.fillStyle = this.flash.c + fa.toFixed(3) + ')'; ctx.fillRect(0, 0, W, H); } }
   };
 
+  /* Town labels (engraved plaques). Each plaque is rendered once into a small cached canvas keyed by everything it shows — name,
+     population, controller, follower split, scale step and accessibility settings — and only drawn per frame. */
+  P.plaque = function (st, s, sc) {
+    var self = this, ctrl = s.controlledBy, f = ctrl >= 0 ? this.fac[st.players[ctrl].faction] : null;
+    var key = s.name + '|' + s.pop + '|' + ctrl + '|' + s.followers.join(',') + '|' + sc + '|' + this.contrast + '|' + this.patterns + '|' + (f ? f.id : '');
+    var C = this.plaqueCache || (this.plaqueCache = {}); if (C[key]) return C[key];
+    if (++this.plaqueCount > 400) { C = this.plaqueCache = {}; this.plaqueCount = 1; }
+    var meas = this.measureCtx || (this.measureCtx = A.cv(4, 4).getContext('2d')), font = '600 ' + Math.round(11.5 * sc) + 'px "Palatino Linotype", Palatino, Georgia, serif';
+    meas.font = font; var tw = meas.measureText(s.name).width, w = Math.round(tw + 30 * sc), h = Math.round(16 * sc), bh = Math.max(3, Math.round(3 * sc)), ox = Math.ceil(14 * sc), sh = Math.ceil(2 * sc);
+    var c = A.cv(w + ox + sh + 1, h + bh + sh + 1), g = c.getContext('2d'), x = ox, y = 0, pal = f ? f.palette : null;
+    g.font = font;
+    g.fillStyle = 'rgba(0,0,0,0.35)'; g.fillRect(x + sh, y + sh, w, h); // drop shadow lifts the plaque off the land
+    var plg = g.createLinearGradient(0, y, 0, y + h); plg.addColorStop(0, 'rgba(34,30,26,0.92)'); plg.addColorStop(1, 'rgba(14,12,14,0.92)'); g.fillStyle = plg; g.fillRect(x, y, w, h);
+    g.fillStyle = 'rgba(232,196,120,0.55)'; g.fillRect(x, y, w, Math.max(1, sc)); g.fillStyle = 'rgba(232,196,120,0.25)'; g.fillRect(x, y + h - Math.max(1, sc), w, Math.max(1, sc));
+    if (f) { g.fillStyle = pal.secondary; g.fillRect(x, y, 4 * sc, h); g.drawImage(this.emblemImage(f.id, 16), x - 14 * sc, y, 14 * sc, 14 * sc); }
+    else { g.fillStyle = '#55524a'; g.fillRect(x, y, 4 * sc, h); }
+    g.strokeStyle = this.contrast ? '#ffffff' : pal ? pal.accent : 'rgba(200,190,160,0.5)'; g.lineWidth = this.contrast ? 2 : 1; g.strokeRect(x + 0.5, y + 0.5, w - 1, h - 1);
+    g.fillStyle = '#f2ead6'; g.textAlign = 'left'; g.textBaseline = 'middle'; g.fillText(s.name, x + 8 * sc, y + h / 2 + 0.5);
+    g.fillStyle = '#e2c27a'; g.textAlign = 'right'; g.fillText(String(s.pop), x + w - 5 * sc, y + h / 2 + 0.5);
+    var bx = x, by = y + h, acc = 0;
+    g.fillStyle = 'rgba(80,80,80,0.9)'; g.fillRect(bx, by, w, bh);
+    s.followers.forEach(function (fl, pid) { if (!fl) return; var fw = w * fl / s.pop; g.fillStyle = self.fac[st.players[pid].faction].palette.secondary; g.fillRect(bx + acc, by, fw, bh); if (self.patterns) { g.globalAlpha = 0.5; g.fillStyle = g.createPattern(self.factionPattern(st.players[pid].faction), 'repeat'); g.fillRect(bx + acc, by, fw, bh); g.globalAlpha = 1; } g.fillStyle = 'rgba(255,255,255,0.25)'; g.fillRect(bx + acc, by, fw, 1); acc += fw; });
+    var out = { c: c, ox: ox, w: w }; C[key] = out; return out;
+  };
   P.drawBanners = function (ctx) {
     var st = this.state, self = this, rev = st.players[this.viewer].revealed, dpr = this.dpr;
     if (this.cam.z < 1.25) return;
+    this.plaqueCount = this.plaqueCount || 0;
     st.settlements.forEach(function (s) {
       if (!rev[s.tile]) return;
       var tp = self.top(st.map.tiles[s.tile]), p = self.project(tp.x, tp.y + 20);
       if (p.x < -100 || p.x > self.canvas.width + 100 || p.y < -40 || p.y > self.canvas.height + 40) return;
-      var sc = Math.max(0.7, Math.min(1.25, p.s / (2 * dpr))) * dpr;
-      ctx.font = '600 ' + Math.round(11 * sc) + 'px Georgia, "Palatino Linotype", serif';
-      var name = s.name, tw = ctx.measureText(name).width, w = tw + 30 * sc, h = 16 * sc, x = Math.round(p.x - w / 2), y = Math.round(p.y);
-      var ctrl = s.controlledBy, f = ctrl >= 0 ? self.fac[st.players[ctrl].faction] : null, pal = f ? f.palette : null;
-      ctx.fillStyle = 'rgba(12,14,22,0.78)'; ctx.fillRect(x, y, w, h);
-      if (f) { ctx.fillStyle = pal.secondary; ctx.fillRect(x, y, 4 * sc, h); var em = self.emblemImage(f.id, 16); ctx.drawImage(em, x - 14 * sc, y, 14 * sc, 14 * sc); }
-      else { ctx.fillStyle = '#55524a'; ctx.fillRect(x, y, 4 * sc, h); }
-      ctx.strokeStyle = self.contrast ? '#ffffff' : pal ? pal.accent : 'rgba(200,190,160,0.5)'; ctx.lineWidth = self.contrast ? 2 : 1; ctx.strokeRect(x + 0.5, y + 0.5, w - 1, h - 1);
-      ctx.fillStyle = '#f2ead6'; ctx.textAlign = 'left'; ctx.textBaseline = 'middle'; ctx.fillText(name, x + 8 * sc, y + h / 2 + 0.5);
-      ctx.fillStyle = '#e2c27a'; ctx.textAlign = 'right'; ctx.fillText(String(s.pop), x + w - 5 * sc, y + h / 2 + 0.5);
-      var bx = x, by = y + h, bw = w, bh = Math.max(3, 3 * sc), acc = 0;
-      ctx.fillStyle = 'rgba(80,80,80,0.9)'; ctx.fillRect(bx, by, bw, bh);
-      s.followers.forEach(function (fl, pid) { if (!fl) return; var fw = bw * fl / s.pop; ctx.fillStyle = self.fac[st.players[pid].faction].palette.secondary; ctx.fillRect(bx + acc, by, fw, bh); if (self.patterns) { ctx.globalAlpha = 0.5; ctx.fillStyle = ctx.createPattern(self.factionPattern(st.players[pid].faction), 'repeat'); ctx.fillRect(bx + acc, by, fw, bh); ctx.globalAlpha = 1; } ctx.fillStyle = 'rgba(255,255,255,0.25)'; ctx.fillRect(bx + acc, by, fw, 1); acc += fw; });
+      var sc = Math.max(0.7, Math.min(1.25, p.s / (2 * dpr))) * dpr, sq = Math.round(sc * 8) / 8, k = sc / sq; // plaques cached in 1/8 steps, drawn at the exact scale, so zooming stays smooth and rarely re-renders text
+      var pq = self.plaque(st, s, sq);
+      ctx.imageSmoothingEnabled = k !== 1; ctx.drawImage(pq.c, Math.round(p.x - (pq.w / 2 + pq.ox) * k), Math.round(p.y), pq.c.width * k, pq.c.height * k); ctx.imageSmoothingEnabled = false;
     });
   };
 

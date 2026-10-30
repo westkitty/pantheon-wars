@@ -312,3 +312,44 @@ details.mem .t, #panel .t { color: var(--dim); font-size: 10px; margin-right: 6p
   .sheet { padding: 14px 14px; }
 }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+
+/* ---------------------------------------------------------------- v0.3 visual finish (G): one material language for every surface */
+:root { --gild: rgba(232, 196, 120, 0.55); --gild-soft: rgba(232, 196, 120, 0.22); --ink-deep: #0b0d14; }
+/* panels: an inner gilded hairline and engraved corner marks, the same on the HUD, sheets and the event card */
+.sheet { position: relative; }
+#panel, #logpanel, .sheet, #powerbar, #minimap-wrap, #targetbar, .chrome { box-shadow: var(--shadow), inset 0 0 0 1px rgba(0, 0, 0, 0.6), inset 0 0 0 2px var(--gild-soft); }
+#panel::before, #panel::after, .sheet::before, .sheet::after, #logpanel::before, #logpanel::after {
+  content: ''; position: absolute; width: 14px; height: 14px; pointer-events: none; border-color: var(--gild); border-style: solid; }
+#panel::before, .sheet::before, #logpanel::before { top: 4px; left: 4px; border-width: 1px 0 0 1px; }
+#panel::after, .sheet::after, #logpanel::after { bottom: 4px; right: 4px; border-width: 0 1px 1px 0; }
+#panel h3 { padding-bottom: 4px; border-bottom: 1px solid var(--gild-soft); text-shadow: 0 1px 0 #000, 0 0 12px rgba(243, 217, 142, 0.25); }
+#panel .sub { margin-top: 4px; }
+/* power bar: the cooldown is a sweep plus a small numbered badge, so the icon stays readable */
+.pw .cd { font: 700 11px var(--ui); align-items: flex-end; justify-content: flex-end; padding: 0 4px 3px 0; }
+.pw .cd::after { content: ''; }
+.pw.off canvas { opacity: 0.55; }
+.pw:active:not(.off) { transform: translateY(0) scale(0.97); }
+.pw:focus-visible { outline: 2px solid var(--gold2); outline-offset: 1px; }
+.pw.armed::before { content: ''; position: absolute; inset: 2px; border-radius: 5px; border: 1px solid rgba(255, 242, 176, 0.9); animation: armpulse 1.6s ease-in-out infinite; pointer-events: none; }
+@keyframes armpulse { 50% { box-shadow: inset 0 0 14px rgba(255, 220, 120, 0.45); } }
+/* faith meter: the label sits inside a taller bar, never over the numbers above it */
+.meter { height: 12px; margin-top: 2px; }
+.meter span { top: 0; bottom: 0; right: 0; left: 0; display: flex; align-items: center; justify-content: center; font: 600 9px var(--ui); letter-spacing: 0.04em; }
+/* top bar and buttons: engraved, with consistent hover, pressed and disabled states */
+#topbar { box-shadow: var(--shadow), inset 0 -1px 0 var(--gild-soft); }
+.iconbtn:active, .ghost:active, .act:active:not(:disabled) { transform: translateY(1px); }
+.ghost:disabled, .primary:disabled { opacity: 0.45; cursor: not-allowed; filter: grayscale(0.4); }
+.act { background: linear-gradient(180deg, #2a2f44, #171a26); box-shadow: inset 0 1px 0 rgba(255, 240, 200, 0.06); }
+.act:focus-visible { outline: 2px solid var(--gold2); outline-offset: 1px; }
+/* event card and victory: the illustration sits in a gilded frame */
+.card-art { box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.7), inset 0 0 0 3px var(--gild-soft), inset 0 -40px 60px -30px rgba(0, 0, 0, 0.8); }
+.card-art canvas#ev-art { mix-blend-mode: normal; }
+.choices button { box-shadow: inset 0 1px 0 rgba(255, 240, 200, 0.06); }
+/* the turn banner reads as an engraved title, not a floating word */
+#turnbanner { letter-spacing: 0.3em; text-shadow: 0 2px 0 #1a1208, 0 0 24px rgba(0, 0, 0, 0.9), 0 0 50px rgba(240, 190, 90, 0.35); }
+#turnbanner::after { content: ''; display: block; width: 220px; height: 1px; margin: 10px auto 0; background: linear-gradient(90deg, transparent, var(--gold2), transparent); }
+/* toasts and alerts share the material */
+.toast { box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5), inset 0 0 0 1px var(--gild-soft); }
+@media (max-width: 760px) { #panel::before, #panel::after { display: none; } .meter { width: 72px; } }
+/* touch screens of any width (tablets included) get 44 px targets on the top bar */
+@media (pointer: coarse) { .iconbtn { min-width: 44px; height: 44px; } .alert { min-height: 36px; } }

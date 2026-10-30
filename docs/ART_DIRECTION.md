@@ -58,3 +58,32 @@ Every power has its own VFX id (`ui/render.js` `VFX`) choreographed in three bea
 
 ## Accessibility rules for art
 Patterned borders (on by default) · high-contrast mode · reduced motion and no-flash options · every audio cue has an on-screen equivalent · screen-reader round summaries · no information carried by colour alone.
+
+## v0.3 visual finish — "a living mythological atlas"
+Target: miniature civilisations on carved land under a moving sky, lit by a single sun, with every divine act answered by the land.
+Precedents studied for principles only (nothing copied): tactical readability first (every state has a shape, effects never hide a
+target), a coherent hex landscape that reads as one terrain rather than tiles, and diorama lighting (one key light, soft contact
+shadows, warm/cool contrast). Canvas guidance followed: pre-render static work to offscreen canvases, avoid per-frame gradients for
+full-screen layers, clip to what is shown.
+
+What changed in the running game (all in `ui/render.js` and `ui/style.css`; no new files, fonts or images):
+
+| Area | Before | Now | Cost per frame |
+|---|---|---|---|
+| Light | fixed diagonal gradient on every hex | one upper-left key light; each hex's top shaded by its slope against its neighbours (cool when it faces away, warm when it faces the light); the whole land is regraded per age — warm Dawn, neutral Zenith, violet Twilight — and the static layer rebuilds at the two age changes | none (static, `AGE_LIGHT`) |
+| Terrain | flat colour per hex, dark outline | neighbouring biomes bleed across shared edges; outlines faint seams | none |
+| Mountains | one cone stamped per hex | ranges composed from their neighbours: the heart of a range rises as one dominant wide peak, its edges break into foothills, others carry 1–3 asymmetric peaks; lit and shaded faces, secondary ridges, strata, scree, cast shadow, snow by altitude and climate | none |
+| Plains, desert | heavy diagonal stripes, bright scribbles | quieter furrows in varying directions, softer dune ripples | none |
+| Water | each hex filled with its depth colour (visible steps) | depth painted per hex then blurred into one continuous shallow-to-deep material under the coast | none |
+| Fog | grey-brown smoke | a painted cloud sea: cool hollows, shadowed undersides, cream sunlit crowns, a gilded rim where the known world ends | none (fog is cached) |
+| Territory | heavy stripes and thick double lines | lighter fill and heraldic pattern (pattern kept for colour-blind play), a soft inner band of the realm colour, a thin dark edge and the patterned accent line; high-contrast mode unchanged | none (overlay cached) |
+| Settlements | 64×48 sprite, small houses on bare ground | 72×52: worn plaza and lanes, well or fountain from tier 3, directional contact shadows, lit wall edges, roof verges and ridges, doors and windows; windows glow at Twilight; Greek columns on large houses, Japanese upturned eaves, Norse gable horns, Mesopotamian stepped terrace, Mexica painted bands, Hittite stone courses, Yoruba posts; tiers, decline ruins and layered patronage kept | cached per settlement state |
+| Shrines | constant glow | light pools brighten at Dawn and strongly at Twilight, so shrines carry the light as the age darkens | unchanged |
+| Priests | floating sprite | contact shadow, faces the way it walks, a gentle idle breath (none in reduced motion) | negligible |
+| Miracles | motif + screen tint | every power also has a world-light envelope: the land dims as the power gathers, a pool of the power's colour lights the terrain as it lands, then an afterglow; force scales with the power (flash/shake/wide); off in Low quality and reduced motion | one gradient while active |
+| Reveal sweeps | hard-edged rectangle (Barque of Re, Crossing of Utu, Breath of Quetzalcoatl) | feathered travelling light that rises and fades | same |
+| Labels | grey boxes | engraved plaques with gilded hairlines and a drop shadow, rendered once per label state into a cache | lower than before (text no longer re-rendered every frame) |
+| UI | — | one material language: gilded inner hairline and engraved corner marks on panels and sheets; cooldowns as a sweep plus a small badge; faith meter label inside the bar; consistent pressed, focus and disabled states; framed event art; 44 px top-bar targets on any touch screen | CSS |
+
+Ten-pantheon identity in gameplay is carried by architecture (village kits and shrine families), territory colour and heraldic
+pattern, priest families, the per-pantheon atmosphere grade, and each power's own colour in its world-light pool.

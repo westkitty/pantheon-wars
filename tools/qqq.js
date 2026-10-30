@@ -2,7 +2,8 @@
 /*
  * Adversarial QA checks that complement the journeys: hot-seat leaks through live regions and toasts, blocked browser storage,
  * two-finger pinch zoom, Chronicle viewer privacy in an unfinished game, and resizing mid-game (the renderer clips world
- * compositing to the camera view, so a resize must not leave stale regions). Writes reports/qqq.json.   node tools/qqq.js
+ * compositing to the camera view, so a resize must not leave stale regions), age-driven render caches, and the reduced-motion and
+ * Low-quality power cues. Writes reports/qqq.json.   node tools/qqq.js
  */
 const { chromium } = require('playwright');
 const fs = require('fs'), path = require('path');
@@ -78,6 +79,24 @@ const assert = (c, m) => { if (!c) throw new Error('assertion failed: ' + m); };
         let transparent = 0; for (let i = 3; i < d.length; i += 4) if (d[i] < 250) transparent++; return { canvas: [c.width, c.height], view: R.view, transparentPx: transparent }; }));
     }
     ev.sizes.forEach(r => assert(r.transparentPx === 0 && r.view && r.view.w > 0, 'complete frame at ' + r.canvas.join('x')));
+  }, browser);
+
+  await check('Q06', 'Age changes regrade the land and switch towns to their Twilight sprites (no stale render caches)', async (page, ev) => {
+    await page.goto(URL0 + '?seed=14&autostart=1&nosave=1&speed=0&quality=high&diff=easy'); await page.waitForTimeout(400);
+    const step = async until => { for (let g = 0; g < 3000; g++) { await page.waitForFunction(() => !PW.busy() && PW.state.current === PW.app.viewer, null, { timeout: 120000 }); const done = await page.evaluate(l => { if (PW.state.turn >= l) return true; if (PW.state.players[PW.app.viewer].pendingEvent) PW.act({ type: 'event', choice: 0 }); PW.endTurn(); document.getElementById('event').hidden = true; return false; }, until); if (done) break; } };
+    ev.dawn = await page.evaluate(() => ({ age: PW.state.age, staticAge: PW.renderer.staticAge }));
+    await step(16); ev.zenith = await page.evaluate(() => ({ age: PW.state.age, staticAge: PW.renderer.staticAge }));
+    await step(31); await page.waitForTimeout(100);
+    ev.twilight = await page.evaluate(() => { const R = PW.renderer, s = PW.state, town = s.settlements.find(x => s.players[PW.app.viewer].revealed[x.tile]); return { age: s.age, staticAge: R.staticAge, night: R.village(s, town).night }; });
+    assert(ev.dawn.staticAge === 'dawn' && ev.zenith.staticAge === 'zenith' && ev.twilight.staticAge === 'twilight' && ev.twilight.night === 1, 'caches follow the age: ' + JSON.stringify(ev));
+  }, browser);
+
+  await check('Q07', 'Reduced motion and Low quality keep a stable cue for every power without the world-light envelope', async (page, ev) => {
+    await page.goto(URL0 + '?seed=2&autostart=1&nosave=1&speed=0&motion=reduced'); await page.waitForTimeout(400);
+    ev.reduced = await page.evaluate(() => { const R = PW.renderer, t = PW.state.settlements[PW.state.players[0].home].tile, ids = PW_DATA.powers.map(p => p.vfx), bad = []; ids.forEach(id => { R.fx = []; R.texts = []; R.playVfx(id, t, { label: id }); if (R.fx.some(e => e.k === 'worldlight') || !R.fx.some(e => e.k === 'ring') || !R.texts.length) bad.push(id); }); return bad; });
+    await page.goto(URL0 + '?seed=2&autostart=1&nosave=1&speed=0&quality=low&motion=full'); await page.waitForTimeout(400);
+    ev.low = await page.evaluate(() => { const R = PW.renderer, t = PW.state.settlements[PW.state.players[0].home].tile, bad = []; PW_DATA.powers.forEach(p => { R.fx = []; R.playVfx(p.vfx, t, {}); if (R.fx.some(e => e.k === 'worldlight') || !R.fx.length) bad.push(p.vfx); }); return bad; });
+    assert(!ev.reduced.length && !ev.low.length, 'reduced: ' + ev.reduced.join(',') + ' low: ' + ev.low.join(','));
   }, browser);
 
   await browser.close();

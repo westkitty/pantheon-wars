@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-30T03:07:58.145Z",
+ "generated": "2026-10-30T20:37:38.493Z",
  "games": 10,
  "heapGrowth": 0,
  "canvasesStable": true,
@@ -12,7 +12,7 @@
    "heapMB": 9.5,
    "screenLayers": 3,
    "villageCache": 20,
-   "spriteCache": 15,
+   "spriteCache": 16,
    "canvases": 46
   },
   {
@@ -21,7 +21,7 @@
    "heapMB": 9.5,
    "screenLayers": 3,
    "villageCache": 14,
-   "spriteCache": 13,
+   "spriteCache": 12,
    "canvases": 46
   },
   {
@@ -30,7 +30,7 @@
    "heapMB": 9.5,
    "screenLayers": 3,
    "villageCache": 26,
-   "spriteCache": 22,
+   "spriteCache": 20,
    "canvases": 46
   },
   {
@@ -39,7 +39,7 @@
    "heapMB": 9.5,
    "screenLayers": 3,
    "villageCache": 22,
-   "spriteCache": 21,
+   "spriteCache": 22,
    "canvases": 46
   },
   {
@@ -48,7 +48,7 @@
    "heapMB": 9.5,
    "screenLayers": 3,
    "villageCache": 16,
-   "spriteCache": 20,
+   "spriteCache": 19,
    "canvases": 46
   },
   {
@@ -57,7 +57,7 @@
    "heapMB": 9.5,
    "screenLayers": 3,
    "villageCache": 20,
-   "spriteCache": 18,
+   "spriteCache": 16,
    "canvases": 46
   },
   {
@@ -66,7 +66,7 @@
    "heapMB": 9.5,
    "screenLayers": 3,
    "villageCache": 19,
-   "spriteCache": 16,
+   "spriteCache": 18,
    "canvases": 46
   },
   {
@@ -84,7 +84,7 @@
    "heapMB": 9.5,
    "screenLayers": 3,
    "villageCache": 21,
-   "spriteCache": 16,
+   "spriteCache": 15,
    "canvases": 46
   },
   {

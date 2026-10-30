@@ -101,6 +101,40 @@ validator PASS, journeys 10/10, real-input game deterministic (`bcc9e229` browse
 - Screenshot PNGs under `reports/screens/` were left as captured at 003d1b3 (the renderer change is pixel-equivalent); their JSON
   reports were refreshed.
 
-NEXT ACTION: review PR #1. The remaining release gate is the duel balance spread (16.1 > 15): the next step is a duel-only lever for the
+NEXT ACTION (superseded 2026-10-30 by the entry below — kept as history): review PR #1. The remaining release gate is the duel balance spread (16.1 > 15): the next step is a duel-only lever for the
 Olympian Court or Vedic validated on a fresh held-out seed set (e.g. `--seed 200000`), then the 39 v0.2 sources need a full read on an
 unrestricted connection, and a person needs to listen to the audio. Do not merge or deploy without the owner's decision.
+
+### Balance re-validation and visual finish (2026-10-30, third pass)
+Start: `34e542d` on `claude/vibrant-feynman-x1fjq9`, draft PR #1, CI green on 34e542d, clean tree.
+- **Balance — PARTIAL.** Independent fresh-seed validation of the release candidate (seeds 200000+, 9000 games,
+  `reports/balance-independent-validation.md`): spread overall 9.3, FFA 12.0, duel **18.9** (Olympian Court 57.5% vs Vedic 38.6%,
+  non-overlapping 95% intervals). Bounded repair on dev seeds 70000 (candidates C1, C3, C4, C5a, C5b); best candidate C5a (Indra's
+  Rainstorm converts 2 / 3-turn boon; Agni's Fire preaching ×2.0) improved the dev duel spread 21.8 → 17.6 but **did not reproduce** on
+  untouched seeds 300000 against a matched run of the unchanged data (duel 20.3 vs 18.3; `reports/balance-candidate-validation.md`,
+  `reports/balance-rc-on-seed300000.md`). C5a rejected and reverted: shipped data unchanged (`4b22c717aa09`). Three independent seed
+  sets now give duel spreads 16.1 / 18.9 / 18.3. Details: `reports/balance-notes.md`.
+- **Visual finish — `ui/render.js`, `ui/style.css` (no new files, fonts or images):** slope-aware key light and per-age land grade
+  (static layer rebuilt at age changes), biome transitions, massif mountains, blurred continuous water depth, painted cloud-sea fog
+  with gilded rim, lighter territory with inner band, larger villages with plaza, lanes, contact shadows, roof light, doors and
+  windows that glow at Twilight, grounded and facing priests, stronger shrine light at Twilight, engraved label plaques, a world-light
+  envelope on every power cast, feathered reveal sweeps, and a unified UI material layer (gilded hairline frames, cooldown badges, meter
+  label, consistent states, 44 px targets on touch). Critique and evidence: `reports/visual-qa/critique.md`; art notes in
+  `docs/ART_DIRECTION.md` ("v0.3 visual finish").
+- **Gameplay neutrality:** with the visual changes and the release-candidate data, the real-input full game reproduces `47cef0c2`
+  (browser = Node replay), the same hash as before the visual pass; v0.1 replay still `6a3687d9` (J10 + unit test).
+- **Performance** (`reports/perf-comparison-visual.md`, matched 5-run vs a 34e542d worktree): renderer median −3% … +4%, p95 −9% … +11% per scene, all
+  under 13 ms; static terrain build 68–71 → 105–150 ms (once per game start and at the two age changes); memory flat over ten games.
+- **Defect found by the new QA and fixed:** the age regrade never ran (renderer compared map objects by identity; engine states are new
+  each step) — caught by `tools/qqq.js` Q06, fixed by matching the map by seed and size. New checks: Q06 (age caches), Q07 (reduced-motion
+  and Low-quality power cues); tablet top-bar targets raised to 44 px on touch screens.
+- Tooling: `tools/visual-qa.js` (before/after atlas from real games: ten pantheons, three ages, 40 power signatures at three beats).
+
+NEXT ACTION: the only failing gate is the duel balance spread (16–19 points over three seed sets). A fix needs a mechanic that weakens
+the Olympian Court in duels without weakening its already-low three-god play (e.g. an explicit, documented two-god rule), validated on a
+fresh seed set; then a person should review the visuals and audio on real devices. Do not merge or deploy without the owner's decision.
+- Final run on the finished tree (2026-10-30): 55/55 tests; validator PASS; bundles in sync; balance smoke PASS; journeys 11/11; real-input
+  game `47cef0c2` = Node replay, 0 rejected inputs; offline PASS; weather QA PASS; memory flat (9.5 → 9.5 MB); QQQ 7/7; visual QA atlas
+  regenerated (`reports/visual-qa/`). Self-assessment of the visual gate: **PARTIAL** — the in-game world is materially richer (ranges,
+  water, fog, light, towns, miracle light, UI) at no measurable per-frame cost, but at overview zoom it remains an evolution of the same
+  look rather than a transformative AAA change, and no person has reviewed it on a real device.

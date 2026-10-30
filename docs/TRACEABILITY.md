@@ -1,12 +1,12 @@
 # Traceability — P001–P050 and A001–A010
 
-Status key: **PASS** = implemented and the acceptance oracle is directly evidenced by a test, tool run or capture listed here. **PARTIAL** = implemented, but part of the oracle is not met or not proven. **UNVERIFIED** = implemented, proof not possible in this environment. Evidence paths are relative to the repository root. All runs: Linux container, Node 22, Playwright Chromium (software rendering), 4 CPU cores, 2026-10-29 (v0.2) and 2026-10-30 (release candidate).
+Status key: **PASS** = implemented and the acceptance oracle is directly evidenced by a test, tool run or capture listed here. **PARTIAL** = implemented, but part of the oracle is not met or not proven. **UNVERIFIED** = implemented, proof not possible in this environment. Evidence paths are relative to the repository root. All runs: Linux container, Node 22, Playwright Chromium (software rendering), 4 CPU cores, 2026-10-29 (v0.2) and 2026-10-30 (release candidate and visual finish).
 
 ## Systems P001–P025
 
 | ID | Requirement | Implementation | Acceptance evidence | Status |
 |---|---|---|---|---|
-| P001 | Ten-faction balance (≤15 pp per mode) | `data/*.json` tuning t1–t12 (v0.2) and r1–r9 (release candidate), `tools/simulate.js`, `tools/ablate.js`, `tools/diagnose.js` | held-out release-candidate run `reports/ten-pantheon-balance-release-candidate.{json,md}` (9000 games, the baseline's own seeds 1000–9999, never used in tuning) vs `reports/ten-pantheon-balance-final.md`; tuning record `reports/balance-notes.md` | **PARTIAL** — spread overall 17.8 → **11.5**, FFA 21.2 → **14.2**, duel 25.0 → **16.1**; duel misses the target by 1.1 points (Greek 56.4% [51.2–61.4] vs Vedic 40.3% [35.3–45.4]); the bottleneck is the Olympian Court's duel/FFA split |
+| P001 | Ten-faction balance (≤15 pp per mode) | `data/*.json` tuning (v0.2 t1–t12, release candidate r1–r9), `tools/simulate.js`, `tools/ablate.js` | three independent 9000-game runs of the shipped data: held-out 1000+ (`reports/ten-pantheon-balance-release-candidate.md`), fresh 200000+ (`reports/balance-independent-validation.md`), 300000+ (`reports/balance-rc-on-seed300000.md`); rejected candidate C5a (`reports/balance-candidate-validation.md`); `reports/balance-notes.md` | **PARTIAL** — overall 11.5 / 9.3 / 10.3 and FFA 14.2 / 12.0 / 13.7 pass; duel 16.1 / 18.9 / 18.3 fail (Olympian Court 56–60% vs Vedic 39–41% in duels, persistent across seed sets); the bounded repair (C5a) did not reproduce on untouched seeds and was reverted |
 | P002 | First-seat advantage | `rules.start.seatFaithBonus`/`seatFaithBonusDuel`, `engine/engine.js` newGame | release-candidate "Seat order" table with Wilson CIs; counterfactual history in `reports/balance-notes.md` t8 | PASS — duel seats 48.6% [46.3–50.9] / 51.4% [49.1–53.7] (was 47.3 / 52.7); three-god 33.9 / 32.7 / 33.4%; v0.1 first-seat bias was 53.5–59% |
 | P003 | Every power a credible choice | `data/powers.json`, AI valuation `engine/ai.js` | `tests/powers.test.js`; release-candidate power usage table | PASS — all 40 powers used, least 3.18 casts/game (Gardens of Chalchiuhtlicue); Barque of Re 1.08/game in v0.1 tuning → 10+ now |
 | P004 | Three ages | `rules.ages`, `ageOf`, age mods, AI `ageWeights`, sky progression | `tests/systems.test.js` P004; HUD age label; `reports/screens/e2e/` turn 16/30 captures | PASS |
@@ -37,29 +37,29 @@ Status key: **PASS** = implemented and the acceptance oracle is directly evidenc
 | ID | Requirement | Implementation | Acceptance evidence | Status |
 |---|---|---|---|---|
 | P026 | Visual bible | `docs/ART_DIRECTION.md` | document | PASS |
-| P027 | Ten atmospheres | `PWArt.ATMOS` × 10 | `reports/screens/atlas/` (10 desktop + 10 phone, contact sheet) | PASS |
+| P027 | Ten atmospheres | `PWArt.ATMOS` × 10 | `reports/screens/atlas/` (10 desktop + 10 phone, contact sheet); v0.3: per-age land grade baked into the static layer (`AGE_LIGHT`), `reports/visual-qa/ages.jpg`, Q06 checks the regrade | PASS |
 | P028 | Olympian architecture kit | `ARCH.greek`, columned temple | atlas sheets; Greek captures | PASS |
 | P029 | Norse architecture kit | `ARCH.norse`, timber hall | atlas sheets; Norse captures | PASS |
 | P030 | Egyptian monumental kit | `ARCH.egyptian`, pylon temple | atlas sheets; Egyptian captures | PASS |
 | P031 | Layered architecture | villages drawn by patron history (`villageStyle`) | render code; mixed-style towns visible in late captures | PASS |
-| P032 | Growth tiers | 5 tiers + decline ruins | render code (`tier`, `decline`) | PASS |
+| P032 | Growth tiers | 5 tiers + decline ruins | render code (`tier`, `decline`); v0.3 village sprite (plaza, lanes, shadows, windows, Twilight light), `reports/visual-qa/pantheons.jpg` | PASS |
 | P033 | Route art and travellers | `drawRoutes` | captures (roads visible in atlas) | PASS |
 | P034 | Landmark art | `LANDMARKS` × 4 | `reports/atlas/landmarks.png` | PASS |
-| P035 | Terrain biomes | static terrain painter | captures | PASS |
-| P036 | Topographic relief | extruded columns, AO, cliff shadows | captures | PASS |
-| P037 | Coast and water | two water layers, shallows, foam | captures | PASS |
-| P038 | Sky across 45 turns | `skyFor` | e2e turn 3/16/30 captures | PASS |
+| P035 | Terrain biomes | static terrain painter | captures; v0.3 biome edge transitions and quieter plains/desert | PASS |
+| P036 | Topographic relief | extruded columns, AO, cliff shadows | captures; v0.3 slope light against neighbours, massif mountains | PASS |
+| P037 | Coast and water | two water layers, shallows, foam | captures; v0.3 blurred continuous water depth | PASS |
+| P038 | Sky across 45 turns | `skyFor` | e2e turn 3/16/30 captures; v0.3 land regrade per age (Dawn warm, Zenith neutral, Twilight violet) plus lit windows and stronger shrine light at Twilight | PASS |
 | P039 | Weather visuals | `drawWeather` | `tools/weather-qa.js` → `reports/weather-qa/{weather-atlas.png,manifest.json}`: all five kinds × desktop, reduced motion, phone; each differs from clear weather and from every other kind (closest pair rains/omen 1.3–2.2 mean RGB difference, told apart by glyph); HUD controls stay on top | PASS (automated); readability on a physical phone not judged by a person |
 | P040 | Scars and blessings | marks layer | render code; P017 test for state | PASS |
 | P041 | Shrine condition language | `SHRINES` × `CONDITIONS` (7) | `reports/atlas/shrines-conditions.png` (70 renders) | PASS |
 | P042 | Ten priest families | `PRIEST_STYLES` × 3 callings × 4 frames | `reports/atlas/priests.png` (120 renders) | PASS |
-| P043 | Forty power signatures | `VFX` ids, unique per power | powers test (unique ids); `reports/atlas/vfx/*.png` (40) | PASS |
-| P044 | Three-beat choreography | `playVfx` gather/release/aftermath | render code; VFX frames; reduced-motion path | PASS |
+| P043 | Forty power signatures | `VFX` ids, unique per power | powers test (unique ids); `reports/atlas/vfx/*.png` (40); `reports/visual-qa/vfx.jpg` (all 40 at three beats, after) | PASS |
+| P044 | Three-beat choreography | `playVfx` gather/release/aftermath | render code; VFX frames; reduced-motion path; v0.3 world-light envelope per cast (dim → coloured light pool → afterglow, force-scaled); reduced-motion and Low-quality cues checked by Q07 | PASS |
 | P045 | Influence flow visualization | influence layer from redacted state | layer toggle (`I`); SR readout | PASS |
-| P046 | Patterned boundaries and heraldry | `PATTERNS` × 10, overlay | atlas sheet `emblems-patterns.png`; settings toggle | PASS |
-| P047 | Fog as discovery theatre | per-tile reveal cross-fade | J02 omen by click reveals hexes; captures | PASS |
+| P046 | Patterned boundaries and heraldry | `PATTERNS` × 10, overlay | atlas sheet `emblems-patterns.png`; settings toggle; v0.3 lighter fill and pattern with a soft inner band; high-contrast unchanged | PASS |
+| P047 | Fog as discovery theatre | per-tile reveal cross-fade | J02 omen by click reveals hexes; captures; v0.3 painted cloud-sea fog with gilded rim; feathered reveal sweep | PASS |
 | P048 | Event illustration anthology | `eventArt` × 19 arts × 3 ages | `reports/atlas/event-art.png`, `event-art-ages.png`; validator art check | PASS |
-| P049 | Unified HUD | topbar, power bar, panel, End Turn, alerts | J01–J09 captures at 1440×900 and 390×844 | PASS |
+| P049 | Unified HUD | topbar, power bar, panel, End Turn, alerts | J01–J09 captures at 1440×900 and 390×844; v0.3 unified material layer (frames, cooldown badges, meter label, states, 44 px touch targets on tablets) | PASS |
 | P050 | Tapestry and export | `renderTapestry`, PNG + JSON | J06; `reports/sample-tapestry.png`, `reports/sample-chronicle.json` | PASS |
 
 ## Connective A001–A010

@@ -39,7 +39,8 @@ node tools/bundle-data.js --check && node tools/build-docs.js --check   # genera
 node tools/balance-smoke.js                 # fast fixed-seed integrity sample (AI legality, every pantheon plays)
 node tools/weather-qa.js                    # every weather kind distinguishable, controls on top (reports/weather-qa/)
 node tools/memory-check.js                  # ten games in one page: heap and canvases stay flat
-node tools/qqq.js                           # adversarial checks: hot-seat privacy, blocked storage, pinch, resize
+node tools/qqq.js                           # adversarial checks: hot-seat privacy, blocked storage, pinch, resize, age caches, reduced-motion cues
+node tools/visual-qa.js --before <old checkout>   # before/after atlas from real games (reports/visual-qa/)
 ```
 Browser tools use Playwright's Chromium. `npm ci` installs the pinned dev-only version (`package.json`); the game itself has no dependencies. `tools/screenshots.js` also accepts `PUPPETEER=/path/to/puppeteer-core`.
 

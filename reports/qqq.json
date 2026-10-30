@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-30T03:08:08.147Z",
+ "generated": "2026-10-30T20:38:01.639Z",
  "results": [
   {
    "id": "Q01",
@@ -107,6 +107,35 @@
       "transparentPx": 0
      }
     ]
+   }
+  },
+  {
+   "id": "Q06",
+   "title": "Age changes regrade the land and switch towns to their Twilight sprites (no stale render caches)",
+   "ok": true,
+   "evidence": {
+    "dawn": {
+     "age": "dawn",
+     "staticAge": "dawn"
+    },
+    "zenith": {
+     "age": "zenith",
+     "staticAge": "zenith"
+    },
+    "twilight": {
+     "age": "twilight",
+     "staticAge": "twilight",
+     "night": 1
+    }
+   }
+  },
+  {
+   "id": "Q07",
+   "title": "Reduced motion and Low quality keep a stable cue for every power without the world-light envelope",
+   "ok": true,
+   "evidence": {
+    "reduced": [],
+    "low": []
    }
   }
  ]

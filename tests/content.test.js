@@ -57,3 +57,18 @@ test('Every faction has four domains, one power per pillar and its own shrine, e
     assert.deepStrictEqual(xs, ['expand', 'exploit', 'explore', 'exterminate'], f.id);
   });
 });
+
+test('Rules text matches the rules: decimals, percentages and turn counts in domain and power texts equal their effect values', () => {
+  const vals = o => { const acc = new Set(); (function walk(v) { if (typeof v === 'number') { [v, v * 100, (v - 1) * 100, (1 - v) * 100, 2 * v + 1].forEach(x => acc.add(String(+x.toFixed(2)))); } else if (v && typeof v === 'object') Object.values(v).forEach(walk); })(o); return acc; };
+  const bad = [];
+  const check = (kind, x, src) => {
+    const ok = vals(src);
+    if (JSON.stringify(src).includes('"zenith"')) ok.add('30'); // rivals' pressure under a Zenith boon falls by the engine's fixed 30%
+    (x.text.match(/\d+\.\d+/g) || []).forEach(n => { if (!ok.has(String(+n))) bad.push(kind + ' ' + x.id + ': ' + n); });
+    (x.text.match(/(\d+)%/g) || []).forEach(n => { if (!ok.has(String(+n.slice(0, -1)))) bad.push(kind + ' ' + x.id + ': ' + n); });
+    (x.text.match(/(?:every|for) (\d+) turns/gi) || []).forEach(n => { const k = n.match(/\d+/)[0]; if (!ok.has(k)) bad.push(kind + ' ' + x.id + ': ' + n); });
+  };
+  data.domains.forEach(d => check('domain', d, d.effect || d.effects));
+  data.powers.forEach(p => check('power', p, [p.effects, p.cost, p.cooldown, p.range]));
+  assert.deepStrictEqual(bad, []);
+});

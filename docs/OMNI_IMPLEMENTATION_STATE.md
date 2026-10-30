@@ -71,5 +71,36 @@ DONE (see entry below).
   `tools/offline-proof.js` PASS.
 - Traceability: `docs/TRACEABILITY.md`.
 
-NEXT ACTION: awaiting the owner's authorization to commit and push branch `claude/vibrant-feynman-x1fjq9` (nothing is committed; the container is ephemeral).
+NEXT ACTION (superseded 2026-10-30 — kept as history): awaiting the owner's authorization to commit and push branch `claude/vibrant-feynman-x1fjq9`.
+The owner authorized it on 2026-10-29: committed as `003d1b3`, pushed to origin, draft PR https://github.com/westkitty/pantheon-wars/pull/1 (target main).
 Remaining work if continued: faction spread to ≤15 pp (backlog #1), full reads of v0.2 sources (#2), community review (#3), device perf.
+
+### Release-readiness uplift (2026-10-30)
+Baseline: `003d1b3` on `claude/vibrant-feynman-x1fjq9`, draft PR #1 (not merged, not deployed). Fresh baseline at 003d1b3: 53/53 tests,
+validator PASS, journeys 10/10, real-input game deterministic (`bcc9e229` browser = Node), offline proof PASS.
+- **CI** (`214b560`, pushed): `.github/workflows/ci.yml` (engine/data/bundle-sync/balance-smoke job + browser job with pinned
+  Playwright 1.63.0 via `package.json`/`package-lock.json`) and on-demand `balance-full.yml`. First GitHub run: all 4 jobs green
+  (push and pull_request runs). Later additions in this pass: weather QA, memory check and QQQ in the browser job.
+- **Balance**: ablations showed explore powers and some attacks are AI value traps; two AI corrections (exploration saturation,
+  three-god leader focus) were measured on dev seeds and rejected (they widened spreads); AI left unchanged. Data rounds r1–r9 on dev
+  seeds 40000/60000; r8 chosen (data hash `4b22c717aa09`). Held-out validation on the baseline's own seeds
+  (`reports/ten-pantheon-balance-release-candidate.md`): spread overall 17.8 → 11.5, FFA 21.2 → 14.2, duel 25.0 → 16.1 —
+  **duel still 1.1 points over the ≤15 target** (Olympian Court 56.4% vs Vedic 40.3%). Seats 48.6/51.4 and 33.9/32.7/33.4.
+- **Performance**: world compositing clipped to the camera's sampled rectangle; sky/haze/vignette gradients cached at half resolution.
+  Matched 3-run benchmark vs a 003d1b3 worktree: renderer p95 −51% to −63% in every scene (e.g. turn 1 19.1 → 7.0 ms, mid-game
+  23.2 → 9.6 ms, phone 22.6 → 9.3 ms); pixel difference of a frozen frame ≤ 6/255. `reports/perf-comparison-release-candidate.md`.
+  Headless software rendering only; device performance UNVERIFIED.
+- **Defects fixed**: hot-seat round-turnover leaked the previous human's private round summary into the screen-reader live region
+  (`ui/app.js`; regression `tools/qqq.js` Q01, which fails on 003d1b3); eleven domain/power texts showed numbers from before earlier
+  tuning (regression in `tests/content.test.js`, which fails on 003d1b3's data). Test fixtures made robust where data tuning removed the
+  situation they relied on (P019 differential widened to 8 seeds plus a direct Ḫepat's Guard test; archetype test over four positions).
+- **Verification gaps**: P018 lifecycle automated (J11) but perceived audio quality UNVERIFIED; P019 re-check blocked by the network
+  policy (all 39 v0.2 sources still search-summary-only); P039 now covered by `tools/weather-qa.js`.
+- Final local run on the release candidate: 55/55 tests; validator PASS; bundles in sync; balance smoke PASS; journeys 11/11; real-input
+  game deterministic (`47cef0c2` browser = Node, 0 rejected inputs); offline proof PASS; weather QA PASS; memory check PASS; QQQ 5/5.
+- Screenshot PNGs under `reports/screens/` were left as captured at 003d1b3 (the renderer change is pixel-equivalent); their JSON
+  reports were refreshed.
+
+NEXT ACTION: review PR #1. The remaining release gate is the duel balance spread (16.1 > 15): the next step is a duel-only lever for the
+Olympian Court or Vedic validated on a fresh held-out seed set (e.g. `--seed 200000`), then the 39 v0.2 sources need a full read on an
+unrestricted connection, and a person needs to listen to the audio. Do not merge or deploy without the owner's decision.

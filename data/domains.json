@@ -7,10 +7,10 @@
   "sources": [
    "G1"
   ],
-  "text": "Zeus watches over oaths, law and order. The Court gains 1 Favor every 4 turns.",
+  "text": "Zeus watches over oaths, law and order. The Court gains 1 Favor every 2 turns.",
   "effect": {
    "type": "favorEveryNTurns",
-   "n": 4,
+   "n": 2,
    "amount": 1
   },
   "flavor": "Oaths sworn under the open sky are heard."
@@ -58,10 +58,10 @@
   "sources": [
    "G4"
   ],
-  "text": "Olympian priests may cross shallow sea; coastal settlements feel stronger Olympian pressure.",
+  "text": "Olympian priests may cross shallow sea; coastal settlements feel 35% stronger Olympian pressure.",
   "effect": {
    "type": "seafaring",
-   "coastalPressure": 0.15
+   "coastalPressure": 0.35
   },
   "flavor": "The shore belongs to whoever the sea allows."
  },
@@ -156,7 +156,7 @@
   "sources": [
    "E2"
   ],
-  "text": "Your followers are harder to convert (rivals need 35% more effort).",
+  "text": "Your followers are harder to convert (rivals need 25% more effort).",
   "effect": {
    "type": "conversionResist",
    "mult": 1.25
@@ -220,7 +220,7 @@
    "M2"
   ],
   "flavor": "Canals are a craft, and Enki taught every craft.",
-  "text": "Followers beside water give +0.15 Faith. Your pilgrim routes survive 2 extra turns of disruption.",
+  "text": "Followers beside water give +0.18 Faith. Your pilgrim routes survive 2 extra turns of disruption.",
   "effects": [
    {
     "type": "waterFaith",
@@ -280,7 +280,7 @@
    "I4"
   ],
   "flavor": "No company went away from it unsatisfied.",
-  "text": "Every 5 turns up to 4 settlements you control grow by 1.",
+  "text": "Every 4 turns up to 4 settlements you control grow by 1.",
   "effect": {
    "type": "controlledGrowth",
    "n": 4,
@@ -415,7 +415,7 @@
    "X5"
   ],
   "flavor": "Greenstone is water made solid, and water is life.",
-  "text": "Followers in settlements beside water give +0.18 Faith.",
+  "text": "Followers in settlements beside water give +0.24 Faith.",
   "effect": {
    "type": "waterFaith",
    "perFollower": 0.24
@@ -495,11 +495,11 @@
    "Y1"
   ],
   "flavor": "Where the river runs, the town drinks and grows.",
-  "text": "Followers beside water give +0.12 Faith, and towns beside water that you control gain prosperity faster.",
+  "text": "Followers beside water give +0.14 Faith, and towns beside water that you control gain prosperity faster.",
   "effects": [
    {
     "type": "waterFaith",
-    "perFollower": 0.16
+    "perFollower": 0.14
    },
    {
     "type": "waterProsperity",
@@ -516,11 +516,11 @@
    "Y2"
   ],
   "flavor": "The cutlass clears the path; the path carries the people.",
-  "text": "Consecrating a pilgrim route costs half, and each of your active routes gives +0.5 more Faith.",
+  "text": "Consecrating a pilgrim route costs half, and each of your active routes gives +0.4 more Faith.",
   "effect": {
    "type": "routeMastery",
    "costMult": 0.5,
-   "faith": 0.5
+   "faith": 0.4
   }
  },
  {
@@ -601,11 +601,11 @@
    "J3"
   ],
   "flavor": "One country is many villages that agree on their borders.",
-  "text": "Followers give +0.1 Faith in towns within 3 hexes of another town you control.",
+  "text": "Followers give +0.08 Faith in towns within 3 hexes of another town you control.",
   "effect": {
    "type": "contiguityFaith",
    "radius": 3,
-   "perFollower": 0.06
+   "perFollower": 0.08
   }
  },
  {
@@ -617,14 +617,14 @@
    "J4"
   ],
   "flavor": "A full field is a prayer already answered.",
-  "text": "Followers on grassland and plains give +0.15 Faith while their town's prosperity is 5 or more.",
+  "text": "Followers on grassland and plains give +0.12 Faith while their town's prosperity is 5 or more.",
   "effect": {
    "type": "terrainFaith",
    "terrains": [
     "grassland",
     "plains"
    ],
-   "perFollower": 0.1,
+   "perFollower": 0.12,
    "minProsperity": 5
   }
  },
@@ -637,7 +637,7 @@
    "V1"
   ],
   "flavor": "He split the mountain, and the waters ran.",
-  "text": "In towns under a storm your pressure on rival followers is 30% stronger.",
+  "text": "In towns under a storm your pressure on rival followers is 40% stronger.",
   "effect": {
    "type": "stormPressure",
    "mult": 1.4
@@ -653,7 +653,7 @@
    "V5"
   ],
   "flavor": "The fire received from the father is passed to the son.",
-  "text": "Each shrine of yours that has stood for 6 turns or more gives +1 Faith a turn.",
+  "text": "Each shrine of yours that has stood for 4 turns or more gives +1 Faith a turn.",
   "effect": {
    "type": "hearthFaith",
    "minAge": 4,
@@ -669,10 +669,10 @@
    "V3"
   ],
   "flavor": "The oath is a rope; Varuṇa holds the other end.",
-  "text": "Your followers are 15% harder to convert, 35% while you have broken no covenant this age.",
+  "text": "Your followers are 25% harder to convert, 35% while you have broken no covenant this age.",
   "effect": {
    "type": "orderResist",
-   "base": 1.15,
+   "base": 1.25,
    "kept": 1.35
   }
  },

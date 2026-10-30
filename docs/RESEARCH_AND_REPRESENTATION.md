@@ -8,6 +8,15 @@ This document records what research supports each pantheon in Pantheon Wars, how
 - **What this means:** the v0.2 citations are real, specific URLs and the claims they support are modest (a deity's domain, a site's existence, an architectural form), but they have **not** been read in full. A reviewer with ordinary internet access should open each v0.2 link and confirm the `supports` text before a public release. This is listed as an open item in `backlog.md`.
 - Wikipedia is cited only as a secondary summary and is labelled as such, with the underlying scholarly work named where the summary names it. Higher-tier sources (Oracc, CELT, INAH, UNESCO, Kokugakuin, museum records) are preferred where available.
 
+### Re-check attempt, 2026-10-30
+Direct page fetches were tried again for the v0.2 sources. The session's network policy still blocks them: name resolution failed for
+`oracc.museum.upenn.edu` (M1) and `en.wikipedia.org` (V4), and no further hosts were tried after two identical failures. **All 39 v0.2
+sources therefore remain search-summary-only**; none was read in full in this pass, and no source record was changed. To complete the
+check, allow these hosts in the environment's network settings (or review the links on a normal connection): oracc.museum.upenn.edu,
+www.religionswissenschaft.uzh.ch, courses.lumenlearning.com, celt.ucc.ie, en.wikipedia.org, meath.ie, lugares.inah.gob.mx,
+archaeology.org, smarthistory.org, whc.unesco.org, open.maricopa.edu, turkisharchaeonews.net (and www.), umma.umich.edu,
+d-museum.kokugakuin.ac.jp, ia600501.us.archive.org, vedicheritage.gov.in.
+
 ## Rules the game follows
 1. **Symbols, not portraits.** No deity has a face, body or likeness. Emblems are abstract (a ring, a disc, a tree, a star). No sacred object or icon is reproduced; where a culture's architecture is shown (a torii-like gateway post, a pylon, a ziggurat), it is generic building form, not a copy of a specific consecrated object.
 2. **Rites are invented and say so.** Game actions (raising shrines, ordaining priests, consecrating roads, swearing covenants) are strategy abstractions shared by all ten pantheons. They are never presented as how any real community worships. The encyclopedia and design page say this explicitly.

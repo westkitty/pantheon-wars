@@ -8,50 +8,50 @@
     "type": "twilight",
     "turn": 45,
     "scores": [
-      175,
-      120.5,
-      127
+      225.5,
+      120,
+      74.5
     ]
   },
   "finalTurn": 45,
-  "actions": 456,
-  "browserHash": "bcc9e229",
-  "nodeReplayHash": "bcc9e229",
+  "actions": 455,
+  "browserHash": "47cef0c2",
+  "nodeReplayHash": "47cef0c2",
   "deterministic": true,
   "stats": {
-    "uiActions": 164,
+    "uiActions": 183,
     "byType": {
-      "power": 26,
-      "movePriest": 25,
-      "omen": 7,
+      "power": 28,
+      "movePriest": 35,
+      "omen": 6,
       "covenant": 11,
       "endTurn": 45,
-      "specialize": 10,
+      "dream": 1,
       "event": 9,
+      "shrine": 11,
       "route": 4,
-      "shrine": 9,
-      "priest": 6,
-      "eclipse": 6,
+      "priest": 7,
+      "specialize": 12,
+      "eclipse": 9,
       "counterRite": 2,
-      "propose": 3,
-      "retrain": 1
+      "propose": 3
     },
     "rejected": 0,
     "fallbacks": 0,
     "events": 9,
-    "priestMoves": 25,
-    "panelActions": 28,
+    "priestMoves": 35,
+    "panelActions": 29,
     "envoyActions": 3
   },
   "errors": [],
   "reducedMotion": {
     "reduced": true,
     "quality": "low",
-    "frameMs": 10.700000001117587
+    "frameMs": 4.3999999994412065
   },
   "highQualityFrame": {
-    "quality": "low",
-    "frameMs": 15.900000000372529
+    "quality": "high",
+    "frameMs": 28
   },
   "shots": [
     {

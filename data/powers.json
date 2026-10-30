@@ -36,7 +36,7 @@
   ],
   "text": "Target your shrine: +2 Ward, lift any eclipse, and a new priest rises there.",
   "cost": {
-   "faith": 11,
+   "faith": 10,
    "favor": 0
   },
   "cooldown": 5,
@@ -68,7 +68,7 @@
    "G3",
    "G6"
   ],
-  "text": "For 3 turns your Faith income is x1.5, and every settlement you control gains +1 population.",
+  "text": "For 3 turns your Faith income is x1.4, and every settlement you control gains +1 population.",
   "cost": {
    "faith": 6,
    "favor": 1
@@ -79,7 +79,7 @@
    {
     "type": "buff",
     "stat": "faithMult",
-    "value": 1.5,
+    "value": 1.4,
     "turns": 3
    },
    {
@@ -101,7 +101,7 @@
    "G1",
    "G5"
   ],
-  "text": "Miracle. Strike a revealed settlement: rival priests there are scattered back to their nearest shrine, 3 rival followers fall silent (become unaffiliated) and 3 mortals turn to you.",
+  "text": "Miracle. Strike a revealed settlement: rival priests there are scattered back to their nearest shrine, 2 rival followers fall silent (become unaffiliated) and 2 mortals turn to you.",
   "cost": {
    "faith": 10,
    "favor": 2
@@ -112,8 +112,8 @@
    {
     "type": "strike",
     "killPriests": true,
-    "rivalLoss": 3,
-    "gain": 3
+    "rivalLoss": 2,
+    "gain": 2
    }
   ],
   "icon": "bolt",
@@ -156,7 +156,7 @@
   "sources": [
    "N5"
   ],
-  "text": "Raise a shrine at a revealed settlement within 4 hexes of your land for half cost, even with no followers there.",
+  "text": "Raise a shrine at a revealed settlement within 4 hexes of your land for 55% of the cost, even with no followers there.",
   "cost": {
    "faith": 0,
    "favor": 0
@@ -166,7 +166,7 @@
   "effects": [
    {
     "type": "raiseShrine",
-    "costMult": 0.5,
+    "costMult": 0.55,
     "range": 4
    }
   ],
@@ -245,7 +245,7 @@
   ],
   "text": "The sun's boat sails across the whole sky: reveal a 3-row band across the entire map through the target, and your Faith income is x1.1 for 2 turns.",
   "cost": {
-   "faith": 10,
+   "faith": 12,
    "favor": 0
   },
   "cooldown": 4,
@@ -337,7 +337,7 @@
    "E2",
    "E4"
   ],
-  "text": "Miracle. Weigh a revealed settlement: 30% of each rival's followers there (rounded up) turn to you.",
+  "text": "Miracle. Weigh a revealed settlement: 25% of each rival's followers there (rounded up) turn to you.",
   "cost": {
    "faith": 8,
    "favor": 2
@@ -347,7 +347,7 @@
   "effects": [
    {
     "type": "weigh",
-    "fraction": 0.3
+    "fraction": 0.25
    }
   ],
   "icon": "feather",
@@ -402,7 +402,7 @@
   "flavor": "Seven came up from the water and taught the cities their crafts.",
   "text": "A Seer priest rises at your shrine, and that shrine teaches 50% harder for 3 turns.",
   "cost": {
-   "faith": 9,
+   "faith": 8,
    "favor": 0
   },
   "cooldown": 5,
@@ -662,7 +662,7 @@
    "X5"
   ],
   "flavor": "Mud from the lake, reeds for the fence, and a field where there was water.",
-  "text": "Raise a shrine at a revealed waterside town within 4 of your land for 60% cost, even with no followers there; that town grows faster for 6 turns (+2 prosperity now).",
+  "text": "Raise a shrine at a revealed waterside town within 4 of your land for 55% of the cost, even with no followers there; that town grows faster for 6 turns (+2 prosperity now).",
   "cost": {
    "faith": 0,
    "favor": 0
@@ -673,7 +673,7 @@
   "effects": [
    {
     "type": "raiseShrine",
-    "costMult": 0.6,
+    "costMult": 0.55,
     "range": 4
    },
    {
@@ -731,7 +731,7 @@
    "X3"
   ],
   "flavor": "At noon there are no shadows to hide in.",
-  "text": "Miracle. At a contested town where you have presence, for 2 turns your pressure there doubles and every rival's falls by 30%.",
+  "text": "Miracle. At a contested town where you have presence, for 3 turns your pressure there doubles and every rival's falls by 30%.",
   "cost": {
    "faith": 8,
    "favor": 2
@@ -1200,7 +1200,7 @@
   "flavor": "The fire is carried east to the offering altar and burns brighter there.",
   "text": "Your shrine: +1 Ward, a priest is ordained from its fire, and your priests there preach 50% harder for 3 turns.",
   "cost": {
-   "faith": 10,
+   "faith": 9,
    "favor": 0
   },
   "cooldown": 5,
@@ -1270,7 +1270,7 @@
    "V1"
   ],
   "flavor": "The cloud bursts over the fort, and its walls run with water.",
-  "text": "Miracle. At a town with rival followers within 3 of your shrines or priests: 2 rival followers fall silent and your pressure there is +1.2 for 2 turns. Warded towns resist.",
+  "text": "Miracle. At a town with rival followers within 3 of your shrines or priests: 3 rival followers fall silent, 1 mortal turns to you and your pressure there is +1.2 for 2 turns. Warded towns resist.",
   "cost": {
    "faith": 9,
    "favor": 2
@@ -1283,7 +1283,7 @@
     "type": "strike",
     "killPriests": false,
     "rivalLoss": 3,
-    "gain": 0
+    "gain": 1
    },
    {
     "type": "siteBoon",

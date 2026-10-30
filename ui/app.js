@@ -119,7 +119,8 @@
     newLog.forEach(function (e) { if (!app.handoff) sig = fxFor(e, sig) || sig; cueFor(e); appendLog(e); });
     if (prev && !app.handoff) diffTexts(prev, s);
     updateHud();
-    if (prev && s.turn !== prev.turn && !s.over) roundSummary(prev, s);
+    // in hot-seat the next seat may belong to another human: their summary is spoken once they take the seat, never into the room before
+    if (prev && s.turn !== prev.turn && !s.over && !(app.humans.length > 1 && isHuman(s.current) && s.current !== app.viewer)) roundSummary(prev, s);
     if (s.over) { setTimeout(showVictory, R.reduced ? 50 : 1400 * SPEED); return; }
     checkHandoff();
     if (s.current === app.viewer && !app.handoff && me().pendingEvent) showEvent();
@@ -244,6 +245,7 @@
     if (app.humans.length < 2) { app.viewer = s.current; return; }
     // the next god is another human at this screen: hide everything until they take the seat (P024)
     app.handoff = true; R.blackout = true; cancelMode(); deselectPriest(); app.selTile = null;
+    $('sr-live').textContent = ''; $('toasts').innerHTML = ''; $('tb-alerts').innerHTML = '';
     ['event', 'envoys', 'saves', 'menu', 'logpanel'].forEach(function (id) { $(id).hidden = true; });
     $('panel').innerHTML = ''; $('log').innerHTML = '';
     var p = s.players[s.current], f = FACTIONS[p.faction];
@@ -256,6 +258,8 @@
     app.viewer = app.state.current; app.handoff = false; R.blackout = false; R.prevRevealed = null; R.fogKey = null; R.overlayKey = null; R.marksKey = null;
     $('handoff').hidden = true; R.setState(app.state, app.viewer); rebuildLog(); paintEmblem(); updateHud();
     var home = app.state.settlements[me().home]; R.focusTile(home.tile, true); select(home.tile);
+    var hs = app.state, hp = me(); app.lastSummaryTurn = hs.turn;
+    say(hp.name + ', turn ' + hs.turn + ', ' + E.ageOf(hs.turn).name + '. Faith ' + fmt(hp.faith) + ', Favor ' + hp.favor + ', followers ' + H.followersOf(hs, hp.id) + ' of ' + H.totalPop(hs) + '.');
     if (me().pendingEvent) showEvent();
   };
   function banner(text) { var b = $('turnbanner'); b.textContent = text; b.classList.remove('show'); void b.offsetWidth; b.classList.add('show'); }

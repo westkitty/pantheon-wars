@@ -1,14 +1,14 @@
 # Traceability — P001–P050 and A001–A010
 
-Status key: **PASS** = implemented and the acceptance oracle is directly evidenced by a test, tool run or capture listed here. **PARTIAL** = implemented, but part of the oracle is not met or not proven. **UNVERIFIED** = implemented, proof not possible in this environment. Evidence paths are relative to the repository root. All runs: Linux container, Node 22, Playwright Chromium (software rendering), 4 CPU cores, 2026-10-29.
+Status key: **PASS** = implemented and the acceptance oracle is directly evidenced by a test, tool run or capture listed here. **PARTIAL** = implemented, but part of the oracle is not met or not proven. **UNVERIFIED** = implemented, proof not possible in this environment. Evidence paths are relative to the repository root. All runs: Linux container, Node 22, Playwright Chromium (software rendering), 4 CPU cores, 2026-10-29 (v0.2) and 2026-10-30 (release candidate).
 
 ## Systems P001–P025
 
 | ID | Requirement | Implementation | Acceptance evidence | Status |
 |---|---|---|---|---|
-| P001 | Three-player (and ten-faction) balance | `data/*.json` tuning t1–t12, `tools/simulate.js`, `tools/diagnose.js`, `tools/ablate.js` | `reports/ten-pantheon-balance-final.{json,md}` (ordered duels and FFA by faction, seat, opponent, Wilson 95% CIs, reproducible seeds); history `reports/balance-notes.md`; v0.1 baseline `reports/baseline-v0.1/` | PARTIAL — measured (9000 games, lookahead on): spread overall 17.8 pp, FFA 21.2 pp, duel 25.0 pp; target ≤15 pp per mode not met. Leaders Yoruba 44.8% / Norse 44.7%, trailers Greek 27.1% / Vedic 28.5% |
-| P002 | First-seat advantage | `rules.start.seatFaithBonus`/`seatFaithBonusDuel`, `engine/engine.js` newGame | final report "Seat order" table with CIs; counterfactual (no bonus: duel seat 1 55.6% at +2, 53.5% v0.1) in `reports/balance-notes.md` t8 | PASS with residual bias reported — duel seat 1 47.3% [45.0–49.6], seat 2 52.7% [50.4–55.0]; three-god seats 33.4 / 32.1 / 34.4%. Before: v0.1 53.5% first seat (3000 games), 59% in the t7 sample; the remaining 2.7-point lean to seat 2 is smaller than the bias it replaced |
-| P003 | Every power a credible choice | `data/powers.json` (Barque of Re Faith buff, Crossing of Utu Favor, priced/ranged fixes), AI valuation `engine/ai.js` | `tests/powers.test.js` (legal target, distinct state change, AI can choose every power, unique icon/VFX); final report "Power usage"; power tooltips in power bar and encyclopedia | PASS — all 40 powers used (min 3.09/game, Gardens of Chalchiuhtlicue); Barque of Re 1.08 → 10.83/game, Crossing of Utu 1.58 → 11.08/game |
+| P001 | Ten-faction balance (≤15 pp per mode) | `data/*.json` tuning t1–t12 (v0.2) and r1–r9 (release candidate), `tools/simulate.js`, `tools/ablate.js`, `tools/diagnose.js` | held-out release-candidate run `reports/ten-pantheon-balance-release-candidate.{json,md}` (9000 games, the baseline's own seeds 1000–9999, never used in tuning) vs `reports/ten-pantheon-balance-final.md`; tuning record `reports/balance-notes.md` | **PARTIAL** — spread overall 17.8 → **11.5**, FFA 21.2 → **14.2**, duel 25.0 → **16.1**; duel misses the target by 1.1 points (Greek 56.4% [51.2–61.4] vs Vedic 40.3% [35.3–45.4]); the bottleneck is the Olympian Court's duel/FFA split |
+| P002 | First-seat advantage | `rules.start.seatFaithBonus`/`seatFaithBonusDuel`, `engine/engine.js` newGame | release-candidate "Seat order" table with Wilson CIs; counterfactual history in `reports/balance-notes.md` t8 | PASS — duel seats 48.6% [46.3–50.9] / 51.4% [49.1–53.7] (was 47.3 / 52.7); three-god 33.9 / 32.7 / 33.4%; v0.1 first-seat bias was 53.5–59% |
+| P003 | Every power a credible choice | `data/powers.json`, AI valuation `engine/ai.js` | `tests/powers.test.js`; release-candidate power usage table | PASS — all 40 powers used, least 3.18 casts/game (Gardens of Chalchiuhtlicue); Barque of Re 1.08/game in v0.1 tuning → 10+ now |
 | P004 | Three ages | `rules.ages`, `ageOf`, age mods, AI `ageWeights`, sky progression | `tests/systems.test.js` P004; HUD age label; `reports/screens/e2e/` turn 16/30 captures | PASS |
 | P005 | Settlement memory | `remember`, `patrons`, trust | P005 test; panel "Memory of …" | PASS |
 | P006 | Mortal needs | needs drift, hunger/unrest | P006 test; panel need bars with explanations | PASS |
@@ -23,13 +23,13 @@ Status key: **PASS** = implemented and the acceptance oracle is directly evidenc
 | P015 | Sacred geography | `genLandmarks` (own RNG stream) | P015 test; `reports/atlas/landmarks.png` | PASS |
 | P016 | Omen and climate system | weather fronts, `knownFronts` | P016 test (forecast → active → consequence → recovery, hidden until known) | PASS |
 | P017 | Persistent consequences | `addMark`, marks layer | P017 test; marks rendered | PASS |
-| P018 | Original audio identity | `ui/audio.js` (synthesised per-pantheon motifs, cues, ambience, volume/mute) | settings journey J09 (volume persists); cue counters in `PW.audio`; audible output not verifiable headless | UNVERIFIED (audible quality) |
-| P019 | Ten-pantheon researched content | `data/factions|domains|powers|shrines|sources.json` | engine data tests; P019 domain differential (all 40 domains change outcomes); `tests/content.test.js`; `docs/RESEARCH_AND_REPRESENTATION.md` | PARTIAL (39 v0.2 sources verified at search-summary level only) |
+| P018 | Original audio identity | `ui/audio.js` (synthesised per-pantheon motifs, cues, ambience, volume/mute) | J11 (`tools/journeys.js`): no AudioContext before a user gesture, ten motifs, each motif plus cues renders a non-silent unclipped signal through the real bus graph (OfflineAudioContext), one context across four games, hidden tab suspends and visible resumes, mute persists across reload | lifecycle PASS; **perceived sound quality UNVERIFIED** (no listening test possible) |
+| P019 | Ten-pantheon researched content | `data/factions|domains|powers|shrines|sources.json` | engine data tests; P019 domain differential (all 40 domains); `tests/content.test.js` (now also checks every number in rules text against the rule) | **PARTIAL** — the 39 v0.2 sources remain search-summary-only: a re-check on 2026-10-30 was blocked by the network policy (hosts listed in `docs/RESEARCH_AND_REPRESENTATION.md`) |
 | P020 | Authored scenarios | `data/scenarios.json` (6) | P020/P021 test (start, success and failure reachable, deterministic); QQQ: all six start with objective shown | PASS |
 | P021 | Alternative victories | `altCheck` | P021 test; QQQ objective banners | PASS |
 | P022 | Onboarding and accessible UX | tutorial, previews, SR summaries, keymap, patterns, contrast, reduced motion/flash, 44 px targets | QQQ tutorial progression + SR text; J08 phone targets; J09 remap/reduced motion; keyboard-only title start | PASS |
 | P023 | Versioned save and continue | `ui/storage.js` | `tests/persistence.test.js` (restore, refusal of damaged/foreign/newer/tampered, atomic slots, quota, cross-tab); J04 save → reload → continue, hashes equal; J05 export/import | PASS |
-| P024 | Hot-seat and async challenge | handoff blackout, challenge export/import, short code | persistence P024 test; J07 handoff hides the previous god | PASS |
+| P024 | Hot-seat and async challenge | handoff blackout, challenge export/import, short code | persistence P024 test; J07 handoff hides the previous god; `tools/qqq.js` Q01 (no previous-god text in the live region, toasts, alerts or panel, including at the round turnover — regression for a defect fixed in this pass) | PASS |
 | P025 | Chronicle of Ages | `ui/chronicle.js` reconstruct + UI | persistence P025 test (per-turn hash match); J06 (0 mismatches, scrub) | PASS |
 
 ## Visual, asset and UX P026–P050
@@ -49,7 +49,7 @@ Status key: **PASS** = implemented and the acceptance oracle is directly evidenc
 | P036 | Topographic relief | extruded columns, AO, cliff shadows | captures | PASS |
 | P037 | Coast and water | two water layers, shallows, foam | captures | PASS |
 | P038 | Sky across 45 turns | `skyFor` | e2e turn 3/16/30 captures | PASS |
-| P039 | Weather visuals | `drawWeather` | render code; captured only when a front is visible | PARTIAL (no dedicated capture per weather kind) |
+| P039 | Weather visuals | `drawWeather` | `tools/weather-qa.js` → `reports/weather-qa/{weather-atlas.png,manifest.json}`: all five kinds × desktop, reduced motion, phone; each differs from clear weather and from every other kind (closest pair rains/omen 1.3–2.2 mean RGB difference, told apart by glyph); HUD controls stay on top | PASS (automated); readability on a physical phone not judged by a person |
 | P040 | Scars and blessings | marks layer | render code; P017 test for state | PASS |
 | P041 | Shrine condition language | `SHRINES` × `CONDITIONS` (7) | `reports/atlas/shrines-conditions.png` (70 renders) | PASS |
 | P042 | Ten priest families | `PRIEST_STYLES` × 3 callings × 4 frames | `reports/atlas/priests.png` (120 renders) | PASS |
@@ -73,6 +73,6 @@ Status key: **PASS** = implemented and the acceptance oracle is directly evidenc
 | A005 | Source-backed encyclopedia | `ui/encyclopedia.js`; J09 (10 pantheon sections) | PASS |
 | A006 | Save/replay backwards compatibility | `engine/legacy/`; persistence A006 test; J10 (v0.1 file → legacy Chronicle at 6a3687d9) | PASS |
 | A007 | Content authorship | `tests/content.test.js` (no AI credits, Unicode names, no spiders, no Mexica sacrifice wording) | PASS |
-| A008 | Camera/picking lifecycle | J02 click picks the targeted hex; J08 touch tap selects; e2e 164 real-input actions, 0 rejected | PASS |
+| A008 | Camera/picking lifecycle | J02 click picks the targeted hex; J08 touch tap selects; e2e 183 real-input actions, 0 rejected; Q03 two-finger pinch zooms; Q05 complete frames after resizes | PASS |
 | A009 | Representation review | `docs/RESEARCH_AND_REPRESENTATION.md` | PASS (document); community review not performed |
 | A010 | Offline distribution proof | `tools/offline-proof.js` → `reports/offline-proof.json` PASS (file:// and local server, 0 external requests); `data/asset-manifest.json` provenance | PASS |

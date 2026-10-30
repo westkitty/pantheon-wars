@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /*
- * Browser journeys J01–J10 (Playwright + the pre-installed Chromium, file:// launch, no server).
+ * Browser journeys J01–J11 (Playwright + the pre-installed Chromium, file:// launch, no server).
  * Each journey drives the real page; game actions go through the same validated engine path as clicks.
  * Writes reports/journeys.json and screenshots to reports/screens/.  Usage: node tools/journeys.js [--only J03,J04]
  */
@@ -203,6 +203,47 @@ function assert(c, m) { if (!c) throw new Error('assertion failed: ' + m); }
     await page.screenshot({ path: path.join(SHOTS, 'J10-legacy-chronicle.png') });
     fs.unlinkSync(file);
     assert(ev.legacyHash === fx.hash, 'legacy hash'); assert(!errors.length, errors.join('; '));
+  }, browser);
+
+
+  await journey('J11', 'Audio lifecycle: silent until a gesture, ten motifs render, one context across games, hidden tab suspends, mute persists', async ev => {
+    const { ctx, page, errors } = await newPage(browser);
+    await ctx.addInitScript(() => { const C = window.AudioContext; if (!C) return; window.__pwAudioContexts = 0; window.AudioContext = function (o) { window.__pwAudioContexts++; return new C(o); }; window.AudioContext.prototype = C.prototype; });
+    await page.goto(URL0 + '?' + q({ seed: 6, nosave: 1 })); await page.waitForTimeout(300);
+    ev.beforeGesture = await page.evaluate(() => ({ ready: PW.audio.ready, ctx: !!PW.audio.ctx, contexts: window.__pwAudioContexts }));
+    assert(!ev.beforeGesture.ready && !ev.beforeGesture.ctx && ev.beforeGesture.contexts === 0, 'no audio before a user gesture');
+    await page.click('.fcard[data-faction="yoruba"]');
+    ev.afterGesture = await page.evaluate(() => ({ ready: PW.audio.ready, state: PW.audio.ctx && PW.audio.ctx.state }));
+    assert(ev.afterGesture.ready, 'audio unlocked by the gesture');
+    // every pantheon's motif and a set of cues render a non-silent signal through the real bus graph (objective check; not a listening test)
+    ev.render = await page.evaluate(async () => {
+      const out = {}, ids = PW_DATA.factions.map(f => f.id);
+      out.motifKeys = ids.filter(id => PWAudio.MOTIFS[id]).length;
+      for (const id of ids) {
+        const oc = new OfflineAudioContext(1, 44100 * 4, 44100), a = new PWAudio({ master: 1, music: 1, sfx: 1, ambience: 0, mute: false });
+        a.ctx = oc; a.master = oc.createGain(); a.master.connect(oc.destination); a.music = oc.createGain(); a.music.connect(a.master); a.sfxBus = oc.createGain(); a.sfxBus.connect(a.master); a.amb = oc.createGain(); a.amb.connect(a.master); a.ready = true; a.faction = id;
+        a.motif(id, a.music, 0.05, 0); ['shrine', 'explore', 'exterminate', 'eclipse'].forEach((k, i) => a.cue(k, { faction: id }));
+        const d = (await oc.startRendering()).getChannelData(0); a.ctx = null; let sq = 0, peak = 0; for (let i = 0; i < d.length; i++) { sq += d[i] * d[i]; peak = Math.max(peak, Math.abs(d[i])); }
+        out[id] = { rms: +Math.sqrt(sq / d.length).toFixed(4), peak: +peak.toFixed(3) };
+      }
+      return out;
+    });
+    assert(ev.render.motifKeys === 10, 'ten motifs');
+    Object.keys(ev.render).filter(k => k !== 'motifKeys').forEach(id => assert(ev.render[id].rms > 0.001 && ev.render[id].peak <= 1.0, id + ' renders a non-silent, unclipped signal'));
+    // several games in a row reuse one context
+    for (let i = 0; i < 4; i++) { await page.evaluate(i => { PW.choice.faction = PW_DATA.factions[i].id; PW.start(PW.buildConfig()); }, i); await page.waitForTimeout(150); }
+    ev.contextsAfterGames = await page.evaluate(() => window.__pwAudioContexts); assert(ev.contextsAfterGames === 1, 'one AudioContext across games');
+    // hiding the tab suspends audio; showing it resumes
+    const vis = async hidden => page.evaluate(async h => { Object.defineProperty(document, 'hidden', { configurable: true, get: () => h }); document.dispatchEvent(new Event('visibilitychange')); await new Promise(r => setTimeout(r, 200)); return PW.audio.ctx.state; }, hidden);
+    ev.hiddenState = await vis(true); ev.visibleState = await vis(false);
+    assert(ev.hiddenState === 'suspended' && ev.visibleState === 'running', 'visibility suspends and resumes');
+    // mute persists across reload and keeps the context suspended
+    await page.evaluate(() => { PW.openSettings(); }); await page.click('#vol-mute'); await page.keyboard.press('Escape');
+    await page.reload(); await page.waitForTimeout(300); await page.click('.fcard[data-faction="norse"]');
+    ev.muteAfterReload = await page.evaluate(() => ({ mute: PW.settings.audio.mute, state: PW.audio.ctx && PW.audio.ctx.state }));
+    assert(ev.muteAfterReload.mute === true && ev.muteAfterReload.state !== 'running', 'mute persisted');
+    await page.evaluate(() => localStorage.clear());
+    assert(!errors.length, errors.join('; '));
   }, browser);
 
   await browser.close();

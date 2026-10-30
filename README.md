@@ -35,8 +35,15 @@ node tools/screen-atlas.js                  # ten-pantheon screenshot atlas (des
 node tools/assets.js                        # asset manifest + QA contact sheets
 node tools/perf.js --label after --out reports/perf-after-run1.json     # frame-time sampler
 node tools/offline-proof.js                 # file:// and local static server, no external requests
+node tools/bundle-data.js --check && node tools/build-docs.js --check   # generated files match their sources
+node tools/balance-smoke.js                 # fast fixed-seed integrity sample (AI legality, every pantheon plays)
+node tools/weather-qa.js                    # every weather kind distinguishable, controls on top (reports/weather-qa/)
+node tools/memory-check.js                  # ten games in one page: heap and canvases stay flat
+node tools/qqq.js                           # adversarial checks: hot-seat privacy, blocked storage, pinch, resize
 ```
-Browser tools use `require('playwright')` with its Chromium. `tools/screenshots.js` also accepts `PUPPETEER=/path/to/puppeteer-core`.
+Browser tools use Playwright's Chromium. `npm ci` installs the pinned dev-only version (`package.json`); the game itself has no dependencies. `tools/screenshots.js` also accepts `PUPPETEER=/path/to/puppeteer-core`.
+
+**CI** (`.github/workflows/ci.yml`) runs on pull requests into `main` and pushes to the working branch: the Node tests, the data validator, the bundle sync checks and the balance smoke in one job; the browser journeys, the real-input game with its Node replay check, the offline proof, weather QA, the memory check and the adversarial checks in another. `.github/workflows/balance-full.yml` runs the full 9000-game plan on demand.
 
 ## Layout
 | Path | What |

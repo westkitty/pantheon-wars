@@ -698,6 +698,7 @@
     var c = this.cam, f = 1 - Math.exp(-dt * 9); c.x += (c.tx - c.x) * f; c.y += (c.ty - c.y) * f; c.z += (c.tz - c.z) * f;
     if (!this.state) return;
     if (this.blackout) { var ctx = this.ctx; ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.fillStyle = '#05070c'; ctx.fillRect(0, 0, this.canvas.width, this.canvas.height); this.lastFrameMs = 0; return; }
+    this.view = this.viewRect();
     this.composeWorld(dt);
     this.drawScreen(dt);
     var ms = (root.performance || Date).now() - t0;
@@ -715,8 +716,24 @@
   P.setQuality = function (q) { this.quality = q; this.fogKey = null; if (this.state) this.setState(this.state, this.viewer); };
   P.setReduced = function (r) { this.reduced = r; };
 
+  /* The world-space rectangle the perspective strips will sample this frame (same maths as drawScreen), padded for shake. */
+  P.viewRect = function () {
+    var W = this.canvas.width, H = this.canvas.height, z = this.cam.z * this.dpr, k = this.k(), step = this.quality === 'low' ? 6 : 3, cx = this.cam.x, cy = this.cam.y, horizonA = -H0 / k * 0.98;
+    var x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+    for (var y = 0; y < H; y += step) {
+      var a0 = (y - H * 0.55) / z, a1 = (y + step - H * 0.55) / z; if (a0 <= horizonA) continue;
+      var dy0 = a0 / (1 + k * a0 / H0), dy1 = a1 / (1 + k * a1 / H0), wm = 1 - k * ((dy0 + dy1) / 2) / H0, srcW = W * wm / z, srcX = cx - srcW / 2, srcY = cy + dy0, srcH = Math.max(0.5, dy1 - dy0);
+      if (srcX < x0) x0 = srcX; if (srcX + srcW > x1) x1 = srcX + srcW; if (srcY < y0) y0 = srcY; if (srcY + srcH > y1) y1 = srcY + srcH;
+    }
+    if (x0 === Infinity) return null;
+    var pad = 24; x0 = Math.max(0, Math.floor(x0 - pad)); y0 = Math.max(0, Math.floor(y0 - pad)); x1 = Math.min(this.WW, Math.ceil(x1 + pad)); y1 = Math.min(this.WH, Math.ceil(y1 + pad));
+    return x1 > x0 && y1 > y0 ? { x: x0, y: y0, w: x1 - x0, h: y1 - y0 } : null;
+  };
   P.composeWorld = function (dt) {
-    var g = this.fg, st = this.state, self = this, time = this.time, low = this.quality === 'low';
+    var g = this.fg, st = this.state, self = this, time = this.time, low = this.quality === 'low', v = this.view;
+    // Only the part of the world under the camera is sampled by the projection: clip all world compositing to it, which keeps every
+    // layer and effect intact while skipping raster work for the rest of the map.
+    g.save(); if (v) { g.beginPath(); g.rect(v.x, v.y, v.w, v.h); g.clip(); }
     g.imageSmoothingEnabled = false;
     g.drawImage(this.staticLayer, 0, 0);
     g.save(); g.clip(this.waterPath);
@@ -753,6 +770,7 @@
     if (this.oldFog && this.fogFade > 0) { g.globalAlpha = this.fogFade; g.drawImage(this.oldFog, 0, 0); g.globalAlpha = 1; this.fogFade -= dt / 1.3; if (this.fogFade <= 0) this.oldFog = null; }
     this.drawRevealTheatre(g, st, dt);
     this.drawFx(g, dt);
+    g.restore();
   };
 
   P.drawRevealTheatre = function (g, st, dt) {
@@ -978,15 +996,30 @@
     for (var i = 1; i < keys.length; i++) if (u <= keys[i][0]) { var a = keys[i - 1], b = keys[i], f = (u - a[0]) / (b[0] - a[0]); return { top: A.mix(a[1], b[1], f), mid: A.mix(a[2], b[2], f), sun: A.mix(a[3], b[3], f), sunX: 0.08 + u * 0.84, sunH: Math.sin(u * Math.PI), u: u }; }
     return { top: keys[3][1], mid: keys[3][2], sun: keys[3][3], sunX: 0.92, sunH: 0, u: 1 };
   };
+  /* Cached half-resolution screen layer for smooth gradients; repainted only when its key or the canvas size changes. */
+  P.screenLayer = function (name, key, W, H, paint) {
+    var L = this.layers || (this.layers = {}), c = L[name], w = Math.max(1, Math.ceil(W / 2)), h = Math.max(1, Math.ceil(H / 2));
+    if (c && c.key === key) return c;
+    if (!c || c.width !== w || c.height !== h) c = A.cv(w, h);
+    var g = c.getContext('2d'); g.setTransform(1, 0, 0, 1, 0, 0); g.clearRect(0, 0, w, h); paint(g, w, h);
+    c.key = key; L[name] = c; return c;
+  };
   P.drawScreen = function (dt) {
     var ctx = this.ctx, W = this.canvas.width, H = this.canvas.height, self = this, st = this.state, time = this.time;
     ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.imageSmoothingEnabled = false;
     var sky = this.skyFor(st.turn, st.maxTurns), atm = A.ATMOS[this.fac[st.players[this.viewer].faction].atmosphere] || A.ATMOS.olympus;
     var top = A.mix(sky.top, atm.top, 0.25), mid = A.mix(sky.mid, atm.mid, 0.25);
     var hzY = Math.max(0, Math.min(H, H * 0.55 + (-H0 / this.k() * 0.98) * this.cam.z * this.dpr));
-    ctx.fillStyle = '#1b3044'; ctx.fillRect(0, 0, W, H);
-    if (hzY > 0) { var skyg = ctx.createLinearGradient(0, 0, 0, hzY); skyg.addColorStop(0, top); skyg.addColorStop(0.7, mid); skyg.addColorStop(1, '#2a4258'); ctx.fillStyle = skyg; ctx.fillRect(0, 0, W, hzY);
-      var sx0 = W * sky.sunX, sy0 = hzY * (1 - 0.8 * sky.sunH); var sun = ctx.createRadialGradient(sx0, sy0, 0, sx0, sy0, W * 0.25); sun.addColorStop(0, A.rgba(sky.sun, 0.6)); sun.addColorStop(1, A.rgba(sky.sun, 0)); ctx.fillStyle = sun; ctx.fillRect(0, 0, W, hzY); }
+    // sky, haze and vignette are smooth full-screen gradients: painted once into cached half-resolution layers and redrawn only
+    // when their inputs change (size, horizon, turn, atmosphere); a full-screen gradient fill costs several times a cached copy
+    var hzR = Math.round(hzY);
+    ctx.imageSmoothingEnabled = true;
+    ctx.drawImage(this.screenLayer('sky', [W, H, hzR, top, mid, sky.sun, sky.sunX.toFixed(3), sky.sunH.toFixed(3)].join('|'), W, H, function (g, w, h) {
+      g.fillStyle = '#1b3044'; g.fillRect(0, 0, w, h);
+      if (hzR > 0) { var hy = hzR / 2, skyg = g.createLinearGradient(0, 0, 0, hy); skyg.addColorStop(0, top); skyg.addColorStop(0.7, mid); skyg.addColorStop(1, '#2a4258'); g.fillStyle = skyg; g.fillRect(0, 0, w, hy);
+        var sx0 = w * sky.sunX, sy0 = hy * (1 - 0.8 * sky.sunH), sun = g.createRadialGradient(sx0, sy0, 0, sx0, sy0, w * 0.25); sun.addColorStop(0, A.rgba(sky.sun, 0.6)); sun.addColorStop(1, A.rgba(sky.sun, 0)); g.fillStyle = sun; g.fillRect(0, 0, w, hy); }
+    }), 0, 0, W, H);
+    ctx.imageSmoothingEnabled = false;
     var sx = 0, sy = 0; if (this.shake > 0.05) { sx = (this.rand() - 0.5) * this.shake * this.dpr; sy = (this.rand() - 0.5) * this.shake * this.dpr; this.shake *= Math.pow(0.02, dt); } else this.shake = 0;
     var z = this.cam.z * this.dpr, k = this.k(), step = this.quality === 'low' ? 6 : 3, cx = this.cam.x, cy = this.cam.y, horizonA = -H0 / k * 0.98;
     for (var y = 0; y < H; y += step) {
@@ -1000,8 +1033,9 @@
       if (srcW <= 0) continue;
       ctx.drawImage(this.frame, srcX, srcY, srcW, srcH, dx + sx, y + sy, dw, step + 0.5);
     }
-    var hz = ctx.createLinearGradient(0, 0, 0, H * 0.55); hz.addColorStop(0, A.rgba(mid, 0.55)); hz.addColorStop(0.35, A.rgba(mid, 0.18)); hz.addColorStop(1, A.rgba(mid, 0));
-    ctx.fillStyle = hz; ctx.fillRect(0, 0, W, H * 0.55);
+    ctx.imageSmoothingEnabled = true;
+    ctx.drawImage(this.screenLayer('haze', W + '|' + H + '|' + mid, W, H, function (g, w, h) { var hz = g.createLinearGradient(0, 0, 0, h * 0.55); hz.addColorStop(0, A.rgba(mid, 0.55)); hz.addColorStop(0.35, A.rgba(mid, 0.18)); hz.addColorStop(1, A.rgba(mid, 0)); g.fillStyle = hz; g.fillRect(0, 0, w, h * 0.55); }), 0, 0, W, H);
+    ctx.imageSmoothingEnabled = false;
     // light grade from the sun's side; Twilight deepens, Zenith neutralises
     ctx.globalCompositeOperation = 'soft-light'; var wg = ctx.createRadialGradient(W * sky.sunX, -H * 0.2, 0, W * sky.sunX, -H * 0.2, W * 1.1); wg.addColorStop(0, atm.grade + (0.35 + 0.2 * (1 - sky.sunH)).toFixed(2) + ')'); wg.addColorStop(1, 'rgba(40,60,120,' + (0.25 + 0.2 * sky.u).toFixed(2) + ')'); ctx.fillStyle = wg; ctx.fillRect(0, 0, W, H); ctx.globalCompositeOperation = 'source-over';
     if (this.quality !== 'low') {
@@ -1014,8 +1048,9 @@
     var keep = [];
     this.texts.forEach(function (tx) { tx.t += dt; if (tx.t > tx.life) return; keep.push(tx); var p = self.project(tx.x, tx.y - tx.t * 14); ctx.globalAlpha = Math.min(1, (tx.life - tx.t) * 2); ctx.font = 'bold ' + Math.round(13 * self.dpr) + 'px Georgia, serif'; ctx.textAlign = 'center'; ctx.lineWidth = 3 * self.dpr; ctx.strokeStyle = 'rgba(0,0,0,0.7)'; ctx.strokeText(tx.text, p.x, p.y); ctx.fillStyle = tx.c; ctx.fillText(tx.text, p.x, p.y); ctx.globalAlpha = 1; });
     this.texts = keep;
-    var vg = ctx.createRadialGradient(W / 2, H * 0.55, Math.min(W, H) * 0.35, W / 2, H * 0.55, Math.max(W, H) * 0.75); vg.addColorStop(0, 'rgba(5,8,15,0)'); vg.addColorStop(1, 'rgba(5,8,15,0.6)');
-    ctx.fillStyle = vg; ctx.fillRect(0, 0, W, H);
+    ctx.imageSmoothingEnabled = true;
+    ctx.drawImage(this.screenLayer('vignette', W + '|' + H, W, H, function (g, w, h) { var vg = g.createRadialGradient(w / 2, h * 0.55, Math.min(w, h) * 0.35, w / 2, h * 0.55, Math.max(w, h) * 0.75); vg.addColorStop(0, 'rgba(5,8,15,0)'); vg.addColorStop(1, 'rgba(5,8,15,0.6)'); g.fillStyle = vg; g.fillRect(0, 0, w, h); }), 0, 0, W, H);
+    ctx.imageSmoothingEnabled = false;
     if (this.tint) { this.tint.t += dt; var ta = this.tint.a * Math.sin(Math.min(1, this.tint.t / this.tint.life) * Math.PI); if (this.tint.t >= this.tint.life) this.tint = null; else { ctx.fillStyle = A.rgba(this.tint.c, ta.toFixed(3)); ctx.fillRect(0, 0, W, H); } }
     if (this.flash) { this.flash.t += dt; var fa = this.flash.a * Math.max(0, 1 - this.flash.t / 0.5); if (fa <= 0) this.flash = null; else { ctx.fillStyle = this.flash.c + fa.toFixed(3) + ')'; ctx.fillRect(0, 0, W, H); } }
   };

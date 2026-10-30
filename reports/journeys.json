@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-29T12:03:05.441Z",
+ "generated": "2026-10-30T03:03:24.647Z",
  "browser": "Chromium (Playwright, pre-installed)",
  "launch": "file:// index.html",
  "results": [
@@ -26,7 +26,7 @@
     ],
     "errors": []
    },
-   "ms": 11835
+   "ms": 10075
   },
   {
    "id": "J02",
@@ -36,7 +36,7 @@
     "revealedGain": 15,
     "turn": 2
    },
-   "ms": 2380
+   "ms": 2367
   },
   {
    "id": "J03",
@@ -47,35 +47,35 @@
      "turn": 45,
      "winner": "twilight",
      "pid": 2,
-     "hash": "956225ce",
-     "actions": 437,
+     "hash": "234aacfb",
+     "actions": 451,
      "title": "The Council of the Òrìṣà Prevails"
     }
    },
-   "ms": 34497
+   "ms": 31017
   },
   {
    "id": "J04",
    "title": "Save to slot, reload the page, continue from autosave; hashes match",
    "ok": true,
    "evidence": {
-    "hashBefore": "e592fa4a",
+    "hashBefore": "d4c904da",
     "turnBefore": 6,
     "continueLabel": "Continue: Japanese vs Mexica, turn 6",
-    "hashAfter": "e592fa4a",
-    "slotHash": "e592fa4a",
+    "hashAfter": "d4c904da",
+    "slotHash": "d4c904da",
     "continuedTo": 8
    },
-   "ms": 8693
+   "ms": 6820
   },
   {
    "id": "J05",
    "title": "Export a finished game file, import it in a fresh page, same final hash",
    "ok": true,
    "evidence": {
-    "hash": "956225ce"
+    "hash": "234aacfb"
    },
-   "ms": 2239
+   "ms": 1892
   },
   {
    "id": "J06",
@@ -85,7 +85,7 @@
     "turns": 45,
     "mismatches": 0,
     "at": 3,
-    "pngBytes": 632874,
+    "pngBytes": 636039,
     "jsonKeys": [
      "format",
      "engine",
@@ -100,7 +100,7 @@
      "record"
     ]
    },
-   "ms": 13538
+   "ms": 12058
   },
   {
    "id": "J07",
@@ -113,7 +113,7 @@
     "p2": 1,
     "p2Faction": "egyptian"
    },
-   "ms": 3881
+   "ms": 3415
   },
   {
    "id": "J08",
@@ -125,7 +125,7 @@
     "docOverflow": 0,
     "tapSelected": true
    },
-   "ms": 10383
+   "ms": 8543
   },
   {
    "id": "J09",
@@ -142,7 +142,7 @@
     "codexSections": 10,
     "envoyOpen": true
    },
-   "ms": 14783
+   "ms": 12979
   },
   {
    "id": "J10",
@@ -153,7 +153,74 @@
     "expected": "6a3687d9",
     "turns": 45
    },
-   "ms": 5330
+   "ms": 4969
+  },
+  {
+   "id": "J11",
+   "title": "Audio lifecycle: silent until a gesture, ten motifs render, one context across games, hidden tab suspends, mute persists",
+   "ok": true,
+   "evidence": {
+    "beforeGesture": {
+     "ready": false,
+     "ctx": false,
+     "contexts": 0
+    },
+    "afterGesture": {
+     "ready": true,
+     "state": "running"
+    },
+    "render": {
+     "motifKeys": 10,
+     "greek": {
+      "rms": 0.0364,
+      "peak": 0.401
+     },
+     "norse": {
+      "rms": 0.0371,
+      "peak": 0.457
+     },
+     "egyptian": {
+      "rms": 0.0364,
+      "peak": 0.429
+     },
+     "mesopotamian": {
+      "rms": 0.0371,
+      "peak": 0.437
+     },
+     "irish": {
+      "rms": 0.0392,
+      "peak": 0.508
+     },
+     "mexica": {
+      "rms": 0.0372,
+      "peak": 0.395
+     },
+     "hittite": {
+      "rms": 0.0366,
+      "peak": 0.47
+     },
+     "yoruba": {
+      "rms": 0.0366,
+      "peak": 0.45
+     },
+     "japanese": {
+      "rms": 0.0402,
+      "peak": 0.537
+     },
+     "vedic": {
+      "rms": 0.0375,
+      "peak": 0.464
+     }
+    },
+    "contextsAfterGames": 1,
+    "hiddenState": "suspended",
+    "visibleState": "running",
+    "muteAfterReload": {
+     "mute": true,
+     "state": "suspended"
+    }
+   },
+   "ms": 8581
   }
  ]
 }

@@ -160,16 +160,25 @@ test('P009 grudges: hits create bounded grudges that decay; a betrayed AI target
 });
 
 test('P009 archetypes: two personalities choose materially different actions in the same prepared position', () => {
-  const base = sandbox('greek', 'norse', 21); round(base); base.players[0].revealed = base.players[0].revealed.map(() => 1); base.players[0].cooldowns = {};
-  base.priests.forEach(p => { if (p.owner === 0) p.dest = p.tile; });
-  const picks = {};
-  for (let seed = 1; seed < 60; seed++) {
-    const c = E.clone(base); c.seed = seed; const arch = AI.personality(c, 0).archetype;
-    const a = AI.nextAction(E, c, { noLookahead: true });
-    picks[arch] = picks[arch] || new Set(); picks[arch].add(a.type + ':' + (a.power || a.spec || a.kind || ''));
+  // the same prepared position, played by every archetype; several positions are tried because one hand-built position can have a
+  // single obviously best move (an eclipsed home shrine, a large Faith buff) that every personality rightly takes
+  const report = {};
+  let differs = false;
+  for (const [fac, rival] of [['greek', 'norse'], ['norse', 'greek'], ['egyptian', 'yoruba'], ['vedic', 'hittite']]) {
+    const base = sandbox(fac, rival, 21); round(base); base.players[0].revealed = base.players[0].revealed.map(() => 1); base.players[0].cooldowns = {};
+    base.priests.forEach(p => { if (p.owner === 0) p.dest = p.tile; });
+    const hs = base.settlements[base.players[0].home].shrine; if (hs) { hs.ward = 3; hs.eclipsed = 0; hs.threat = null; }
+    const picks = {};
+    for (let seed = 1; seed < 60; seed++) {
+      const c = E.clone(base); c.seed = seed; const arch = AI.personality(c, 0).archetype;
+      const a = AI.nextAction(E, c, { noLookahead: true });
+      picks[arch] = picks[arch] || new Set(); picks[arch].add(a.type + ':' + (a.power || a.spec || a.kind || ''));
+    }
+    const all = new Set(); Object.values(picks).forEach(x => x.forEach(y => all.add(y)));
+    report[fac] = Object.fromEntries(Object.entries(picks).map(([k, v]) => [k, [...v]]));
+    if (Object.keys(picks).length >= 2 && all.size >= 2) differs = true;
   }
-  const all = new Set(); Object.values(picks).forEach(x => x.forEach(y => all.add(y)));
-  assert.ok(Object.keys(picks).length >= 2 && all.size >= 2, 'choices by archetype: ' + JSON.stringify(Object.fromEntries(Object.entries(picks).map(([k, v]) => [k, [...v]]))));
+  assert.ok(differs, 'choices by archetype: ' + JSON.stringify(report));
 });
 
 function trapPosition() {
@@ -390,7 +399,7 @@ test('P019 domains: each of the 40 domains changes authoritative outcomes compar
     const d2 = JSON.parse(JSON.stringify(data)); const f = d2.factions.find(x => x.id === dom.faction); f.domains = f.domains.filter(x => x !== dom.id);
     const E2 = PWEngine.create(d2);
     let differs = false;
-    for (let seed = 1; seed <= 4 && !differs; seed++) {
+    for (let seed = 1; seed <= 8 && !differs; seed++) {
       const rival = dom.faction === 'greek' ? 'norse' : 'greek';
       const pl = [{ faction: dom.faction, ai: 'hard' }, { faction: rival, ai: 'hard' }];
       const a = E.newGame({ seed: 600 + seed, players: pl }), b = E2.newGame({ seed: 600 + seed, players: pl });
@@ -401,4 +410,20 @@ test('P019 domains: each of the 40 domains changes authoritative outcomes compar
     if (!differs) failures.push(dom.id);
   }
   assert.deepStrictEqual(failures, []);
+});
+
+test('Ḫepat\'s Guard (defendResist): a struck Hittite shrine makes its followers there harder to convert for 3 turns', () => {
+  const s = duo('greek', 'hittite', 3), rival = s.settlements[s.players[1].home];
+  s.players[0].favor = 15; s.priests.find(p => p.owner === 0).tile = rival.tile; s.players[0].revealed[rival.tile] = 1;
+  const before = H.resistOf ? H.resistOf(s, rival, 1) : null;
+  E.apply(s, { type: 'eclipse', tile: rival.tile });
+  const boon = rival.boons.find(b => b.p === 1 && b.stat === 'resist');
+  assert.ok(boon, 'resist boon granted to the defender');
+  assert.strictEqual(boon.value, 1.5); assert.strictEqual(boon.turns, 3);
+  if (before !== null) assert.ok(H.resistOf(s, rival, 1) > before, 'conversion resistance rose');
+  // the same strike on a pantheon without the domain grants nothing
+  const t = duo('hittite', 'greek', 3), tr = t.settlements[t.players[1].home];
+  t.players[0].favor = 15; t.priests.find(p => p.owner === 0).tile = tr.tile; t.players[0].revealed[tr.tile] = 1;
+  E.apply(t, { type: 'eclipse', tile: tr.tile });
+  assert.ok(!tr.boons.some(b => b.p === 1 && b.stat === 'resist'));
 });

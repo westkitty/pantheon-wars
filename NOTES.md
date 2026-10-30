@@ -32,3 +32,8 @@ Last updated: 2026-10-29 (America/New_York)
 - UI rewritten: ten-card gallery and rival composer, tutorial, settings/keymap, saves/autosave/export/import/challenge, hot-seat handoff, Chronicle, tapestry, encyclopedia, envoys, influence layer, audio.
 - Browser tools now use the pre-installed Playwright Chromium (`tools/pw-shim.js` replaces the old puppeteer-core path).
 - Balance tuning stopped at t12; spread target not met — see `reports/balance-notes.md` and the final report.
+
+## Release-readiness uplift (2026-10-30)
+- CI added (GitHub Actions; green on its first run). Balance retuned on dev seeds and validated on held-out seeds: 11.5 / 14.2 / 16.1 pp
+  (overall / FFA / duel; was 17.8 / 21.2 / 25.0) — duel still over the 15-point target. Renderer p95 down 51–63%. Hot-seat live-region
+  leak fixed; rules-text drift fixed with a regression test. Details: `docs/OMNI_IMPLEMENTATION_STATE.md`.

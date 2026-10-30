@@ -1,0 +1,113 @@
+{
+ "generated": "2026-10-30T03:08:08.147Z",
+ "results": [
+  {
+   "id": "Q01",
+   "title": "Hot-seat handoff leaves no previous-god text in the live region, toasts, alerts or panel",
+   "ok": true,
+   "evidence": {
+    "leak": {
+     "sr": "",
+     "toasts": "",
+     "alerts": "",
+     "panel": "",
+     "log": ""
+    },
+    "turnover": {
+     "turn": 2,
+     "sr": ""
+    },
+    "seated": "The Olympian Court, turn 2, The Dawn. Faith 22.1, Favor 2, followers 7 of 159."
+   }
+  },
+  {
+   "id": "Q02",
+   "title": "Blocked browser storage (private window): the game starts, plays, saves gracefully and exports",
+   "ok": true,
+   "evidence": {
+    "started": true,
+    "savesText": "Browser storage is not available here (private window or blocked site data). You can still export and import game files."
+   }
+  },
+  {
+   "id": "Q03",
+   "title": "Two-finger pinch on the map zooms the camera",
+   "ok": true,
+   "evidence": {
+    "before": 2.1,
+    "after": 3.4
+   }
+  },
+  {
+   "id": "Q04",
+   "title": "Chronicle of an unfinished solo game offers only the player's own view",
+   "ok": true,
+   "evidence": {
+    "viewers": [
+     "The Olympian Court"
+    ]
+   }
+  },
+  {
+   "id": "Q05",
+   "title": "Resizing mid-game keeps the projection complete (no unpainted world regions after the clip)",
+   "ok": true,
+   "evidence": {
+    "sizes": [
+     {
+      "canvas": [
+       900,
+       700
+      ],
+      "view": {
+       "x": 18,
+       "y": 134,
+       "w": 524,
+       "h": 392
+      },
+      "transparentPx": 0
+     },
+     {
+      "canvas": [
+       1920,
+       1080
+      ],
+      "view": {
+       "x": 0,
+       "y": 4,
+       "w": 844,
+       "h": 588
+      },
+      "transparentPx": 0
+     },
+     {
+      "canvas": [
+       390,
+       844
+      ],
+      "view": {
+       "x": 150,
+       "y": 86,
+       "w": 260,
+       "h": 466
+      },
+      "transparentPx": 0
+     },
+     {
+      "canvas": [
+       1440,
+       900
+      ],
+      "view": {
+       "x": 0,
+       "y": 67,
+       "w": 697,
+       "h": 494
+      },
+      "transparentPx": 0
+     }
+    ]
+   }
+  }
+ ]
+}

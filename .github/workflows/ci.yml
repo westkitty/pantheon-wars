@@ -59,12 +59,18 @@ jobs:
         run: npm ci --ignore-scripts
       - name: Install Chromium for Playwright
         run: npx playwright install --with-deps chromium
-      - name: Browser journeys J01-J10
+      - name: Browser journeys J01-J11 (J11 = audio lifecycle)
         run: node tools/journeys.js
       - name: Full game by real input, browser hash equals Node replay
         run: node tools/screenshots.js --seed 11 --faction greek --rivals 2 --diff easy
       - name: Offline proof (file:// and local static server, no external requests)
         run: node tools/offline-proof.js
+      - name: Weather visual QA (every weather kind distinguishable, controls on top)
+        run: node tools/weather-qa.js
+      - name: Repeated-game resource check
+        run: node tools/memory-check.js
+      - name: Adversarial checks (hot-seat privacy, blocked storage, pinch, Chronicle privacy, resize)
+        run: node tools/qqq.js
       - name: Upload browser diagnostics
         if: always()
         uses: actions/upload-artifact@v4
@@ -75,5 +81,8 @@ jobs:
             reports/offline-proof.json
             reports/screens/J*.png
             reports/screens/e2e/
+            reports/weather-qa/
+            reports/memory-check.json
+            reports/qqq.json
           if-no-files-found: ignore
           retention-days: 7

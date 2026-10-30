@@ -138,3 +138,27 @@ fresh seed set; then a person should review the visuals and audio on real device
   regenerated (`reports/visual-qa/`). Self-assessment of the visual gate: **PARTIAL** — the in-game world is materially richer (ranges,
   water, fog, light, towns, miracle light, UI) at no measurable per-frame cost, but at overview zoom it remains an evolution of the same
   look rather than a transformative AAA change, and no person has reviewed it on a real device.
+
+### Asset-first visual uplift (2026-10-30, fourth pass)
+Start: `642b779` on `claude/vibrant-feynman-x1fjq9`, draft PR #1, CI green, clean tree. Gameplay data unchanged (`4b22c717aa09`); P001
+stays PARTIAL (no balance work in this pass).
+- **Problem addressed:** v0.3 changed rendering, not the art. The world frame is rasterised at one pixel per world unit and magnified
+  2–3.4×, so no sprite could carry detail. Full 2× supersampling was measured (p95 up to 33 ms) and rejected.
+- **Rendering change that makes source art count:** standing objects (towns, shrines, priests, landmarks) and airborne effects are drawn
+  after the perspective strips in screen space, each under the local affine projection at its anchor (`localAffine`, `drawObjects`,
+  `blit2`); ground effects stay in the world frame.
+- **New source art — `ui/kits.js`:** ten architectural kits plus three land kits (house, civic monument, enclosure, props, material
+  textures, roofs), the village composer (ring plots, lanes, plaza and well, monument, enclosure, decline, Twilight, snow, layered
+  patronage, shrine-aware layout), ten shrine families × seven structural conditions × three callings (88×100), ten priest families ×
+  three callings × six frames (28×40; distance-driven walk, gesture), four landmarks (64×56), one-pixel silhouette outlines. The old
+  small sprites (`ui/art.js` priests, shrines, landmarks; `ARCH` and the village painter in `ui/render.js`) were removed.
+- **Not reauthored:** terrain decor, roads, icons, emblems, event art, tapestry and the VFX motifs.
+- **Evidence:** `reports/atlas/{villages,shrines-conditions,shrine-specs,priests,landmarks}.png`; before/after
+  `reports/visual-qa/{pantheons,ages,close,sprites,walk,vfx}.jpg`; review `reports/visual-qa/critique-v04.md`;
+  performance `reports/perf-comparison-assets.md` (p95 −12% … +3%, all under 12 ms; village composition about 4.5 ms per town, at most
+  three per frame).
+- **Verdict:** asset production PARTIAL — the standing-object library is materially better at normal and close zoom; environment,
+  VFX, icons and event art remain v0.3; no real-device or human review.
+
+NEXT ACTION: a person reviews the towns, shrines and priests on real devices; a further pass reauthors terrain decor and the forty VFX
+motifs; the duel balance gap needs its own focused pass. Do not merge or deploy without the owner's decision.

@@ -41,18 +41,18 @@ Status key: **PASS** = implemented and the acceptance oracle is directly evidenc
 | P028 | Olympian architecture kit | `ARCH.greek`, columned temple | atlas sheets; Greek captures | PASS |
 | P029 | Norse architecture kit | `ARCH.norse`, timber hall | atlas sheets; Norse captures | PASS |
 | P030 | Egyptian monumental kit | `ARCH.egyptian`, pylon temple | atlas sheets; Egyptian captures | PASS |
-| P031 | Layered architecture | villages drawn by patron history (`villageStyle`) | render code; mixed-style towns visible in late captures | PASS |
-| P032 | Growth tiers | 5 tiers + decline ruins | render code (`tier`, `decline`); v0.3 village sprite (plaza, lanes, shadows, windows, Twilight light), `reports/visual-qa/pantheons.jpg` | PASS |
+| P031 | Layered architecture | villages composed by `PWArt.village` (`ui/kits.js`) from ten 2× architectural kits by patron history (`villageStyle`) | `reports/atlas/villages.png` (each kit's last cell mixes an older patron's houses); `reports/visual-qa/close.jpg` | PASS |
+| P032 | Growth tiers | 5 tiers + decline ruins | v0.4: ring plots round a plaza, civic monument from tier 3, kit enclosure from tier 4, roofless houses in decline, lit windows at Twilight, snow in cold climates; `reports/atlas/villages.png` (10 kits × 5 tiers + night/decline/mixed), `reports/visual-qa/pantheons.jpg`, `close.jpg` | PASS |
 | P033 | Route art and travellers | `drawRoutes` | captures (roads visible in atlas) | PASS |
-| P034 | Landmark art | `LANDMARKS` × 4 | `reports/atlas/landmarks.png` | PASS |
+| P034 | Landmark art | `LM` × 4 (`ui/kits.js`, 64×56 at 2×) | `reports/atlas/landmarks.png` | PASS |
 | P035 | Terrain biomes | static terrain painter | captures; v0.3 biome edge transitions and quieter plains/desert | PASS |
 | P036 | Topographic relief | extruded columns, AO, cliff shadows | captures; v0.3 slope light against neighbours, massif mountains | PASS |
 | P037 | Coast and water | two water layers, shallows, foam | captures; v0.3 blurred continuous water depth | PASS |
 | P038 | Sky across 45 turns | `skyFor` | e2e turn 3/16/30 captures; v0.3 land regrade per age (Dawn warm, Zenith neutral, Twilight violet) plus lit windows and stronger shrine light at Twilight | PASS |
 | P039 | Weather visuals | `drawWeather` | `tools/weather-qa.js` → `reports/weather-qa/{weather-atlas.png,manifest.json}`: all five kinds × desktop, reduced motion, phone; each differs from clear weather and from every other kind (closest pair rains/omen 1.3–2.2 mean RGB difference, told apart by glyph); HUD controls stay on top | PASS (automated); readability on a physical phone not judged by a person |
 | P040 | Scars and blessings | marks layer | render code; P017 test for state | PASS |
-| P041 | Shrine condition language | `SHRINES` × `CONDITIONS` (7) | `reports/atlas/shrines-conditions.png` (70 renders) | PASS |
-| P042 | Ten priest families | `PRIEST_STYLES` × 3 callings × 4 frames | `reports/atlas/priests.png` (120 renders) | PASS |
+| P041 | Shrine condition language | `SH` × `CONDITIONS` (7), `ui/kits.js` 88×100 at 2×: structural damage (breaches, fallen members, shoring), family-material fortification, scaffold restoration, architecture-specific ruins | `reports/atlas/shrines-conditions.png` (70), `shrine-specs.png` (30); `reports/visual-qa/sprites.jpg` (before/after) | PASS |
+| P042 | Ten priest families | `DRESS` × 3 callings × 6 frames (`ui/kits.js`, 28×40 at 2×; idle, four-frame walk driven by distance, gesture) | `reports/atlas/priests.png` (180 renders); `reports/visual-qa/walk.jpg` (in-game walk) | PASS |
 | P043 | Forty power signatures | `VFX` ids, unique per power | powers test (unique ids); `reports/atlas/vfx/*.png` (40); `reports/visual-qa/vfx.jpg` (all 40 at three beats, after) | PASS |
 | P044 | Three-beat choreography | `playVfx` gather/release/aftermath | render code; VFX frames; reduced-motion path; v0.3 world-light envelope per cast (dim → coloured light pool → afterglow, force-scaled); reduced-motion and Low-quality cues checked by Q07 | PASS |
 | P045 | Influence flow visualization | influence layer from redacted state | layer toggle (`I`); SR readout | PASS |

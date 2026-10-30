@@ -40,7 +40,7 @@ node tools/balance-smoke.js                 # fast fixed-seed integrity sample (
 node tools/weather-qa.js                    # every weather kind distinguishable, controls on top (reports/weather-qa/)
 node tools/memory-check.js                  # ten games in one page: heap and canvases stay flat
 node tools/qqq.js                           # adversarial checks: hot-seat privacy, blocked storage, pinch, resize, age caches, reduced-motion cues
-node tools/visual-qa.js --before <old checkout>   # before/after atlas from real games (reports/visual-qa/)
+node tools/visual-qa.js --before <old checkout>   # before/after atlas from real games: pantheons, ages, close zoom, sprites, walk, VFX (reports/visual-qa/)
 ```
 Browser tools use Playwright's Chromium. `npm ci` installs the pinned dev-only version (`package.json`); the game itself has no dependencies. `tools/screenshots.js` also accepts `PUPPETEER=/path/to/puppeteer-core`.
 
@@ -52,7 +52,8 @@ Browser tools use Playwright's Chromium. `npm ci` installs the pinned dev-only v
 | `index.html`, `ui/style.css` | shell, title gallery, HUD, modals (1440×900 and 390×844 layouts) |
 | `ui/app.js` | UI controller; every change goes through `PWEngine.step` |
 | `ui/render.js` | 2.5D world renderer, weather, marks, villages, fog theatre, 40 VFX signatures |
-| `ui/art.js` | procedural pixel art: emblems, patterns, icons, shrines × 7 conditions, priests × 3 callings, landmarks, event scenes |
+| `ui/art.js` | procedural pixel art: emblems, patterns, icons, atmospheres, event scenes |
+| `ui/kits.js` | 2× standing-object art: ten architectural kits and the village composer, shrines × 7 conditions × 3 callings, priests × 3 callings × 6 frames, landmarks |
 | `ui/audio.js`, `ui/storage.js`, `ui/chronicle.js`, `ui/encyclopedia.js` | synthesised sound, versioned saves, Chronicle and tapestry, encyclopedia |
 | `engine/engine.js`, `engine/ai.js`, `engine/rng.js` | deterministic rules, AI, PRNG (UMD: browser and Node) |
 | `engine/legacy/` | frozen v0.1 engine and AI for replaying v0.1 files |

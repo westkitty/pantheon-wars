@@ -1,4 +1,4 @@
-# Pantheon Wars — Art Direction (v0.2, the ten pantheons)
+# Pantheon Wars — Art Direction (v0.4, the ten pantheons)
 
 Pantheon Wars ships no image, font or audio files. Every visual is drawn by code at runtime (`ui/art.js`, `ui/render.js`) and every sound is synthesised (`ui/audio.js`). This keeps the game offline, small and free of third-party art, and it means art is reviewable as source. `data/asset-manifest.json` lists every drawing id, where it is drawn and what uses it. `node tools/assets.js` renders all of them into QA contact sheets in `reports/atlas/`.
 
@@ -6,7 +6,7 @@ Pantheon Wars ships no image, font or audio files. Every visual is drawn by code
 1. **The world is a model on a table, seen by a god.** A 2.5D perspective strip projection of extruded hex terrain. The camera looks down from the heavens; a horizon, haze and high clouds sit behind the world.
 2. **Symbols, never portraits.** Deities appear only as emblems and effects: a thunderbolt wreath, an ash tree, a winged sun, an eight-pointed star, a cauldron ring, sun-rain-water, a storm-sun disc, river rings, a rising field, a flame dawn. No god has a face. No sacred icon is reproduced.
 3. **Readable first, beautiful second.** Every state change has a shape, not only a colour: heraldic patterns on territory, distinct shrine silhouettes, condition overlays and text callouts. Colour-only information is not allowed.
-4. **Pixel craft at small sizes.** Sprites are drawn at native pixel resolution (14×20 priests, 44×50 shrines, 48×48 icons, 160×90 event scenes) and scaled with nearest-neighbour filtering.
+4. **Pixel craft at small sizes.** Standing objects are authored at 2× their world size in `ui/kits.js` (villages 144×104, shrines 88×100, priests 28×40, landmarks 32×28 world from 64×56) and drawn in screen space, so at normal zoom one source pixel is about one screen pixel; icons (48×48) and event scenes (160×90) remain 1× pixel art scaled with nearest-neighbour filtering.
 5. **Deadpan mythic tone.** Text and imagery take the gods seriously. There is no parody, gore or horror, and no spiders or spider-like motifs anywhere.
 
 ## Faction identity kit
@@ -87,3 +87,46 @@ What changed in the running game (all in `ui/render.js` and `ui/style.css`; no n
 
 Ten-pantheon identity in gameplay is carried by architecture (village kits and shrine families), territory colour and heraldic
 pattern, priest families, the per-pantheon atmosphere grade, and each power's own colour in its world-light pool.
+
+## v0.4 asset production — the standing-object library rebuilt
+The v0.3 pass changed rendering; v0.4 rebuilds the art itself. New source: `ui/kits.js` (original procedural source art, about 470 lines;
+no image files). The old 14×20 priests, 44×50 shrines and 32×28 landmarks were removed from `ui/art.js`, and the village painter
+(`ARCH` table plus inline drawing in `ui/render.js`) was replaced by the kit composer.
+
+**Why 2× and screen space.** The world is rasterised into a 1-unit-per-pixel frame and magnified 2–3.4× by the perspective strips, so
+no sprite could show more than one pixel of detail per world unit. Supersampling the whole frame doubled frame cost (p95 up to 33 ms,
+rejected). Instead, standing objects and airborne effects are drawn after the strips, each through the local affine projection at
+its own anchor (`localAffine`): same place, same size, same depth order, but rasterised at screen resolution. Ground light, rings and
+sweeps stay in the world frame under the towns.
+
+**Materials and light.** One light, upper left. Every building is an oblique box (lit front, shaded side receding up-right, lit top)
+with a surface texture per material: ashlar, polygonal masonry, mudbrick courses, render, timber planks, wattle, plaster with timber
+frame. Roofs: gable (tile courses, sunlit ridge, eave shadow), temple front (pediment), hip with deep eaves, conical thatch (strokes,
+cylindrical shading), barrel thatch. Every building and figure gets a one-pixel dark silhouette (`outlined`) so it reads on any
+terrain, and a cast shadow to the lower right.
+
+| Kit | House | Civic monument (tier 3+, larger at 5) | Enclosure (tier 4+) | Props |
+|---|---|---|---|---|
+| Greek | whitewashed box, red tile gable | marble temple front: stylobate, fluted columns, pediment | stone wall | cypress, column, jar |
+| Norse | low timber longhouse under a turf roof to the ground, crossed gable horns, snow when cold | great hall, carved gable, double horns | palisade | pine, woodpile |
+| Egyptian | mudbrick block, cornice, roof-terrace shelter | battered pylon gate, relief bands, flagstaff | mudbrick wall | date palms, canal |
+| Mesopotamian | adobe with niched buttresses | three-stage terrace with stair and top shrine | mudbrick wall | reeds, palm |
+| Irish | round wattle house, conical thatch | great round hall with porch | earth bank | broadleaf, standing stone, fence |
+| Mexica | whitewashed flat roof, painted bands | stepped platform, twin stair, two small temples (form only; no rite shown) | painted wall | maize, canal, jar |
+| Hittite | grey stone over a socle, beam ends | gate between crenellated towers | stone wall | stelae |
+| Yoruba | red-earth walls, hipped roof on carved posts | compound round a courtyard with rain basin | earth wall | broadleaf, jar |
+| Japanese | plaster and timber frame on a plinth, hip roof, upturned eaves | raised hall, two-tier roof | hedge | pine, gateway |
+| Vedic | adobe under barrel thatch | open hall sheltering the three fires (round, square, half-round) | thorn fence | fire altar, hearth |
+
+Neutral towns use three land kits (mud, timber, tile). **Villages** place plots on rings round a plaza (lanes lead out, a well from
+tier 3), keep the space behind the shrine clear and move the monument left when a shrine stands, and spread the newest patron's kit
+outward from the plaza. **Shrines** (ten families × seven conditions × three callings) change structure by condition: damaged = a breach
+in the roof, a fallen member, cracks and debris; nearly toppled = lean, roof mostly gone, shoring timbers; fortified = a wall, towers,
+gate and banners in the family's own material; ruined = footings and stumps of that architecture (burnt timbers for timber families);
+restored = scaffold poles with cross-ties, a ladder and garlands; eclipsed = darkened with a cold rim and an occluded sun disc.
+**Priests** have a flared robe with folds, lit face, garment signature per family, and six frames: idle, four walk frames driven by the
+distance covered (no foot sliding, no hop), and a gesture. Callings read by silhouette: staff and pennant, lantern crook, shield and spear.
+
+Not reauthored in v0.4 (still v0.3 art): terrain decor (trees, mountains, desert, marsh, water), roads and travellers, the forty power
+icons and other UI icons, emblems, event illustrations, tapestry, and the VFX motifs (they are now drawn at screen resolution, which
+sharpens them, but their shapes are unchanged).

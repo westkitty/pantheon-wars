@@ -184,11 +184,27 @@
     g.fillStyle = og; g.fillRect(0, 0, this.WW, this.WH);
     // water depth as one continuous material: every water hex painted by its distance to land, then blurred, so shallows fade into the
     // deep instead of stepping hex by hex (C2)
-    var wd = A.cv(this.WW, this.WH), wg = wd.getContext('2d'), DEPTH = ['#5fb4b4', '#3f9aaa', '#2e7c9c', '#215f84', '#194c6e'];
-    tiles.forEach(function (t) { if (!T[t.terrain].water) return; var p = self.top(t), d = Math.min(4, self.waterDepth[t.id]); self.hexPath(wg, p.x, p.y, 1.08); wg.fillStyle = DEPTH[d]; wg.fill(); });
+    // water material v0.7: a six-step depth palette per age, blurred into one body; seabed seen through the shallows; sky reflected
+    // more strongly toward the far horizon (fresnel); a sheen from the upper-left key light; long current lines instead of speckle
+    var WATER = { dawn: ['#96d4c2', '#68bab4', '#4096a4', '#2c7690', '#215a7a', '#1a4664'], zenith: ['#92dccc', '#60c0c0', '#3a9ab0', '#287a9c', '#1d5c82', '#16466a'], twilight: ['#86b4be', '#6292ae', '#406c96', '#30527e', '#263e68', '#1e2e54'] }[state.age] || null;
+    var SKYREF = { dawn: '#f4c8a4', zenith: '#c4e4f6', twilight: '#b496d0' }[state.age] || '#c4e4f6';
+    var wd = A.cv(this.WW, this.WH), wg = wd.getContext('2d'), DEPTH = WATER || ['#5fb4b4', '#3f9aaa', '#2e7c9c', '#215f84', '#194c6e', '#194c6e'];
+    tiles.forEach(function (t) { if (!T[t.terrain].water) return; var p = self.top(t), d = Math.min(5, self.waterDepth[t.id]); self.hexPath(wg, p.x, p.y, 1.08); wg.fillStyle = DEPTH[d]; wg.fill(); });
     g.save(); g.filter = 'blur(9px)'; g.drawImage(wd, 0, 0); g.filter = 'none'; g.restore();
     var r0 = A.rng(state.seed + 1);
-    for (var i = 0; i < 900; i++) { g.fillStyle = 'rgba(150,200,225,' + (0.03 + r0() * 0.07).toFixed(2) + ')'; g.fillRect(r0() * this.WW | 0, r0() * this.WH | 0, 3 + r0() * 8 | 0, 1); }
+    if (this.waterPath) {
+      g.save(); g.clip(this.waterPath);
+      tiles.forEach(function (t) { if (!T[t.terrain].water || self.waterDepth[t.id] > 1) return; var p = self.top(t), rr = A.rng(t.id * 17 + 3), a0 = self.waterDepth[t.id] ? 0.5 : 1; // seabed through the shallows
+        for (var j = 0; j < 4; j++) { g.fillStyle = 'rgba(236,222,176,' + (0.15 * a0).toFixed(3) + ')'; g.beginPath(); g.ellipse(p.x + (rr() - 0.5) * 34, p.y + (rr() - 0.5) * 16, 6 + rr() * 8, 2 + rr() * 2, 0, 0, 7); g.fill(); }
+        g.strokeStyle = 'rgba(244,236,200,' + (0.22 * a0).toFixed(3) + ')'; g.lineWidth = 1; for (j = 0; j < 3; j++) { var yy = p.y - 6 + j * 6; g.beginPath(); g.moveTo(p.x - 16, yy); g.quadraticCurveTo(p.x, yy - 2, p.x + 16, yy); g.stroke(); }
+        for (j = 0; j < 3; j++) { g.fillStyle = 'rgba(40,60,56,' + (0.22 * a0).toFixed(3) + ')'; g.fillRect(p.x + (rr() - 0.5) * 30 | 0, p.y + (rr() - 0.5) * 14 | 0, 2, 1); } });
+      var fr = g.createLinearGradient(0, 0, 0, this.WH); fr.addColorStop(0, A.rgba(SKYREF, 0.16)); fr.addColorStop(0.4, A.rgba(SKYREF, 0.04)); fr.addColorStop(1, A.rgba(SKYREF, 0)); g.fillStyle = fr; g.fillRect(0, 0, this.WW, this.WH);
+      // light scattered up through the shallows: the two shallowest steps glow turquoise (additive), so coasts read bright and clear
+      g.globalCompositeOperation = 'lighter'; tiles.forEach(function (t) { if (!T[t.terrain].water || self.waterDepth[t.id] > 1) return; var p = self.top(t); self.hexPath(g, p.x, p.y, 1.05); g.fillStyle = self.waterDepth[t.id] ? 'rgba(50,160,160,0.16)' : 'rgba(80,215,195,0.30)'; g.fill(); }); g.globalCompositeOperation = 'source-over';
+      var sh = g.createLinearGradient(0, 0, this.WW, this.WH); sh.addColorStop(0, light.warm + '0.12)'); sh.addColorStop(0.5, light.warm + '0)'); sh.addColorStop(1, light.cool + '0.04)'); g.fillStyle = sh; g.fillRect(0, 0, this.WW, this.WH);
+      g.strokeStyle = 'rgba(190,226,240,0.07)'; g.lineWidth = 1.5; for (var i = 0; i < 70; i++) { var cx0 = r0() * this.WW, cy0 = r0() * this.WH, L = 40 + r0() * 90; g.beginPath(); g.moveTo(cx0, cy0); g.bezierCurveTo(cx0 + L * 0.3, cy0 - 6, cx0 + L * 0.7, cy0 + 6, cx0 + L, cy0); g.stroke(); }
+      g.restore();
+    }
     function landNb(t) { return t.n.map(function (n) { return n >= 0 && !T[tiles[n].terrain].water; }); }
     for (var r = 0; r < state.map.h; r++) for (var q = 0; q < W; q++) self.drawTile(g, state, tiles[r * W + q], landNb);
     tiles.forEach(function (t) { self.drawCliffShadow(g, state, t); });
@@ -492,7 +508,7 @@
       styles.push(style);
     }
     var v = A.village({ id: s.id, tier: tier, decline: decline, night: night, cold: cold, shrine: sh, styles: styles, current: st.layers[0] ? st.layers[0].f : null, biome: st.biome });
-    var out = { c: v.c, chim: v.chim.map(function (c) { return [c[0] / 2, c[1] / 2]; }), tier: tier, night: night };
+    var out = { c: v.c, chim: v.chim.map(function (c) { return [c[0] / 2, c[1] / 2]; }), tier: tier, night: night, decline: decline, cur: st.layers[0] ? st.layers[0].f : st.biome, shrine: sh };
     this.villageCache[key] = out; return out;
   };
   P.shrineImage = function (art, pal, cond, spec) {
@@ -901,6 +917,40 @@
     });
   };
 
+  /* Town life (v0.7): visual-only inhabitants, lights, cloth and hearths round the plaza, in the town's own culture. Counts follow the tier,
+     drop for a declining town or a damaged shrine and under rain or storm (people hurry), and halve in Low quality; reduced motion keeps
+     them still with the lights on. Positions come from the town id and visual time only — never from game randomness or state. Ground
+     centre of the town in world units: (p.x - 2, p.y + 2); people keep to the plaza ellipse, inside the ring of houses. */
+  var CLOTH = { greek: ['awning', '#e8e2cc', '#2f6fb3'], norse: ['rack', '#8a6a4a', '#c0583a'], egyptian: ['awning', '#f0e6c8', '#2f6fb3'], mesopotamian: ['awning', '#d8c49a', '#4b3d9a'], irish: ['line', '#3a7a4a', '#c8a050'],
+    mexica: ['line', '#12a38c', '#e0b33a'], hittite: ['rack', '#a8a294', '#b8302a'], yoruba: ['line', '#3a4ab0', '#e0b84a'], japanese: ['noren', '#2a3a6a', '#f0ece0'], vedic: ['line', '#e0a030', '#c84a2a'] };
+  var HEARTH = { norse: 1, irish: 1, vedic: 1, yoruba: 1 };
+  P.drawTownLife = function (g, st, s, v, p, time) {
+    if (!v.tier) return;
+    var cx = p.x - 2, cy = p.y + 2, low = this.quality === 'low', still = this.reduced, night = st.age === 'twilight', dawn = st.age === 'dawn';
+    var wet = this.windAt && this.windAt[s.tile], dmg = s.shrine && (s.shrine.ward <= 1 || s.shrine.eclipsed), cult = CLOTH[v.cur] ? v.cur : null, r = A.rng(s.id * 977 + 5), i;
+    // lanterns on posts at the plaza edge (tier 2+): always visible, lit at Twilight and faintly at Dawn
+    if (v.tier >= 2) for (i = 0; i < Math.min(4, v.tier); i++) { var la = Math.PI * (0.18 + i * 0.22) + r() * 0.1, lx = cx + Math.cos(la) * (11 + v.tier * 1.4), ly = cy + 1 + Math.sin(la) * (4 + v.tier * 0.6);
+      g.fillStyle = '#3a2a1a'; g.fillRect(lx - 0.35, ly - 5.5, 0.7, 5.5); g.fillStyle = night ? '#ffd27a' : '#8a6a3a'; g.fillRect(lx - 0.9, ly - 6.6, 1.8, 1.4);
+      if (night || dawn) { var fl = still ? 1 : 0.85 + 0.15 * Math.sin(time * 7 + i * 2 + s.id); g.fillStyle = 'rgba(255,200,110,' + ((night ? 0.32 : 0.12) * fl).toFixed(3) + ')'; g.beginPath(); g.ellipse(lx, ly - 5.9, 3.4, 2.8, 0, 0, 7); g.fill(); } }
+    // hearth fire in the plaza for the hearth cultures
+    if (cult && HEARTH[cult] && v.tier >= 2) { var hx = cx + 10 + v.tier, hy = cy + 5, f2 = still ? 0.5 : 0.5 + 0.5 * Math.sin(time * 11 + s.id); g.fillStyle = '#5a4a3a'; g.fillRect(hx - 1.4, hy - 0.4, 2.8, 0.8); g.fillStyle = '#e0602a'; g.beginPath(); g.moveTo(hx - 1, hy); g.lineTo(hx, hy - 2.2 - f2); g.lineTo(hx + 1, hy); g.fill(); g.fillStyle = '#ffd070'; g.fillRect(hx - 0.3, hy - 1.2 - f2 * 0.5, 0.6, 1); }
+    // cloth in the culture's own form, stirring with the wind (harder in rain and storm)
+    if (cult && v.tier >= 2 && !low) { var cd = CLOTH[cult], wind = still ? 0 : Math.sin(time * (wet ? 6 : 2.2) + s.id) * (wet ? 1.2 : 0.5), ox = cx - 15 - v.tier, oy = cy + 4;
+      if (cd[0] === 'awning') { g.fillStyle = '#5a3a20'; g.fillRect(ox, oy - 3, 0.5, 3); g.fillRect(ox + 5, oy - 3, 0.5, 3); g.fillStyle = cd[1]; g.beginPath(); g.moveTo(ox, oy - 3); g.lineTo(ox + 5.5, oy - 3); g.lineTo(ox + 5.5, oy - 2 + wind * 0.3); g.lineTo(ox, oy - 2 + wind * 0.3); g.fill(); g.fillStyle = cd[2]; g.fillRect(ox, oy - 2.2 + wind * 0.3, 5.5, 0.4); }
+      else if (cd[0] === 'noren') { g.fillStyle = '#3a2a1a'; g.fillRect(ox, oy - 4, 4, 0.4); for (var q = 0; q < 3; q++) { g.fillStyle = q === 1 ? cd[2] : cd[1]; g.fillRect(ox + q * 1.35 + wind * 0.2, oy - 3.6, 1.2, 2.2); } }
+      else if (cd[0] === 'rack') { g.fillStyle = '#5a3a20'; g.fillRect(ox, oy - 3, 0.5, 3); g.fillRect(ox + 4, oy - 3, 0.5, 3); g.fillRect(ox, oy - 3, 4.5, 0.4); g.fillStyle = cd[1]; g.fillRect(ox + 0.8 + wind * 0.2, oy - 2.6, 1.4, 2); g.fillStyle = cd[2]; g.fillRect(ox + 2.6 + wind * 0.2, oy - 2.6, 1.2, 1.6); }
+      else { g.strokeStyle = '#4a3a2a'; g.lineWidth = 0.25; g.beginPath(); g.moveTo(ox, oy - 3); g.quadraticCurveTo(ox + 3, oy - 2.3, ox + 6, oy - 3); g.stroke(); for (q = 0; q < 3; q++) { g.fillStyle = q % 2 ? cd[2] : cd[1]; g.fillRect(ox + 0.8 + q * 1.8 + wind * 0.25, oy - 2.8 + (q === 1 ? 0.3 : 0), 1.2, 1.6); } } }
+    // people: walking the plaza, some carrying, one drawing water at the well (tier 3+)
+    var n = Math.max(0, Math.min(6, v.tier + (v.tier >= 4 ? 1 : 0) - (v.decline ? 2 : 0) - (dmg ? 1 : 0) - (wet ? 1 : 0))); if (low) n = Math.ceil(n / 2);
+    var rx = 9 + v.tier * 1.6, ry = 3 + v.tier * 0.7, speed = wet ? 0.5 : 0.22, S = 1.25; // the open ground in front of the houses, where the lanes leave the town
+    for (i = 0; i < n; i++) { var ph = r() * 6.28, dir = r() < 0.5 ? 1 : -1, rad = 0.45 + r() * 0.55, col = ['#8a3a2a', '#2f5a7a', '#6a7a3a', '#7a5a8a', '#a87a3a', '#5a4a3a'][(r() * 6) | 0], carry = r() < 0.3;
+      var a2 = Math.PI * (0.5 + 0.38 * Math.sin(still ? ph : ph + dir * time * speed * 0.7 / rad)), x = cx + Math.cos(a2) * rx * (0.7 + rad * 0.3), y = cy + 1 + Math.sin(a2) * ry * (0.7 + rad * 0.3), step = still ? 0 : Math.sin(time * 9 + i * 2) * 0.35;
+      if (v.tier >= 3 && i === 0 && !v.shrine) { x = cx + 1.3; y = cy - 0.4; step = 0; } // one draws water at the well when no shrine stands over the plaza
+      g.fillStyle = 'rgba(12,10,22,0.3)'; g.fillRect(x - 0.7 * S, y - 0.15, 1.6 * S, 0.5);
+      g.fillStyle = '#2a1c14'; g.fillRect(x - 0.45 * S + step * 0.4, y - 1 * S, 0.35 * S, 1 * S); g.fillRect(x + 0.1 * S - step * 0.4, y - 1 * S, 0.35 * S, 1 * S);
+      g.fillStyle = col; g.fillRect(x - 0.6 * S, y - 2.6 * S, 1.2 * S, 1.7 * S); g.fillStyle = A.shade(col, -0.3); g.fillRect(x + 0.2 * S, y - 2.6 * S, 0.4 * S, 1.7 * S); g.fillStyle = '#d8b088'; g.fillRect(x - 0.4 * S, y - 3.4 * S, 0.8 * S, 0.8 * S);
+      if (carry) { g.fillStyle = '#a88a5a'; g.fillRect(x - 0.5 * S, y - 4.2 * S, 1 * S, 0.7 * S); } else if (v.tier >= 3 && i === 0 && !v.shrine) { g.fillStyle = '#b06a3a'; g.fillRect(x + 0.6 * S, y - 1.6 * S, 0.7 * S, 0.9 * S); } }
+  };
   P.drawShrineGlow = function (g, st, s, time) {
     var p = this.top(st.map.tiles[s.tile]), pal = this.fac[st.players[s.shrine.owner].faction].palette, pulse = (this.reduced ? 0.8 : 0.8 + 0.2 * Math.sin(time * 2 + s.id)) * (st.age === 'twilight' ? 1.35 : st.age === 'dawn' ? 1.1 : 1); // shrines carry the light as the age darkens
     var gr = g.createRadialGradient(p.x + 8, p.y - 10, 2, p.x + 8, p.y - 10, 46 * pulse); gr.addColorStop(0, A.rgba(pal.glow, 0.55)); gr.addColorStop(0.4, A.rgba(pal.glow, 0.16)); gr.addColorStop(1, A.rgba(pal.glow, 0));
@@ -913,6 +963,7 @@
     var ctrl = s.controlledBy;
     if (ctrl >= 0) { var pal = this.fac[st.players[ctrl].faction].palette; g.strokeStyle = A.rgba(pal.accent, 0.8); g.lineWidth = 1.5; g.beginPath(); g.ellipse(p.x - 2, p.y + 2, 24, 9, 0, 0, 7); g.stroke(); }
     this.blit2(g, v.c, Math.round(p.x - VX - 2), Math.round(p.y - VY + 2), VW, VH);
+    this.drawTownLife(g, st, s, v, p, time);
     if (s.shrine) {
       var def = this.shrineDefs[s.shrine.type], spal = this.fac[st.players[s.shrine.owner].faction].palette, cond = this.shrineCondition(st, s);
       this.blit2(g, this.shrineImage(def.art, spal, cond, s.shrine.spec), Math.round(p.x - 6), Math.round(p.y - 50), 44, 50);
@@ -954,10 +1005,10 @@
   /* Local projection: the perspective strips are affine to first order around any world point, so a standing object drawn under this
      transform lands exactly where (and as large as) it would in the world frame, but rasterised at screen resolution. */
   P.localAffine = function (g, wx, wy) {
-    var p0 = this.project(wx, wy), px = this.project(wx + 1, wy), py = this.project(wx, wy + 1), sh = this.shakeXY || [0, 0];
-    var a = px.x - p0.x, b = px.y - p0.y, c = py.x - p0.x, d = py.y - p0.y;
-    g.setTransform(a, b, c, d, p0.x - a * wx - c * wy + sh[0], p0.y - b * wx - d * wy + sh[1]);
-    return p0;
+    // closed form of the projection's derivative at (wx, wy): x' = z/w, y' = z/w^2, shear = z (wx - cx) k / (H0 w^2); no allocation per call
+    var z = this.cam.z * this.dpr, k = this.k(), dy = wy - this.cam.y, w = Math.max(0.3, 1 - k * dy / H0), sh = this.shakeXY || [0, 0];
+    var X = this.canvas.width / 2 + z * (wx - this.cam.x) / w, Y = this.canvas.height * 0.55 + z * dy / w, a = z / w, d = z / (w * w), c = z * (wx - this.cam.x) * k / H0 / (w * w);
+    g.setTransform(a, 0, c, d, X - a * wx - c * wy + sh[0], Y - d * wy + sh[1]);
   };
   P.drawObjects = function (ctx, st, time) {
     var self = this, W = this.canvas.width, H = this.canvas.height, hz = H * 0.55 + (-H0 / this.k() * 0.98) * this.cam.z * this.dpr;

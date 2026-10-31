@@ -153,6 +153,14 @@ const assert = (c, m) => { if (!c) throw new Error('assertion failed: ' + m); };
     assert(ev.r.dc > 0 && (ev.r.firstObj < 0 || ev.r.lastDc < ev.r.firstObj), 'terrain sorted first: ' + JSON.stringify(ev.r));
   }, browser);
 
+  await check('Q14', 'Town life is visual only: it draws only at towns the viewer has revealed and leaves the game state byte-for-byte unchanged', async (page, ev) => {
+    await page.goto(URL0 + '?seed=11&autostart=1&nosave=1&speed=0&quality=high&rivals=2'); await page.waitForTimeout(400);
+    ev.r = await page.evaluate(() => { const R = PW.renderer, s = PW.state, before = JSON.stringify(s), ids = []; const d = R.drawTownLife; R.drawTownLife = function (g, st, x) { ids.push(x.id); return d.apply(this, arguments); };
+      for (let z of [1.2, 2, 3.2]) { R.cam.tz = R.cam.z = z; for (let f = 0; f < 40; f++) R.render(0.05); }
+      R.drawTownLife = d; const hidden = [...new Set(ids)].filter(id => !s.players[0].revealed[s.settlements[id].tile]); return { towns: new Set(ids).size, hidden, same: JSON.stringify(s) === before }; });
+    assert(ev.r.towns > 0 && !ev.r.hidden.length && ev.r.same, JSON.stringify(ev.r));
+  }, browser);
+
   await browser.close();
   fs.writeFileSync(path.join(ROOT, 'reports', 'qqq.json'), JSON.stringify({ generated: new Date().toISOString(), results }, null, 1));
   const fails = results.filter(r => !r.ok).length; console.log((results.length - fails) + '/' + results.length + ' QQQ checks passed'); process.exit(fails ? 1 : 0);

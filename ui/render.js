@@ -322,6 +322,18 @@
   }
   function shrub(g, x, y, c) { A.disc(g, x, y, 2, A.shade(c, -0.25)); A.disc(g, x - 1, y - 1, 1.3, c); }
 
+  /* Tall terrain features (forest stands, mountain massifs, hill knolls) come from the 2× terrain library (ui/terrain-art.js), built once
+     per variant and shared across games. The static layer gets the same sprite at 1× (overview zoom, Low quality); drawObjects draws it
+     again at 2× in screen space at normal zoom, exactly over the baked copy. */
+  var TERRAIN_DY = { forest: 2, hills: 3, mountain: 5 }, TERRAIN_SPR = {};
+  P.terrainSprite = function (t, state) {
+    var key = A.terrain.keyFor(t, state.map.tiles); if (!key) return null;
+    var s = TERRAIN_SPR[key] || (TERRAIN_SPR[key] = A.terrain.build(key)); s.dy = TERRAIN_DY[key.split(':')[0]]; return s;
+  };
+  P.bakeTerrain = function (g, state, t, x, y) {
+    var s = this.terrainSprite(t, state); if (!s) return;
+    g.imageSmoothingEnabled = true; g.drawImage(s.c, x - s.ax / 2, y + s.dy - s.ay / 2, s.c.width / 2, s.c.height / 2); g.imageSmoothingEnabled = false;
+  };
   /* Seeded micro-decoration per biome (P035): only on matching passable land, never on water or settlements' centre. */
   P.drawDecor = function (g, state, t) {
     var p = this.top(t), x = p.x, y = p.y, rng = A.rng(t.id * 7919 + 3), i, n;
@@ -333,63 +345,14 @@
     }
     var pts = [];
     switch (t.terrain) {
-      case 'forest':
-        for (i = 0; i < 10; i++) { var u = inHex(); g.fillStyle = rng() < 0.5 ? 'rgba(30,50,20,0.5)' : 'rgba(80,110,40,0.4)'; g.fillRect(u[0] | 0, u[1] | 0, 2, 1); } // undergrowth
-        n = 7 + (rng() * 4 | 0); for (i = 0; i < n; i++) pts.push(inHex());
-        pts.sort(function (a, b) { return a[1] - b[1]; });
-        var cold = t.t < 0.4;
-        pts.forEach(function (q) { if (cold || rng() < 0.45) conifer(g, q[0], q[1], 5 + (rng() * 3 | 0), '#1f3d24', '#2f5a30', cold && rng() < 0.4); else broadleaf(g, q[0], q[1], 4 + rng() * 2, rng() < 0.3 ? '#6f8a2a' : '#4f7a2f'); });
-        break;
+      case 'forest': this.bakeTerrain(g, state, t, x, y); break;
       case 'tundra':
         for (i = 0; i < 4; i++) { var sp = inHex(); g.fillStyle = 'rgba(235,240,245,0.85)'; g.beginPath(); g.ellipse(sp[0], sp[1], 4 + rng() * 5, 2 + rng() * 1.5, 0, 0, 7); g.fill(); g.fillStyle = 'rgba(150,170,200,0.5)'; g.fillRect(sp[0] - 3 | 0, sp[1] + 1 | 0, 6, 1); }
         for (i = 0; i < 3; i++) { sp = inHex(); g.strokeStyle = 'rgba(200,215,230,0.55)'; g.beginPath(); g.moveTo(sp[0] - 4, sp[1]); g.lineTo(sp[0], sp[1] - 1); g.lineTo(sp[0] + 3, sp[1] + 1); g.stroke(); } // frost cracks
         for (i = 0; i < 3; i++) { sp = inHex(); g.fillStyle = '#6a6a66'; g.fillRect(sp[0] | 0, sp[1] | 0, 2, 1); }
         if (rng() < 0.6) { n = 1 + (rng() * 3 | 0); for (i = 0; i < n; i++) pts.push(inHex()); pts.sort(function (a, b) { return a[1] - b[1]; }); pts.forEach(function (q) { conifer(g, q[0], q[1], 4 + (rng() * 2 | 0), '#22392c', '#36503e', true); }); }
         break;
-      case 'hills':
-        n = 2 + (rng() * 2 | 0);
-        for (i = 0; i < n; i++) pts.push(inHex()); pts.sort(function (a, b) { return a[1] - b[1]; });
-        var hc = this.tileColor(t);
-        pts.forEach(function (q) {
-          var w = 9 + rng() * 6, hh = 5 + rng() * 4;
-          g.fillStyle = A.shade(hc, -0.25); g.beginPath(); g.ellipse(q[0], q[1], w, hh, 0, Math.PI, 0); g.fill();
-          g.fillStyle = A.shade(hc, 0.12); g.beginPath(); g.ellipse(q[0] - w * 0.25, q[1], w * 0.75, hh * 0.95, 0, Math.PI, 0); g.fill();
-          g.fillStyle = A.shade(hc, 0.3); g.fillRect(q[0] - w * 0.5 | 0, q[1] - hh * 0.8 | 0, 3, 1);
-        });
-        for (i = 0; i < 5; i++) { var sc = inHex(); g.fillStyle = 'rgba(160,150,130,0.6)'; g.fillRect(sc[0] | 0, sc[1] | 0, 1 + (rng() * 2 | 0), 1); } // scree
-        if (rng() < 0.5) { var tp = inHex(); conifer(g, tp[0], tp[1], 4, '#2a4a2a', '#3a6a3a'); }
-        break;
-      case 'mountains':
-        // a massif, not a stamp: 1-3 asymmetric peaks sized by height, lit faces toward the upper-left light, cool shaded faces,
-        // strata lines, scree at the foot and snow by altitude and climate (C1)
-        var LM = this.light || AGE_LIGHT.zenith, alt = Math.max(0, Math.min(1, (t.e - 0.85) * 6)), tiles2 = state.map.tiles;
-        // ranges, not stamps: the heart of a range (mostly mountain neighbours) rises as one dominant wide peak, its edges break into foothills
-        var mnb = t.n.filter(function (nn) { return nn >= 0 && tiles2[nn].terrain === 'mountains'; }).length, heart = mnb >= 5, edge = mnb <= 2;
-        var np = heart ? (rng() < 0.6 ? 1 : 2) : edge ? 2 + (rng() < 0.5 ? 1 : 0) : 1 + (rng() < 0.75 ? 1 : 0) + (alt > 0.5 && rng() < 0.5 ? 1 : 0);
-        var peaks = [];
-        for (i = 0; i < np; i++) {
-          var big = heart && i === 0, hgt = big ? 30 + alt * 14 + rng() * 6 : edge ? 11 + alt * 6 + rng() * 7 : 18 + alt * 12 + rng() * 9 - (i === 1 ? 0 : 4);
-          peaks.push({ px: x + (np === 1 ? (rng() - 0.5) * 8 : -12 + i * (24 / Math.max(1, np - 1)) + (rng() - 0.5) * 8), ph: hgt, bw: big ? 17 + rng() * 5 : edge ? 8 + rng() * 5 : 11 + rng() * 6, lean: (rng() - 0.5) * 0.6 });
-        }
-        peaks.sort(function (a, b) { return a.ph - b.ph; });
-        var snow = t.t < 0.75, rockL = A.mix('#9a9384', '#b8ad98', alt * 0.4), rockD = A.mix('#4a4654', '#3e3a4c', alt);
-        peaks.forEach(function (pk, idx) {
-          var px = pk.px, ph = pk.ph, bw = pk.bw, by = y + 7 + (idx % 2) * 2, top = by - ph, ax = px + pk.lean * bw;
-          g.fillStyle = 'rgba(10,12,24,0.25)'; g.beginPath(); g.moveTo(px - bw, by + 1); g.lineTo(px + bw * 1.6, by + 3); g.lineTo(px + bw, by - 2); g.closePath(); g.fill();
-          g.fillStyle = rockL; g.beginPath(); g.moveTo(px - bw, by); g.lineTo(ax, top); g.lineTo(ax + bw * 0.12, by); g.closePath(); g.fill();
-          g.fillStyle = rockD; g.beginPath(); g.moveTo(ax, top); g.lineTo(px + bw, by); g.lineTo(ax + bw * 0.12, by); g.closePath(); g.fill();
-          // secondary ridge on the lit face
-          g.fillStyle = A.shade(rockL, -0.12); g.beginPath(); g.moveTo(ax - bw * 0.15, top + ph * 0.35); g.lineTo(px - bw * 0.55, by); g.lineTo(px - bw * 0.3, by); g.closePath(); g.fill();
-          for (var s2 = 0; s2 < 9; s2++) { var tt = 0.25 + rng() * 0.7, yy = top + tt * ph, half = bw * tt; g.fillStyle = s2 % 2 ? 'rgba(0,0,0,0.16)' : LM.warm + '0.18)'; g.fillRect(ax - half * 0.9 + rng() * half * 1.6 | 0, yy | 0, 2 + (rng() * 3 | 0), 1); }
-          if (snow) {
-            var sh = ph * (0.3 + alt * 0.18), wob = function (f) { return (rng() - 0.5) * f; };
-            g.fillStyle = '#f4f6f8'; g.beginPath(); g.moveTo(ax, top); g.lineTo(ax - bw * sh / ph, top + sh + wob(2)); g.lineTo(ax - bw * 0.35 * sh / ph, top + sh * 0.75); g.lineTo(ax - bw * 0.1 * sh / ph, top + sh * 1.1); g.lineTo(ax, top + sh * 0.85); g.closePath(); g.fill();
-            g.fillStyle = '#aebcd2'; g.beginPath(); g.moveTo(ax, top); g.lineTo(ax + bw * sh / ph * 0.9, top + sh + wob(2)); g.lineTo(ax + bw * 0.3 * sh / ph, top + sh * 0.8); g.lineTo(ax, top + sh * 1.05); g.closePath(); g.fill();
-          }
-          g.strokeStyle = LM.warm + '0.45)'; g.lineWidth = 1; g.beginPath(); g.moveTo(ax, top); g.lineTo(px - bw * 0.6, by - 2); g.stroke();
-        });
-        for (i = 0; i < 6; i++) { var sr = inHex(); g.fillStyle = i % 2 ? 'rgba(120,112,100,0.7)' : 'rgba(170,160,140,0.6)'; g.fillRect(sr[0] | 0, sr[1] + 5 | 0, 2, 1); }
-        break;
+      case 'hills': case 'mountains': this.bakeTerrain(g, state, t, x, y); break;
       case 'desert':
         for (i = 0; i < 4; i++) { var d = inHex(), dw = 8 + rng() * 8; g.strokeStyle = 'rgba(255,240,205,0.28)'; g.lineWidth = 1; g.beginPath(); g.ellipse(d[0], d[1] + 3, dw, 4, 0, Math.PI * 1.1, Math.PI * 1.9); g.stroke(); g.strokeStyle = 'rgba(120,80,40,0.22)'; g.beginPath(); g.ellipse(d[0] + 1, d[1] + 4, dw, 4, 0, Math.PI * 1.2, Math.PI * 1.9); g.stroke(); }
         if (t.coast && rng() < 0.7) { var pp = inHex(); palm(g, pp[0], pp[1]); pp = inHex(); palm(g, pp[0], pp[1]); }
@@ -563,6 +526,7 @@
     var key = 'pr:' + fid + ':' + role + ':' + frame; if (this.spriteCache[key]) return this.spriteCache[key];
     var f = this.fac[fid], c = A.priestSprite(f.priestStyle, role, f.palette, frame); this.spriteCache[key] = c; return c;
   };
+  P.pilgrimImage = function (pal, frame, kind) { var key = 'pg:' + pal.secondary + ':' + frame + ':' + kind; if (!this.spriteCache[key]) this.spriteCache[key] = A.pilgrim(pal, frame, kind); return this.spriteCache[key]; };
   P.landmarkImage = function (kind) { var key = 'lm:' + kind; if (!this.spriteCache[key]) this.spriteCache[key] = A.landmarkSprite(kind); return this.spriteCache[key]; };
   P.emblemImage = function (fid, size) { var key = 'em:' + fid + ':' + size; if (!this.spriteCache[key]) { var f = this.fac[fid]; this.spriteCache[key] = A.emblem(f.emblem, f.palette, size); } return this.spriteCache[key]; };
 
@@ -660,6 +624,7 @@
     var t = this.state.map.tiles[tileId], p = t ? this.top(t) : { x: this.cam.x, y: this.cam.y }, col = opts.color || V.col, self = this, R = this.rand.bind(this), i, n;
     if (this.reduced) { // static, non-flashing equivalent: icon pulse + ring + label
       this.fx.push({ k: 'ring', x: p.x, y: p.y, r0: 20, r1: 34, life: 0.6, c: col, t: 0, delay: 0 });
+      if (MOTIF[id]) this.fx.push({ k: 'motif', id: id, frozen: true, x: p.x, y: p.y, life: 0.9, c: col, seed: 7, t: 0, delay: 0 }); // the power's own form, held still
       if (opts.label) this.addText(tileId, opts.label, col);
       return 0.6;
     }
@@ -681,7 +646,9 @@
     }
     // beat 2: manifestation
     var m = { k: V.m, x: p.x, y: p.y, life: 1.1, c: col, seed: R() * 1000 };
-    switch (V.m) {
+    // every faction power has its own authored manifestation (ui/vfx-art.js); the revealing sweeps keep their ground band as well
+    if (MOTIF[id]) { push({ k: 'motif', id: id, x: p.x, y: p.y, life: 1.6, seed: R() * 1000 | 0 }, M1 - 0.05); if (V.m === 'band' || V.m === 'sunArc') this.addFx('band', tileId, { delay: M1, rows: opts.rows || 3, hw: opts.hw }); }
+    else switch (V.m) {
       case 'bolt': case 'hammer': this.addFx(V.m === 'bolt' ? 'bolt' : 'hammer', tileId, { delay: M1 }); break;
       case 'feather': this.addFx('feather', tileId, { delay: M1 }); break;
       case 'band': case 'sunArc': this.addFx('band', tileId, { delay: M1, rows: opts.rows || 3, hw: opts.hw }); if (V.m === 'sunArc') push({ k: 'sunArc', x: p.x, y: p.y, life: 1.6 }, M1); break;
@@ -773,7 +740,7 @@
     if (!low) { g.globalAlpha = 0.16; this.clouds.forEach(function (cl) { var x = ((cl.x + drift * cl.v) % (self.WW + 400)) - 200; g.drawImage(self.cloudShadow, x + 40, cl.y + 30, 240 * cl.s, 110 * cl.s); }); g.globalAlpha = 1; }
     g.drawImage(this.overlay, 0, 0);
     g.drawImage(this.marksLayer, 0, 0);
-    this.drawRoutes(g, st, time);
+    this.walkers = []; this.drawRoutes(g, st, time);
     var pulse = 0.5 + 0.5 * Math.sin(time * 4);
     if (this.targets) this.targets.forEach(function (id) { var p = self.top(st.map.tiles[id]); self.hexPath(g, p.x, p.y, 0.92); g.fillStyle = 'rgba(255,220,120,' + (0.12 + pulse * 0.16).toFixed(3) + ')'; g.fill(); g.strokeStyle = 'rgba(255,230,150,' + (0.5 + pulse * 0.4).toFixed(3) + ')'; g.lineWidth = 1.5; g.stroke(); });
     if (this.path && this.path.length > 1) { g.save(); g.strokeStyle = 'rgba(255,240,200,0.9)'; g.lineWidth = 2; g.setLineDash([3, 3]); g.lineDashOffset = -time * 12; g.beginPath(); this.path.forEach(function (id, i) { var p = self.top(st.map.tiles[id]); if (i) g.lineTo(p.x, p.y); else g.moveTo(p.x, p.y); }); g.stroke(); g.restore(); }
@@ -783,6 +750,12 @@
     st.landmarks.forEach(function (l) { if (rev[l.tile]) objs.push({ y: self.top(st.map.tiles[l.tile]).y, lm: l }); });
     st.settlements.forEach(function (s) { if (rev[s.tile]) objs.push({ y: self.top(st.map.tiles[s.tile]).y, s: s }); });
     st.priests.forEach(function (pr) { if (rev[pr.tile] || pr.owner === self.viewer) objs.push({ y: self.top(st.map.tiles[pr.tile]).y + 6, pr: pr }); });
+    // 2× terrain features in view, except where a highlight (target, selection, hover, path) must stay visible on the baked copy
+    if (this.quality !== 'low' && this.cam.z * this.dpr >= 1.35 && v) {
+      var hl = {}; (this.targets || []).forEach(function (id) { hl[id] = 1; }); (this.path || []).forEach(function (id) { hl[id] = 1; }); hl[this.hover] = 1; hl[this.selected] = 1;
+      st.map.tiles.forEach(function (t) { if (!rev[t.id] || hl[t.id] || t.n.some(function (n) { return n >= 0 && !rev[n]; }) || t.settlement >= 0 || !A.terrain.keyFor(t, st.map.tiles)) return; var tp = self.top(t); if (tp.x < v.x - 40 || tp.x > v.x + v.w + 40 || tp.y < v.y - 10 || tp.y > v.y + v.h + 70) return; objs.push({ y: tp.y - 1e6, dc: t }); }); // under every object: a range in front never hides a town, shrine or priest
+    }
+    this.walkers.forEach(function (w) { objs.push(w); });
     objs.sort(function (a, b) { return a.y - b.y; });
     g.globalCompositeOperation = 'lighter';
     objs.forEach(function (o) { if (o.s && o.s.shrine && !o.s.shrine.eclipsed) self.drawShrineGlow(g, st, o.s, time); });
@@ -816,22 +789,25 @@
       var owned = r.owner >= 0, show = owned || self.showRoutes; if (!show) return;
       var vis = r.path.every(function (t) { return rev[t]; }); if (!vis) return;
       var pal = owned ? self.fac[st.players[r.owner].faction].palette : null, pts = r.path.map(function (t) { return self.top(st.map.tiles[t]); });
+      // a road worn into the land: smoothed through the hex centres, a dark verge, packed earth, a pale wheel-worn crown and pebbles
       g.save(); g.lineCap = 'round'; g.lineJoin = 'round';
-      if (!owned) { g.setLineDash([2, 5]); g.strokeStyle = 'rgba(255,240,200,0.55)'; g.lineWidth = 1.5; }
-      else if (r.status === 'disrupted') { g.setLineDash([6, 6]); g.strokeStyle = 'rgba(120,100,80,0.75)'; g.lineWidth = 3; }
-      else { g.strokeStyle = 'rgba(200,180,130,0.85)'; g.lineWidth = 4; }
-      g.beginPath(); pts.forEach(function (p, i) { if (i) g.lineTo(p.x, p.y + 4); else g.moveTo(p.x, p.y + 4); }); g.stroke();
-      if (owned && r.status === 'active') { g.strokeStyle = A.rgba(pal.accent, 0.6); g.lineWidth = 1; g.setLineDash([1, 4]); g.beginPath(); pts.forEach(function (p, i) { if (i) g.lineTo(p.x, p.y + 3); else g.moveTo(p.x, p.y + 3); }); g.stroke(); }
+      var trace = function (dy) { g.beginPath(); g.moveTo(pts[0].x, pts[0].y + dy); for (var j = 1; j < pts.length - 1; j++) g.quadraticCurveTo(pts[j].x, pts[j].y + dy, (pts[j].x + pts[j + 1].x) / 2, (pts[j].y + pts[j + 1].y) / 2 + dy); g.lineTo(pts[pts.length - 1].x, pts[pts.length - 1].y + dy); };
+      if (!owned) { g.setLineDash([2, 5]); g.strokeStyle = 'rgba(255,240,200,0.55)'; g.lineWidth = 1.5; trace(4); g.stroke(); }
+      else if (r.status === 'disrupted') { g.setLineDash([6, 6]); g.strokeStyle = 'rgba(70,56,44,0.6)'; g.lineWidth = 5; trace(4); g.stroke(); g.strokeStyle = 'rgba(140,120,96,0.7)'; g.lineWidth = 2.5; trace(4); g.stroke(); }
+      else { g.strokeStyle = 'rgba(60,46,30,0.38)'; g.lineWidth = 6.5; trace(4.5); g.stroke(); g.strokeStyle = 'rgba(196,170,120,0.92)'; g.lineWidth = 4.2; trace(4); g.stroke(); g.strokeStyle = 'rgba(236,220,180,0.55)'; g.lineWidth = 1.2; trace(3.4); g.stroke();
+        g.setLineDash([0.5, 5]); g.lineDashOffset = r.id * 3; g.strokeStyle = 'rgba(120,104,84,0.9)'; g.lineWidth = 1.2; trace(5); g.stroke(); g.setLineDash([]);
+        g.strokeStyle = A.rgba(pal.accent, 0.55); g.lineWidth = 1; g.setLineDash([1, 5]); trace(2.6); g.stroke(); }
       g.restore();
       if (!owned) return;
-      [pts[0], pts[pts.length - 1]].forEach(function (p) { A.rect(g, p.x - 14, p.y - 2, 1, 8, '#3a2a1a'); A.rect(g, p.x - 15, p.y - 4, 3, 2, r.status === 'active' ? '#ffd27a' : '#555'); });
+      [pts[0], pts[pts.length - 1]].forEach(function (p) { // cairns mark the ends of a consecrated road, lit while the road is open
+        A.rect(g, p.x - 16, p.y + 1, 5, 2, '#7a7468'); A.rect(g, p.x - 15, p.y - 1, 4, 2, '#9a948a'); A.rect(g, p.x - 14, p.y - 3, 2, 2, '#b0aaa0'); A.rect(g, p.x - 14, p.y - 5, 2, 2, r.status === 'active' ? '#ffd27a' : '#555'); });
       if (r.status !== 'active') return;
-      // tiny travellers walk the road; pace is constant, count follows the route state
-      var n = 2, L = pts.length - 1;
+      // pilgrims walk the road (drawn in screen space by drawObjects): three, spaced along it, constant pace, frame by distance
+      var n = 3, L = pts.length - 1;
       for (var i = 0; i < n; i++) {
-        var u = self.reduced ? (i + 0.5) / n : ((time * 0.12 + i / n + r.id * 0.17) % 1), seg = Math.min(L - 1, Math.floor(u * L)), f = u * L - seg;
-        var a = pts[seg], b = pts[seg + 1] || a, x = a.x + (b.x - a.x) * f, y = a.y + (b.y - a.y) * f + 2;
-        A.rect(g, x - 1, y - 5, 2, 4, pal.secondary); A.rect(g, x - 1, y - 7, 2, 2, '#e0c098'); A.rect(g, x + 1, y - 4, 2, 2, '#8a6a3a');
+        var u = self.reduced ? (i + 0.5) / n : ((time * 0.06 + i / n + r.id * 0.17) % 1), back = (i + r.id) % 2 === 1; if (back) u = 1 - u;
+        var seg = Math.min(L - 1, Math.floor(u * L)), f = u * L - seg, a = pts[seg], b = pts[seg + 1] || a, x = a.x + (b.x - a.x) * f, y = a.y + (b.y - a.y) * f + 4;
+        self.walkers.push({ y: y, tr: { x: x, y: y, pal: pal, frame: self.reduced ? 0 : Math.floor(u * L * 52 / 2.5) % 4, flip: (b.x - a.x) * (back ? -1 : 1) < 0, kind: i + r.id } });
       }
     });
   };
@@ -924,7 +900,7 @@
       }
     }
     if (!this.reduced && this.quality !== 'low') v.chim.forEach(function (ch, k) {
-      for (var j = 0; j < 4; j++) { var ph = ((time * 0.35 + j / 4 + k * 0.37 + s.id * 0.13) % 1); var sx = p.x - VX - 2 + ch[0] + Math.sin(ph * 6 + k) * 2 + ph * 6, sy = p.y - VY + 2 + ch[1] - ph * 18; g.fillStyle = 'rgba(210,210,215,' + (0.35 * (1 - ph)).toFixed(3) + ')'; var sz = 1 + ph * 3; g.fillRect(Math.round(sx), Math.round(sy), Math.round(sz), Math.round(sz)); }
+      for (var j = 0; j < 4; j++) { var ph = ((time * 0.35 + j / 4 + k * 0.37 + s.id * 0.13) % 1); var sx = p.x - VX - 2 + ch[0] + Math.sin(ph * 6 + k) * 2 + ph * 6, sy = p.y - VY + 2 + ch[1] - ph * 18; g.fillStyle = 'rgba(214,212,218,' + (0.4 * (1 - ph) * Math.min(1, ph * 6)).toFixed(3) + ')'; var sz = 0.8 + ph * 2.6; g.beginPath(); g.ellipse(sx, sy, sz * 1.3, sz, 0, 0, 7); g.fill(); } // soft puffs that swell, drift downwind and thin out
     });
     if (ctrl >= 0) { var pal2 = this.fac[st.players[ctrl].faction].palette, wave = this.reduced ? 0 : Math.sin(time * 5 + s.id) * 1; g.fillStyle = '#3a2a1a'; g.fillRect(Math.round(p.x - 22), Math.round(p.y - 30), 1, 14); g.fillStyle = pal2.secondary; g.fillRect(Math.round(p.x - 21), Math.round(p.y - 30), 6, 3); g.fillStyle = pal2.accent; g.fillRect(Math.round(p.x - 21 + 6), Math.round(p.y - 30 + wave), 2, 3); }
     // the viewer's own covenants are marked with a sealed scroll
@@ -959,10 +935,13 @@
   P.drawObjects = function (ctx, st, time) {
     var self = this, W = this.canvas.width, H = this.canvas.height, hz = H * 0.55 + (-H0 / this.k() * 0.98) * this.cam.z * this.dpr;
     (this.objs || []).forEach(function (o) {
-      var t = st.map.tiles[o.s ? o.s.tile : o.lm ? o.lm.tile : o.pr.tile], tp = self.top(t), p = self.project(tp.x, tp.y);
+      if (o.tr) { var wp = self.project(o.tr.x, o.tr.y); if (wp.x < -40 || wp.x > W + 40 || wp.y < hz || wp.y > H + 40) return; self.localAffine(ctx, o.tr.x, o.tr.y); self.objScale = wp.s; var im = self.pilgrimImage(o.tr.pal, o.tr.frame, o.tr.kind % 3);
+        if (o.tr.flip) { ctx.translate(o.tr.x, 0); ctx.scale(-1, 1); ctx.translate(-o.tr.x, 0); } ctx.fillStyle = 'rgba(12,10,22,0.35)'; ctx.beginPath(); ctx.ellipse(o.tr.x, o.tr.y, 2.6, 0.9, 0, 0, 7); ctx.fill(); self.blit2(ctx, im, o.tr.x - 4, o.tr.y - 11, 8, 12); return; }
+      var t = o.dc || st.map.tiles[o.s ? o.s.tile : o.lm ? o.lm.tile : o.pr.tile], tp = self.top(t), p = self.project(tp.x, tp.y);
       if (p.x < -160 * p.s || p.x > W + 160 * p.s || p.y < hz || p.y - 120 * p.s > H) return;
       self.localAffine(ctx, tp.x, tp.y); ctx.imageSmoothingEnabled = false; self.objScale = p.s;
-      if (o.s) self.drawSettlement(ctx, st, o.s, time); else if (o.lm) self.drawLandmark(ctx, st, o.lm, time); else self.drawPriest(ctx, st, o.pr, time);
+      if (o.dc) { var ts = self.terrainSprite(t, st); self.blit2(ctx, ts.c, tp.x - ts.ax / 2, tp.y + ts.dy - ts.ay / 2, ts.c.width / 2, ts.c.height / 2); }
+      else if (o.s) self.drawSettlement(ctx, st, o.s, time); else if (o.lm) self.drawLandmark(ctx, st, o.lm, time); else self.drawPriest(ctx, st, o.pr, time);
     });
     ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.imageSmoothingEnabled = false;
   };
@@ -973,6 +952,7 @@
   };
   /* Ground effects (light pools, rings, sweeps, ripples) are painted into the world frame under the towns; everything that rises above
      the ground is drawn in screen space over the towns (air = true), each effect under the local projection at its own anchor. */
+  var MOTIF = (root.PWVfxArt && root.PWVfxArt.paint) || {};
   var GROUND_FX = { worldlight: 1, shadow: 1, band: 1, ring: 1, ripples: 1, rings: 1, paddy: 1, sprouts: 1 };
   P.drawFx = function (g, dt, air) {
     var self = this, keep = [];
@@ -983,6 +963,7 @@
       e.t += dt; var k = e.t / e.life; if (k >= 1) return; keep.push(e);
       var R = A.rng((e.seed || 1) * 1000 | 0), i, x, y;
       switch (e.k) {
+        case 'motif': g.save(); g.translate(e.x, e.y); g.scale(1.35, 1.35); MOTIF[e.id](g, e.frozen ? 0.6 : k, e.c, e.seed || 1); g.restore(); break;
         case 'worldlight': {
           var dim, lit, f = e.force, rad = 120 + 80 * f;
           if (k < e.a1) { dim = k / e.a1; lit = 0; } else if (k < e.m1) { var u = (k - e.a1) / (e.m1 - e.a1); dim = 1 - u; lit = Math.sin(Math.min(1, u * 1.6) * Math.PI * 0.5); } else { dim = 0; lit = 1 - (k - e.m1) / (1 - e.m1); }

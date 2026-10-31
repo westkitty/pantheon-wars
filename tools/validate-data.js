@@ -94,7 +94,7 @@ function validate(data, opts) {
 /* The art registry, read from the shipped browser files in a sandbox (no canvas needed): every id the data names must have a drawing or choreography. */
 function artIds() {
   const vm = require('vm'), fs = require('fs'), sb = {}; sb.self = sb; sb.Math = Math; sb.console = console;
-  ['ui/art.js', 'ui/kits.js', 'ui/render.js'].forEach(f => vm.runInNewContext(fs.readFileSync(path.join(__dirname, '..', f), 'utf8'), sb, { filename: f }));
+  ['ui/art.js', 'ui/kits.js', 'ui/vfx-art.js', 'ui/terrain-art.js', 'ui/render.js'].forEach(f => vm.runInNewContext(fs.readFileSync(path.join(__dirname, '..', f), 'utf8'), sb, { filename: f }));
   return Object.assign({}, sb.PWArt.ids, { vfx: sb.PWRenderer.VFX_IDS });
 }
 module.exports = { validate, ROSTER, contrast, artIds };

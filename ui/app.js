@@ -315,7 +315,7 @@
   }
 
   /* ------------------------------------------------------------ HUD */
-  function paintEmblem() { var f = FACTIONS[me().faction], tc = $('tb-emblem').getContext('2d'); tc.imageSmoothingEnabled = false; tc.clearRect(0, 0, 34, 34); tc.drawImage(A.emblem(f.emblem, f.palette), 0, 0, 34, 34); }
+  function paintEmblem() { var f = FACTIONS[me().faction], tc = $('tb-emblem').getContext('2d'); tc.imageSmoothingEnabled = true; tc.clearRect(0, 0, 34, 34); tc.drawImage(A.emblem(f.emblem, f.palette), 0, 0, 34, 34); }
   function updateHud() {
     if (!app.state || app.title) return;
     var s = app.state, p = me(), tp = H.totalPop(s), fol = H.followersOf(s, p.id), inc = H.incomeOf(s, p.id), sc = H.shrineCost(s, p.id);
@@ -482,7 +482,7 @@
     $('ev-title').textContent = ev.title; $('ev-text').textContent = ev.text; $('ev-turn').textContent = app.state.turn;
     var art = A.eventArt(ev.art, app.state.seed + app.state.turn, app.state.age), c = $('ev-art'), g = c.getContext('2d'); g.imageSmoothingEnabled = false; g.clearRect(0, 0, 160, 90); g.drawImage(art, 0, 0, 160, 90);
     c.setAttribute('aria-label', ev.title + ' illustration');
-    var em = A.emblem(FACTIONS[p.faction].emblem, FACTIONS[p.faction].palette), ec = $('ev-emblem'), eg = ec.getContext('2d'); eg.imageSmoothingEnabled = false; eg.clearRect(0, 0, 32, 32); eg.drawImage(em, 0, 0, 32, 32);
+    var em = A.emblem(FACTIONS[p.faction].emblem, FACTIONS[p.faction].palette), ec = $('ev-emblem'), eg = ec.getContext('2d'); eg.imageSmoothingEnabled = true; eg.clearRect(0, 0, 32, 32); eg.drawImage(em, 0, 0, 32, 32);
     var ch = $('ev-choices'); ch.innerHTML = '';
     ev.choices.forEach(function (cc, i) { var b = document.createElement('button'); b.innerHTML = esc(cc.label) + '<small>' + esc(describeEffects(cc.effects)) + '</small>'; b.onclick = function () { m.hidden = true; act({ type: 'event', choice: i }); }; ch.appendChild(b); });
     m.hidden = false; trapFocus(m); setTimeout(function () { ch.firstElementChild && ch.firstElementChild.focus(); }, 30);

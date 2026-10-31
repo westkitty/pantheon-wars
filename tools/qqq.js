@@ -99,6 +99,24 @@ const assert = (c, m) => { if (!c) throw new Error('assertion failed: ' + m); };
     assert(!ev.reduced.length && !ev.low.length, 'reduced: ' + ev.reduced.join(',') + ' low: ' + ev.low.join(','));
   }, browser);
 
+  await check('Q08', 'Staggered town rebuilds never leave an obsolete sprite: within a few frames of a state change every town shows its current sprite', async (page, ev) => {
+    await page.goto(URL0 + '?seed=14&autostart=1&nosave=1&speed=0&quality=high&diff=easy'); await page.waitForTimeout(400);
+    ev.r = await page.evaluate(() => { const R = PW.renderer, E = PW.E, AI = PW.AI; clearTimeout(PW.app.aiTimer); let s = E.clone(PW.state), g = 0; while (s.turn < 31 && g++ < 20000) AI.playTurn(E, s);
+      R.cam.tz = 1.2; R.cam.z = 1.2; R.setState(s, 0); const stale = [];
+      for (let f = 0; f < 12; f++) R.render(0.016);
+      s.settlements.forEach(x => { if (!s.players[0].revealed[x.tile]) return; const cur = R.village(s, x), last = R.vilLast[x.id]; if (last && last !== cur) stale.push(x.id); });
+      return { age: s.age, towns: s.settlements.length, stale }; });
+    assert(ev.r.age === 'twilight' && !ev.r.stale.length, 'all towns current after 12 frames: ' + JSON.stringify(ev.r));
+  }, browser);
+
+  await check('Q09', 'Every one of the forty power effects ends: after a cast and four seconds of frames no effect objects remain', async (page, ev) => {
+    await page.goto(URL0 + '?seed=2&autostart=1&nosave=1&speed=0&quality=high'); await page.waitForTimeout(400);
+    ev.left = await page.evaluate(() => { const R = PW.renderer, t = PW.state.settlements[PW.state.players[0].home].tile, bad = [];
+      PW_DATA.powers.forEach(p => { R.fx = []; R.texts = []; R.playVfx(p.vfx, t, { label: p.name, tiles: [t] }); for (let f = 0; f < 80; f++) R.render(0.05); if (R.fx.length) bad.push(p.vfx + ':' + R.fx.length); });
+      return bad; });
+    assert(!ev.left.length, 'effects left running: ' + ev.left.join(','));
+  }, browser);
+
   await browser.close();
   fs.writeFileSync(path.join(ROOT, 'reports', 'qqq.json'), JSON.stringify({ generated: new Date().toISOString(), results }, null, 1));
   const fails = results.filter(r => !r.ok).length; console.log((results.length - fails) + '/' + results.length + ' QQQ checks passed'); process.exit(fails ? 1 : 0);

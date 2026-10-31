@@ -555,8 +555,24 @@
   };
   function landmark(kind) { var c = cv(64, 56), g = c.getContext('2d'); if (!LM[kind]) throw new Error('no landmark ' + kind); var r = rng(kind.length * 41); outlined(g, 64, 56, 'rgba(22,14,20,0.55)', function (s) { LM[kind](s, r); }); return c; }
 
+  /* ---------------------------------------------------------------- pilgrims on consecrated roads, 16×24 (2×), feet on (8, 22)
+   * Lay travellers, not priests: a hooded travelling cloak in earth tones, the road owner's colour only as a sash, a bundle on the back
+   * and a walking staff. Four walk frames, stride driven by the distance walked like the priests. */
+  function pilgrim(pal, frame, kind) {
+    var c = cv(16, 24), cloak = ['#7a6248', '#6a5a4a', '#8a7458'][kind % 3];
+    outlined(c.getContext('2d'), 16, 24, 'rgba(18,12,20,0.7)', function (g) {
+      var st = [2, 0, -2, 0][frame % 4], bob = frame % 2 ? -0.5 : 0;
+      R(g, 6 + st * 0.5, 19, 2, 3, '#3a2a1c'); R(g, 8 - st * 0.5, 19, 2, 3, '#2a1c12');
+      P(g, [5, 9 + bob, 11, 9 + bob, 12, 20, 4, 20], cloak); P(g, [8, 9 + bob, 11, 9 + bob, 12, 20, 8, 20], shade(cloak, -0.25));
+      R(g, 4.5, 13 + bob, 7, 1.5, pal.secondary); E(g, 3.5, 12 + bob, 2.2, 3, '#a88a5a'); // sash and bundle
+      E(g, 8, 6 + bob, 2.6, 3, '#e0c098'); P(g, [4.5, 9 + bob, 5, 4 + bob, 8, 2 + bob, 11, 4 + bob, 11.5, 9 + bob, 10, 8 + bob, 10, 5 + bob, 6, 5 + bob, 6, 8 + bob], shade(cloak, -0.12));
+      L(g, 12.5, 22, 12.5 - st * 0.3, 6 + bob, '#5a3a20', 1.2);
+    });
+    return c;
+  }
+
   /* registry: replaces the v0.3 small-sprite generators; ids stay the same so data and validators are unchanged */
-  A.shrineArt = shrine; A.priestSprite = priest; A.landmarkSprite = landmark; A.village = village;
+  A.shrineArt = shrine; A.priestSprite = priest; A.landmarkSprite = landmark; A.village = village; A.pilgrim = pilgrim;
   A.KITS = KITS; A.kitIds = Object.keys(KITS); A.PRIEST_FRAMES = FRAMES; A.RES = 2;
   A.SPRITE = { village: [VW2, VH2, VX2, VY2], shrine: [88, 100, 0, 92], priest: [28, 40, 13, 38], landmark: [64, 56, 32, 52] }; // source size and ground anchor (2×)
   A.ids.shrines = Object.keys(SH); A.ids.priests = Object.keys(DRESS); A.ids.landmarks = Object.keys(LM); A.ids.kits = Object.keys(KITS).filter(function (k) { return ['mud', 'timber', 'tile'].indexOf(k) < 0; }); A.ids.props = Object.keys(PROP);

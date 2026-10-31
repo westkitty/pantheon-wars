@@ -23,7 +23,7 @@ test('A007: locked roster names keep their Unicode exactly', () => {
   assert.strictEqual(data.factions.length, 10);
 });
 
-const shipped = () => ['index.html', 'ui/app.js', 'ui/art.js', 'ui/kits.js', 'ui/render.js', 'ui/audio.js', 'ui/chronicle.js', 'ui/encyclopedia.js', 'ui/storage.js', 'data/data.js']
+const shipped = () => ['index.html', 'ui/app.js', 'ui/art.js', 'ui/kits.js', 'ui/vfx-art.js', 'ui/terrain-art.js', 'ui/render.js', 'ui/audio.js', 'ui/chronicle.js', 'ui/encyclopedia.js', 'ui/storage.js', 'data/data.js']
   .map(f => [f, fs.readFileSync(path.join(ROOT, f), 'utf8')]);
 
 test('A007: no AI or language-model credits in anything the player sees', () => {

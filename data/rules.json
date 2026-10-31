@@ -16,13 +16,17 @@
     "homePop": 8,
     "homeFollowers": 5,
     "priests": 1,
-    "revealRadius": 3
+    "revealRadius": 3,
+    "seatRevealBonus": 0,
+    "seatShrineDiscount": 0,
+    "seatFaithBonus": 2,
+    "seatFaithBonusDuel": 4
   },
   "economy": {
     "faithPerFollower": 0.5,
     "favorCap": 15,
     "favorOnControl": 1,
-    "maxPriestsBase": 1,
+    "maxPriestsBase": 2,
     "maxPriestsPerShrine": 1
   },
   "actions": {
@@ -51,11 +55,14 @@
       "duration": 3,
       "wardDamage": 1,
       "range": 3
+    },
+    "retrain": {
+      "faith": 4
     }
   },
   "conversion": {
     "falloff": [
-      1.0,
+      1,
       0.55,
       0.3
     ],
@@ -81,5 +88,342 @@
   "events": {
     "firstTurn": 5,
     "everyTurns": 5
+  },
+  "ages": [
+    {
+      "id": "dawn",
+      "name": "The Dawn",
+      "from": 1,
+      "text": "Exploration is cheap: Read Omens costs a third less and Dream Vision recovers 1 turn faster.",
+      "mods": {
+        "omenCostMult": 0.67,
+        "dreamCooldownDelta": -1
+      }
+    },
+    {
+      "id": "zenith",
+      "name": "The Zenith",
+      "from": 16,
+      "text": "Shrines teach at their strongest: shrine pressure +15%. Pilgrim routes give +50% Faith.",
+      "mods": {
+        "shrinePressureMult": 1.15,
+        "routeFaithMult": 1.5
+      }
+    },
+    {
+      "id": "twilight",
+      "name": "The Twilight",
+      "from": 31,
+      "text": "The gods grow bold: eclipses cost 1 less Favor, and a covenant kept is worth 1 more Favor.",
+      "mods": {
+        "eclipseCostDelta": -1,
+        "covenantFavorBonus": 1
+      }
+    }
+  ],
+  "needs": {
+    "start": {
+      "prosperityBase": 2,
+      "prosperityPerFertility": 5,
+      "safety": 6
+    },
+    "hungry": 2,
+    "content": 7,
+    "afraid": 2,
+    "hungryPressureMult": 0.75,
+    "afraidPressureMult": 0.7,
+    "unrestEvery": 3,
+    "contentGrowth": 1,
+    "safetyTarget": 6,
+    "sanctuarySafety": 2,
+    "wardenSafety": 1
+  },
+  "trust": {
+    "min": -3,
+    "max": 3,
+    "pressurePerPoint": 0.06
+  },
+  "memory": {
+    "max": 10,
+    "patrons": 4
+  },
+  "covenants": {
+    "max": 2,
+    "trustReward": 2,
+    "trustPenalty": 2,
+    "abandonFavor": 1,
+    "kinds": {
+      "protect": {
+        "name": "Covenant of Protection",
+        "turns": 6,
+        "rewardFavor": 2,
+        "penaltyFavor": 2,
+        "text": "Promise that your shrine here still stands in 6 turns."
+      },
+      "provide": {
+        "name": "Covenant of Plenty",
+        "turns": 5,
+        "prosperity": 6,
+        "rewardFavor": 2,
+        "rewardFaith": 3,
+        "penaltyFavor": 1,
+        "text": "Promise that this town reaches prosperity 6 within 5 turns."
+      },
+      "keep": {
+        "name": "Covenant of Faithfulness",
+        "turns": 6,
+        "rewardFavor": 2,
+        "penaltyFavor": 2,
+        "minFollowers": 2,
+        "text": "Promise that your followers here do not fall below today's number for 6 turns."
+      }
+    }
+  },
+  "counterRite": {
+    "favor": 2,
+    "attackerFavorLoss": 1
+  },
+  "diplomacy": {
+    "truceTurns": 8,
+    "borderTurns": 8,
+    "borderRadius": 2,
+    "festivalFaith": 4,
+    "festivalFavor": 2,
+    "festivalGrudge": 2,
+    "breachFavor": 3,
+    "breachGrudge": 4,
+    "breachTrust": 1
+  },
+  "grudge": {
+    "max": 10,
+    "decayEvery": 5,
+    "hit": 2,
+    "strike": 1,
+    "control": 1
+  },
+  "specs": {
+    "faith": 10,
+    "favor": 1,
+    "oracle": {
+      "name": "Oracle",
+      "text": "Revelation: reveals radius 4 now and radius 3 every turn, foresees weather within 4, +1 Faith.",
+      "revealNow": 4,
+      "revealEach": 3,
+      "forecast": 4,
+      "faith": 1
+    },
+    "sanctuary": {
+      "name": "Sanctuary",
+      "text": "Warding: +2 Ward now (max +2), miracles strike it 1 Ward softer, eclipses on it end 1 turn sooner, your followers here 30% harder to convert, nearby towns feel safe.",
+      "ward": 2,
+      "maxWard": 2,
+      "resist": 1.3
+    },
+    "beacon": {
+      "name": "Beacon",
+      "text": "Conversion: pressure ×1.35 and reach +1, but Ward −1 (at least 1) and Ward can never exceed 3.",
+      "pressure": 1.35,
+      "radius": 1,
+      "wardLoss": 1,
+      "wardCap": 3
+    }
+  },
+  "roles": {
+    "emissary": {
+      "name": "Emissary",
+      "move": 2,
+      "power": 0.6,
+      "sight": 1,
+      "text": "The baseline preacher: walks 2, preaches at full strength."
+    },
+    "seer": {
+      "name": "Seer",
+      "move": 3,
+      "power": 0.35,
+      "sight": 2,
+      "text": "Walks 3 and sees 2 hexes around every step, but preaches weakly."
+    },
+    "warden": {
+      "name": "Warden",
+      "move": 1,
+      "power": 0.45,
+      "sight": 1,
+      "guard": true,
+      "text": "Walks 1. At one of your shrines it softens miracles by 1 Ward, shortens eclipses, and makes the town feel safe."
+    }
+  },
+  "routes": {
+    "faith": 8,
+    "max": 4,
+    "maxLen": 5,
+    "links": 3,
+    "pressure": 0.25,
+    "faithPer": 0.5,
+    "move": 1,
+    "lapse": 3
+  },
+  "landmarks": {
+    "count": 4,
+    "minHomeDist": 3,
+    "spacing": 4,
+    "fairness": 4,
+    "kinds": {
+      "summit": {
+        "name": "Wind Summit",
+        "terrains": [
+          "hills"
+        ],
+        "text": "Its holder sees 3 hexes around it every turn and gains 1 Favor every 6 turns.",
+        "reveal": 3,
+        "favorEvery": 6
+      },
+      "spring": {
+        "name": "Sacred Spring",
+        "terrains": [
+          "grassland",
+          "plains"
+        ],
+        "coast": true,
+        "text": "Its holder gains 1 Faith a turn; towns within 2 grow more prosperous.",
+        "faith": 1,
+        "prosperity": 1,
+        "radius": 2
+      },
+      "grove": {
+        "name": "Ancient Grove",
+        "terrains": [
+          "forest"
+        ],
+        "text": "The holder's shrines within 3 hexes take 1 less Ward from miracles.",
+        "radius": 3,
+        "shield": 1
+      },
+      "stones": {
+        "name": "Standing Stone",
+        "terrains": [
+          "tundra",
+          "desert",
+          "plains"
+        ],
+        "text": "Its holder's Read Omens costs 2 less and eclipses reach 1 hex further.",
+        "omenDiscount": 2,
+        "eclipseRange": 1
+      }
+    }
+  },
+  "climate": {
+    "maxFronts": 3,
+    "spawnChance": 0.42,
+    "lead": 2,
+    "after": 2,
+    "radius": [
+      2,
+      3
+    ],
+    "kinds": {
+      "drought": {
+        "name": "Drought",
+        "duration": 3,
+        "prosperity": -2,
+        "faithPerFollower": -0.1,
+        "noGrowth": true,
+        "weights": {
+          "dawn": 1,
+          "zenith": 3,
+          "twilight": 2
+        }
+      },
+      "storm": {
+        "name": "Storm",
+        "duration": 2,
+        "safety": -2,
+        "eclipse": 1,
+        "weights": {
+          "dawn": 1,
+          "zenith": 2,
+          "twilight": 3
+        }
+      },
+      "rains": {
+        "name": "Seasonal Rains",
+        "duration": 3,
+        "prosperity": 1,
+        "growthAfter": 1,
+        "weights": {
+          "dawn": 3,
+          "zenith": 2,
+          "twilight": 1
+        }
+      },
+      "frost": {
+        "name": "Frost",
+        "duration": 2,
+        "prosperity": -1,
+        "coldOnly": 0.4,
+        "priestMove": -1,
+        "weights": {
+          "dawn": 2,
+          "zenith": 0,
+          "twilight": 2
+        }
+      },
+      "omen": {
+        "name": "Sky Omen",
+        "duration": 2,
+        "eclipseDiscount": 1,
+        "favorAfter": 1,
+        "weights": {
+          "dawn": 1,
+          "zenith": 1,
+          "twilight": 2
+        }
+      }
+    }
+  },
+  "marks": {
+    "max": 80,
+    "kinds": {
+      "ruin": {
+        "turns": 0,
+        "shrineCostMult": 0.75
+      },
+      "rebuilt": {
+        "turns": 0
+      },
+      "scorch": {
+        "turns": 4,
+        "safety": -2
+      },
+      "blessed": {
+        "turns": 6,
+        "prosperity": 1
+      },
+      "eclipse": {
+        "turns": 4
+      },
+      "storm": {
+        "turns": 5
+      },
+      "covenant": {
+        "turns": 0
+      },
+      "drought": {
+        "turns": 3
+      }
+    }
+  },
+  "lookahead": {
+    "candidates": 3,
+    "weight": 1,
+    "favorValue": 6
+  },
+  "alt": {
+    "sacredSites": {
+      "hold": 3,
+      "rounds": 3
+    },
+    "covenants": {
+      "kept": 3
+    }
   }
 }

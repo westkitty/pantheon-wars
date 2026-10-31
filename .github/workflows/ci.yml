@@ -1,0 +1,100 @@
+name: CI
+
+# Validates every pull request into main and every push to the working branch.
+# The shipped game has no dependencies; Node and Playwright are used only by the tests and tools.
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [claude/vibrant-feynman-x1fjq9]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  engine:
+    name: Engine, data and balance smoke
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Unit, system, persistence and content tests (includes deterministic replay and v0.1 legacy replay)
+        run: node --test tests/*.test.js
+      - name: Data schema, sources and art registry (10 pantheons, 40 domains, 40 powers)
+        run: node tools/validate-data.js
+      - name: Generated bundles and design page match their sources
+        run: |
+          node tools/bundle-data.js --check
+          node tools/build-docs.js --check
+      - name: Deterministic balance smoke (integrity, AI legality)
+        run: node tools/balance-smoke.js --out ci-artifacts
+      - name: Upload smoke report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: balance-smoke
+          path: ci-artifacts/
+          if-no-files-found: ignore
+          retention-days: 7
+
+  browser:
+    name: Browser journeys, real-input replay and offline proof
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install pinned dev tools
+        run: npm ci --ignore-scripts
+      - name: Install Chromium for Playwright
+        run: npx playwright install --with-deps chromium
+      - name: Browser journeys J01-J11 (J11 = audio lifecycle)
+        run: node tools/journeys.js
+      - name: Full game by real input, browser hash equals Node replay
+        run: node tools/screenshots.js --seed 11 --faction greek --rivals 2 --diff easy
+      - name: Offline proof (file:// and local static server, no external requests)
+        run: node tools/offline-proof.js
+      - name: Recorded soundtrack integrity (20 committed recordings match the manifest checksums)
+        run: node tools/soundtrack-integrity.js
+      - name: Recorded soundtrack in the page (file://), all 20 recordings decode and every music state plays
+        run: node tools/soundtrack-check.js --out reports/soundtrack-check-ci-file.json
+      - name: Recorded soundtrack over local HTTP (full decodeAudioData of all 20)
+        run: node tools/soundtrack-check.js --http --out reports/soundtrack-check-ci-http.json
+      - name: Generated-music fallback (isolated temporary copy without the recordings)
+        run: node tools/soundtrack-check.js --without-recordings --out reports/soundtrack-check-ci-without.json
+      - name: Weather visual QA (every weather kind distinguishable, controls on top)
+        run: node tools/weather-qa.js
+      - name: Repeated-game resource check
+        run: node tools/memory-check.js
+      - name: Adversarial checks (hot-seat privacy, blocked storage, pinch, Chronicle privacy, resize)
+        run: node tools/qqq.js
+      - name: Forty-power smoke (every power cast through the engine, its own VFX dispatched, every effect ends)
+        run: node tools/perf-powers.js --smoke --label ci-smoke --out reports/perf-powers-smoke.json
+      - name: Upload browser diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: browser-diagnostics
+          path: |
+            reports/journeys.json
+            reports/offline-proof.json
+            reports/screens/J*.png
+            reports/screens/e2e/
+            reports/weather-qa/
+            reports/memory-check.json
+            reports/qqq.json
+            reports/perf-powers-smoke.json
+            reports/soundtrack-check-ci-*.json
+          if-no-files-found: ignore
+          retention-days: 7

@@ -1,0 +1,132 @@
+{
+ "generated": "2026-10-31T09:47:01.227Z",
+ "runs": [
+  {
+   "base": "file://./index.html",
+   "started": true,
+   "localRequests": [
+    "file://./index.html",
+    "file://./ui/style.css",
+    "file://./data/data.js",
+    "file://./engine/rng.js",
+    "file://./engine/engine.js",
+    "file://./engine/ai.js",
+    "file://./ui/art.js",
+    "file://./ui/kits.js",
+    "file://./ui/vfx-art.js",
+    "file://./ui/terrain-art.js",
+    "file://./ui/render.js",
+    "file://./ui/audio.js",
+    "file://./audio/soundtrack.js",
+    "file://./ui/music.js",
+    "file://./ui/storage.js",
+    "file://./ui/chronicle.js",
+    "file://./ui/encyclopedia.js",
+    "file://./ui/app.js",
+    "file://./audio/music/olympian-b.mp3"
+   ],
+   "externalRequests": [],
+   "errors": [],
+   "optionalSoundtrack": []
+  },
+  {
+   "base": "http://127.0.0.1:8765/index.html",
+   "started": true,
+   "localRequests": [
+    "http://127.0.0.1:8765/index.html",
+    "http://127.0.0.1:8765/ui/style.css",
+    "http://127.0.0.1:8765/data/data.js",
+    "http://127.0.0.1:8765/engine/rng.js",
+    "http://127.0.0.1:8765/engine/engine.js",
+    "http://127.0.0.1:8765/engine/ai.js",
+    "http://127.0.0.1:8765/ui/art.js",
+    "http://127.0.0.1:8765/ui/kits.js",
+    "http://127.0.0.1:8765/ui/vfx-art.js",
+    "http://127.0.0.1:8765/ui/terrain-art.js",
+    "http://127.0.0.1:8765/ui/render.js",
+    "http://127.0.0.1:8765/ui/audio.js",
+    "http://127.0.0.1:8765/audio/soundtrack.js",
+    "http://127.0.0.1:8765/ui/music.js",
+    "http://127.0.0.1:8765/ui/storage.js",
+    "http://127.0.0.1:8765/ui/chronicle.js",
+    "http://127.0.0.1:8765/ui/encyclopedia.js",
+    "http://127.0.0.1:8765/ui/app.js",
+    "http://127.0.0.1:8765/audio/music/olympian-a.mp3"
+   ],
+   "externalRequests": [],
+   "errors": [],
+   "optionalSoundtrack": []
+  }
+ ],
+ "staticScan": [
+  {
+   "file": "index.html",
+   "absoluteUrls": []
+  },
+  {
+   "file": "ui/style.css",
+   "absoluteUrls": []
+  },
+  {
+   "file": "ui/app.js",
+   "absoluteUrls": []
+  },
+  {
+   "file": "ui/art.js",
+   "absoluteUrls": []
+  },
+  {
+   "file": "ui/kits.js",
+   "absoluteUrls": []
+  },
+  {
+   "file": "ui/vfx-art.js",
+   "absoluteUrls": []
+  },
+  {
+   "file": "ui/terrain-art.js",
+   "absoluteUrls": []
+  },
+  {
+   "file": "ui/render.js",
+   "absoluteUrls": []
+  },
+  {
+   "file": "ui/audio.js",
+   "absoluteUrls": []
+  },
+  {
+   "file": "ui/music.js",
+   "absoluteUrls": []
+  },
+  {
+   "file": "audio/soundtrack.js",
+   "absoluteUrls": []
+  },
+  {
+   "file": "ui/storage.js",
+   "absoluteUrls": []
+  },
+  {
+   "file": "ui/chronicle.js",
+   "absoluteUrls": []
+  },
+  {
+   "file": "ui/encyclopedia.js",
+   "absoluteUrls": []
+  },
+  {
+   "file": "engine/engine.js",
+   "absoluteUrls": []
+  },
+  {
+   "file": "engine/ai.js",
+   "absoluteUrls": []
+  },
+  {
+   "file": "engine/rng.js",
+   "absoluteUrls": []
+  }
+ ],
+ "pass": true
+}

@@ -1,0 +1,17 @@
+{
+  "types": {
+    "deep":      { "name": "Deep Sea",   "water": true,  "height": 0, "passable": false, "fertility": 0,   "settle": 0,   "top": "#1b4d6e", "side": "#103348" },
+    "sea":       { "name": "Shallows",   "water": true,  "height": 0, "passable": false, "fertility": 0,   "settle": 0,   "top": "#2f7d9a", "side": "#1d5670" },
+    "grassland": { "name": "Grassland",  "water": false, "height": 1, "passable": true,  "fertility": 1.0, "settle": 1.0, "top": "#6f9a3c", "side": "#6b5136" },
+    "plains":    { "name": "Plains",     "water": false, "height": 1, "passable": true,  "fertility": 0.85,"settle": 1.0, "top": "#b0a052", "side": "#7a5e3a" },
+    "desert":    { "name": "Desert",     "water": false, "height": 1, "passable": true,  "fertility": 0.5, "settle": 0.6, "top": "#dcc07a", "side": "#a8814a" },
+    "forest":    { "name": "Forest",     "water": false, "height": 1, "passable": true,  "fertility": 0.7, "settle": 0.5, "top": "#3f6b2c", "side": "#5a4430" },
+    "tundra":    { "name": "Tundra",     "water": false, "height": 1, "passable": true,  "fertility": 0.45,"settle": 0.5, "top": "#a9b3a1", "side": "#6e6a5e" },
+    "hills":     { "name": "Hills",      "water": false, "height": 2, "passable": true,  "fertility": 0.7, "settle": 0.7, "top": "#8b8a4c", "side": "#6a553a" },
+    "mountains": { "name": "Mountains",  "water": false, "height": 3, "passable": false, "fertility": 0,   "settle": 0,   "top": "#7d7a74", "side": "#4c4842" }
+  },
+  "settlementNames": {
+    "prefix": ["Ash", "Bel", "Cor", "Dun", "Ery", "Fal", "Gor", "Hal", "Ith", "Kel", "Lor", "Mer", "Nor", "Ost", "Pel", "Quen", "Ros", "Sal", "Tor", "Ulm", "Ver", "Wen", "Yar", "Zan", "Aru", "Bry", "Cael", "Dor"],
+    "suffix": ["ford", "mere", "holt", "vale", "stead", "ton", "wick", "barrow", "crest", "haven", "moor", "reach", "fell", "brook", "gate", "field"]
+  }
+}

@@ -1,0 +1,3609 @@
+{
+ "format": "pantheon-wars-chronicle-summary",
+ "engine": "0.2.0",
+ "seed": 23,
+ "mode": {
+  "kind": "standard"
+ },
+ "turns": 45,
+ "winner": {
+  "pid": 2,
+  "type": "twilight",
+  "turn": 45,
+  "scores": [
+   153.5,
+   113,
+   164
+  ]
+ },
+ "players": [
+  {
+   "seat": 0,
+   "faction": "mexica",
+   "name": "The Fifth Sun",
+   "followers": 116,
+   "shrines": 7,
+   "score": 153.5
+  },
+  {
+   "seat": 1,
+   "faction": "norse",
+   "name": "The Hall of the Ash",
+   "followers": 83,
+   "shrines": 6,
+   "score": 113
+  },
+  {
+   "seat": 2,
+   "faction": "yoruba",
+   "name": "The Council of the Òrìṣà",
+   "followers": 121,
+   "shrines": 9,
+   "score": 164
+  }
+ ],
+ "decisive": [
+  {
+   "id": 330,
+   "turn": 25,
+   "kind": "topple",
+   "text": "Hammer of Thunder topples the Twin-Shrine Temple of The Fifth Sun at Halmoor.",
+   "tile": 259
+  },
+  {
+   "id": 398,
+   "turn": 31,
+   "kind": "topple",
+   "text": "An eclipse topples the Timber Hall of The Hall of the Ash at Mermere.",
+   "tile": 293
+  },
+  {
+   "id": 446,
+   "turn": 35,
+   "kind": "control",
+   "text": "Mermere now kneels to The Fifth Sun, torn from The Hall of the Ash.",
+   "tile": 293
+  },
+  {
+   "id": 500,
+   "turn": 41,
+   "kind": "topple",
+   "text": "An eclipse topples the Timber Hall of The Hall of the Ash at Caelholt.",
+   "tile": 297
+  },
+  {
+   "id": 523,
+   "turn": 43,
+   "kind": "topple",
+   "text": "An eclipse topples the Twin-Shrine Temple of The Fifth Sun at Caelholt.",
+   "tile": 297
+  },
+  {
+   "id": 530,
+   "turn": 43,
+   "kind": "topple",
+   "text": "An eclipse topples the Twin-Shrine Temple of The Fifth Sun at Wenfield.",
+   "tile": 151
+  },
+  {
+   "id": 546,
+   "turn": 45,
+   "kind": "victory",
+   "text": "The Council of the Òrìṣà prevails. Twilight Judgment: the highest devotion when the age ends.",
+   "tile": null
+  }
+ ],
+ "scoreTimeline": [
+  [
+   11,
+   11,
+   11
+  ],
+  [
+   11,
+   11.5,
+   11
+  ],
+  [
+   13,
+   12.5,
+   13
+  ],
+  [
+   14,
+   15,
+   15
+  ],
+  [
+   14,
+   15,
+   17
+  ],
+  [
+   16,
+   17,
+   20
+  ],
+  [
+   17,
+   18,
+   22
+  ],
+  [
+   21,
+   24.5,
+   29.5
+  ],
+  [
+   22,
+   28.5,
+   39.5
+  ],
+  [
+   30.5,
+   32,
+   48.5
+  ],
+  [
+   38,
+   35,
+   53
+  ],
+  [
+   40,
+   40,
+   57
+  ],
+  [
+   40.5,
+   47.5,
+   57.5
+  ],
+  [
+   46.5,
+   53,
+   69
+  ],
+  [
+   53.5,
+   62.5,
+   80
+  ],
+  [
+   62.5,
+   68,
+   98
+  ],
+  [
+   71,
+   72.5,
+   101.5
+  ],
+  [
+   74,
+   80,
+   101.5
+  ],
+  [
+   80.5,
+   91.5,
+   103
+  ],
+  [
+   93,
+   101.5,
+   120
+  ],
+  [
+   108.5,
+   117,
+   129
+  ],
+  [
+   115,
+   125.5,
+   137.5
+  ],
+  [
+   118,
+   129.5,
+   134
+  ],
+  [
+   120,
+   131.5,
+   133
+  ],
+  [
+   120.5,
+   132.5,
+   134
+  ],
+  [
+   127.5,
+   136,
+   143.5
+  ],
+  [
+   134,
+   136,
+   142
+  ],
+  [
+   134,
+   135,
+   142
+  ],
+  [
+   135,
+   137,
+   144
+  ],
+  [
+   135.5,
+   133.5,
+   144
+  ],
+  [
+   136,
+   135.5,
+   142.5
+  ],
+  [
+   143,
+   128.5,
+   147.5
+  ],
+  [
+   145,
+   127.5,
+   148.5
+  ],
+  [
+   144,
+   126.5,
+   150
+  ],
+  [
+   147,
+   121,
+   149.5
+  ],
+  [
+   152,
+   121,
+   152
+  ],
+  [
+   152.5,
+   119,
+   152.5
+  ],
+  [
+   155.5,
+   113.5,
+   155.5
+  ],
+  [
+   157.5,
+   111.5,
+   154
+  ],
+  [
+   156.5,
+   111,
+   155
+  ],
+  [
+   160.5,
+   113.5,
+   155
+  ],
+  [
+   164,
+   109,
+   154.5
+  ],
+  [
+   165.5,
+   109.5,
+   158.5
+  ],
+  [
+   153,
+   111,
+   164
+  ],
+  [
+   152,
+   112,
+   164
+  ]
+ ],
+ "finalHash": "234aacfb",
+ "record": {
+  "format": "pantheon-wars-save",
+  "schema": 2,
+  "kind": "chronicle",
+  "engine": "0.2.0",
+  "dataHash": "714b6ce1",
+  "created": "2026-10-31T09:57:46.582Z",
+  "label": "The Fifth Sun · turn 45",
+  "session": "smvw89kgz",
+  "cfg": {
+   "seed": 23,
+   "players": [
+    {
+     "faction": "mexica",
+     "human": true,
+     "ai": "hard"
+    },
+    {
+     "faction": "norse",
+     "human": false,
+     "ai": "hard"
+    },
+    {
+     "faction": "yoruba",
+     "human": false,
+     "ai": "hard"
+    }
+   ],
+   "mode": {
+    "kind": "standard"
+   }
+  },
+  "actions": [
+   {
+    "p": 0,
+    "a": {
+     "type": "movePriest",
+     "priest": 1,
+     "tile": 103
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "power",
+     "power": "mex_breath_of_quetzalcoatl",
+     "tile": 257
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "omen",
+     "tile": 57
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "dream"
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "covenant",
+     "kind": "protect",
+     "tile": 170
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "movePriest",
+     "priest": 2,
+     "tile": 226
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "power",
+     "power": "ravens_flight"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "omen",
+     "tile": 158
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "specialize",
+     "tile": 293,
+     "spec": "oracle"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "covenant",
+     "kind": "protect",
+     "tile": 293
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "power",
+     "power": "yor_mirror_of_the_river",
+     "tile": 35
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "movePriest",
+     "priest": 3,
+     "tile": 32
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "omen",
+     "tile": 90
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "power",
+     "power": "yor_hands_of_creation",
+     "tile": 28
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "movePriest",
+     "priest": 4,
+     "tile": 92
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "covenant",
+     "kind": "protect",
+     "tile": 28
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "dream"
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "omen",
+     "tile": 162
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "omen",
+     "tile": 121
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "omen",
+     "tile": 159
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "omen",
+     "tile": 63
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "priest",
+     "tile": 170,
+     "dest": 151,
+     "role": "seer"
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "omen",
+     "tile": 212
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "power",
+     "power": "rain_and_sun"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "omen",
+     "tile": 207
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "omen",
+     "tile": 52
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "power",
+     "power": "ravens_flight"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "omen",
+     "tile": 303
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "route",
+     "route": 31
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "route",
+     "route": 33
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "power",
+     "power": "yor_mirror_of_the_river",
+     "tile": 268
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "event",
+     "choice": 1
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "power",
+     "power": "mex_breath_of_quetzalcoatl",
+     "tile": 318
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "omen",
+     "tile": 114
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "event",
+     "choice": 0
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "omen",
+     "tile": 46
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "route",
+     "route": 0
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "dream"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "event",
+     "choice": 0
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "omen",
+     "tile": 167
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "omen",
+     "tile": 225
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "omen",
+     "tile": 59
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "omen",
+     "tile": 277
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "power",
+     "power": "yor_hands_of_creation",
+     "tile": 28
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "movePriest",
+     "priest": 6,
+     "tile": 97
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "route",
+     "route": 6
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "route",
+     "route": 10
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "power",
+     "power": "ravens_flight"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "omen",
+     "tile": 150
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "propose",
+     "kind": "truce",
+     "to": 2
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "answer",
+     "id": 1,
+     "accept": true
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "power",
+     "power": "yor_mirror_of_the_river",
+     "tile": 173
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "power",
+     "power": "rune_hall",
+     "tile": 297
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "covenant",
+     "kind": "protect",
+     "tile": 293
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "covenant",
+     "kind": "protect",
+     "tile": 297
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "dream"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "power",
+     "power": "yor_ironroads"
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "shrine",
+     "tile": 97
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "covenant",
+     "kind": "keep",
+     "tile": 32
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "covenant",
+     "kind": "protect",
+     "tile": 28
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "power",
+     "power": "mex_gardens_of_water",
+     "tile": 103
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "omen",
+     "tile": 304
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "covenant",
+     "kind": "protect",
+     "tile": 103
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "covenant",
+     "kind": "protect",
+     "tile": 170
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "dream"
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "power",
+     "power": "rain_and_sun"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "omen",
+     "tile": 64
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "route",
+     "route": 1
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "route",
+     "route": 30
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "route",
+     "route": 32
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "specialize",
+     "tile": 97,
+     "spec": "oracle"
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "event",
+     "choice": 0
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "route",
+     "route": 7
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "omen",
+     "tile": 287
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "event",
+     "choice": 0
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "power",
+     "power": "ravens_flight"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "omen",
+     "tile": 240
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "event",
+     "choice": 0
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "movePriest",
+     "priest": 3,
+     "tile": 57
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "specialize",
+     "tile": 28,
+     "spec": "oracle"
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "omen",
+     "tile": 237
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "priest",
+     "tile": 28,
+     "dest": 139
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "movePriest",
+     "priest": 1,
+     "tile": 122
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "specialize",
+     "tile": 103,
+     "spec": "oracle"
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "omen",
+     "tile": 46
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "power",
+     "power": "mex_rains_of_tlaloc",
+     "tile": 103
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "priest",
+     "tile": 293,
+     "dest": 206
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "specialize",
+     "tile": 297,
+     "spec": "oracle"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "movePriest",
+     "priest": 4,
+     "tile": 111
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "movePriest",
+     "priest": 6,
+     "tile": 122
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "power",
+     "power": "yor_hands_of_creation",
+     "tile": 97
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "movePriest",
+     "priest": 9,
+     "tile": 206
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "shrine",
+     "tile": 92
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "omen",
+     "tile": 305
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "specialize",
+     "tile": 170,
+     "spec": "oracle"
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "priest",
+     "tile": 103,
+     "dest": 57
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "omen",
+     "tile": 177
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "propose",
+     "kind": "truce",
+     "to": 2
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "power",
+     "power": "rune_hall",
+     "tile": 206
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "specialize",
+     "tile": 206,
+     "spec": "oracle"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "answer",
+     "id": 3,
+     "accept": true
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "specialize",
+     "tile": 92,
+     "spec": "oracle"
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "route",
+     "route": 2
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "route",
+     "route": 26
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "power",
+     "power": "ravens_flight"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "power",
+     "power": "yor_ironroads"
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "shrine",
+     "tile": 111
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "priest",
+     "tile": 111,
+     "dest": 111
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "power",
+     "power": "mex_gardens_of_water",
+     "tile": 57
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "route",
+     "route": 8
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "priest",
+     "tile": 293,
+     "dest": 231
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "priest",
+     "tile": 293,
+     "dest": 245
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "priest",
+     "tile": 293,
+     "dest": 322
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "shrine",
+     "tile": 139
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "event",
+     "choice": 1
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "movePriest",
+     "priest": 5,
+     "tile": 173
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "movePriest",
+     "priest": 15,
+     "tile": 231
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "shrine",
+     "tile": 122
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "retrain",
+     "priest": 1,
+     "role": "warden"
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "omen",
+     "tile": 251
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "event",
+     "choice": 0
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "movePriest",
+     "priest": 2,
+     "tile": 139
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "power",
+     "power": "rain_and_sun"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "retrain",
+     "priest": 8,
+     "role": "warden"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "covenant",
+     "kind": "protect",
+     "tile": 293
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "covenant",
+     "kind": "protect",
+     "tile": 297
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "event",
+     "choice": 0
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "priest",
+     "tile": 111,
+     "dest": 46
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "shrine",
+     "tile": 32
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "covenant",
+     "kind": "protect",
+     "tile": 111
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "covenant",
+     "kind": "keep",
+     "tile": 32
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "omen",
+     "tile": 317
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "movePriest",
+     "priest": 5,
+     "tile": 322
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "retrain",
+     "priest": 10,
+     "role": "warden"
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "specialize",
+     "tile": 122,
+     "spec": "sanctuary"
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "specialize",
+     "tile": 57,
+     "spec": "sanctuary"
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "power",
+     "power": "mex_rains_of_tlaloc",
+     "tile": 57
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "priest",
+     "tile": 103,
+     "dest": 259
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "covenant",
+     "kind": "keep",
+     "tile": 151
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "covenant",
+     "kind": "keep",
+     "tile": 103
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "propose",
+     "kind": "truce",
+     "to": 1
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "answer",
+     "id": 5,
+     "accept": true
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "power",
+     "power": "rune_hall",
+     "tile": 231
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "specialize",
+     "tile": 231,
+     "spec": "oracle"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "power",
+     "power": "yor_hands_of_creation",
+     "tile": 111
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "movePriest",
+     "priest": 18,
+     "tile": 178
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "specialize",
+     "tile": 32,
+     "spec": "sanctuary"
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "specialize",
+     "tile": 139,
+     "spec": "sanctuary"
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "specialize",
+     "tile": 111,
+     "spec": "oracle"
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "power",
+     "power": "yor_thunder_of_shango",
+     "tile": 206
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "power",
+     "power": "yor_mirror_of_the_river",
+     "tile": 41
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "priest",
+     "tile": 103,
+     "dest": 240
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "shrine",
+     "tile": 245
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "specialize",
+     "tile": 245,
+     "spec": "oracle"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "eclipse",
+     "tile": 97
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "movePriest",
+     "priest": 4,
+     "tile": 245
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "movePriest",
+     "priest": 11,
+     "tile": 293
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "counterRite",
+     "tile": 97
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "shrine",
+     "tile": 151
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "specialize",
+     "tile": 151,
+     "spec": "oracle"
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "priest",
+     "tile": 151,
+     "dest": 240
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "shrine",
+     "tile": 322
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "movePriest",
+     "priest": 7,
+     "tile": 231
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "power",
+     "power": "yor_ironroads"
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "shrine",
+     "tile": 178
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "power",
+     "power": "mex_gardens_of_water",
+     "tile": 240
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "specialize",
+     "tile": 240,
+     "spec": "oracle"
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "priest",
+     "tile": 240,
+     "dest": 240
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "retrain",
+     "priest": 13,
+     "role": "warden"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "specialize",
+     "tile": 322,
+     "spec": "sanctuary"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "priest",
+     "tile": 293,
+     "dest": 178
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "propose",
+     "kind": "truce",
+     "to": 2
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "priest",
+     "tile": 293,
+     "dest": 259
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "priest",
+     "tile": 293,
+     "dest": 92
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "answer",
+     "id": 7,
+     "accept": true
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "shrine",
+     "tile": 46
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "priest",
+     "tile": 111,
+     "dest": 111
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "movePriest",
+     "priest": 25,
+     "tile": 322
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "priest",
+     "tile": 111,
+     "dest": 46
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "power",
+     "power": "yor_mirror_of_the_river",
+     "tile": 324
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "event",
+     "choice": 0
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "shrine",
+     "tile": 259
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "event",
+     "choice": 0
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "power",
+     "power": "rune_hall",
+     "tile": 226
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "specialize",
+     "tile": 226,
+     "spec": "sanctuary"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "event",
+     "choice": 1
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "specialize",
+     "tile": 46,
+     "spec": "oracle"
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "specialize",
+     "tile": 178,
+     "spec": "sanctuary"
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "specialize",
+     "tile": 259,
+     "spec": "oracle"
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "power",
+     "power": "mex_rains_of_tlaloc",
+     "tile": 57
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "priest",
+     "tile": 240,
+     "dest": 259
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "movePriest",
+     "priest": 12,
+     "tile": 57
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "power",
+     "power": "rain_and_sun"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "retrain",
+     "priest": 12,
+     "role": "warden"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "retrain",
+     "priest": 23,
+     "role": "warden"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "priest",
+     "tile": 293,
+     "dest": 97
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "power",
+     "power": "yor_hands_of_creation",
+     "tile": 139
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "movePriest",
+     "priest": 29,
+     "tile": 226
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "power",
+     "power": "yor_thunder_of_shango",
+     "tile": 103
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "movePriest",
+     "priest": 19,
+     "tile": 297
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "movePriest",
+     "priest": 20,
+     "tile": 293
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "movePriest",
+     "priest": 21,
+     "tile": 206
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "counterRite",
+     "tile": 103
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "covenant",
+     "kind": "protect",
+     "tile": 240
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "covenant",
+     "kind": "keep",
+     "tile": 297
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "covenant",
+     "kind": "keep",
+     "tile": 226
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "movePriest",
+     "priest": 16,
+     "tile": 103
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "movePriest",
+     "priest": 18,
+     "tile": 157
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "movePriest",
+     "priest": 26,
+     "tile": 297
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "covenant",
+     "kind": "protect",
+     "tile": 111
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "covenant",
+     "kind": "keep",
+     "tile": 178
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "eclipse",
+     "tile": 103
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "movePriest",
+     "priest": 17,
+     "tile": 226
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "movePriest",
+     "priest": 27,
+     "tile": 279
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "counterRite",
+     "tile": 103
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "covenant",
+     "kind": "protect",
+     "tile": 151
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "propose",
+     "kind": "festival",
+     "to": 2
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "answer",
+     "id": 9,
+     "accept": true
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "movePriest",
+     "priest": 18,
+     "tile": 151
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "movePriest",
+     "priest": 14,
+     "tile": 170
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "event",
+     "choice": 0
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "movePriest",
+     "priest": 27,
+     "tile": 97
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "event",
+     "choice": 1
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "eclipse",
+     "tile": 259
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "power",
+     "power": "hammer_thunder",
+     "tile": 259
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "event",
+     "choice": 0
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "power",
+     "power": "yor_ironroads"
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "power",
+     "power": "yor_thunder_of_shango",
+     "tile": 103
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "counterRite",
+     "tile": 103
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "shrine",
+     "tile": 259
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "specialize",
+     "tile": 259,
+     "spec": "sanctuary"
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "power",
+     "power": "rain_and_sun"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "eclipse",
+     "tile": 151
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "covenant",
+     "kind": "keep",
+     "tile": 240
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "power",
+     "power": "mex_rains_of_tlaloc",
+     "tile": 57
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "power",
+     "power": "hammer_thunder",
+     "tile": 28
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "covenant",
+     "kind": "keep",
+     "tile": 297
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "covenant",
+     "kind": "keep",
+     "tile": 245
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "counterRite",
+     "tile": 28
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "power",
+     "power": "yor_thunder_of_shango",
+     "tile": 293
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "covenant",
+     "kind": "keep",
+     "tile": 111
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "covenant",
+     "kind": "keep",
+     "tile": 32
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "event",
+     "choice": 1
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "power",
+     "power": "mex_zenith_of_tonatiuh",
+     "tile": 293
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "covenant",
+     "kind": "keep",
+     "tile": 151
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "event",
+     "choice": 1
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "event",
+     "choice": 0
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "power",
+     "power": "yor_ironroads"
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "propose",
+     "kind": "festival",
+     "to": 1
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "eclipse",
+     "tile": 293
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "shrine",
+     "tile": 293
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "retrain",
+     "priest": 20,
+     "role": "warden"
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "specialize",
+     "tile": 293,
+     "spec": "sanctuary"
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "priest",
+     "tile": 293,
+     "dest": 293
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "answer",
+     "id": 11,
+     "accept": true
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "propose",
+     "kind": "festival",
+     "to": 0
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "answer",
+     "id": 13,
+     "accept": true
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "power",
+     "power": "rain_and_sun"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "eclipse",
+     "tile": 293
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "power",
+     "power": "yor_thunder_of_shango",
+     "tile": 151
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "counterRite",
+     "tile": 151
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "covenant",
+     "kind": "protect",
+     "tile": 259
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "power",
+     "power": "hammer_thunder",
+     "tile": 28
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "propose",
+     "kind": "festival",
+     "to": 1
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "event",
+     "choice": 0
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "power",
+     "power": "mex_rains_of_tlaloc",
+     "tile": 57
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "event",
+     "choice": 0
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "answer",
+     "id": 15,
+     "accept": true
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "covenant",
+     "kind": "keep",
+     "tile": 322
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "event",
+     "choice": 0
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "power",
+     "power": "yor_ironroads"
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "power",
+     "power": "mex_zenith_of_tonatiuh",
+     "tile": 297
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "covenant",
+     "kind": "keep",
+     "tile": 240
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "eclipse",
+     "tile": 293
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "covenant",
+     "kind": "keep",
+     "tile": 245
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "covenant",
+     "kind": "keep",
+     "tile": 111
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "covenant",
+     "kind": "keep",
+     "tile": 32
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "eclipse",
+     "tile": 297
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "counterRite",
+     "tile": 293
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "counterRite",
+     "tile": 297
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "power",
+     "power": "yor_thunder_of_shango",
+     "tile": 297
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "route",
+     "route": 1
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "eclipse",
+     "tile": 293
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "power",
+     "power": "rain_and_sun"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "route",
+     "route": 0
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "route",
+     "route": 2
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "propose",
+     "kind": "festival",
+     "to": 2
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "answer",
+     "id": 17,
+     "accept": true
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "event",
+     "choice": 1
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "power",
+     "power": "mex_zenith_of_tonatiuh",
+     "tile": 297
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "power",
+     "power": "mex_rains_of_tlaloc",
+     "tile": 57
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "event",
+     "choice": 0
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "event",
+     "choice": 1
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "eclipse",
+     "tile": 297
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "shrine",
+     "tile": 297
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "retrain",
+     "priest": 19,
+     "role": "warden"
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "priest",
+     "tile": 293,
+     "dest": 245
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "eclipse",
+     "tile": 297
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "power",
+     "power": "yor_ironroads"
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "movePriest",
+     "priest": 30,
+     "tile": 139
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "power",
+     "power": "hammer_thunder",
+     "tile": 151
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "counterRite",
+     "tile": 151
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "eclipse",
+     "tile": 231
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "eclipse",
+     "tile": 297
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "counterRite",
+     "tile": 231
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "power",
+     "power": "rune_hall",
+     "tile": 297
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "power",
+     "power": "yor_thunder_of_shango",
+     "tile": 151
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "eclipse",
+     "tile": 151
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "shrine",
+     "tile": 151
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "retrain",
+     "priest": 18,
+     "role": "warden"
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "power",
+     "power": "yor_hands_of_creation",
+     "tile": 151
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "movePriest",
+     "priest": 32,
+     "tile": 170
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "event",
+     "choice": 1
+    }
+   },
+   {
+    "p": 0,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "event",
+     "choice": 0
+    }
+   },
+   {
+    "p": 1,
+    "a": {
+     "type": "endTurn"
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "event",
+     "choice": 1
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "eclipse",
+     "tile": 231
+    }
+   },
+   {
+    "p": 2,
+    "a": {
+     "type": "endTurn"
+    }
+   }
+  ],
+  "turn": 45,
+  "over": true,
+  "finalHash": "234aacfb",
+  "turnHashes": {
+   "1": "dd7ab643",
+   "2": "6e7b8a02",
+   "3": "fa81da49",
+   "4": "025f9d9c",
+   "5": "876b615c",
+   "6": "03268613",
+   "7": "9aa96cc0",
+   "8": "566fca12",
+   "9": "e819611c",
+   "10": "6fecb119",
+   "11": "29806c10",
+   "12": "fe3126e0",
+   "13": "a2e3dbd4",
+   "14": "1b10eced",
+   "15": "436add2a",
+   "16": "2edca568",
+   "17": "559f37fb",
+   "18": "0a950bcc",
+   "19": "1f638849",
+   "20": "2e1e987b",
+   "21": "0d44ed10",
+   "22": "a07fc42d",
+   "23": "5a317632",
+   "24": "4fbb8cee",
+   "25": "6922085c",
+   "26": "97fb44f1",
+   "27": "810ddc3f",
+   "28": "c19139b7",
+   "29": "e5f0607c",
+   "30": "96b124c7",
+   "31": "508d60fa",
+   "32": "e3283ca9",
+   "33": "ae211da4",
+   "34": "87edc08d",
+   "35": "d918a038",
+   "36": "5943fa54",
+   "37": "a5c77b03",
+   "38": "4eddb021",
+   "39": "5a48de08",
+   "40": "e4b173aa",
+   "41": "56449ce5",
+   "42": "a1c30ce9",
+   "43": "04a2e1d2",
+   "44": "43c4007c",
+   "45": "fd6394be"
+  },
+  "checksum": "2b35b193"
+ }
+}

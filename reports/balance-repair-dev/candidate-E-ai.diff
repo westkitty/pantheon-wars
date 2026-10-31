@@ -1,0 +1,45 @@
+diff --git a/engine/ai.js b/engine/ai.js
+index 7fd2c39..e738cfa 100644
+--- a/engine/ai.js
++++ b/engine/ai.js
+@@ -112,6 +112,14 @@
+     return v;
+   }
+   function grudgeMult(state, pid, target) { var g = state.players[pid].grudge[target] || 0; return 1 + 0.12 * g; }
++  /* With two or more rivals, taking followers from a rival who is not the leading one does little toward winning (the leader gains
++     relatively) and earns a grudge, so rules.aiTargeting.trailingRivalMult (absent = 1) discounts it. In a duel the only rival leads. */
++  function trailingMult(E, state, pid, victim) {
++    var T = E.rules.aiTargeting; if (!T || victim < 0) return 1;
++    var H = E.helpers, lead = -1, lf = -1;
++    state.players.forEach(function (q) { if (q.id === pid || q.eliminated) return; var f = H.followersOf(state, q.id); if (f > lf) { lf = f; lead = q.id; } });
++    return victim === lead ? 1 : T.trailingRivalMult;
++  }
+   function treatyMult(E, state, pid, target, per) {
+     if (target < 0) return 1;
+     var t = E.helpers.activeTreaty(state, pid, target, 'truce'); if (!t) return grudgeMult(state, pid, target);
+@@ -450,7 +458,15 @@
+             var rivalP = 0; state.players.forEach(function (q) { if (q.id !== pid) rivalP += H.pressureAt(state, o, q.id); });
+             if (ef.stat === 'pressure') v += convertible(E, state, o, pid) * Math.min(1, ef.value * 0.4) * ef.turns * 0.5 * per.aggression * treatyMult(E, state, pid, H.topRival(o, pid), per);
+             if (ef.stat === 'zenith') v += (convertible(E, state, o, pid) * 0.5 + rivalP) * ef.turns * 0.9 * per.aggression * treatyMult(E, state, pid, H.topRival(o, pid), per);
+-            if (ef.stat === 'resist') v += o.followers[pid] * Math.min(1, rivalP) * (ef.value - 1) * ef.turns * 0.8;
++            if (ef.stat === 'resist') {
++              if (E.rules.aiTargeting && E.rules.aiTargeting.resistByLoss) {
++                // a resistance boon saves only the conversions that would happen anyway: a rival converts my followers here only while it
++                // out-pressures me, about (its pressure / price per follower) a turn; the boon saves 1 - 1/value of those
++                var myP = H.pressureAt(state, o, pid), loss = 0, price = E.rules.conversion.rivalCost * H.resistOf(state, o, pid);
++                state.players.forEach(function (q) { if (q.id === pid || q.eliminated) return; var qp = H.pressureAt(state, o, q.id); if (qp > myP) loss += qp / price; });
++                v += Math.min(o.followers[pid], loss * ef.turns) * (1 - 1 / ef.value) * 1.6;
++              } else v += o.followers[pid] * Math.min(1, rivalP) * (ef.value - 1) * ef.turns * 0.8;
++            }
+             if (ef.stat === 'growth') v += ef.turns * 0.6;
+             if (ef.stat === 'priestPower') v += state.priests.filter(function (pr) { return pr.owner === pid && pr.tile === o.tile; }).length * (ef.value - 1) * ef.turns * 1.2;
+             if (ef.stat === 'shield') v += (o.shrine && o.shrine.owner === pid ? threatLevel(E, state, pid, o) * 1.5 : 0);
+@@ -477,7 +493,7 @@
+           if (ef.type === 'strike') { var rf = 0; s.followers.forEach(function (f, r) { if (r !== pid) rf += f; }); val = Math.min(ef.rivalLoss, rf) * 1.6 + (ef.killPriests ? state.priests.filter(function (pr) { return pr.tile === s.tile && pr.owner !== pid; }).length * 5 : 0) + (ef.gain && H.unaffiliated(s) + Math.min(ef.rivalLoss, rf) > 0 ? 1.5 : 0); if (rf < 2) val = 0; }
+           else if (ef.type === 'weigh') { s.followers.forEach(function (f, r) { if (r !== pid && f) val += Math.ceil(f * ef.fraction) * 3; }); }
+           else { if (victim >= 0) val = Math.min(ef.count, s.followers[victim]) * 3 + (s.controlledBy === victim ? 2 : 0); }
+-          v += val * per.aggression * treatyMult(E, state, pid, victim, per); break;
++          v += val * per.aggression * treatyMult(E, state, pid, victim, per) * trailingMult(E, state, pid, victim); break;
+         case 'shrineHit': case 'delayedHit':
+           if (!s || !s.shrine || s.shrine.owner === pid) return null;
+           var hv = 0; state.settlements.forEach(function (o) { var d = H.dist(state, o.tile, s.tile); if (d <= 2) hv += (o.followers[pid] + H.unaffiliated(o) * 0.5 + o.followers[s.shrine.owner] * 0.3) / (1 + d); });

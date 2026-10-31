@@ -1,0 +1,100 @@
+{
+ "generated": "2026-10-31T09:47:58.334Z",
+ "games": 10,
+ "heapGrowth": 0,
+ "canvasesStable": true,
+ "errors": [],
+ "pass": true,
+ "rows": [
+  {
+   "faction": "greek",
+   "turn": 6,
+   "heapMB": 9.5,
+   "screenLayers": 3,
+   "villageCache": 15,
+   "spriteCache": 27,
+   "canvases": 46
+  },
+  {
+   "faction": "norse",
+   "turn": 6,
+   "heapMB": 9.5,
+   "screenLayers": 3,
+   "villageCache": 13,
+   "spriteCache": 16,
+   "canvases": 46
+  },
+  {
+   "faction": "egyptian",
+   "turn": 6,
+   "heapMB": 9.5,
+   "screenLayers": 3,
+   "villageCache": 16,
+   "spriteCache": 30,
+   "canvases": 46
+  },
+  {
+   "faction": "mesopotamian",
+   "turn": 6,
+   "heapMB": 9.5,
+   "screenLayers": 3,
+   "villageCache": 20,
+   "spriteCache": 40,
+   "canvases": 46
+  },
+  {
+   "faction": "irish",
+   "turn": 6,
+   "heapMB": 9.5,
+   "screenLayers": 3,
+   "villageCache": 14,
+   "spriteCache": 21,
+   "canvases": 46
+  },
+  {
+   "faction": "mexica",
+   "turn": 6,
+   "heapMB": 9.5,
+   "screenLayers": 3,
+   "villageCache": 16,
+   "spriteCache": 28,
+   "canvases": 46
+  },
+  {
+   "faction": "hittite",
+   "turn": 6,
+   "heapMB": 9.5,
+   "screenLayers": 3,
+   "villageCache": 17,
+   "spriteCache": 26,
+   "canvases": 46
+  },
+  {
+   "faction": "yoruba",
+   "turn": 6,
+   "heapMB": 9.5,
+   "screenLayers": 3,
+   "villageCache": 12,
+   "spriteCache": 28,
+   "canvases": 46
+  },
+  {
+   "faction": "japanese",
+   "turn": 6,
+   "heapMB": 9.5,
+   "screenLayers": 3,
+   "villageCache": 15,
+   "spriteCache": 25,
+   "canvases": 46
+  },
+  {
+   "faction": "vedic",
+   "turn": 6,
+   "heapMB": 9.5,
+   "screenLayers": 3,
+   "villageCache": 13,
+   "spriteCache": 23,
+   "canvases": 46
+  }
+ ]
+}

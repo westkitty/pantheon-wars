@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 /*
- * Headless-Chrome end-to-end test + screenshot capture (dev-only dependency: puppeteer-core).
+ * Headless-Chrome end-to-end test + screenshot capture. Uses puppeteer-core when PUPPETEER points at it, otherwise the
+ * pre-installed Playwright Chromium through tools/pw-shim.js (a minimal puppeteer-compatible facade).
  * Plays one full game to a victory using REAL input only: keyboard hotkeys, mouse clicks on map hexes,
  * clicks on panel / event-card / End Turn buttons. The human's *choices* come from the Hard AI's suggestion
  * (window.PW.suggest) so the game is played sensibly; the *execution* goes through the UI.
@@ -8,11 +9,10 @@
  * Usage: node tools/screenshots.js [--seed 11] [--faction greek] [--rivals 2] [--diff easy] [--out shots]
  */
 const path = require('path'), fs = require('fs');
-const PUP = process.env.PUPPETEER || '/workspace/dexter-test/node_modules/puppeteer-core';
-const puppeteer = require(PUP);
+const puppeteer = process.env.PUPPETEER ? require(process.env.PUPPETEER) : require('./pw-shim.js');
 const arg = (k, d) => { const i = process.argv.indexOf('--' + k); return i > 0 ? process.argv[i + 1] : d; };
 const SEED = +arg('seed', 11), FACTION = arg('faction', 'greek'), RIVALS = +arg('rivals', 2), DIFF = arg('diff', 'easy');
-const OUT = path.resolve(arg('out', path.join(__dirname, '..', 'shots')));
+const OUT = path.resolve(arg('out', path.join(__dirname, '..', 'reports', 'screens', 'e2e')));
 const ROOT = path.resolve(__dirname, '..');
 fs.mkdirSync(OUT, { recursive: true });
 const sleep = ms => new Promise(r => setTimeout(r, ms));
@@ -31,13 +31,14 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
   const stats = { uiActions: 0, byType: {}, rejected: 0, fallbacks: 0, events: 0, priestMoves: 0 };
 
   // 1. title screen
-  await page.goto(url + '?seed=' + SEED + '&speed=0.15');
+  await page.goto(url + '?seed=' + SEED + '&speed=0.15&nosave=1');
   await sleep(2200);
   await shot('01-title', 'Title / setup: pantheon cards, rivals, difficulty, seed; live world drifting behind');
   // choose faction, rivals, difficulty with real clicks
   await page.click(`.fcard[data-faction="${FACTION}"]`);
   await page.click(`[data-rivals="${RIVALS}"]`);
   await page.click(`[data-diff="${DIFF}"]`);
+  if (await page.evaluate(() => document.getElementById('opt-tutorial').checked)) await page.click('#opt-tutorial');
   await page.click('#begin');
   await sleep(1800);
   await shot('02-turn1', 'Turn 1: home shrine, soft fog of war, top resource bar, power bar, panel, minimap');
@@ -82,6 +83,21 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
       }
       if (await page.evaluate(id => PW.app.selPriest === id, a.priest)) { await clickTile(a.tile); stats.priestMoves++; }
 
+    } else if (['specialize', 'covenant', 'counterRite', 'retrain', 'route', 'abandon'].indexOf(a.type) >= 0 || (a.type === 'priest' && a.role && a.role !== 'emissary')) {
+      // place-panel actions: select the place by clicking its hex, then press the matching panel button
+      const tile = a.tile !== undefined ? a.tile : await page.evaluate(x => x.type === 'retrain' ? PW.state.priests.find(p => p.id === x.priest).tile : x.type === 'route' ? PW.state.settlements[PW.state.routes.find(r => r.id === x.route).a].tile : null, a);
+      await page.keyboard.press('Escape'); await page.keyboard.press('Escape');
+      if (tile !== null) { await clickTile(tile); await sleep(40); }
+      const sel = { specialize: `[data-spec="${a.spec}"]`, covenant: `[data-cov="${a.kind}"]`, counterRite: '[data-counter]', retrain: `[data-retrain="${a.priest}:${a.role}"]`, route: `[data-route="${a.route}"]`, abandon: `[data-abandon="${a.covenant}"]`, priest: `[data-ordain="${a.role}"]` }[a.type];
+      let btn = await page.$('#panel ' + sel);
+      if (!btn && a.type === 'route') { const tb = await page.evaluate(x => PW.state.settlements[PW.state.routes.find(r => r.id === x.route).b].tile, a); await clickTile(tb); await sleep(40); btn = await page.$('#panel ' + sel); }
+      if (!btn && a.type === 'abandon') { await page.keyboard.press('Escape'); await sleep(30); btn = await page.$('#panel ' + sel); }
+      if (btn) { await btn.click(); stats.panelActions = (stats.panelActions || 0) + 1; if (a.type === 'covenant' || a.type === 'abandon') { await sleep(60); await page.click('#confirm-yes'); } }
+    } else if (a.type === 'propose' || a.type === 'answer') {
+      await page.keyboard.press('Escape'); await page.keyboard.press('v'); await sleep(60);
+      const sel = a.type === 'propose' ? `[data-prop="${a.kind}:${a.to}"]` : `[data-ans="${a.id}:${a.accept ? 1 : 0}"]`;
+      const btn = await page.$(sel); if (btn) { await btn.click(); stats.envoyActions = (stats.envoyActions || 0) + 1; }
+      await sleep(40); await page.keyboard.press('Escape');
     } else {
       const items = await page.evaluate(() => PW.barItems());
       const id = a.type === 'power' ? a.power : a.type;
@@ -105,32 +121,33 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
   }
   await page.waitForSelector('#victory:not([hidden])', { timeout: 15000 });
   await sleep(1500);
-  const final = await page.evaluate(() => ({ hash: PW.hash(), winner: PW.state.winner, turn: PW.state.turn, actions: PW.state.actions, players: PW.state.players.map(p => ({ faction: p.faction, human: p.human, ai: p.ai })), seed: PW.state.seed }));
+  const final = await page.evaluate(() => ({ hash: PW.hash(), winner: PW.state.winner, turn: PW.state.turn, actions: PW.state.actions, players: PW.state.players.map(p => ({ faction: p.faction, human: p.human, ai: p.ai })), seed: PW.state.seed, mode: PW.app.cfg.mode }));
   await shot('10-victory', 'Victory screen: ' + final.winner.type + ', winner seat ' + final.winner.pid);
 
   // Node replay of the recorded browser actions -> must reproduce the same hash
   const loadData = require('./load-data.js'), E = require('../engine/engine.js').create(loadData());
-  let s = E.newGame({ seed: final.seed, players: final.players.map(p => ({ faction: p.faction, human: p.human, ai: p.ai })) });
+  let s = E.newGame({ seed: final.seed, players: final.players.map(p => ({ faction: p.faction, human: p.human, ai: p.ai })), mode: final.mode });
   final.actions.forEach(x => { s = E.step(s, x.a); });
   const replayHash = E.hash(s);
 
   // mobile viewport
-  const m = await browser.newPage();
+  const mobile = { viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true };
+  const m = await browser.newPage(process.env.PUPPETEER ? undefined : mobile);
   await m.setViewport({ width: 390, height: 844, deviceScaleFactor: 2, isMobile: true, hasTouch: true });
   m.on('pageerror', e => errors.push('mobile pageerror: ' + e.message));
-  await m.goto(url + '?seed=' + SEED); await sleep(1800);
-  await m.screenshot({ path: path.join(OUT, '11-mobile-title.png') }); shots.push({ file: 'shots/11-mobile-title.png', note: 'Mobile 390x844 title' });
-  await m.tap(`.fcard[data-faction="egyptian"]`); await m.tap('#begin'); await sleep(1800);
+  await m.goto(url + '?seed=' + SEED + '&nosave=1'); await sleep(1800);
+  await m.screenshot({ path: path.join(OUT, '11-mobile-title.png') }); shots.push({ file: path.relative(ROOT, path.join(OUT, '11-mobile-title.png')), note: 'Mobile 390x844 title' });
+  await m.tap(`.fcard[data-faction="egyptian"]`); if (await m.evaluate(() => document.getElementById('opt-tutorial').checked)) await m.tap('#opt-tutorial'); await m.tap('#begin'); await sleep(1800);
   const home = await m.evaluate(() => PW.state.settlements[PW.state.players[0].home].tile);
   const hp = await m.evaluate(t => PW.tileScreen(t), home); await m.touchscreen.tap(hp.x, hp.y + 2); await sleep(800);
-  await m.screenshot({ path: path.join(OUT, '12-mobile-game.png') }); shots.push({ file: 'shots/12-mobile-game.png', note: 'Mobile in-game after tapping home settlement (touch)' });
+  await m.screenshot({ path: path.join(OUT, '12-mobile-game.png') }); shots.push({ file: path.relative(ROOT, path.join(OUT, '12-mobile-game.png')), note: 'Mobile in-game after tapping home settlement (touch)' });
 
   // reduced-motion + low quality smoke check
   const r = await browser.newPage(); await r.emulateMediaFeatures([{ name: 'prefers-reduced-motion', value: 'reduce' }]);
   await r.setViewport({ width: 1280, height: 720 }); r.on('pageerror', e => errors.push('reduced pageerror: ' + e.message));
-  await r.goto(url + '?seed=' + SEED + '&autostart=1&quality=low'); await sleep(1500);
+  await r.goto(url + '?seed=' + SEED + '&autostart=1&quality=low&nosave=1'); await sleep(1500);
   const rinfo = await r.evaluate(() => ({ reduced: PW.renderer.reduced, quality: PW.renderer.quality, frameMs: PW.renderer.lastFrameMs }));
-  await r.screenshot({ path: path.join(OUT, '13-reduced-motion-low.png') }); shots.push({ file: 'shots/13-reduced-motion-low.png', note: 'prefers-reduced-motion + low quality' });
+  await r.screenshot({ path: path.join(OUT, '13-reduced-motion-low.png') }); shots.push({ file: path.relative(ROOT, path.join(OUT, '13-reduced-motion-low.png')), note: 'prefers-reduced-motion + low quality' });
   const hiInfo = await page.evaluate(() => ({ quality: PW.renderer.quality, frameMs: PW.renderer.lastFrameMs }));
 
   const report = { seed: SEED, faction: FACTION, rivals: RIVALS, diff: DIFF, winner: final.winner, finalTurn: final.turn, actions: final.actions.length,

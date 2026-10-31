@@ -1,0 +1,44 @@
+name: Full balance validation
+
+# The full ordered ten-pantheon plan (9000 games by default) is too slow for every pull request,
+# so it runs only on demand. The report is uploaded as an artifact; nothing is committed.
+on:
+  workflow_dispatch:
+    inputs:
+      seed:
+        description: First seed of the plan (1000 = the reference seeds of reports/ten-pantheon-balance-final.md)
+        default: '1000'
+      duel_seeds:
+        description: Seeds per ordered duel
+        default: '20'
+      ffa_seeds:
+        description: Seeds per ordered three-god game
+        default: '10'
+
+permissions:
+  contents: read
+
+jobs:
+  balance:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Simulate
+        env:
+          SEED: ${{ inputs.seed }}
+          DUEL_SEEDS: ${{ inputs.duel_seeds }}
+          FFA_SEEDS: ${{ inputs.ffa_seeds }}
+        run: |
+          case "$SEED$DUEL_SEEDS$FFA_SEEDS" in *[!0-9]*) echo "inputs must be whole numbers"; exit 1;; esac
+          node tools/simulate.js --plan full --seed "$SEED" --duel-seeds "$DUEL_SEEDS" --ffa-seeds "$FFA_SEEDS" \
+            --label ci-full --out balance-out/ten-pantheon-balance-ci
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: balance-full
+          path: balance-out/
+          retention-days: 30

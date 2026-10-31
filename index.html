@@ -3,95 +3,183 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Pantheon Wars v0.1</title>
+<title>Pantheon Wars</title>
 <link rel="stylesheet" href="ui/style.css">
 </head>
 <body>
 <canvas id="world" aria-label="The mortal world: a hex map of settlements seen from the heavens" role="img"></canvas>
+<div id="sr-live" class="sr-only" aria-live="polite" aria-atomic="true"></div>
 
 <div id="hud" hidden>
   <header id="topbar" aria-label="Resources">
     <div class="tb-god"><canvas id="tb-emblem" width="34" height="34" aria-hidden="true"></canvas><div><div id="tb-name" class="tb-title"></div><div id="tb-sub" class="tb-small"></div></div></div>
-    <div class="tb-res" title="Faith: produced by followers, domains and shrines. Spent on shrines, priests, omens and powers.">
+    <div class="tb-res" title="Faith: produced by followers, domains, shrines and roads. Spent on shrines, priests, omens, callings, roads and powers.">
       <span class="res-ico faith" aria-hidden="true"></span>
       <div><div class="tb-val"><b id="tb-faith">0</b> <span id="tb-inc" class="pos"></span></div>
       <div class="meter" id="faith-meter" role="meter" aria-label="Faith toward next shrine" aria-valuemin="0" aria-valuemax="100"><i></i><span id="faith-meter-label"></span></div></div>
     </div>
-    <div class="tb-res" title="Favor: the attention of the heavens. Earned by winning settlements and domains; spent on dream visions, eclipses and miracles.">
+    <div class="tb-res" title="Favor: the attention of the heavens. Earned by winning towns, kept covenants and domains; spent on dreams, eclipses, counter-rites and miracles.">
       <span class="res-ico favor" aria-hidden="true"></span><div><div class="tb-val"><b id="tb-favor">0</b><span class="tb-small" id="tb-favcap"></span></div><div class="tb-small">Favor</div></div>
     </div>
     <div class="tb-res" title="Your followers and their share of all mortals.">
       <span class="res-ico folk" aria-hidden="true"></span><div><div class="tb-val"><b id="tb-follow">0</b> <span id="tb-share" class="tb-small"></span></div><div class="tb-small">Followers</div></div>
     </div>
     <div class="tb-asc" title="Ascendancy: the share of all mortals following each god. Reach the gold line to win.">
-      <div class="tb-small">Ascendancy</div><div id="asc-meter" class="asc"></div>
+      <div class="tb-small"><span id="tb-age-name">Dawn</span> · Ascendancy</div><div id="asc-meter" class="asc"></div>
     </div>
     <div class="tb-turn"><div class="tb-small">Turn</div><div class="tb-val"><b id="tb-turn">1</b><span class="tb-small" id="tb-maxturn"></span></div></div>
+    <div id="tb-alerts" class="tb-alerts" aria-live="polite"></div>
     <nav class="tb-btns">
+      <button id="btn-envoy" class="iconbtn" aria-label="Envoys and treaties (V)" title="Envoys and treaties (V)">✉</button>
+      <button id="btn-layers" class="iconbtn" aria-label="Map layers (I)" title="Map layers: influence, roads (I)">◎</button>
       <button id="btn-log" class="iconbtn" aria-label="Turn log (L)" title="Turn log (L)">☰</button>
+      <button id="btn-codex" class="iconbtn" aria-label="Encyclopedia (E)" title="Encyclopedia (E)">❦</button>
       <button id="btn-help" class="iconbtn" aria-label="How to play (H)" title="How to play (H)">?</button>
-      <button id="btn-menu" class="iconbtn" aria-label="Menu" title="Menu">⚙</button>
+      <button id="btn-menu" class="iconbtn" aria-label="Menu (M)" title="Menu (M)">⚙</button>
     </nav>
   </header>
+  <div id="objective" hidden role="status"></div>
 
-  <aside id="logpanel" aria-label="Turn log" hidden><h2>Chronicle</h2><ol id="log" aria-live="polite"></ol></aside>
+  <aside id="logpanel" aria-label="Turn log" hidden><h2>Chronicle</h2><ol id="log" aria-live="off"></ol></aside>
   <aside id="panel" aria-label="Selected place" aria-live="polite"></aside>
+  <div id="layerbar" hidden class="chrome" role="group" aria-label="Map layers">
+    <label><input type="checkbox" id="layer-influence"> Influence</label><label><input type="checkbox" id="layer-routes"> All roads</label><label><input type="checkbox" id="layer-numbers" checked> Numbers</label>
+  </div>
 
   <div id="minimap-wrap"><canvas id="minimap" width="220" height="128" aria-label="Minimap. Click to move the camera."></canvas></div>
 
   <footer id="powerbar" aria-label="Divine powers"></footer>
   <button id="endturn" aria-label="End turn (Enter)"><span id="endturn-label">End Turn</span><small id="endturn-sub"></small></button>
-  <div id="targetbar" hidden role="status"><span id="target-text"></span><button id="target-cancel">Cancel (Esc)</button></div>
+  <div id="targetbar" hidden role="status"><span id="target-text"></span><span id="target-preview" class="tb-small"></span><button id="target-cancel">Cancel (Esc)</button></div>
+  <div id="tutorial" hidden role="dialog" aria-labelledby="tut-title"><div class="tut-kicker">Learning the rites · <span id="tut-step"></span></div><h3 id="tut-title"></h3><p id="tut-text"></p><div class="title-actions"><button id="tut-skip" class="ghost">Skip tutorial</button><button id="tut-next" class="primary" hidden>Continue</button></div></div>
   <div id="turnbanner" aria-hidden="true"></div>
   <div id="toasts" role="status" aria-live="polite"></div>
 </div>
 
 <div id="title" class="screen">
   <div class="title-inner">
-    <div class="logo"><span class="logo-sm">v0.1</span><h1>Pantheon Wars</h1><p class="tagline">Three ancient pantheons. One mortal world. Forty-five turns to be remembered.</p></div>
-    <div id="faction-cards" class="cards" role="radiogroup" aria-label="Choose your pantheon"></div>
-    <div class="opts">
-      <fieldset><legend>Rival gods</legend><div class="seg" role="radiogroup" aria-label="Number of rivals"><button data-rivals="1" class="on" role="radio" aria-checked="true">One</button><button data-rivals="2" role="radio" aria-checked="false">Two</button></div></fieldset>
-      <fieldset><legend>Rival skill</legend><div class="seg" role="radiogroup" aria-label="Rival difficulty"><button data-diff="easy" role="radio" aria-checked="false">Acolyte</button><button data-diff="hard" class="on" role="radio" aria-checked="true">Hierophant</button></div></fieldset>
-      <fieldset><legend>World seed</legend><div class="seedrow"><input id="seed" inputmode="numeric" aria-label="World seed" value="1"><button id="seed-rand" class="iconbtn" aria-label="Random seed" title="Random seed">⟳</button></div></fieldset>
+    <div class="logo"><span class="logo-sm">Ten Pantheons</span><h1>Pantheon Wars</h1><p class="tagline">Ten pantheons. One mortal world. Forty-five turns to be remembered.</p></div>
+    <div class="title-top">
+      <div class="title-continue" id="continue-row"></div>
+      <div class="gallery-tools"><input id="faction-search" type="search" placeholder="Find a pantheon…" aria-label="Filter pantheons"><button id="faction-random" class="ghost" title="Choose a pantheon from the seed">Random</button><button id="faction-compare" class="ghost" aria-pressed="false" title="Pick two pantheons to compare side by side">Compare</button></div>
     </div>
-    <div class="title-actions"><button id="begin" class="primary">Begin the Age</button><a class="link" href="docs/design.html">Design &amp; sources</a></div>
+    <div id="faction-cards" class="cards" role="radiogroup" aria-label="Choose your pantheon"></div>
+    <div id="compare" hidden class="compare chrome"></div>
+    <div id="faction-detail" class="faction-detail chrome" aria-live="polite"></div>
+    <div class="opts">
+      <fieldset><legend>Match</legend><div class="seg" role="radiogroup" aria-label="Match mode" id="mode-seg">
+        <button data-mode="standard" class="on" role="radio" aria-checked="true">Standard</button><button data-mode="sacredSites" role="radio" aria-checked="false" title="Alternative victory: hold three holy places for three rounds">Sacred Ground</button><button data-mode="covenants" role="radio" aria-checked="false" title="Alternative victory: keep three covenants and break none">Kept Word</button><button data-mode="scenario" role="radio" aria-checked="false">Trials</button></div>
+        <select id="scenario-select" hidden aria-label="Trial"></select></fieldset>
+      <fieldset id="rival-fs"><legend>Rival gods</legend><div class="seg" role="radiogroup" aria-label="Number of rivals"><button data-rivals="1" class="on" role="radio" aria-checked="true">One</button><button data-rivals="2" role="radio" aria-checked="false">Two</button></div>
+        <div class="rival-slots" id="rival-slots"></div></fieldset>
+      <fieldset id="diff-fs"><legend>Rival skill</legend><div class="seg" role="radiogroup" aria-label="Rival difficulty"><button data-diff="easy" role="radio" aria-checked="false">Acolyte</button><button data-diff="hard" class="on" role="radio" aria-checked="true">Hierophant</button></div></fieldset>
+      <fieldset><legend>Hot-seat</legend><div class="seg" role="radiogroup" aria-label="Human players at this screen"><button data-humans="1" class="on" role="radio" aria-checked="true">Solo</button><button data-humans="2" role="radio" aria-checked="false">2 humans</button><button data-humans="3" role="radio" aria-checked="false">3 humans</button></div></fieldset>
+      <fieldset><legend>World seed</legend><div class="seedrow"><input id="seed" inputmode="numeric" aria-label="World seed" value="1"><button id="seed-rand" class="iconbtn" aria-label="Random seed" title="Random seed">⟳</button></div></fieldset>
+      <fieldset><legend>Guide</legend><label class="check"><input type="checkbox" id="opt-tutorial"> Guided first turns</label></fieldset>
+    </div>
+    <div class="title-actions"><button id="begin" class="primary">Begin the Age</button><button id="title-load" class="ghost">Load or import…</button><button id="title-codex" class="ghost">Encyclopedia</button><button id="title-settings" class="ghost">Settings</button><a class="link" href="docs/design.html">Design &amp; sources</a></div>
   </div>
 </div>
 
 <div id="event" class="modal" hidden role="dialog" aria-modal="true" aria-labelledby="ev-title">
   <div class="card">
-    <div class="card-art"><canvas id="ev-art" width="96" height="54"></canvas><canvas id="ev-emblem" width="32" height="32" class="card-emblem"></canvas></div>
+    <div class="card-art"><canvas id="ev-art" width="160" height="90"></canvas><canvas id="ev-emblem" width="32" height="32" class="card-emblem"></canvas></div>
     <div class="card-body"><div class="card-kicker">Event · Turn <span id="ev-turn"></span></div><h2 id="ev-title"></h2><p id="ev-text"></p><div id="ev-choices" class="choices"></div></div>
   </div>
 </div>
 
 <div id="help" class="modal" hidden role="dialog" aria-modal="true" aria-labelledby="help-title">
   <div class="sheet"><h2 id="help-title">How to play</h2>
-    <p>You are a god. Win worshippers among mortal settlements before the age ends on turn 45.</p>
+    <p>You are a god. Win worshippers among mortal towns before the age ends on turn 45. Each turn: act, then press <b>End Turn</b>.</p>
     <ul>
-      <li><b>Explore</b> — <i>Read Omens</i> lifts the fog near the known world; a <i>Dream Vision</i> reveals the nearest hidden settlement.</li>
-      <li><b>Expand</b> — <i>Raise a Shrine</i> where you have followers, a priest or territory. Shrines convert nearby mortals every turn. <i>Ordain Priests</i> at shrines and send them to preach.</li>
-      <li><b>Exploit</b> — followers produce Faith; your four domains add bonuses. Winning a settlement (half its people) earns Favor.</li>
-      <li><b>Exterminate</b> — convert rival followers, cast miracles, and <i>Eclipse</i> rival shrines (each eclipse removes 1 Ward; at 0 the shrine falls).</li>
+      <li><b>Explore</b> — <i>Read Omens</i> lifts the fog near the known world; a <i>Dream Vision</i> reveals the nearest hidden town.</li>
+      <li><b>Expand</b> — <i>Raise a Shrine</i> where you have followers, a priest or territory. Shrines convert nearby mortals every turn. <i>Ordain Priests</i> (Emissary, Seer or Warden) and send them to preach.</li>
+      <li><b>Exploit</b> — followers produce Faith; your four domains add bonuses. Keep towns fed and safe: hungry towns do not grow and abandon you.</li>
+      <li><b>Exterminate</b> — convert rival followers, cast miracles and <i>Eclipse</i> rival shrines. A struck god may answer with a counter-rite.</li>
+      <li><b>Promise and bargain</b> — swear covenants to towns, send envoys (✉), consecrate pilgrim roads, claim holy places, give shrines a calling.</li>
     </ul>
-    <p><b>Victory:</b> Ascendancy (60% of all mortals follow you, from turn 12), Dominion (every rival forgotten) or Twilight Judgment (highest devotion score when turn 45 ends).</p>
-    <p><b>Controls:</b> click a place to inspect it · click your priest, then a destination · <kbd>1</kbd>–<kbd>9</kbd> powers · <kbd>Enter</kbd> end turn · <kbd>Esc</kbd> cancel · drag / arrows / WASD to pan · wheel, pinch or <kbd>+</kbd>/<kbd>−</kbd> to zoom · <kbd>L</kbd> log · <kbd>H</kbd> help.</p>
-    <p><a class="link" href="docs/design.html">Full design page with sources</a></p>
+    <p><b>Victory:</b> Ascendancy (60% of all mortals, from turn 12), Dominion (every rival forgotten) or Twilight Judgment (highest devotion when turn 45 ends).</p>
+    <p><b>Controls:</b> click a place to inspect it · click your priest's place twice to command it · <span id="help-keys"></span> · drag / arrows / WASD to pan · wheel, pinch or <kbd>+</kbd>/<kbd>−</kbd> to zoom. Keys can be changed in Settings.</p>
+    <p><button id="help-codex" class="ghost">Open the encyclopedia</button> <button id="help-tutorial" class="ghost">Replay the tutorial next game</button></p>
     <button class="primary" data-close>Close</button></div>
 </div>
 
 <div id="menu" class="modal" hidden role="dialog" aria-modal="true" aria-labelledby="menu-title">
   <div class="sheet"><h2 id="menu-title">Menu</h2>
-    <fieldset><legend>Graphics quality</legend><div class="seg" id="quality-seg"><button data-q="auto" class="on">Auto</button><button data-q="high">High</button><button data-q="low">Low</button></div></fieldset>
-    <p class="tb-small">Seed <b id="menu-seed"></b> · State hash <code id="menu-hash"></code></p>
-    <div class="title-actions"><button id="menu-new" class="ghost">New game</button><button class="primary" data-close>Resume</button></div></div>
+    <div class="menu-grid">
+      <button id="menu-save" class="ghost">Save game</button><button id="menu-load" class="ghost">Load or import</button><button id="menu-export" class="ghost">Export game file</button>
+      <button id="menu-chronicle" class="ghost">Chronicle of Ages</button><button id="menu-settings" class="ghost">Settings</button><button id="menu-codex" class="ghost">Encyclopedia</button>
+      <button id="menu-new" class="ghost">New game (to title)</button>
+    </div>
+    <p class="tb-small">Seed <b id="menu-seed"></b> · State hash <code id="menu-hash"></code> · <span id="menu-mode"></span></p>
+    <div class="title-actions"><button class="primary" data-close>Resume</button></div></div>
+</div>
+
+<div id="settings" class="modal" hidden role="dialog" aria-modal="true" aria-labelledby="settings-title">
+  <div class="sheet wide"><h2 id="settings-title">Settings</h2>
+    <div class="settings-grid">
+      <fieldset><legend>Graphics quality</legend><div class="seg" id="quality-seg"><button data-q="auto" class="on">Auto</button><button data-q="high">High</button><button data-q="low">Low</button></div></fieldset>
+      <fieldset><legend>Motion</legend><div class="seg" id="motion-seg"><button data-motion="system" class="on">Follow system</button><button data-motion="reduced">Reduced</button><button data-motion="full">Full</button></div></fieldset>
+      <fieldset><legend>Flashes</legend><div class="seg" id="flash-seg"><button data-flash="on" class="on">On</button><button data-flash="off">Off</button></div></fieldset>
+      <fieldset><legend>Territories</legend><label class="check"><input type="checkbox" id="set-patterns" checked> Patterned borders</label><label class="check"><input type="checkbox" id="set-contrast"> High contrast</label></fieldset>
+      <fieldset><legend>Sound</legend>
+        <label class="slider">Master <input type="range" min="0" max="100" id="vol-master"></label><label class="slider">Music <input type="range" min="0" max="100" id="vol-music"></label>
+        <label class="slider">Effects <input type="range" min="0" max="100" id="vol-sfx"></label><label class="slider">Ambience <input type="range" min="0" max="100" id="vol-ambience"></label>
+        <div class="tb-small">Soundtrack</div><div class="seg" id="soundtrack-seg" aria-label="Soundtrack"><button data-st="recorded">Recorded</button><button data-st="procedural">Generated</button></div>
+        <label class="check"><input type="checkbox" id="vol-mute"> Mute all</label><div class="tb-small" id="audio-status"></div></fieldset>
+      <fieldset><legend>Assistance</legend><label class="check"><input type="checkbox" id="set-sr" checked> Spoken round summaries (screen readers)</label><label class="check"><input type="checkbox" id="set-previews" checked> Show action previews</label></fieldset>
+      <fieldset class="span2"><legend>Keys</legend><div id="keymap" class="keymap"></div><button id="keys-reset" class="ghost">Restore defaults</button></fieldset>
+    </div>
+    <div class="title-actions"><button class="primary" data-close>Done</button></div></div>
+</div>
+
+<div id="codex" class="modal" hidden role="dialog" aria-modal="true" aria-labelledby="codex-title">
+  <div class="sheet xwide"><h2 id="codex-title">Encyclopedia of the Ten Pantheons</h2><div id="codex-body"></div><div class="title-actions"><button class="primary" data-close>Close</button></div></div>
+</div>
+
+<div id="envoys" class="modal" hidden role="dialog" aria-modal="true" aria-labelledby="envoys-title">
+  <div class="sheet"><h2 id="envoys-title">Envoys and treaties</h2><div id="envoys-body"></div><div class="title-actions"><button class="primary" data-close>Close</button></div></div>
+</div>
+
+<div id="saves" class="modal" hidden role="dialog" aria-modal="true" aria-labelledby="saves-title">
+  <div class="sheet"><h2 id="saves-title">Saved games</h2><div id="saves-body"></div>
+    <p><label class="ghost filebtn">Import a game, challenge or v0.1 replay file… <input type="file" id="import-file" accept=".json,application/json"></label></p>
+    <div class="title-actions"><button class="primary" data-close>Close</button></div></div>
+</div>
+
+<div id="chronicle" class="modal fullish" hidden role="dialog" aria-modal="true" aria-labelledby="chron-title">
+  <div class="chron-bar chrome">
+    <h2 id="chron-title">Chronicle of Ages</h2>
+    <div class="chron-controls">
+      <button id="chron-prev" class="ghost" aria-label="Previous turn">◀</button><button id="chron-play" class="ghost" aria-label="Play">▶</button><button id="chron-next" class="ghost" aria-label="Next turn">▶▶</button>
+      <input type="range" id="chron-turn" min="1" max="45" value="1" aria-label="Turn"><b id="chron-label">Turn 1</b>
+      <label class="tb-small">Speed <select id="chron-speed"><option value="1.5">slow</option><option value="0.8" selected>normal</option><option value="0.35">fast</option></select></label>
+      <label class="tb-small">View as <select id="chron-viewer"></select></label>
+      <button id="chron-tapestry" class="ghost">Tapestry</button><button id="chron-export" class="ghost">Export history</button><button id="chron-close" class="primary">Return</button>
+    </div>
+    <canvas id="chron-scores" width="600" height="70" aria-label="Score timeline"></canvas>
+    <div id="chron-notes" class="chron-notes" aria-live="polite"></div>
+  </div>
+</div>
+
+<div id="tapestry" class="modal" hidden role="dialog" aria-modal="true" aria-labelledby="tap-title">
+  <div class="sheet xwide"><h2 id="tap-title">End-of-Age Tapestry</h2><canvas id="tap-canvas" width="1600" height="1000" aria-label="Commemorative tapestry of the age"></canvas>
+    <p id="tap-facts" class="tb-small"></p>
+    <div class="title-actions"><button id="tap-png" class="ghost">Save image (PNG)</button><button id="tap-json" class="ghost">Save history (JSON)</button><button class="primary" data-close>Close</button></div></div>
+</div>
+
+<div id="handoff" class="screen" hidden role="dialog" aria-modal="true" aria-labelledby="handoff-title">
+  <div class="vic-inner"><canvas id="handoff-emblem" width="96" height="96"></canvas><div class="card-kicker">Hot-seat</div><h1 id="handoff-title">Pass the screen</h1><p id="handoff-text"></p><div class="title-actions"><button id="handoff-go" class="primary">Show my world</button></div></div>
+</div>
+
+<div id="confirm" class="modal" hidden role="alertdialog" aria-modal="true" aria-labelledby="confirm-title">
+  <div class="sheet"><h2 id="confirm-title"></h2><p id="confirm-text"></p><div class="title-actions"><button id="confirm-no" class="ghost">Cancel</button><button id="confirm-yes" class="primary">Confirm</button></div></div>
 </div>
 
 <div id="victory" class="screen" hidden role="dialog" aria-modal="true" aria-labelledby="vic-title">
   <div class="vic-inner"><canvas id="vic-emblem" width="96" height="96"></canvas><div class="card-kicker" id="vic-kicker"></div><h1 id="vic-title"></h1><p id="vic-sub"></p>
     <table id="vic-table"></table><p class="tb-small" id="vic-meta"></p>
-    <div class="title-actions"><button id="vic-replay" class="ghost">Replay this seed</button><button id="vic-new" class="primary">New game</button><a class="link" href="docs/design.html">Design &amp; sources</a></div></div>
+    <div class="title-actions"><button id="vic-chronicle" class="ghost">Chronicle</button><button id="vic-tapestry" class="ghost">Tapestry</button><button id="vic-export" class="ghost">Export</button><button id="vic-replay" class="ghost">Replay this seed</button><button id="vic-new" class="primary">New game</button></div></div>
 </div>
 
 <script src="data/data.js"></script>
@@ -99,7 +187,16 @@
 <script src="engine/engine.js"></script>
 <script src="engine/ai.js"></script>
 <script src="ui/art.js"></script>
+<script src="ui/kits.js"></script>
+<script src="ui/vfx-art.js"></script>
+<script src="ui/terrain-art.js"></script>
 <script src="ui/render.js"></script>
+<script src="ui/audio.js"></script>
+<script src="audio/soundtrack.js"></script>
+<script src="ui/music.js"></script>
+<script src="ui/storage.js"></script>
+<script src="ui/chronicle.js"></script>
+<script src="ui/encyclopedia.js"></script>
 <script src="ui/app.js"></script>
 </body>
 </html>

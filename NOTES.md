@@ -23,3 +23,17 @@ Last updated: 2026-10-29 (America/New_York)
 - Development copy lives in /tmp/pw (writes into /workspace were Auto-review blocked once); sync with one approved copy.
 - puppeteer-core (dev only) at /workspace/dexter-test/node_modules/puppeteer-core; Chrome /usr/bin/google-chrome
 - Do NOT commit or push (.git is left untouched).
+
+---
+## v0.2 — The Ten Pantheons (2026-10-29)
+- Branch `claude/vibrant-feynman-x1fjq9`, base HEAD 4556ece. **Not committed, not pushed** (per the contract; authorization required).
+- Durable progress ledger: `docs/OMNI_IMPLEMENTATION_STATE.md`. Traceability: `docs/TRACEABILITY.md`.
+- Engine v0.2.0: ten pantheons, ages, needs, memory, covenants, counter-rites, grudges, lookahead, diplomacy, shrine and priest callings, routes, landmarks, climate, marks, modes, scenarios, seat compensation. Frozen v0.1 engine in `engine/legacy/` replays v0.1 files (fixture hash 6a3687d9).
+- UI rewritten: ten-card gallery and rival composer, tutorial, settings/keymap, saves/autosave/export/import/challenge, hot-seat handoff, Chronicle, tapestry, encyclopedia, envoys, influence layer, audio.
+- Browser tools now use the pre-installed Playwright Chromium (`tools/pw-shim.js` replaces the old puppeteer-core path).
+- Balance tuning stopped at t12; spread target not met — see `reports/balance-notes.md` and the final report.
+
+## Release-readiness uplift (2026-10-30)
+- CI added (GitHub Actions; green on its first run). Balance retuned on dev seeds and validated on held-out seeds: 11.5 / 14.2 / 16.1 pp
+  (overall / FFA / duel; was 17.8 / 21.2 / 25.0) — duel still over the 15-point target. Renderer p95 down 51–63%. Hot-seat live-region
+  leak fixed; rules-text drift fixed with a regression test. Details: `docs/OMNI_IMPLEMENTATION_STATE.md`.

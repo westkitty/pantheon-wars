@@ -1,0 +1,3782 @@
+{
+ "env": {
+  "label": "head-reduced",
+  "root": "/home/user/pantheon-wars",
+  "date": "2026-10-31T06:55:26.879Z",
+  "viewport": "1440x900",
+  "dpr": 1,
+  "quality": "high",
+  "motion": "reduced",
+  "flash": "on",
+  "runs": 1,
+  "repeat": 1,
+  "smoke": false,
+  "browser": "Playwright Chromium headless, software rendering (no GPU)",
+  "node": "v22.22.0",
+  "fixture": "seed 2, two rivals, AI to turn 14 (else 22/30/38/8/4, the first with a legal cast for that power), then map revealed for the viewer, Faith 999, Favor 99, cooldowns cleared"
+ },
+ "powers": [
+  {
+   "id": "oracle_oak",
+   "faction": "greek",
+   "vfx": "oak_whisper",
+   "x": "explore",
+   "target": "anyTile",
+   "fixtureTurn": 14,
+   "targetTile": 133,
+   "casts": [
+    {
+     "ok": true,
+     "dispatched": [
+      "oak_whisper"
+     ],
+     "phases": {
+      "idle": {
+       "n": 90,
+       "median": 8,
+       "p95": 12.2,
+       "p99": null,
+       "max": 17.6
+      },
+      "anticipation": {
+       "n": 21,
+       "median": 9.3,
+       "p95": 19.4,
+       "p99": null,
+       "max": 29.8
+      },
+      "manifestation": {
+       "n": 47,
+       "median": 7.7,
+       "p95": 8.7,
+       "p99": null,
+       "max": 9
+      },
+      "aftermath": {
+       "n": 4,
+       "median": 8.2,
+       "p95": 9.2,
+       "p99": null,
+       "max": 9.2
+      },
+      "cast": {
+       "n": 72,
+       "median": 7.9,
+       "p95": 13.2,
+       "p99": null,
+       "max": 29.8
+      },
+      "returnIdle": {
+       "n": 30,
+       "median": 7.5,
+       "p95": 10.9,
+       "p99": null,
+       "max": 11
+      }
+     },
+     "fxPeak": 2,
+     "lifetime": 1.2,
+     "left": 0,
+     "texts": 1,
+     "heapMB": 9.75
+    }
+   ],
+   "ok": true,
+   "opsPerFrame": {
+    "idle": {
+     "fill": 73.5,
+     "stroke": 67.1,
+     "fillRect": 689.5,
+     "drawImage": 410,
+     "createRadialGradient": 11,
+     "createLinearGradient": 10,
+     "createPattern": 3,
+     "save": 15,
+     "setTransform": 80,
+     "beginPath": 139.7
+    },
+    "cast": {
+     "fill": 87.9,
+     "stroke": 86.3,
+     "fillRect": 722.8,
+     "drawImage": 410.9,
+     "createRadialGradient": 11,
+     "createLinearGradient": 10,
+     "createPattern": 3,
+     "save": 28.3,
+     "setTransform": 80.9,
+     "beginPath": 173.3
+    }
+   },
+   "run": 0
+  },
+  {
+   "id": "aegis_polis",
+   "faction": "greek",
+   "vfx": "aegis_wall",
+   "x": "expand",
+   "target": "ownShrine",
+   "fixtureTurn": 14,
+   "targetTile": 133,
+   "casts": [
+    {
+     "ok": true,
+     "dispatched": [
+      "aegis_wall"
+     ],
+     "phases": {
+      "idle": {
+       "n": 90,
+       "median": 7.5,
+       "p95": 9.2,
+       "p99": null,
+       "max": 12.8
+      },
+      "anticipation": {
+       "n": 21,
+       "median": 9.9,
+       "p95": 14.1,
+       "p99": null,
+       "max": 14.4
+      },
+      "manifestation": {
+       "n": 47,
+       "median": 7.7,
+       "p95": 11.7,
+       "p99": null,
+       "max": 12.2
+      },
+      "aftermath": {
+       "n": 4,
+       "median": 7.6,
+       "p95": 8.3,
+       "p99": null,
+       "max": 8.3
+      },
+      "cast": {
+       "n": 72,
+       "median": 7.8,
+       "p95": 12,
+       "p99": null,
+       "max": 14.4
+      },
+      "returnIdle": {
+       "n": 30,
+       "median": 7.6,
+       "p95": 11.6,
+       "p99": null,
+       "max": 16.7
+      }
+     },
+     "fxPeak": 3,
+     "lifetime": 1.2,
+     "left": 0,
+     "texts": 1,
+     "heapMB": 10
+    }
+   ],
+   "ok": true,
+   "opsPerFrame": {
+    "idle": {
+     "fill": 73.4,
+     "stroke": 67.1,
+     "fillRect": 672.9,
+     "drawImage": 410,
+     "createRadialGradient": 11,
+     "createLinearGradient": 10,
+     "createPattern": 3,
+     "save": 15,
+     "setTransform": 80,
+     "beginPath": 139.5
+    },
+    "cast": {
+     "fill": 75.3,
+     "stroke": 79,
+     "fillRect": 672.9,
+     "drawImage": 411,
+     "createRadialGradient": 11,
+     "createLinearGradient": 10,
+     "createPattern": 3,
+     "save": 15.9,
+     "setTransform": 81.9,
+     "beginPath": 153.3
+    }
+   },
+   "run": 0
+  },
+  {
+   "id": "gift_of_grain",
+   "faction": "greek",
+   "vfx": "grain_wave",
+   "x": "exploit",
+   "target": "none",
+   "fixtureTurn": 14,
+   "targetTile": null,
+   "casts": [
+    {
+     "ok": true,
+     "dispatched": [
+      "grain_wave"
+     ],
+     "phases": {
+      "idle": {
+       "n": 90,
+       "median": 7.6,
+       "p95": 11,
+       "p99": null,
+       "max": 11.9
+      },
+      "anticipation": {
+       "n": 21,
+       "median": 7.9,
+       "p95": 12.1,
+       "p99": null,
+       "max": 14.8
+      },
+      "manifestation": {
+       "n": 47,
+       "median": 7.6,
+       "p95": 12.2,
+       "p99": null,
+       "max": 29.4
+      },
+      "aftermath": {
+       "n": 4,
+       "median": 12.2,
+       "p95": 14.6,
+       "p99": null,
+       "max": 14.6
+      },
+      "cast": {
+       "n": 72,
+       "median": 7.8,
+       "p95": 13,
+       "p99": null,
+       "max": 29.4
+      },
+      "returnIdle": {
+       "n": 30,
+       "median": 8.3,
+       "p95": 12.4,
+       "p99": null,
+       "max": 13.2
+      }
+     },
+     "fxPeak": 2,
+     "lifetime": 1.2,
+     "left": 0,
+     "texts": 1,
+     "heapMB": 10.37
+    }
+   ],
+   "ok": true,
+   "opsPerFrame": {
+    "idle": {
+     "fill": 73.7,
+     "stroke": 67.2,
+     "fillRect": 706.2,
+     "drawImage": 410,
+     "createRadialGradient": 11,
+     "createLinearGradient": 10,
+     "createPattern": 3,
+     "save": 15,
+     "setTransform": 80,
+     "beginPath": 139.8
+    },
+    "cast": {
+     "fill": 123.9,
+     "stroke": 118.1,
+     "fillRect": 689.5,
+     "drawImage": 410.9,
+     "createRadialGradient": 11,
+     "createLinearGradient": 10,
+     "createPattern": 3,
+     "save": 15.9,
+     "setTransform": 80.9,
+     "beginPath": 240.9
+    }
+   },
+   "run": 0
+  },
+  {
+   "id": "thunderbolt",
+   "faction": "greek",
+   "vfx": "bolt_strike",
+   "x": "exterminate",
+   "target": "revealedSettlement",
+   "fixtureTurn": 14,
+   "targetTile": 133,
+   "casts": [
+    {
+     "ok": true,
+     "dispatched": [
+      "bolt_strike"
+     ],
+     "phases": {
+      "idle": {
+       "n": 90,
+       "median": 7.6,
+       "p95": 9.7,
+       "p99": null,
+       "max": 11
+      },
+      "anticipation": {
+       "n": 21,
+       "median": 7.8,
+       "p95": 11.3,
+       "p99": null,
+       "max": 11.6
+      },
+      "manifestation": {
+       "n": 47,
+       "median": 11.4,
+       "p95": 13.2,
+       "p99": null,
+       "max": 15.8
+      },
+      "aftermath": {
+       "n": 4,
+       "median": 8.2,
+       "p95": 9.6,
+       "p99": null,
+       "max": 9.6
+      },
+      "cast": {
+       "n": 72,
+       "median": 8.9,
+       "p95": 12.9,
+       "p99": null,
+       "max": 15.8
+      },
+      "returnIdle": {
+       "n": 30,
+       "median": 7.9,
+       "p95": 11.1,
+       "p99": null,
+       "max": 12.2
+      }
+     },
+     "fxPeak": 2,
+     "lifetime": 1.2,
+     "left": 0,
+     "texts": 1,
+     "heapMB": 7.55
+    }
+   ],
+   "ok": true,
+   "opsPerFrame": {
+    "idle": {
+     "fill": 74.2,
+     "stroke": 67.3,
+     "fillRect": 772.7,
+     "drawImage": 410,
+     "createRadialGradient": 11,
+     "createLinearGradient": 10,
+     "createPattern": 3,
+     "save": 15,
+     "setTransform": 80,
+     "beginPath": 140.5
+    },
+    "cast": {
+     "fill": 83,
+     "stroke": 67.7,
+     "fillRect": 664.6,
+     "drawImage": 410.9,
+     "createRadialGradient": 11,
+     "createLinearGradient": 10,
+     "createPattern": 3,
+     "save": 15.9,
+     "setTransform": 80.9,
+     "beginPath": 149.7
+    }
+   },
+   "run": 0
+  },
+  {
+   "id": "ravens_flight",
+   "faction": "norse",
+   "vfx": "raven_flight",
+   "x": "explore",
+   "target": "none",
+   "fixtureTurn": 14,
+   "targetTile": null,
+   "casts": [
+    {
+     "ok": true,
+     "dispatched": [
+      "raven_flight"
+     ],
+     "phases": {
+      "idle": {
+       "n": 90,
+       "median": 8.3,
+       "p95": 13.1,
+       "p99": null,
+       "max": 18.5
+      },
+      "anticipation": {
+       "n": 21,
+       "median": 8.9,
+       "p95": 13.7,
+       "p99": null,
+       "max": 30.9
+      },
+      "manifestation": {
+       "n": 47,
+       "median": 7.9,
+       "p95": 11.9,
+       "p99": null,
+       "max": 12.3
+      },
+      "aftermath": {
+       "n": 4,
+       "median": 13.3,
+       "p95": 14.9,
+       "p99": null,
+       "max": 14.9
+      },
+      "cast": {
+       "n": 72,
+       "median": 8.2,
+       "p95": 13.3,
+       "p99": null,
+       "max": 30.9
+      },
+      "returnIdle": {
+       "n": 30,
+       "median": 7.8,
+       "p95": 11.3,
+       "p99": null,
+       "max": 11.5
+      }
+     },
+     "fxPeak": 2,
+     "lifetime": 1.2,
+     "left": 0,
+     "texts": 1,
+     "heapMB": 6.77
+    }
+   ],
+   "ok": true,
+   "opsPerFrame": {
+    "idle": {
+     "fill": 77.7,
+     "stroke": 72.2,
+     "fillRect": 710.3,
+     "drawImage": 415,
+     "createRadialGradient": 12,
+     "createLinearGradient": 11,
+     "createPattern": 3,
+     "save": 16,
+     "setTransform": 84,
+     "beginPath": 148.8
+    },
+    "cast": {
+     "fill": 86.4,
+     "stroke": 72.7,
+     "fillRect": 693.3,
+     "drawImage": 415,
+     "createRadialGradient": 12,
+     "createLinearGradient": 11,
+     "createPattern": 3,
+     "save": 18.6,
+     "setTransform": 84.9,
+     "beginPath": 158.1
+    }
+   },
+   "run": 0
+  },
+  {
+   "id": "rune_hall",
+   "faction": "norse",
+   "vfx": "rune_carve",
+   "x": "expand",
+   "target": "shrineSite",
+   "fixtureTurn": 14,
+   "targetTile": 199,
+   "casts": [
+    {
+     "ok": true,
+     "dispatched": [
+      "rune_carve"
+     ],
+     "phases": {
+      "idle": {
+       "n": 90,
+       "median": 8.3,
+       "p95": 11.6,
+       "p99": null,
+       "max": 12.7
+      },
+      "anticipation": {
+       "n": 21,
+       "median": 8.5,
+       "p95": 15.1,
+       "p99": null,
+       "max": 20.6
+      },
+      "manifestation": {
+       "n": 47,
+       "median": 8.1,
+       "p95": 10.2,
+       "p99": null,
+       "max": 12.7
+      },
+      "aftermath": {
+       "n": 29,
+       "median": 8.2,
+       "p95": 12.7,
+       "p99": null,
+       "max": 12.9
+      },
+      "cast": {
+       "n": 97,
+       "median": 8.2,
+       "p95": 12.7,
+       "p99": null,
+       "max": 20.6
+      },
+      "returnIdle": {
+       "n": 30,
+       "median": 7.9,
+       "p95": 11.7,
+       "p99": null,
+       "max": 17.3
+      }
+     },
+     "fxPeak": 4,
+     "lifetime": 1.617,
+     "left": 0,
+     "texts": 2,
+     "heapMB": 6.86
+    }
+   ],
+   "ok": true,
+   "opsPerFrame": {
+    "idle": {
+     "fill": 80.2,
+     "stroke": 72.3,
+     "fillRect": 778.6,
+     "drawImage": 420,
+     "createRadialGradient": 12,
+     "createLinearGradient": 11,
+     "createPattern": 3,
+     "save": 16,
+     "setTransform": 89,
+     "beginPath": 151.5
+    },
+    "cast": {
+     "fill": 90.3,
+     "stroke": 79,
+     "fillRect": 706.8,
+     "drawImage": 421.9,
+     "createRadialGradient": 13,
+     "createLinearGradient": 13,
+     "createPattern": 3,
+     "save": 16.9,
+     "setTransform": 90.9,
+     "beginPath": 168.3
+    }
+   },
+   "run": 0
+  },
+  {
+   "id": "rain_and_sun",
+   "faction": "norse",
+   "vfx": "sunrain_shower",
+   "x": "exploit",
+   "target": "none",
+   "fixtureTurn": 14,
+   "targetTile": null,
+   "casts": [
+    {
+     "ok": true,
+     "dispatched": [
+      "sunrain_shower"
+     ],
+     "phases": {
+      "idle": {
+       "n": 90,
+       "median": 8.2,
+       "p95": 12.1,
+       "p99": null,
+       "max": 22.6
+      },
+      "anticipation": {
+       "n": 21,
+       "median": 11.1,
+       "p95": 16.9,
+       "p99": null,
+       "max": 17.3
+      },
+      "manifestation": {
+       "n": 47,
+       "median": 8,
+       "p95": 11.8,
+       "p99": null,
+       "max": 14.3
+      },
+      "aftermath": {
+       "n": 4,
+       "median": 8.6,
+       "p95": 9.2,
+       "p99": null,
+       "max": 9.2
+      },
+      "cast": {
+       "n": 72,
+       "median": 8.3,
+       "p95": 12.6,
+       "p99": null,
+       "max": 17.3
+      },
+      "returnIdle": {
+       "n": 30,
+       "median": 8,
+       "p95": 11.9,
+       "p99": null,
+       "max": 12.2
+      }
+     },
+     "fxPeak": 2,
+     "lifetime": 1.2,
+     "left": 0,
+     "texts": 2,
+     "heapMB": 12.7
+    }
+   ],
+   "ok": true,
+   "opsPerFrame": {
+    "idle": {
+     "fill": 77.8,
+     "stroke": 72.2,
+     "fillRect": 727.4,
+     "drawImage": 415,
+     "createRadialGradient": 12,
+     "createLinearGradient": 11,
+     "createPattern": 3,
+     "save": 16,
+     "setTransform": 84,
+     "beginPath": 149
+    },
+    "cast": {
+     "fill": 85.6,
+     "stroke": 77.2,
+     "fillRect": 714.4,
+     "drawImage": 415.9,
+     "createRadialGradient": 12,
+     "createLinearGradient": 11,
+     "createPattern": 3,
+     "save": 16.9,
+     "setTransform": 84.9,
+     "beginPath": 161.8
+    }
+   },
+   "run": 0
+  },
+  {
+   "id": "hammer_thunder",
+   "faction": "norse",
+   "vfx": "hammer_arc",
+   "x": "exterminate",
+   "target": "rivalShrine",
+   "fixtureTurn": 22,
+   "targetTile": 227,
+   "casts": [
+    {
+     "ok": true,
+     "dispatched": [
+      "hammer_arc"
+     ],
+     "phases": {
+      "idle": {
+       "n": 90,
+       "median": 11.7,
+       "p95": 17.4,
+       "p99": null,
+       "max": 23.6
+      },
+      "anticipation": {
+       "n": 21,
+       "median": 11.5,
+       "p95": 20.9,
+       "p99": null,
+       "max": 31.1
+      },
+      "manifestation": {
+       "n": 47,
+       "median": 11.8,
+       "p95": 17.8,
+       "p99": null,
+       "max": 19.4
+      },
+      "aftermath": {
+       "n": 4,
+       "median": 11.6,
+       "p95": 12.1,
+       "p99": null,
+       "max": 12.1
+      },
+      "cast": {
+       "n": 72,
+       "median": 11.8,
+       "p95": 19.4,
+       "p99": null,
+       "max": 31.1
+      },
+      "returnIdle": {
+       "n": 30,
+       "median": 11.5,
+       "p95": 18.3,
+       "p99": null,
+       "max": 22.6
+      }
+     },
+     "fxPeak": 2,
+     "lifetime": 1.2,
+     "left": 0,
+     "texts": 1,
+     "heapMB": 8.39
+    }
+   ],
+   "ok": true,
+   "opsPerFrame": {
+    "idle": {
+     "fill": 136.5,
+     "stroke": 205.1,
+     "fillRect": 1176.4,
+     "drawImage": 495,
+     "createRadialGradient": 19,
+     "createLinearGradient": 18,
+     "createPattern": 3,
+     "save": 16,
+     "setTransform": 146,
+     "beginPath": 340.7
+    },
+    "cast": {
+     "fill": 136.6,
+     "stroke": 220,
+     "fillRect": 1180.5,
+     "drawImage": 495.9,
+     "createRadialGradient": 18,
+     "createLinearGradient": 17,
+     "createPattern": 3,
+     "save": 16.9,
+     "setTransform": 146.9,
+     "beginPath": 355.6
+    }
+   },
+   "run": 0
+  },
+  {
+   "id": "barque_of_re",
+   "faction": "egyptian",
+   "vfx": "barque_sail",
+   "x": "explore",
+   "target": "anyTile",
+   "fixtureTurn": 14,
+   "targetTile": 133,
+   "casts": [
+    {
+     "ok": true,
+     "dispatched": [
+      "barque_sail"
+     ],
+     "phases": {
+      "idle": {
+       "n": 90,
+       "median": 8.1,
+       "p95": 12.5,
+       "p99": null,
+       "max": 13.9
+      },
+      "anticipation": {
+       "n": 21,
+       "median": 8.5,
+       "p95": 14.3,
+       "p99": null,
+       "max": 17.9
+      },
+      "manifestation": {
+       "n": 47,
+       "median": 7.9,
+       "p95": 9.5,
+       "p99": null,
+       "max": 16.5
+      },
+      "aftermath": {
+       "n": 4,
+       "median": 7.7,
+       "p95": 7.7,
+       "p99": null,
+       "max": 7.7
+      },
+      "cast": {
+       "n": 72,
+       "median": 8,
+       "p95": 11.2,
+       "p99": null,
+       "max": 17.9
+      },
+      "returnIdle": {
+       "n": 30,
+       "median": 8.3,
+       "p95": 10.3,
+       "p99": null,
+       "max": 15.4
+      }
+     },
+     "fxPeak": 2,
+     "lifetime": 1.2,
+     "left": 0,
+     "texts": 1,
+     "heapMB": 8.64
+    }
+   ],
+   "ok": true,
+   "opsPerFrame": {
+    "idle": {
+     "fill": 80.9,
+     "stroke": 74.2,
+     "fillRect": 748.9,
+     "drawImage": 415,
+     "createRadialGradient": 12,
+     "createLinearGradient": 11,
+     "createPattern": 3,
+     "save": 16,
+     "setTransform": 84,
+     "beginPath": 154.2
+    },
+    "cast": {
+     "fill": 85.4,
+     "stroke": 75.7,
+     "fillRect": 757.5,
+     "drawImage": 416.8,
+     "createRadialGradient": 12,
+     "createLinearGradient": 11,
+     "createPattern": 3,
+     "save": 16.9,
+     "setTransform": 84.9,
+     "beginPath": 160.1
+    }
+   },
+   "run": 0
+  },
+  {
+   "id": "throne_of_isis",
+   "faction": "egyptian",
+   "vfx": "throne_wings",
+   "x": "expand",
+   "target": "ownShrine",
+   "fixtureTurn": 14,
+   "targetTile": 133,
+   "casts": [
+    {
+     "ok": true,
+     "dispatched": [
+      "throne_wings"
+     ],
+     "phases": {
+      "idle": {
+       "n": 90,
+       "median": 7.8,
+       "p95": 10.8,
+       "p99": null,
+       "max": 12.2
+      },
+      "anticipation": {
+       "n": 21,
+       "median": 8.4,
+       "p95": 13.6,
+       "p99": null,
+       "max": 13.8
+      },
+      "manifestation": {
+       "n": 47,
+       "median": 8.6,
+       "p95": 12.3,
+       "p99": null,
+       "max": 12.7
+      },
+      "aftermath": {
+       "n": 4,
+       "median": 8.3,
+       "p95": 9.2,
+       "p99": null,
+       "max": 9.2
+      },
+      "cast": {
+       "n": 72,
+       "median": 8.5,
+       "p95": 13,
+       "p99": null,
+       "max": 13.8
+      },
+      "returnIdle": {
+       "n": 30,
+       "median": 11.3,
+       "p95": 13.2,
+       "p99": null,
+       "max": 13.3
+      }
+     },
+     "fxPeak": 3,
+     "lifetime": 1.2,
+     "left": 0,
+     "texts": 1,
+     "heapMB": 9.11
+    }
+   ],
+   "ok": true,
+   "opsPerFrame": {
+    "idle": {
+     "fill": 80.7,
+     "stroke": 74.2,
+     "fillRect": 714.7,
+     "drawImage": 415,
+     "createRadialGradient": 12,
+     "createLinearGradient": 11,
+     "createPattern": 3,
+     "save": 16,
+     "setTransform": 84,
+     "beginPath": 153.8
+    },
+    "cast": {
+     "fill": 96.2,
+     "stroke": 75.5,
+     "fillRect": 766.1,
+     "drawImage": 416.9,
+     "createRadialGradient": 12,
+     "createLinearGradient": 11,
+     "createPattern": 3,
+     "save": 29.3,
+     "setTransform": 85.9,
+     "beginPath": 170.7
+    }
+   },
+   "run": 0
+  },
+  {
+   "id": "osiris_garden",
+   "faction": "egyptian",
+   "vfx": "sprout_mound",
+   "x": "exploit",
+   "target": "ownSettlement",
+   "fixtureTurn": 14,
+   "targetTile": 133,
+   "casts": [
+    {
+     "ok": true,
+     "dispatched": [
+      "sprout_mound"
+     ],
+     "phases": {
+      "idle": {
+       "n": 90,
+       "median": 8.6,
+       "p95": 14,
+       "p99": null,
+       "max": 17
+      },
+      "anticipation": {
+       "n": 21,
+       "median": 8.6,
+       "p95": 12.5,
+       "p99": null,
+       "max": 12.7
+      },
+      "manifestation": {
+       "n": 47,
+       "median": 8.6,
+       "p95": 12.1,
+       "p99": null,
+       "max": 14.7
+      },
+      "aftermath": {
+       "n": 4,
+       "median": 8.6,
+       "p95": 9.6,
+       "p99": null,
+       "max": 9.6
+      },
+      "cast": {
+       "n": 72,
+       "median": 8.6,
+       "p95": 12.4,
+       "p99": null,
+       "max": 14.7
+      },
+      "returnIdle": {
+       "n": 30,
+       "median": 8.7,
+       "p95": 13.7,
+       "p99": null,
+       "max": 20.5
+      }
+     },
+     "fxPeak": 2,
+     "lifetime": 1.2,
+     "left": 0,
+     "texts": 1,
+     "heapMB": 12.43
+    }
+   ],
+   "ok": true,
+   "opsPerFrame": {
+    "idle": {
+     "fill": 80.8,
+     "stroke": 74.2,
+     "fillRect": 731.8,
+     "drawImage": 415,
+     "createRadialGradient": 12,
+     "createLinearGradient": 11,
+     "createPattern": 3,
+     "save": 16,
+     "setTransform": 84,
+     "beginPath": 154
+    },
+    "cast": {
+     "fill": 98.5,
+     "stroke": 99.5,
+     "fillRect": 740.4,
+     "drawImage": 415,
+     "createRadialGradient": 12,
+     "createLinearGradient": 11,
+     "createPattern": 3,
+     "save": 32.8,
+     "setTransform": 84.9,
+     "beginPath": 197.1
+    }
+   },
+   "run": 0
+  },
+  {
+   "id": "feather_of_maat",
+   "faction": "egyptian",
+   "vfx": "feather_scale",
+   "x": "exterminate",
+   "target": "revealedSettlement",
+   "fixtureTurn": 14,
+   "targetTile": 133,
+   "casts": [
+    {
+     "ok": true,
+     "dispatched": [
+      "feather_scale"
+     ],
+     "phases": {
+      "idle": {
+       "n": 90,
+       "median": 8.4,
+       "p95": 12.7,
+       "p99": null,
+       "max": 18.7
+      },
+      "anticipation": {
+       "n": 21,
+       "median": 7.7,
+       "p95": 10.7,
+       "p99": null,
+       "max": 11.3
+      },
+      "manifestation": {
+       "n": 47,
+       "median": 8.1,
+       "p95": 10.6,
+       "p99": null,
+       "max": 12.7
+      },
+      "aftermath": {
+       "n": 4,
+       "median": 13.1,
+       "p95": 13.6,
+       "p99": null,
+       "max": 13.6
+      },
+      "cast": {
+       "n": 72,
+       "median": 8.1,
+       "p95": 12.2,
+       "p99": null,
+       "max": 13.6
+      },
+      "returnIdle": {
+       "n": 30,
+       "median": 8.1,
+       "p95": 11.4,
+       "p99": null,
+       "max": 11.5
+      }
+     },
+     "fxPeak": 2,
+     "lifetime": 1.2,
+     "left": 0,
+     "texts": 1,
+     "heapMB": 13.25
+    }
+   ],
+   "ok": true,
+   "opsPerFrame": {
+    "idle": {
+     "fill": 80.3,
+     "stroke": 74.1,
+     "fillRect": 663.3,
+     "drawImage": 415,
+     "createRadialGradient": 12,
+     "createLinearGradient": 11,
+     "createPattern": 3,
+     "save": 16,
+     "setTransform": 84,
+     "beginPath": 153.3
+    },
+    "cast": {
+     "fill": 83.1,
+     "stroke": 86.2,
+     "fillRect": 689,
+     "drawImage": 415.9,
+     "createRadialGradient": 12,
+     "createLinearGradient": 11,
+     "createPattern": 3,
+     "save": 18.6,
+     "setTransform": 84.9,
+     "beginPath": 168.3
+    }
+   },
+   "run": 0
+  },
+  {
+   "id": "mes_crossing_of_utu",
+   "faction": "mesopotamian",
+   "vfx": "solar_traverse",
+   "x": "explore",
+   "target": "anyTile",
+   "fixtureTurn": 14,
+   "targetTile": 133,
+   "casts": [
+    {
+     "ok": true,
+     "dispatched": [
+      "solar_traverse"
+     ],
+     "phases": {
+      "idle": {
+       "n": 90,
+       "median": 8.4,
+       "p95": 13.5,
+       "p99": null,
+       "max": 16.9
+      },
+      "anticipation": {
+       "n": 21,
+       "median": 9.1,
+       "p95": 21,
+       "p99": null,
+       "max": 21.2
+      },
+      "manifestation": {
+       "n": 47,
+       "median": 8.7,
+       "p95": 13.6,
+       "p99": null,
+       "max": 13.9
+      },
+      "aftermath": {
+       "n": 4,
+       "median": 9,
+       "p95": 13.8,
+       "p99": null,
+       "max": 13.8
+      },
+      "cast": {
+       "n": 72,
+       "median": 8.8,
+       "p95": 13.8,
+       "p99": null,
+       "max": 21.2
+      },
+      "returnIdle": {
+       "n": 30,
+       "median": 8.3,
+       "p95": 11.2,
+       "p99": null,
+       "max": 13.8
+      }
+     },
+     "fxPeak": 2,
+     "lifetime": 1.2,
+     "left": 0,
+     "texts": 1,
+     "heapMB": 7.91
+    }
+   ],
+   "ok": true,
+   "opsPerFrame": {
+    "idle": {
+     "fill": 127.8,
+     "stroke": 111.2,
+     "fillRect": 751.4,
+     "drawImage": 413,
+     "createRadialGradient": 12,
+     "createLinearGradient": 11,
+     "createPattern": 3,
+     "save": 16,
+     "setTransform": 83,
+     "beginPath": 238
+    },
+    "cast": {
+     "fill": 135.4,
+     "stroke": 120.5,
+     "fillRect": 708.7,
+     "drawImage": 413.9,
+     "createRadialGradient": 12,
+     "createLinearGradient": 11,
+     "createPattern": 3,
+     "save": 16.9,
+     "setTransform": 83.9,
+     "beginPath": 254.9
+    }
+   },
+   "run": 0
+  },
+  {
+   "id": "mes_sages_of_eridu",
+   "faction": "mesopotamian",
+   "vfx": "rising_tablets",
+   "x": "expand",
+   "target": "ownShrine",
+   "fixtureTurn": 14,
+   "targetTile": 133,
+   "casts": [
+    {
+     "ok": true,
+     "dispatched": [
+      "rising_tablets"
+     ],
+     "phases": {
+      "idle": {
+       "n": 90,
+       "median": 8.3,
+       "p95": 11.3,
+       "p99": null,
+       "max": 13.1
+      },
+      "anticipation": {
+       "n": 21,
+       "median": 8.8,
+       "p95": 12.2,
+       "p99": null,
+       "max": 12.5
+      },
+      "manifestation": {
+       "n": 47,
+       "median": 8.6,
+       "p95": 11.7,
+       "p99": null,
+       "max": 14.9
+      },
+      "aftermath": {
+       "n": 4,
+       "median": 11.6,
+       "p95": 12.5,
+       "p99": null,
+       "max": 12.5
+      },
+      "cast": {
+       "n": 72,
+       "median": 8.7,
+       "p95": 12.2,
+       "p99": null,
+       "max": 14.9
+      },
+      "returnIdle": {
+       "n": 30,
+       "median": 8.4,
+       "p95": 11.5,
+       "p99": null,
+       "max": 12.6
+      }
+     },
+     "fxPeak": 3,
+     "lifetime": 1.2,
+     "left": 0,
+     "texts": 1,
+     "heapMB": 11.77
+    }
+   ],
+   "ok": true,
+   "opsPerFrame": {
+    "idle": {
+     "fill": 127.5,
+     "stroke": 111.1,
+     "fillRect": 717.3,
+     "drawImage": 413,
+     "createRadialGradient": 12,
+     "createLinearGradient": 11,
+     "createPattern": 3,
+     "save": 16,
+     "setTransform": 83,
+     "beginPath": 237.7
+    },
+    "cast": {
+     "fill": 144.5,
+     "stroke": 123.9,
+     "fillRect": 725.8,
+     "drawImage": 416.6,
+     "createRadialGradient": 12,
+     "createLinearGradient": 11,
+     "createPattern": 3,
+     "save": 19.5,
+     "setTransform": 84.9,
+     "beginPath": 267.4
+    }
+   },
+   "run": 0
+  },
+  {
+   "id": "mes_wells_of_abzu",
+   "faction": "mesopotamian",
+   "vfx": "spring_rise",
+   "x": "exploit",
+   "target": "ownSettlement",
+   "fixtureTurn": 14,
+   "targetTile": 133,
+   "casts": [
+    {
+     "ok": true,
+     "dispatched": [
+      "spring_rise"
+     ],
+     "phases": {
+      "idle": {
+       "n": 90,
+       "median": 8.1,
+       "p95": 12,
+       "p99": null,
+       "max": 12.9
+      },
+      "anticipation": {
+       "n": 21,
+       "median": 8.4,
+       "p95": 11.6,
+       "p99": null,
+       "max": 11.9
+      },
+      "manifestation": {
+       "n": 47,
+       "median": 8.4,
+       "p95": 11.8,
+       "p99": null,
+       "max": 13.4
+      },
+      "aftermath": {
+       "n": 4,
+       "median": 8.2,
+       "p95": 14.2,
+       "p99": null,
+       "max": 14.2
+      },
+      "cast": {
+       "n": 72,
+       "median": 8.4,
+       "p95": 11.9,
+       "p99": null,
+       "max": 14.2
+      },
+      "returnIdle": {
+       "n": 30,
+       "median": 8.4,
+       "p95": 12,
+       "p99": null,
+       "max": 13.5
+      }
+     },
+     "fxPeak": 2,
+     "lifetime": 1.2,
+     "left": 0,
+     "texts": 1,
+     "heapMB": 9.4
+    }
+   ],
+   "ok": true,
+   "opsPerFrame": {
+    "idle": {
+     "fill": 127.7,
+     "stroke": 111.2,
+     "fillRect": 734.3,
+     "drawImage": 413,
+     "createRadialGradient": 12,
+     "createLinearGradient": 11,
+     "createPattern": 3,
+     "save": 16,
+     "setTransform": 83,
+     "beginPath": 237.8
+    },
+    "cast": {
+     "fill": 139.8,
+     "stroke": 126.7,
+     "fillRect": 708.7,
+     "drawImage": 413,
+     "createRadialGradient": 12,
+     "createLinearGradient": 11,
+     "createPattern": 3,
+     "save": 16.9,
+     "setTransform": 83.9,
+     "beginPath": 265.6
+    }
+   },
+   "run": 0
+  },
+  {
+   "id": "mes_star_of_inanna",
+   "faction": "mesopotamian",
+   "vfx": "star_descent",
+   "x": "exterminate",
+   "target": "contestedSettlement",
+   "fixtureTurn": 22,
+   "targetTile": 268,
+   "casts": [
+    {
+     "ok": true,
+     "dispatched": [
+      "star_descent"
+     ],
+     "phases": {
+      "idle": {
+       "n": 90,
+       "median": 9.8,
+       "p95": 15.7,
+       "p99": null,
+       "max": 17.2
+      },
+      "anticipation": {
+       "n": 21,
+       "median": 10.4,
+       "p95": 14.4,
+       "p99": null,
+       "max": 19
+      },
+      "manifestation": {
+       "n": 47,
+       "median": 9.4,
+       "p95": 14.8,
+       "p99": null,
+       "max": 15.2
+      },
+      "aftermath": {
+       "n": 4,
+       "median": 9.1,
+       "p95": 9.1,
+       "p99": null,
+       "max": 9.1
+      },
+      "cast": {
+       "n": 72,
+       "median": 9.8,
+       "p95": 14.8,
+       "p99": null,
+       "max": 19
+      },
+      "returnIdle": {
+       "n": 30,
+       "median": 9.6,
+       "p95": 12.9,
+       "p99": null,
+       "max": 16.3
+      }
+     },
+     "fxPeak": 2,
+     "lifetime": 1.2,
+     "left": 0,
+     "texts": 1,
+     "heapMB": 13.05
+    }
+   ],
+   "ok": true,
+   "opsPerFrame": {
+    "idle": {
+     "fill": 97.8,
+     "stroke": 82.2,
+     "fillRect": 1063.6,
+     "drawImage": 465,
+     "createRadialGradient": 20,
+     "createLinearGradient": 19,
+     "createPattern": 3,
+     "save": 16,
+     "setTransform": 122,
+     "beginPath": 179
+    },
+    "cast": {
+     "fill": 99.7,
+     "stroke": 83.7,
+     "fillRect": 1083.5,
+     "drawImage": 465.9,
+     "createRadialGradient": 20,
+     "createLinearGradient": 19,
+     "createPattern": 3,
+     "save": 16.9,
+     "setTransform": 122.9,
+     "beginPath": 182.4
+    }
+   },
+   "run": 0
+  },
+  {
+   "id": "irish_omens_of_the_morrigan",
+   "faction": "irish",
+   "vfx": "omen_script",
+   "x": "explore",
+   "target": "none",
+   "fixtureTurn": 14,
+   "targetTile": null,
+   "casts": [
+    {
+     "ok": true,
+     "dispatched": [
+      "omen_script"
+     ],
+     "phases": {
+      "idle": {
+       "n": 90,
+       "median": 8.2,
+       "p95": 10.3,
+       "p99": null,
+       "max": 12.9
+      },
+      "anticipation": {
+       "n": 21,
+       "median": 9.1,
+       "p95": 18.1,
+       "p99": null,
+       "max": 22.1
+      },
+      "manifestation": {
+       "n": 47,
+       "median": 8.2,
+       "p95": 9.2,
+       "p99": null,
+       "max": 10.1
+      },
+      "aftermath": {
+       "n": 4,
+       "median": 8.8,
+       "p95": 9.6,
+       "p99": null,
+       "max": 9.6
+      },
+      "cast": {
+       "n": 72,
+       "median": 8.4,
+       "p95": 11.4,
+       "p99": null,
+       "max": 22.1
+      },
+      "returnIdle": {
+       "n": 30,
+       "median": 8.5,
+       "p95": 12.2,
+       "p99": null,
+       "max": 12.2
+      }
+     },
+     "fxPeak": 2,
+     "lifetime": 1.2,
+     "left": 0,
+     "texts": 1,
+     "heapMB": 10.86
+    }
+   ],
+   "ok": true,
+   "opsPerFrame": {
+    "idle": {
+     "fill": 122.3,
+     "stroke": 108.1,
+     "fillRect": 667.2,
+     "drawImage": 411,
+     "createRadialGradient": 11,
+     "createLinearGradient": 10,
+     "createPattern": 3,
+     "save": 15,
+     "setTransform": 81,
+     "beginPath": 229.3
+    },
+    "cast": {
+     "fill": 135.7,
+     "stroke": 108.7,
+     "fillRect": 693.6,
+     "drawImage": 411,
+     "createRadialGradient": 11,
+     "createLinearGradient": 10,
+     "createPattern": 3,
+     "save": 15.9,
+     "setTransform": 81.9,
+     "beginPath": 243.4
+    }
+   },
+   "run": 0
+  },
+  {
+   "id": "irish_assembly_of_lugh",
+   "faction": "irish",
+   "vfx": "assembly_fires",
+   "x": "expand",
+   "target": "ownShrine",
+   "fixtureTurn": 14,
+   "targetTile": 133,
+   "casts": [
+    {
+     "ok": true,
+     "dispatched": [
+      "assembly_fires"
+     ],
+     "phases": {
+      "idle": {
+       "n": 90,
+       "median": 8,
+       "p95": 10,
+       "p99": null,
+       "max": 12.5
+      },
+      "anticipation": {
+       "n": 21,
+       "median": 8.2,
+       "p95": 14,
+       "p99": null,
+       "max": 14.9
+      },
+      "manifestation": {
+       "n": 47,
+       "median": 8.2,
+       "p95": 10.2,
+       "p99": null,
+       "max": 12.9
+      },
+      "aftermath": {
+       "n": 4,
+       "median": 8.1,
+       "p95": 8.8,
+       "p99": null,
+       "max": 8.8
+      },
+      "cast": {
+       "n": 72,
+       "median": 8.2,
+       "p95": 12.9,
+       "p99": null,
+       "max": 14.9
+      },
+      "returnIdle": {
+       "n": 30,
+       "median": 8.2,
+       "p95": 13.2,
+       "p99": null,
+       "max": 13.3
+      }
+     },
+     "fxPeak": 3,
+     "lifetime": 1.2,
+     "left": 0,
+     "texts": 1,
+     "heapMB": 8.59
+    }
+   ],
+   "ok": true,
+   "opsPerFrame": {
+    "idle": {
+     "fill": 122.7,
+     "stroke": 108.2,
+     "fillRect": 720,
+     "drawImage": 411,
+     "createRadialGradient": 11,
+     "createLinearGradient": 10,
+     "createPattern": 3,
+     "save": 15,
+     "setTransform": 81,
+     "beginPath": 229.8
+    },
+    "cast": {
+     "fill": 135.8,
+     "stroke": 121.8,
+     "fillRect": 693.6,
+     "drawImage": 418.2,
+     "createRadialGradient": 11,
+     "createLinearGradient": 10,
+     "createPattern": 3,
+     "save": 15.9,
+     "setTransform": 82.9,
+     "beginPath": 256.6
+    }
+   },
+   "run": 0
+  },
+  {
+   "id": "irish_cauldron_of_plenty",
+   "faction": "irish",
+   "vfx": "hearth_steam",
+   "x": "exploit",
+   "target": "none",
+   "fixtureTurn": 14,
+   "targetTile": null,
+   "casts": [
+    {
+     "ok": true,
+     "dispatched": [
+      "hearth_steam"
+     ],
+     "phases": {
+      "idle": {
+       "n": 90,
+       "median": 8,
+       "p95": 12.1,
+       "p99": null,
+       "max": 30.8
+      },
+      "anticipation": {
+       "n": 21,
+       "median": 8.8,
+       "p95": 13.7,
+       "p99": null,
+       "max": 16
+      },
+      "manifestation": {
+       "n": 47,
+       "median": 8.3,
+       "p95": 12.4,
+       "p99": null,
+       "max": 13
+      },
+      "aftermath": {
+       "n": 4,
+       "median": 10.7,
+       "p95": 10.9,
+       "p99": null,
+       "max": 10.9
+      },
+      "cast": {
+       "n": 72,
+       "median": 8.4,
+       "p95": 12.8,
+       "p99": null,
+       "max": 16
+      },
+      "returnIdle": {
+       "n": 30,
+       "median": 8.1,
+       "p95": 11.1,
+       "p99": null,
+       "max": 11.9
+      }
+     },
+     "fxPeak": 2,
+     "lifetime": 1.2,
+     "left": 0,
+     "texts": 2,
+     "heapMB": 8.92
+    }
+   ],
+   "ok": true,
+   "opsPerFrame": {
+    "idle": {
+     "fill": 122.7,
+     "stroke": 108.2,
+     "fillRect": 720,
+     "drawImage": 411,
+     "createRadialGradient": 11,
+     "createLinearGradient": 10,
+     "createPattern": 3,
+     "save": 15,
+     "setTransform": 81,
+     "beginPath": 229.8
+    },
+    "cast": {
+     "fill": 133.1,
+     "stroke": 110.5,
+     "fillRect": 708.2,
+     "drawImage": 411.9,
+     "createRadialGradient": 11,
+     "createLinearGradient": 10,
+     "createPattern": 3,
+     "save": 15.9,
+     "setTransform": 81.9,
+     "beginPath": 242.6
+    }
+   },
+   "run": 0
+  },
+  {
+   "id": "irish_sovereignty_challenge",
+   "faction": "irish",
+   "vfx": "challenge_rings",
+   "x": "exterminate",
+   "target": "rivalInfluenced",
+   "fixtureTurn": 22,
+   "targetTile": 115,
+   "casts": [
+    {
+     "ok": true,
+     "dispatched": [
+      "challenge_rings"
+     ],
+     "phases": {
+      "idle": {
+       "n": 90,
+       "median": 10.7,
+       "p95": 16.4,
+       "p99": null,
+       "max": 19.5
+      },
+      "anticipation": {
+       "n": 21,
+       "median": 11.3,
+       "p95": 18.3,
+       "p99": null,
+       "max": 19
+      },
+      "manifestation": {
+       "n": 47,
+       "median": 11.3,
+       "p95": 18,
+       "p99": null,
+       "max": 18.3
+      },
+      "aftermath": {
+       "n": 4,
+       "median": 16.4,
+       "p95": 16.8,
+       "p99": null,
+       "max": 16.8
+      },
+      "cast": {
+       "n": 72,
+       "median": 11.4,
+       "p95": 18,
+       "p99": null,
+       "max": 19
+      },
+      "returnIdle": {
+       "n": 30,
+       "median": 11.3,
+       "p95": 18.9,
+       "p99": null,
+       "max": 19.4
+      }
+     },
+     "fxPeak": 2,
+     "lifetime": 1.2,
+     "left": 0,
+     "texts": 1,
+     "heapMB": 8.7
+    }
+   ],
+   "ok": true,
+   "opsPerFrame": {
+    "idle": {
+     "fill": 102.4,
+     "stroke": 92.1,
+     "fillRect": 1064.4,
+     "drawImage": 476,
+     "createRadialGradient": 21,
+     "createLinearGradient": 20,
+     "createPattern": 3,
+     "save": 16,
+     "setTransform": 133,
+     "beginPath": 193.5
+    },
+    "cast": {
+     "fill": 116.8,
+     "stroke": 94.5,
+     "fillRect": 1105.3,
+     "drawImage": 476.9,
+     "createRadialGradient": 21,
+     "createLinearGradient": 20,
+     "createPattern": 3,
+     "save": 16.9,
+     "setTransform": 133.9,
+     "beginPath": 210.3
+    }
+   },
+   "run": 0
+  },
+  {
+   "id": "mex_breath_of_quetzalcoatl",
+   "faction": "mexica",
+   "vfx": "wind_sweep",
+   "x": "explore",
+   "target": "nearKnown",
+   "fixtureTurn": 14,
+   "targetTile": 133,
+   "casts": [
+    {
+     "ok": true,
+     "dispatched": [
+      "wind_sweep"
+     ],
+     "phases": {
+      "idle": {
+       "n": 90,
+       "median": 9.1,
+       "p95": 12.8,
+       "p99": null,
+       "max": 17.1
+      },
+      "anticipation": {
+       "n": 21,
+       "median": 9.4,
+       "p95": 15.1,
+       "p99": null,
+       "max": 21.3
+      },
+      "manifestation": {
+       "n": 47,
+       "median": 8.1,
+       "p95": 12.8,
+       "p99": null,
+       "max": 13.5
+      },
+      "aftermath": {
+       "n": 4,
+       "median": 7.8,
+       "p95": 8.6,
+       "p99": null,
+       "max": 8.6
+      },
+      "cast": {
+       "n": 72,
+       "median": 8.6,
+       "p95": 13.5,
+       "p99": null,
+       "max": 21.3
+      },
+      "returnIdle": {
+       "n": 30,
+       "median": 8.8,
+       "p95": 13.1,
+       "p99": null,
+       "max": 13.3
+      }
+     },
+     "fxPeak": 2,
+     "lifetime": 1.2,
+     "left": 0,
+     "texts": 1,
+     "heapMB": 9.27
+    }
+   ],
+   "ok": true,
+   "opsPerFrame": {
+    "idle": {
+     "fill": 134.8,
+     "stroke": 103.2,
+     "fillRect": 732.4,
+     "drawImage": 414,
+     "createRadialGradient": 11,
+     "createLinearGradient": 10,
+     "createPattern": 3,
+     "save": 14,
+     "setTransform": 83,
+     "beginPath": 237
+    },
+    "cast": {
+     "fill": 134.9,
+     "stroke": 110.9,
+     "fillRect": 749.8,
+     "drawImage": 414,
+     "createRadialGradient": 11,
+     "createLinearGradient": 10,
+     "createPattern": 3,
+     "save": 14.9,
+     "setTransform": 83.9,
+     "beginPath": 244.8
+    }
+   },
+   "run": 0
+  },
+  {
+   "id": "mex_gardens_of_water",
+   "faction": "mexica",
+   "vfx": "garden_rise",
+   "x": "expand",
+   "target": "coastalShrineSite",
+   "fixtureTurn": 14,
+   "targetTile": 31,
+   "casts": [
+    {
+     "ok": true,
+     "dispatched": [
+      "garden_rise"
+     ],
+     "phases": {
+      "idle": {
+       "n": 90,
+       "median": 8.7,
+       "p95": 12.2,
+       "p99": null,
+       "max": 18.6
+      },
+      "anticipation": {
+       "n": 21,
+       "median": 9.1,
+       "p95": 16.9,
+       "p99": null,
+       "max": 31.8
+      },
+      "manifestation": {
+       "n": 47,
+       "median": 9.2,
+       "p95": 15.5,
+       "p99": null,
+       "max": 19.8
+      },
+      "aftermath": {
+       "n": 29,
+       "median": 9.2,
+       "p95": 12.7,
+       "p99": null,
+       "max": 14
+      },
+      "cast": {
+       "n": 97,
+       "median": 9.2,
+       "p95": 16.2,
+       "p99": null,
+       "max": 31.8
+      },
+      "returnIdle": {
+       "n": 30,
+       "median": 9.5,
+       "p95": 13.4,
+       "p99": null,
+       "max": 16.8
+      }
+     },
+     "fxPeak": 4,
+     "lifetime": 1.617,
+     "left": 0,
+     "texts": 2,
+     "heapMB": 10.99
+    }
+   ],
+   "ok": true,
+   "opsPerFrame": {
+    "idle": {
+     "fill": 165.9,
+     "stroke": 107.2,
+     "fillRect": 986.8,
+     "drawImage": 437,
+     "createRadialGradient": 11,
+     "createLinearGradient": 10,
+     "createPattern": 3,
+     "save": 14,
+     "setTransform": 138,
+     "beginPath": 272.2
+    },
+    "cast": {
+     "fill": 175.8,
+     "stroke": 125.6,
+     "fillRect": 992.9,
+     "drawImage": 438,
+     "createRadialGradient": 12,
+     "createLinearGradient": 12,
+     "createPattern": 3,
+     "save": 14.9,
+     "setTransform": 139.9,
+     "beginPath": 300.4
+    }
+   },
+   "run": 0
+  },
+  {
+   "id": "mex_rains_of_tlaloc",
+   "faction": "mexica",
+   "vfx": "rain_curtain",
+   "x": "exploit",
+   "target": "ownSettlement",
+   "fixtureTurn": 14,
+   "targetTile": 133,
+   "casts": [
+    {
+     "ok": true,
+     "dispatched": [
+      "rain_curtain"
+     ],
+     "phases": {
+      "idle": {
+       "n": 90,
+       "median": 7.7,
+       "p95": 9,
+       "p99": null,
+       "max": 12.4
+      },
+      "anticipation": {
+       "n": 21,
+       "median": 8,
+       "p95": 12.3,
+       "p99": null,
+       "max": 14.5
+      },
+      "manifestation": {
+       "n": 47,
+       "median": 8.8,
+       "p95": 12.6,
+       "p99": null,
+       "max": 13.4
+      },
+      "aftermath": {
+       "n": 4,
+       "median": 9.7,
+       "p95": 11.8,
+       "p99": null,
+       "max": 11.8
+      },
+      "cast": {
+       "n": 72,
+       "median": 8.8,
+       "p95": 12.6,
+       "p99": null,
+       "max": 14.5
+      },
+      "returnIdle": {
+       "n": 30,
+       "median": 8.2,
+       "p95": 13.7,
+       "p99": null,
+       "max": 15
+      }
+     },
+     "fxPeak": 2,
+     "lifetime": 1.2,
+     "left": 0,
+     "texts": 1,
+     "heapMB": 9.48
+    }
+   ],
+   "ok": true,
+   "opsPerFrame": {
+    "idle": {
+     "fill": 134.8,
+     "stroke": 103.2,
+     "fillRect": 732.4,
+     "drawImage": 414,
+     "createRadialGradient": 11,
+     "createLinearGradient": 10,
+     "createPattern": 3,
+     "save": 14,
+     "setTransform": 83,
+     "beginPath": 237
+    },
+    "cast": {
+     "fill": 140.1,
+     "stroke": 111.7,
+     "fillRect": 732.4,
+     "drawImage": 414,
+     "createRadialGradient": 11,
+     "createLinearGradient": 10,
+     "createPattern": 3,
+     "save": 14.9,
+     "setTransform": 83.9,
+     "beginPath": 250.8
+    }
+   },
+   "run": 0
+  },
+  {
+   "id": "mex_zenith_of_tonatiuh",
+   "faction": "mexica",
+   "vfx": "noon_glare",
+   "x": "exterminate",
+   "target": "contestedSettlement",
+   "fixtureTurn": 14,
+   "targetTile": 199,
+   "casts": [
+    {
+     "ok": true,
+     "dispatched": [
+      "noon_glare"
+     ],
+     "phases": {
+      "idle": {
+       "n": 90,
+       "median": 8.7,
+       "p95": 13.8,
+       "p99": null,
+       "max": 18.8
+      },
+      "anticipation": {
+       "n": 21,
+       "median": 11.3,
+       "p95": 14.6,
+       "p99": null,
+       "max": 14.7
+      },
+      "manifestation": {
+       "n": 47,
+       "median": 8.7,
+       "p95": 13.8,
+       "p99": null,
+       "max": 14.5
+      },
+      "aftermath": {
+       "n": 4,
+       "median": 10,
+       "p95": 10.6,
+       "p99": null,
+       "max": 10.6
+      },
+      "cast": {
+       "n": 72,
+       "median": 9,
+       "p95": 14.5,
+       "p99": null,
+       "max": 14.7
+      },
+      "returnIdle": {
+       "n": 30,
+       "median": 8.4,
+       "p95": 15.4,
+       "p99": null,
+       "max": 15.7
+      }
+     },
+     "fxPeak": 2,
+     "lifetime": 1.2,
+     "left": 0,
+     "texts": 1,
+     "heapMB": 7.33
+    }
+   ],
+   "ok": true,
+   "opsPerFrame": {
+    "idle": {
+     "fill": 134.4,
+     "stroke": 103.1,
+     "fillRect": 680.2,
+     "drawImage": 417,
+     "createRadialGradient": 11,
+     "createLinearGradient": 10,
+     "createPattern": 3,
+     "save": 14,
+     "setTransform": 86,
+     "beginPath": 236.5
+    },
+    "cast": {
+     "fill": 136.6,
+     "stroke": 117.9,
+     "fillRect": 742,
+     "drawImage": 418.8,
+     "createRadialGradient": 11,
+     "createLinearGradient": 10.9,
+     "createPattern": 3,
+     "save": 14.9,
+     "setTransform": 86.9,
+     "beginPath": 253.6
+    }
+   },
+   "run": 0
+  },
+  {
+   "id": "hat_omens_of_hatti",
+   "faction": "hittite",
+   "vfx": "sun_disc_omen",
+   "x": "explore",
+   "target": "none",
+   "fixtureTurn": 14,
+   "targetTile": null,
+   "casts": [
+    {
+     "ok": true,
+     "dispatched": [
+      "sun_disc_omen"
+     ],
+     "phases": {
+      "idle": {
+       "n": 90,
+       "median": 8.1,
+       "p95": 12.1,
+       "p99": null,
+       "max": 15.3
+      },
+      "anticipation": {
+       "n": 21,
+       "median": 8.6,
+       "p95": 13.5,
+       "p99": null,
+       "max": 19.7
+      },
+      "manifestation": {
+       "n": 47,
+       "median": 8,
+       "p95": 10.6,
+       "p99": null,
+       "max": 16.4
+      },
+      "aftermath": {
+       "n": 4,
+       "median": 7.4,
+       "p95": 7.6,
+       "p99": null,
+       "max": 7.6
+      },
+      "cast": {
+       "n": 72,
+       "median": 8.1,
+       "p95": 12.9,
+       "p99": null,
+       "max": 19.7
+      },
+      "returnIdle": {
+       "n": 30,
+       "median": 8.1,
+       "p95": 13.4,
+       "p99": null,
+       "max": 13.9
+      }
+     },
+     "fxPeak": 2,
+     "lifetime": 1.2,
+     "left": 0,
+     "texts": 1,
+     "heapMB": 9.14
+    }
+   ],
+   "ok": true,
+   "opsPerFrame": {
+    "idle": {
+     "fill": 122.4,
+     "stroke": 88.1,
+     "fillRect": 631.1,
+     "drawImage": 404,
+     "createRadialGradient": 9,
+     "createLinearGradient": 8,
+     "createPattern": 3,
+     "save": 12,
+     "setTransform": 75,
+     "beginPath": 209.5
+    },
+    "cast": {
+     "fill": 125.3,
+     "stroke": 105.5,
+     "fillRect": 657.1,
+     "drawImage": 404.9,
+     "createRadialGradient": 9,
+     "createLinearGradient": 8,
+     "createPattern": 3,
+     "save": 12.9,
+     "setTransform": 75.9,
+     "beginPath": 229.8
+    }
+   },
+   "run": 0
+  },
+  {
+   "id": "hat_gates_of_arinna",
+   "faction": "hittite",
+   "vfx": "gate_rebuild",
+   "x": "expand",
+   "target": "ownShrine",
+   "fixtureTurn": 14,
+   "targetTile": 133,
+   "casts": [
+    {
+     "ok": true,
+     "dispatched": [
+      "gate_rebuild"
+     ],
+     "phases": {
+      "idle": {
+       "n": 90,
+       "median": 7.6,
+       "p95": 10.6,
+       "p99": null,
+       "max": 11.7
+      },
+      "anticipation": {
+       "n": 21,
+       "median": 10.8,
+       "p95": 13.1,
+       "p99": null,
+       "max": 17.8
+      },
+      "manifestation": {
+       "n": 47,
+       "median": 7.6,
+       "p95": 12.1,
+       "p99": null,
+       "max": 13.1
+      },
+      "aftermath": {
+       "n": 4,
+       "median": 10.9,
+       "p95": 16.3,
+       "p99": null,
+       "max": 16.3
+      },
+      "cast": {
+       "n": 72,
+       "median": 8.1,
+       "p95": 13.1,
+       "p99": null,
+       "max": 17.8
+      },
+      "returnIdle": {
+       "n": 30,
+       "median": 7.6,
+       "p95": 12.3,
+       "p99": null,
+       "max": 13.1
+      }
+     },
+     "fxPeak": 2,
+     "lifetime": 1.2,
+     "left": 0,
+     "texts": 2,
+     "heapMB": 7.29
+    }
+   ],
+   "ok": true,
+   "opsPerFrame": {
+    "idle": {
+     "fill": 122.4,
+     "stroke": 88.1,
+     "fillRect": 631.1,
+     "drawImage": 404,
+     "createRadialGradient": 9,
+     "createLinearGradient": 8,
+     "createPattern": 3,
+     "save": 12,
+     "setTransform": 75,
+     "beginPath": 209.5
+    },
+    "cast": {
+     "fill": 127.8,
+     "stroke": 88.7,
+     "fillRect": 660.3,
+     "drawImage": 405.8,
+     "createRadialGradient": 9,
+     "createLinearGradient": 8,
+     "createPattern": 3,
+     "save": 12.9,
+     "setTransform": 75.9,
+     "beginPath": 215.5
+    }
+   },
+   "run": 0
+  },
+  {
+   "id": "hat_return_of_telipinu",
+   "faction": "hittite",
+   "vfx": "meadow_wake",
+   "x": "exploit",
+   "target": "ownSettlement",
+   "fixtureTurn": 14,
+   "targetTile": 133,
+   "casts": [
+    {
+     "ok": true,
+     "dispatched": [
+      "meadow_wake"
+     ],
+     "phases": {
+      "idle": {
+       "n": 90,
+       "median": 7.9,
+       "p95": 11.7,
+       "p99": null,
+       "max": 16.6
+      },
+      "anticipation": {
+       "n": 21,
+       "median": 8.3,
+       "p95": 12.4,
+       "p99": null,
+       "max": 17.5
+      },
+      "manifestation": {
+       "n": 47,
+       "median": 7.9,
+       "p95": 12,
+       "p99": null,
+       "max": 12.4
+      },
+      "aftermath": {
+       "n": 4,
+       "median": 8.1,
+       "p95": 8.6,
+       "p99": null,
+       "max": 8.6
+      },
+      "cast": {
+       "n": 72,
+       "median": 8,
+       "p95": 12.3,
+       "p99": null,
+       "max": 17.5
+      },
+      "returnIdle": {
+       "n": 30,
+       "median": 8.2,
+       "p95": 11.6,
+       "p99": null,
+       "max": 12.1
+      }
+     },
+     "fxPeak": 2,
+     "lifetime": 1.2,
+     "left": 0,
+     "texts": 1,
+     "heapMB": 12.36
+    }
+   ],
+   "ok": true,
+   "opsPerFrame": {
+    "idle": {
+     "fill": 122.4,
+     "stroke": 88.1,
+     "fillRect": 631.1,
+     "drawImage": 404,
+     "createRadialGradient": 9,
+     "createLinearGradient": 8,
+     "createPattern": 3,
+     "save": 12,
+     "setTransform": 75,
+     "beginPath": 209.5
+    },
+    "cast": {
+     "fill": 244.4,
+     "stroke": 111.7,
+     "fillRect": 639.8,
+     "drawImage": 404,
+     "createRadialGradient": 9,
+     "createLinearGradient": 8,
+     "createPattern": 3,
+     "save": 12.9,
+     "setTransform": 75.9,
+     "beginPath": 355
+    }
+   },
+   "run": 0
+  },
+  {
+   "id": "hat_tempest_of_tarhunna",
+   "faction": "hittite",
+   "vfx": "tempest_front",
+   "x": "exterminate",
+   "target": "rivalShrine",
+   "fixtureTurn": 22,
+   "targetTile": 227,
+   "casts": [
+    {
+     "ok": true,
+     "dispatched": [
+      "tempest_front"
+     ],
+     "phases": {
+      "idle": {
+       "n": 90,
+       "median": 11,
+       "p95": 16.1,
+       "p99": null,
+       "max": 18.7
+      },
+      "anticipation": {
+       "n": 21,
+       "median": 11.6,
+       "p95": 20.4,
+       "p99": null,
+       "max": 33.8
+      },
+      "manifestation": {
+       "n": 47,
+       "median": 11.7,
+       "p95": 16.7,
+       "p99": null,
+       "max": 19.6
+      },
+      "aftermath": {
+       "n": 4,
+       "median": 11.1,
+       "p95": 11.4,
+       "p99": null,
+       "max": 11.4
+      },
+      "cast": {
+       "n": 72,
+       "median": 11.6,
+       "p95": 19.2,
+       "p99": null,
+       "max": 33.8
+      },
+      "returnIdle": {
+       "n": 30,
+       "median": 11,
+       "p95": 15,
+       "p99": null,
+       "max": 16.8
+      }
+     },
+     "fxPeak": 2,
+     "lifetime": 1.2,
+     "left": 0,
+     "texts": 1,
+     "heapMB": 7.89
+    }
+   ],
+   "ok": true,
+   "opsPerFrame": {
+    "idle": {
+     "fill": 72.8,
+     "stroke": 85.2,
+     "fillRect": 1210.6,
+     "drawImage": 491,
+     "createRadialGradient": 21,
+     "createLinearGradient": 20,
+     "createPattern": 3,
+     "save": 16,
+     "setTransform": 143,
+     "beginPath": 157
+    },
+    "cast": {
+     "fill": 79.2,
+     "stroke": 92.8,
+     "fillRect": 1103.4,
+     "drawImage": 491,
+     "createRadialGradient": 20,
+     "createLinearGradient": 19,
+     "createPattern": 3,
+     "save": 16.9,
+     "setTransform": 143.9,
+     "beginPath": 171
+    }
+   },
+   "run": 0
+  },
+  {
+   "id": "yor_mirror_of_the_river",
+   "faction": "yoruba",
+   "vfx": "mirror_ripple",
+   "x": "explore",
+   "target": "nearKnown",
+   "fixtureTurn": 14,
+   "targetTile": 133,
+   "casts": [
+    {
+     "ok": true,
+     "dispatched": [
+      "mirror_ripple"
+     ],
+     "phases": {
+      "idle": {
+       "n": 90,
+       "median": 7.9,
+       "p95": 10.1,
+       "p99": null,
+       "max": 11.9
+      },
+      "anticipation": {
+       "n": 21,
+       "median": 9,
+       "p95": 18.9,
+       "p99": null,
+       "max": 23.9
+      },
+      "manifestation": {
+       "n": 47,
+       "median": 7.8,
+       "p95": 9,
+       "p99": null,
+       "max": 9.8
+      },
+      "aftermath": {
+       "n": 4,
+       "median": 8.7,
+       "p95": 9,
+       "p99": null,
+       "max": 9
+      },
+      "cast": {
+       "n": 72,
+       "median": 8,
+       "p95": 11.6,
+       "p99": null,
+       "max": 23.9
+      },
+      "returnIdle": {
+       "n": 30,
+       "median": 7.9,
+       "p95": 11.5,
+       "p99": null,
+       "max": 11.6
+      }
+     },
+     "fxPeak": 2,
+     "lifetime": 1.2,
+     "left": 0,
+     "texts": 1,
+     "heapMB": 8.57
+    }
+   ],
+   "ok": true,
+   "opsPerFrame": {
+    "idle": {
+     "fill": 122.8,
+     "stroke": 99.2,
+     "fillRect": 687.4,
+     "drawImage": 412,
+     "createRadialGradient": 9,
+     "createLinearGradient": 8,
+     "createPattern": 3,
+     "save": 14,
+     "setTransform": 83,
+     "beginPath": 221
+    },
+    "cast": {
+     "fill": 123.3,
+     "stroke": 105,
+     "fillRect": 637.2,
+     "drawImage": 412,
+     "createRadialGradient": 9.9,
+     "createLinearGradient": 8,
+     "createPattern": 3,
+     "save": 14.9,
+     "setTransform": 83.9,
+     "beginPath": 227.3
+    }
+   },
+   "run": 0
+  },
+  {
+   "id": "yor_hands_of_creation",
+   "faction": "yoruba",
+   "vfx": "clay_restore",
+   "x": "expand",
+   "target": "ownShrine",
+   "fixtureTurn": 14,
+   "targetTile": 133,
+   "casts": [
+    {
+     "ok": true,
+     "dispatched": [
+      "clay_restore"
+     ],
+     "phases": {
+      "idle": {
+       "n": 90,
+       "median": 8.1,
+       "p95": 11.9,
+       "p99": null,
+       "max": 37.6
+      },
+      "anticipation": {
+       "n": 21,
+       "median": 7.8,
+       "p95": 9.8,
+       "p99": null,
+       "max": 15.1
+      },
+      "manifestation": {
+       "n": 47,
+       "median": 7.5,
+       "p95": 8,
+       "p99": null,
+       "max": 8.6
+      },
+      "aftermath": {
+       "n": 4,
+       "median": 7.7,
+       "p95": 7.7,
+       "p99": null,
+       "max": 7.7
+      },
+      "cast": {
+       "n": 72,
+       "median": 7.6,
+       "p95": 8.4,
+       "p99": null,
+       "max": 15.1
+      },
+      "returnIdle": {
+       "n": 30,
+       "median": 7.5,
+       "p95": 8.2,
+       "p99": null,
+       "max": 8.4
+      }
+     },
+     "fxPeak": 3,
+     "lifetime": 1.2,
+     "left": 0,
+     "texts": 2,
+     "heapMB": 9.64
+    }
+   ],
+   "ok": true,
+   "opsPerFrame": {
+    "idle": {
+     "fill": 122.5,
+     "stroke": 99.1,
+     "fillRect": 653.9,
+     "drawImage": 412,
+     "createRadialGradient": 9,
+     "createLinearGradient": 8,
+     "createPattern": 3,
+     "save": 14,
+     "setTransform": 83,
+     "beginPath": 220.7
+    },
+    "cast": {
+     "fill": 133.4,
+     "stroke": 101.3,
+     "fillRect": 681,
+     "drawImage": 413.9,
+     "createRadialGradient": 9,
+     "createLinearGradient": 8,
+     "createPattern": 3,
+     "save": 23.7,
+     "setTransform": 84.9,
+     "beginPath": 233.8
+    }
+   },
+   "run": 0
+  },
+  {
+   "id": "yor_ironroads",
+   "faction": "yoruba",
+   "vfx": "forge_sparks",
+   "x": "exploit",
+   "target": "none",
+   "fixtureTurn": 14,
+   "targetTile": null,
+   "casts": [
+    {
+     "ok": true,
+     "dispatched": [
+      "forge_sparks"
+     ],
+     "phases": {
+      "idle": {
+       "n": 90,
+       "median": 8,
+       "p95": 11.8,
+       "p99": null,
+       "max": 19.4
+      },
+      "anticipation": {
+       "n": 21,
+       "median": 7.8,
+       "p95": 9.9,
+       "p99": null,
+       "max": 49.8
+      },
+      "manifestation": {
+       "n": 47,
+       "median": 7.8,
+       "p95": 11.1,
+       "p99": null,
+       "max": 12.5
+      },
+      "aftermath": {
+       "n": 4,
+       "median": 7.9,
+       "p95": 9.4,
+       "p99": null,
+       "max": 9.4
+      },
+      "cast": {
+       "n": 72,
+       "median": 7.8,
+       "p95": 11.1,
+       "p99": null,
+       "max": 49.8
+      },
+      "returnIdle": {
+       "n": 30,
+       "median": 7.8,
+       "p95": 12.6,
+       "p99": null,
+       "max": 13.6
+      }
+     },
+     "fxPeak": 2,
+     "lifetime": 1.2,
+     "left": 0,
+     "texts": 1,
+     "heapMB": 8.14
+    }
+   ],
+   "ok": true,
+   "opsPerFrame": {
+    "idle": {
+     "fill": 122.7,
+     "stroke": 99.2,
+     "fillRect": 670.7,
+     "drawImage": 412,
+     "createRadialGradient": 9,
+     "createLinearGradient": 8,
+     "createPattern": 3,
+     "save": 14,
+     "setTransform": 83,
+     "beginPath": 220.8
+    },
+    "cast": {
+     "fill": 140.4,
+     "stroke": 103.3,
+     "fillRect": 679,
+     "drawImage": 412.9,
+     "createRadialGradient": 9,
+     "createLinearGradient": 8,
+     "createPattern": 3,
+     "save": 14.9,
+     "setTransform": 83.9,
+     "beginPath": 242.7
+    }
+   },
+   "run": 0
+  },
+  {
+   "id": "yor_thunder_of_shango",
+   "faction": "yoruba",
+   "vfx": "thunder_stone",
+   "x": "exterminate",
+   "target": "rivalShrine",
+   "fixtureTurn": 22,
+   "targetTile": 97,
+   "casts": [
+    {
+     "ok": true,
+     "dispatched": [
+      "thunder_stone"
+     ],
+     "phases": {
+      "idle": {
+       "n": 90,
+       "median": 10,
+       "p95": 16.8,
+       "p99": null,
+       "max": 21.4
+      },
+      "anticipation": {
+       "n": 21,
+       "median": 10.5,
+       "p95": 21.4,
+       "p99": null,
+       "max": 28.1
+      },
+      "manifestation": {
+       "n": 47,
+       "median": 9.8,
+       "p95": 15,
+       "p99": null,
+       "max": 17.2
+      },
+      "aftermath": {
+       "n": 4,
+       "median": 9.7,
+       "p95": 9.9,
+       "p99": null,
+       "max": 9.9
+      },
+      "cast": {
+       "n": 72,
+       "median": 10,
+       "p95": 15.9,
+       "p99": null,
+       "max": 28.1
+      },
+      "returnIdle": {
+       "n": 30,
+       "median": 10,
+       "p95": 15.6,
+       "p99": null,
+       "max": 15.8
+      }
+     },
+     "fxPeak": 3,
+     "lifetime": 1.2,
+     "left": 0,
+     "texts": 3,
+     "heapMB": 9.18
+    }
+   ],
+   "ok": true,
+   "opsPerFrame": {
+    "idle": {
+     "fill": 84.2,
+     "stroke": 93.3,
+     "fillRect": 1317.9,
+     "drawImage": 505,
+     "createRadialGradient": 21,
+     "createLinearGradient": 20,
+     "createPattern": 3,
+     "save": 16,
+     "setTransform": 158,
+     "beginPath": 176.5
+    },
+    "cast": {
+     "fill": 92.9,
+     "stroke": 97.7,
+     "fillRect": 1282.6,
+     "drawImage": 505.9,
+     "createRadialGradient": 20,
+     "createLinearGradient": 19,
+     "createPattern": 3,
+     "save": 16.9,
+     "setTransform": 158.9,
+     "beginPath": 189.6
+    }
+   },
+   "run": 0
+  },
+  {
+   "id": "jpn_light_of_amaterasu",
+   "faction": "japanese",
+   "vfx": "dawn_rays",
+   "x": "explore",
+   "target": "nearKnown",
+   "fixtureTurn": 14,
+   "targetTile": 133,
+   "casts": [
+    {
+     "ok": true,
+     "dispatched": [
+      "dawn_rays"
+     ],
+     "phases": {
+      "idle": {
+       "n": 90,
+       "median": 7.9,
+       "p95": 11.9,
+       "p99": null,
+       "max": 13.7
+      },
+      "anticipation": {
+       "n": 21,
+       "median": 8.6,
+       "p95": 19.8,
+       "p99": null,
+       "max": 25.3
+      },
+      "manifestation": {
+       "n": 47,
+       "median": 7.9,
+       "p95": 9.5,
+       "p99": null,
+       "max": 15.1
+      },
+      "aftermath": {
+       "n": 4,
+       "median": 9.6,
+       "p95": 11.4,
+       "p99": null,
+       "max": 11.4
+      },
+      "cast": {
+       "n": 72,
+       "median": 8.1,
+       "p95": 15.1,
+       "p99": null,
+       "max": 25.3
+      },
+      "returnIdle": {
+       "n": 30,
+       "median": 7.8,
+       "p95": 11.7,
+       "p99": null,
+       "max": 12
+      }
+     },
+     "fxPeak": 2,
+     "lifetime": 1.2,
+     "left": 0,
+     "texts": 1,
+     "heapMB": 7.42
+    }
+   ],
+   "ok": true,
+   "opsPerFrame": {
+    "idle": {
+     "fill": 129.8,
+     "stroke": 93.2,
+     "fillRect": 692.2,
+     "drawImage": 411,
+     "createRadialGradient": 10,
+     "createLinearGradient": 9,
+     "createPattern": 3,
+     "save": 13,
+     "setTransform": 81,
+     "beginPath": 222
+    },
+    "cast": {
+     "fill": 142.1,
+     "stroke": 94.7,
+     "fillRect": 683.8,
+     "drawImage": 411.9,
+     "createRadialGradient": 10,
+     "createLinearGradient": 9,
+     "createPattern": 3,
+     "save": 13.9,
+     "setTransform": 81.9,
+     "beginPath": 235.8
+    }
+   },
+   "run": 0
+  },
+  {
+   "id": "jpn_shrine_of_the_land",
+   "faction": "japanese",
+   "vfx": "gate_raise",
+   "x": "expand",
+   "target": "linkedShrineSite",
+   "fixtureTurn": 8,
+   "targetTile": 157,
+   "casts": [
+    {
+     "ok": true,
+     "dispatched": [
+      "gate_raise"
+     ],
+     "phases": {
+      "idle": {
+       "n": 90,
+       "median": 8.2,
+       "p95": 12.2,
+       "p99": null,
+       "max": 21.1
+      },
+      "anticipation": {
+       "n": 21,
+       "median": 8.5,
+       "p95": 13.3,
+       "p99": null,
+       "max": 19.5
+      },
+      "manifestation": {
+       "n": 47,
+       "median": 9,
+       "p95": 13.3,
+       "p99": null,
+       "max": 15.2
+      },
+      "aftermath": {
+       "n": 29,
+       "median": 11.5,
+       "p95": 13,
+       "p99": null,
+       "max": 13.2
+      },
+      "cast": {
+       "n": 97,
+       "median": 8.9,
+       "p95": 13.3,
+       "p99": null,
+       "max": 19.5
+      },
+      "returnIdle": {
+       "n": 30,
+       "median": 8,
+       "p95": 10.6,
+       "p99": null,
+       "max": 10.9
+      }
+     },
+     "fxPeak": 4,
+     "lifetime": 1.617,
+     "left": 0,
+     "texts": 2,
+     "heapMB": 8.18
+    }
+   ],
+   "ok": true,
+   "opsPerFrame": {
+    "idle": {
+     "fill": 101.1,
+     "stroke": 98.3,
+     "fillRect": 595.3,
+     "drawImage": 421,
+     "createRadialGradient": 5,
+     "createLinearGradient": 4,
+     "createPattern": 3,
+     "save": 7,
+     "setTransform": 90,
+     "beginPath": 198.3
+    },
+    "cast": {
+     "fill": 101.3,
+     "stroke": 99.6,
+     "fillRect": 517.8,
+     "drawImage": 422,
+     "createRadialGradient": 6,
+     "createLinearGradient": 6,
+     "createPattern": 3,
+     "save": 7.9,
+     "setTransform": 91.9,
+     "beginPath": 199.9
+    }
+   },
+   "run": 0
+  },
+  {
+   "id": "jpn_inaris_harvest",
+   "faction": "japanese",
+   "vfx": "paddy_glow",
+   "x": "exploit",
+   "target": "none",
+   "fixtureTurn": 14,
+   "targetTile": null,
+   "casts": [
+    {
+     "ok": true,
+     "dispatched": [
+      "paddy_glow"
+     ],
+     "phases": {
+      "idle": {
+       "n": 90,
+       "median": 8,
+       "p95": 12,
+       "p99": null,
+       "max": 27.5
+      },
+      "anticipation": {
+       "n": 21,
+       "median": 7.9,
+       "p95": 11.8,
+       "p99": null,
+       "max": 12.4
+      },
+      "manifestation": {
+       "n": 47,
+       "median": 7.9,
+       "p95": 12.2,
+       "p99": null,
+       "max": 12.8
+      },
+      "aftermath": {
+       "n": 4,
+       "median": 7.4,
+       "p95": 7.6,
+       "p99": null,
+       "max": 7.6
+      },
+      "cast": {
+       "n": 72,
+       "median": 7.9,
+       "p95": 12.2,
+       "p99": null,
+       "max": 12.8
+      },
+      "returnIdle": {
+       "n": 30,
+       "median": 7.3,
+       "p95": 8,
+       "p99": null,
+       "max": 8.1
+      }
+     },
+     "fxPeak": 2,
+     "lifetime": 1.2,
+     "left": 0,
+     "texts": 1,
+     "heapMB": 9.39
+    }
+   ],
+   "ok": true,
+   "opsPerFrame": {
+    "idle": {
+     "fill": 129.8,
+     "stroke": 93.2,
+     "fillRect": 692.2,
+     "drawImage": 411,
+     "createRadialGradient": 10,
+     "createLinearGradient": 9,
+     "createPattern": 3,
+     "save": 13,
+     "setTransform": 81,
+     "beginPath": 222
+    },
+    "cast": {
+     "fill": 166.8,
+     "stroke": 149.4,
+     "fillRect": 675.3,
+     "drawImage": 411,
+     "createRadialGradient": 10,
+     "createLinearGradient": 9,
+     "createPattern": 3,
+     "save": 13.9,
+     "setTransform": 81.9,
+     "beginPath": 315.2
+    }
+   },
+   "run": 0
+  },
+  {
+   "id": "jpn_storm_of_susanoo",
+   "faction": "japanese",
+   "vfx": "gathering_storm",
+   "x": "exterminate",
+   "target": "rivalShrine",
+   "fixtureTurn": 14,
+   "targetTile": 274,
+   "casts": [
+    {
+     "ok": true,
+     "dispatched": [
+      "gathering_storm",
+      "storm"
+     ],
+     "phases": {
+      "idle": {
+       "n": 90,
+       "median": 9.9,
+       "p95": 15.4,
+       "p99": null,
+       "max": 17.4
+      },
+      "anticipation": {
+       "n": 21,
+       "median": 10.1,
+       "p95": 12.4,
+       "p99": null,
+       "max": 12.8
+      },
+      "manifestation": {
+       "n": 47,
+       "median": 10.4,
+       "p95": 15.4,
+       "p99": null,
+       "max": 21.2
+      },
+      "aftermath": {
+       "n": 4,
+       "median": 10.2,
+       "p95": 10.2,
+       "p99": null,
+       "max": 10.2
+      },
+      "cast": {
+       "n": 72,
+       "median": 10.3,
+       "p95": 14.3,
+       "p99": null,
+       "max": 21.2
+      },
+      "returnIdle": {
+       "n": 30,
+       "median": 10.2,
+       "p95": 14.5,
+       "p99": null,
+       "max": 18.9
+      }
+     },
+     "fxPeak": 3,
+     "lifetime": 1.2,
+     "left": 0,
+     "texts": 1,
+     "heapMB": 10.39
+    }
+   ],
+   "ok": true,
+   "opsPerFrame": {
+    "idle": {
+     "fill": 181.2,
+     "stroke": 98.3,
+     "fillRect": 1086.8,
+     "drawImage": 492,
+     "createRadialGradient": 10,
+     "createLinearGradient": 9,
+     "createPattern": 3,
+     "save": 13,
+     "setTransform": 149,
+     "beginPath": 278.5
+    },
+    "cast": {
+     "fill": 197.6,
+     "stroke": 101.2,
+     "fillRect": 1028.8,
+     "drawImage": 493,
+     "createRadialGradient": 10,
+     "createLinearGradient": 9,
+     "createPattern": 3,
+     "save": 13.9,
+     "setTransform": 149.9,
+     "beginPath": 297.9
+    }
+   },
+   "run": 0
+  },
+  {
+   "id": "ved_ushas_first_dawn",
+   "faction": "vedic",
+   "vfx": "dawn_unveil",
+   "x": "explore",
+   "target": "nearKnown",
+   "fixtureTurn": 14,
+   "targetTile": 133,
+   "casts": [
+    {
+     "ok": true,
+     "dispatched": [
+      "dawn_unveil"
+     ],
+     "phases": {
+      "idle": {
+       "n": 90,
+       "median": 7.7,
+       "p95": 10.8,
+       "p99": null,
+       "max": 18.7
+      },
+      "anticipation": {
+       "n": 21,
+       "median": 8,
+       "p95": 13.4,
+       "p99": null,
+       "max": 20.4
+      },
+      "manifestation": {
+       "n": 47,
+       "median": 7.8,
+       "p95": 12.4,
+       "p99": null,
+       "max": 12.9
+      },
+      "aftermath": {
+       "n": 4,
+       "median": 8.1,
+       "p95": 8.5,
+       "p99": null,
+       "max": 8.5
+      },
+      "cast": {
+       "n": 72,
+       "median": 7.8,
+       "p95": 12.6,
+       "p99": null,
+       "max": 20.4
+      },
+      "returnIdle": {
+       "n": 30,
+       "median": 8.2,
+       "p95": 15.6,
+       "p99": null,
+       "max": 16
+      }
+     },
+     "fxPeak": 2,
+     "lifetime": 1.2,
+     "left": 0,
+     "texts": 1,
+     "heapMB": 7.54
+    }
+   ],
+   "ok": true,
+   "opsPerFrame": {
+    "idle": {
+     "fill": 120.5,
+     "stroke": 98.1,
+     "fillRect": 662.7,
+     "drawImage": 408,
+     "createRadialGradient": 8,
+     "createLinearGradient": 7,
+     "createPattern": 3,
+     "save": 13,
+     "setTransform": 80,
+     "beginPath": 217.7
+    },
+    "cast": {
+     "fill": 124,
+     "stroke": 99.6,
+     "fillRect": 656.3,
+     "drawImage": 409.8,
+     "createRadialGradient": 8,
+     "createLinearGradient": 8.8,
+     "createPattern": 3,
+     "save": 13.9,
+     "setTransform": 80.9,
+     "beginPath": 222.6
+    }
+   },
+   "run": 0
+  },
+  {
+   "id": "ved_agnis_fire",
+   "faction": "vedic",
+   "vfx": "fire_kindle",
+   "x": "expand",
+   "target": "ownShrine",
+   "fixtureTurn": 14,
+   "targetTile": 133,
+   "casts": [
+    {
+     "ok": true,
+     "dispatched": [
+      "fire_kindle"
+     ],
+     "phases": {
+      "idle": {
+       "n": 90,
+       "median": 7.9,
+       "p95": 11.8,
+       "p99": null,
+       "max": 13.6
+      },
+      "anticipation": {
+       "n": 21,
+       "median": 8.2,
+       "p95": 12.4,
+       "p99": null,
+       "max": 13.3
+      },
+      "manifestation": {
+       "n": 47,
+       "median": 7.8,
+       "p95": 10.8,
+       "p99": null,
+       "max": 12.2
+      },
+      "aftermath": {
+       "n": 4,
+       "median": 7.1,
+       "p95": 7.5,
+       "p99": null,
+       "max": 7.5
+      },
+      "cast": {
+       "n": 72,
+       "median": 7.9,
+       "p95": 12.1,
+       "p99": null,
+       "max": 13.3
+      },
+      "returnIdle": {
+       "n": 30,
+       "median": 8.2,
+       "p95": 11.6,
+       "p99": null,
+       "max": 12
+      }
+     },
+     "fxPeak": 3,
+     "lifetime": 1.2,
+     "left": 0,
+     "texts": 1,
+     "heapMB": 9.68
+    }
+   ],
+   "ok": true,
+   "opsPerFrame": {
+    "idle": {
+     "fill": 120.7,
+     "stroke": 98.2,
+     "fillRect": 679.2,
+     "drawImage": 408,
+     "createRadialGradient": 8,
+     "createLinearGradient": 7,
+     "createPattern": 3,
+     "save": 13,
+     "setTransform": 80,
+     "beginPath": 217.8
+    },
+    "cast": {
+     "fill": 130.7,
+     "stroke": 99.5,
+     "fillRect": 706.6,
+     "drawImage": 409.9,
+     "createRadialGradient": 8,
+     "createLinearGradient": 7,
+     "createPattern": 3,
+     "save": 13.9,
+     "setTransform": 81.9,
+     "beginPath": 229.2
+    }
+   },
+   "run": 0
+  },
+  {
+   "id": "ved_order_of_varuna",
+   "faction": "vedic",
+   "vfx": "water_measure",
+   "x": "exploit",
+   "target": "ownSettlement",
+   "fixtureTurn": 14,
+   "targetTile": 133,
+   "casts": [
+    {
+     "ok": true,
+     "dispatched": [
+      "water_measure"
+     ],
+     "phases": {
+      "idle": {
+       "n": 90,
+       "median": 7.5,
+       "p95": 11.8,
+       "p99": null,
+       "max": 13.7
+      },
+      "anticipation": {
+       "n": 21,
+       "median": 8.3,
+       "p95": 12.3,
+       "p99": null,
+       "max": 29.9
+      },
+      "manifestation": {
+       "n": 47,
+       "median": 7.5,
+       "p95": 10.3,
+       "p99": null,
+       "max": 11.5
+      },
+      "aftermath": {
+       "n": 4,
+       "median": 7.5,
+       "p95": 7.6,
+       "p99": null,
+       "max": 7.6
+      },
+      "cast": {
+       "n": 72,
+       "median": 7.6,
+       "p95": 11.5,
+       "p99": null,
+       "max": 29.9
+      },
+      "returnIdle": {
+       "n": 30,
+       "median": 7.5,
+       "p95": 10.8,
+       "p99": null,
+       "max": 11
+      }
+     },
+     "fxPeak": 2,
+     "lifetime": 1.2,
+     "left": 0,
+     "texts": 1,
+     "heapMB": 7.71
+    }
+   ],
+   "ok": true,
+   "opsPerFrame": {
+    "idle": {
+     "fill": 120.9,
+     "stroke": 98.2,
+     "fillRect": 712,
+     "drawImage": 408,
+     "createRadialGradient": 8,
+     "createLinearGradient": 7,
+     "createPattern": 3,
+     "save": 13,
+     "setTransform": 80,
+     "beginPath": 218.2
+    },
+    "cast": {
+     "fill": 120.9,
+     "stroke": 102.3,
+     "fillRect": 712,
+     "drawImage": 408.9,
+     "createRadialGradient": 8,
+     "createLinearGradient": 7,
+     "createPattern": 3,
+     "save": 13.9,
+     "setTransform": 80.9,
+     "beginPath": 222.3
+    }
+   },
+   "run": 0
+  },
+  {
+   "id": "ved_indras_rainstorm",
+   "faction": "vedic",
+   "vfx": "monsoon_burst",
+   "x": "exterminate",
+   "target": "rivalInfluenced",
+   "fixtureTurn": 14,
+   "targetTile": 227,
+   "casts": [
+    {
+     "ok": true,
+     "dispatched": [
+      "monsoon_burst"
+     ],
+     "phases": {
+      "idle": {
+       "n": 90,
+       "median": 9.8,
+       "p95": 13.6,
+       "p99": null,
+       "max": 21.8
+      },
+      "anticipation": {
+       "n": 21,
+       "median": 9.8,
+       "p95": 16.1,
+       "p99": null,
+       "max": 19.8
+      },
+      "manifestation": {
+       "n": 47,
+       "median": 10.5,
+       "p95": 14,
+       "p99": null,
+       "max": 14.9
+      },
+      "aftermath": {
+       "n": 4,
+       "median": 9.4,
+       "p95": 9.7,
+       "p99": null,
+       "max": 9.7
+      },
+      "cast": {
+       "n": 72,
+       "median": 10.1,
+       "p95": 14.6,
+       "p99": null,
+       "max": 19.8
+      },
+      "returnIdle": {
+       "n": 30,
+       "median": 9.8,
+       "p95": 15,
+       "p99": null,
+       "max": 20.4
+      }
+     },
+     "fxPeak": 2,
+     "lifetime": 1.2,
+     "left": 0,
+     "texts": 1,
+     "heapMB": 7.82
+    }
+   ],
+   "ok": true,
+   "opsPerFrame": {
+    "idle": {
+     "fill": 152.8,
+     "stroke": 102.2,
+     "fillRect": 907.6,
+     "drawImage": 462,
+     "createRadialGradient": 8,
+     "createLinearGradient": 7,
+     "createPattern": 3,
+     "save": 13,
+     "setTransform": 125,
+     "beginPath": 254
+    },
+    "cast": {
+     "fill": 158.5,
+     "stroke": 106.4,
+     "fillRect": 956.9,
+     "drawImage": 462,
+     "createRadialGradient": 8,
+     "createLinearGradient": 7,
+     "createPattern": 3,
+     "save": 13.9,
+     "setTransform": 125.9,
+     "beginPath": 263.9
+    }
+   },
+   "run": 0
+  }
+ ],
+ "failures": []
+}

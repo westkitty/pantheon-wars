@@ -1,0 +1,167 @@
+{
+ "generated": "2026-10-29T11:42:08.720Z",
+ "turn": 14,
+ "errors": [],
+ "shots": [
+  {
+   "faction": "greek",
+   "name": "The Olympian Court",
+   "atmosphere": "olympus",
+   "viewport": "1440x900",
+   "turn": 14,
+   "file": "reports/screens/atlas/01-greek-desktop.png"
+  },
+  {
+   "faction": "greek",
+   "name": "The Olympian Court",
+   "atmosphere": "olympus",
+   "viewport": "390x844",
+   "turn": 14,
+   "file": "reports/screens/atlas/01-greek-phone.png"
+  },
+  {
+   "faction": "norse",
+   "name": "The Hall of the Ash",
+   "atmosphere": "ash",
+   "viewport": "1440x900",
+   "turn": 14,
+   "file": "reports/screens/atlas/02-norse-desktop.png"
+  },
+  {
+   "faction": "norse",
+   "name": "The Hall of the Ash",
+   "atmosphere": "ash",
+   "viewport": "390x844",
+   "turn": 14,
+   "file": "reports/screens/atlas/02-norse-phone.png"
+  },
+  {
+   "faction": "egyptian",
+   "name": "The Ennead of the Two Lands",
+   "atmosphere": "twolands",
+   "viewport": "1440x900",
+   "turn": 14,
+   "file": "reports/screens/atlas/03-egyptian-desktop.png"
+  },
+  {
+   "faction": "egyptian",
+   "name": "The Ennead of the Two Lands",
+   "atmosphere": "twolands",
+   "viewport": "390x844",
+   "turn": 14,
+   "file": "reports/screens/atlas/03-egyptian-phone.png"
+  },
+  {
+   "faction": "mesopotamian",
+   "name": "The Assembly of the Gods",
+   "atmosphere": "assembly",
+   "viewport": "1440x900",
+   "turn": 14,
+   "file": "reports/screens/atlas/04-mesopotamian-desktop.png"
+  },
+  {
+   "faction": "mesopotamian",
+   "name": "The Assembly of the Gods",
+   "atmosphere": "assembly",
+   "viewport": "390x844",
+   "turn": 14,
+   "file": "reports/screens/atlas/04-mesopotamian-phone.png"
+  },
+  {
+   "faction": "irish",
+   "name": "The Tuatha Dé Danann",
+   "atmosphere": "hearth",
+   "viewport": "1440x900",
+   "turn": 14,
+   "file": "reports/screens/atlas/05-irish-desktop.png"
+  },
+  {
+   "faction": "irish",
+   "name": "The Tuatha Dé Danann",
+   "atmosphere": "hearth",
+   "viewport": "390x844",
+   "turn": 14,
+   "file": "reports/screens/atlas/05-irish-phone.png"
+  },
+  {
+   "faction": "mexica",
+   "name": "The Fifth Sun",
+   "atmosphere": "fifthsun",
+   "viewport": "1440x900",
+   "turn": 14,
+   "file": "reports/screens/atlas/06-mexica-desktop.png"
+  },
+  {
+   "faction": "mexica",
+   "name": "The Fifth Sun",
+   "atmosphere": "fifthsun",
+   "viewport": "390x844",
+   "turn": 14,
+   "file": "reports/screens/atlas/06-mexica-phone.png"
+  },
+  {
+   "faction": "hittite",
+   "name": "The Thousand Gods of Hatti",
+   "atmosphere": "hatti",
+   "viewport": "1440x900",
+   "turn": 14,
+   "file": "reports/screens/atlas/07-hittite-desktop.png"
+  },
+  {
+   "faction": "hittite",
+   "name": "The Thousand Gods of Hatti",
+   "atmosphere": "hatti",
+   "viewport": "390x844",
+   "turn": 14,
+   "file": "reports/screens/atlas/07-hittite-phone.png"
+  },
+  {
+   "faction": "yoruba",
+   "name": "The Council of the Òrìṣà",
+   "atmosphere": "orisa",
+   "viewport": "1440x900",
+   "turn": 14,
+   "file": "reports/screens/atlas/08-yoruba-desktop.png"
+  },
+  {
+   "faction": "yoruba",
+   "name": "The Council of the Òrìṣà",
+   "atmosphere": "orisa",
+   "viewport": "390x844",
+   "turn": 14,
+   "file": "reports/screens/atlas/08-yoruba-phone.png"
+  },
+  {
+   "faction": "japanese",
+   "name": "The Shrines of the Kami",
+   "atmosphere": "kami",
+   "viewport": "1440x900",
+   "turn": 14,
+   "file": "reports/screens/atlas/09-japanese-desktop.png"
+  },
+  {
+   "faction": "japanese",
+   "name": "The Shrines of the Kami",
+   "atmosphere": "kami",
+   "viewport": "390x844",
+   "turn": 14,
+   "file": "reports/screens/atlas/09-japanese-phone.png"
+  },
+  {
+   "faction": "vedic",
+   "name": "The Vedic Hymns",
+   "atmosphere": "vedic",
+   "viewport": "1440x900",
+   "turn": 14,
+   "file": "reports/screens/atlas/10-vedic-desktop.png"
+  },
+  {
+   "faction": "vedic",
+   "name": "The Vedic Hymns",
+   "atmosphere": "vedic",
+   "viewport": "390x844",
+   "turn": 14,
+   "file": "reports/screens/atlas/10-vedic-phone.png"
+  }
+ ]
+}

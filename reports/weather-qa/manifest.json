@@ -1,0 +1,89 @@
+{
+ "generated": "2026-10-31T04:28:00.031Z",
+ "tool": "node tools/weather-qa.js",
+ "kinds": [
+  "drought",
+  "storm",
+  "rains",
+  "frost",
+  "omen"
+ ],
+ "variants": [
+  {
+   "id": "desktop",
+   "viewport": "1440x900@1",
+   "motion": "full"
+  },
+  {
+   "id": "reduced",
+   "viewport": "1440x900@1",
+   "motion": "reduced"
+  },
+  {
+   "id": "phone",
+   "viewport": "390x844@2",
+   "motion": "full"
+  }
+ ],
+ "method": "one active front (radius 2) beside the home town in the renderer's state copy; frozen render time; crops compared by mean absolute RGB difference (0-255)",
+ "thresholds": {
+  "vsClear": 1,
+  "pairwise": 0.5
+ },
+ "metrics": {
+  "desktop": {
+   "vsClear": {
+    "drought": 3.7,
+    "storm": 9.69,
+    "rains": 2.66,
+    "frost": 11.91,
+    "omen": 2.39
+   },
+   "pairwiseMin": 2.36,
+   "pairwiseMinPair": "rains/omen"
+  },
+  "reduced": {
+   "vsClear": {
+    "drought": 3.62,
+    "storm": 7.28,
+    "rains": 2.22,
+    "frost": 12.37,
+    "omen": 2.36
+   },
+   "pairwiseMin": 1.91,
+   "pairwiseMinPair": "rains/omen"
+  },
+  "phone": {
+   "vsClear": {
+    "drought": 2.28,
+    "storm": 5.85,
+    "rains": 1.64,
+    "frost": 7.56,
+    "omen": 1.49
+   },
+   "pairwiseMin": 1.43,
+   "pairwiseMinPair": "rains/omen"
+  }
+ },
+ "controlsOnTop": {
+  "desktop": {
+   "endturn": true,
+   "powerbar": true,
+   "topbar": true
+  },
+  "reduced": {
+   "endturn": true,
+   "powerbar": true,
+   "topbar": true
+  },
+  "phone": {
+   "endturn": true,
+   "powerbar": true,
+   "topbar": true
+  }
+ },
+ "atlas": "reports/weather-qa/weather-atlas.png",
+ "pass": true,
+ "fails": [],
+ "limits": "Automated distinguishability and layering checks; human judgement of readability on a real phone is not included."
+}

@@ -1,0 +1,232 @@
+{
+ "generated": "2026-10-31T09:50:42.560Z",
+ "results": [
+  {
+   "id": "Q01",
+   "title": "Hot-seat handoff leaves no previous-god text in the live region, toasts, alerts or panel",
+   "ok": true,
+   "evidence": {
+    "leak": {
+     "sr": "",
+     "toasts": "",
+     "alerts": "",
+     "panel": "",
+     "log": ""
+    },
+    "turnover": {
+     "turn": 2,
+     "sr": ""
+    },
+    "seated": "The Olympian Court, turn 2, The Dawn. Faith 22.1, Favor 2, followers 7 of 159."
+   }
+  },
+  {
+   "id": "Q02",
+   "title": "Blocked browser storage (private window): the game starts, plays, saves gracefully and exports",
+   "ok": true,
+   "evidence": {
+    "started": true,
+    "savesText": "Browser storage is not available here (private window or blocked site data). You can still export and import game files."
+   }
+  },
+  {
+   "id": "Q03",
+   "title": "Two-finger pinch on the map zooms the camera",
+   "ok": true,
+   "evidence": {
+    "before": 2.1,
+    "after": 3.4
+   }
+  },
+  {
+   "id": "Q04",
+   "title": "Chronicle of an unfinished solo game offers only the player's own view",
+   "ok": true,
+   "evidence": {
+    "viewers": [
+     "The Olympian Court"
+    ]
+   }
+  },
+  {
+   "id": "Q05",
+   "title": "Resizing mid-game keeps the projection complete (no unpainted world regions after the clip)",
+   "ok": true,
+   "evidence": {
+    "sizes": [
+     {
+      "canvas": [
+       900,
+       700
+      ],
+      "view": {
+       "x": 18,
+       "y": 134,
+       "w": 524,
+       "h": 392
+      },
+      "transparentPx": 0
+     },
+     {
+      "canvas": [
+       1920,
+       1080
+      ],
+      "view": {
+       "x": 0,
+       "y": 4,
+       "w": 844,
+       "h": 588
+      },
+      "transparentPx": 0
+     },
+     {
+      "canvas": [
+       390,
+       844
+      ],
+      "view": {
+       "x": 150,
+       "y": 86,
+       "w": 260,
+       "h": 466
+      },
+      "transparentPx": 0
+     },
+     {
+      "canvas": [
+       1440,
+       900
+      ],
+      "view": {
+       "x": 0,
+       "y": 67,
+       "w": 697,
+       "h": 494
+      },
+      "transparentPx": 0
+     }
+    ]
+   }
+  },
+  {
+   "id": "Q06",
+   "title": "Age changes regrade the land and switch towns to their Twilight sprites (no stale render caches)",
+   "ok": true,
+   "evidence": {
+    "dawn": {
+     "age": "dawn",
+     "staticAge": "dawn"
+    },
+    "zenith": {
+     "age": "zenith",
+     "staticAge": "zenith"
+    },
+    "twilight": {
+     "age": "twilight",
+     "staticAge": "twilight",
+     "night": 1
+    }
+   }
+  },
+  {
+   "id": "Q07",
+   "title": "Reduced motion and Low quality keep a stable cue for every power without the world-light envelope",
+   "ok": true,
+   "evidence": {
+    "reduced": [],
+    "low": []
+   }
+  },
+  {
+   "id": "Q08",
+   "title": "Staggered town rebuilds never leave an obsolete sprite: within a few frames of a state change every town shows its current sprite",
+   "ok": true,
+   "evidence": {
+    "r": {
+     "age": "twilight",
+     "towns": 22,
+     "stale": []
+    }
+   }
+  },
+  {
+   "id": "Q09",
+   "title": "Every one of the forty power effects ends: after a cast and four seconds of frames no effect objects remain",
+   "ok": true,
+   "evidence": {
+    "left": []
+   }
+  },
+  {
+   "id": "Q10",
+   "title": "Weather lifecycle: every kind draws on the map, wind follows rain and storm, and nothing lingers once the front is gone",
+   "ok": true,
+   "evidence": {
+    "r": {
+     "drought": 0,
+     "storm": 16,
+     "rains": 16,
+     "frost": 0,
+     "omen": 0,
+     "after": 0
+    }
+   }
+  },
+  {
+   "id": "Q11",
+   "title": "Site transitions: a shrine raised plays its choreography and caption; reduced motion keeps only the caption; a hot-seat hand-off plays nothing",
+   "ok": true,
+   "evidence": {
+    "r": {
+     "normal": {
+      "site": 1,
+      "texts": 1
+     },
+     "cleaned": 0,
+     "reduced": {
+      "site": 0,
+      "texts": 1
+     },
+     "handoff": {
+      "site": 0,
+      "texts": 0
+     }
+    }
+   }
+  },
+  {
+   "id": "Q12",
+   "title": "Art registry coverage: every icon, emblem, pattern, event scene (three ages) and terrain family renders non-empty at its interface size",
+   "ok": true,
+   "evidence": {
+    "empty": []
+   }
+  },
+  {
+   "id": "Q13",
+   "title": "Drawing order: terrain features always lie under towns, shrines and priests (a range in front never hides a town)",
+   "ok": true,
+   "evidence": {
+    "r": {
+     "n": 18,
+     "dc": 14,
+     "lastDc": 13,
+     "firstObj": 14
+    }
+   }
+  },
+  {
+   "id": "Q14",
+   "title": "Town life is visual only: it draws only at towns the viewer has revealed and leaves the game state byte-for-byte unchanged",
+   "ok": true,
+   "evidence": {
+    "r": {
+     "towns": 1,
+     "hidden": [],
+     "same": true
+    }
+   }
+  }
+ ]
+}

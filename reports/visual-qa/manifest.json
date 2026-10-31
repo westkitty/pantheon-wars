@@ -1,0 +1,84 @@
+{
+ "generated": "2026-10-31T04:00:19.901Z",
+ "tool": "node tools/visual-qa.js",
+ "before": "checkout at bfc8",
+ "sheets": [
+  {
+   "file": "reports/visual-qa/pantheons.jpg",
+   "content": "ten pantheons at turn 14, real games, before vs after"
+  },
+  {
+   "file": "reports/visual-qa/ages.jpg",
+   "content": "one Mexica game at turns 3, 20 and 33, before vs after"
+  },
+  {
+   "file": "reports/visual-qa/close.jpg",
+   "content": "home town of each pantheon at zoom 3.2 (close inspection), same game and camera, before vs after"
+  },
+  {
+   "file": "reports/visual-qa/sprites.jpg",
+   "content": "source sprites shown at their world size ×3 (the size they reach at zoom 3): shrine healthy, shrine damaged, priest; before vs after"
+  },
+  {
+   "file": "reports/visual-qa/walk.jpg",
+   "content": "a priest walking between two hexes in the running game at zoom 3.2, 0.1 s apart (distance-driven four-frame cycle, no hop)"
+  },
+  {
+   "file": "reports/visual-qa/biomes.jpg",
+   "content": "one tile of every land type at zoom 2.2, same game and camera (map revealed for display only), before vs after"
+  },
+  {
+   "file": "reports/visual-qa/devices.jpg",
+   "content": "one game at turn 12 on desktop 1440×900, tablet 1024×768 and phone 390×844, full screen, before vs after"
+  },
+  {
+   "file": "reports/visual-qa/icons.jpg",
+   "content": "the forty power icons at 48 px and the ten emblems at 48 and 34 px, before vs after"
+  },
+  {
+   "file": "reports/visual-qa/events.jpg",
+   "content": "all nineteen event illustrations (Zenith), before vs after"
+  },
+  {
+   "file": "reports/visual-qa/vfx-compare.jpg",
+   "content": "each of the forty powers at 0.75 s (manifestation), same live map and camera, before vs after"
+  },
+  {
+   "file": "reports/visual-qa/weather.jpg",
+   "content": "each weather kind staged over the same town at zoom 2.0 (display-only front), before vs after"
+  },
+  {
+   "file": "reports/visual-qa/heraldry.jpg",
+   "content": "the ten territory patterns (as the overlay draws them) over light, dark, wet and rocky ground, before vs after"
+  },
+  {
+   "file": "reports/visual-qa/motion.jpg",
+   "content": "frame sequences in the running game (after): forest canopies and rain in a storm (staged front), the shrine-raised transition (staged state change), and town life at the home town"
+  },
+  {
+   "file": "reports/visual-qa/tapestry.jpg",
+   "content": "the exported tapestry image of one finished game (same seed and moves), before vs after"
+  },
+  {
+   "file": "reports/visual-qa/water.jpg",
+   "content": "the nearest sea to the home town at zoom 1.1, 2.0 and 3.2, same game and camera, before vs after"
+  },
+  {
+   "file": "reports/visual-qa/towns.jpg",
+   "content": "towns of each growth tier, a declining town and a damaged shrine in one real game at turn 28, zoom 3, before vs after"
+  },
+  {
+   "file": "reports/visual-qa/burst.jpg",
+   "content": "the perf benchmark burst scene (bolt, topple and reveal effects on six towns) at 0.3 s, before vs after"
+  },
+  {
+   "file": "reports/visual-qa/vfx.jpg",
+   "content": "all 40 power signatures (after) at 0.2 s, 0.75 s and 1.6 s; display-only casts on a live map, not gameplay"
+  }
+ ],
+ "notes": [
+  "World frames are rendered at a frozen visual time with transient effects cleared, so before and after compare the same scene; the HUD is covered by tools/journeys.js and tools/screenshots.js."
+ ],
+ "errors": [],
+ "pass": true
+}

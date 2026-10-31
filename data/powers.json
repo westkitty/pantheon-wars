@@ -1,327 +1,1298 @@
 [
-  {
-    "id": "oracle_oak",
-    "faction": "greek",
-    "x": "explore",
-    "name": "Oracle of the Oak",
-    "inspiredBy": "Zeus at Dodona",
-    "sources": [
-      "G1"
-    ],
-    "text": "The rustling oak speaks. Reveal every hex within 3 of any target, anywhere on the map.",
-    "cost": {
-      "faith": 8,
-      "favor": 0
-    },
-    "cooldown": 3,
-    "target": "anyTile",
-    "effects": [
-      {
-        "type": "reveal",
-        "radius": 3
-      }
-    ],
-    "icon": "oak"
+ {
+  "id": "oracle_oak",
+  "faction": "greek",
+  "x": "explore",
+  "name": "Oracle of the Oak",
+  "inspiredBy": "Zeus at Dodona",
+  "sources": [
+   "G1"
+  ],
+  "text": "The rustling oak speaks. Reveal every hex within 3 of any target, anywhere on the map.",
+  "cost": {
+   "faith": 8,
+   "favor": 0
   },
-  {
-    "id": "aegis_polis",
-    "faction": "greek",
-    "x": "expand",
-    "name": "Aegis of the Polis",
-    "inspiredBy": "Athena, defender of towns",
-    "sources": [
-      "G2"
-    ],
-    "text": "Target your shrine: +2 Ward, lift any eclipse, and a new priest rises there.",
-    "cost": {
-      "faith": 9,
-      "favor": 0
-    },
-    "cooldown": 4,
-    "target": "ownShrine",
-    "effects": [
-      {
-        "type": "ward",
-        "amount": 2,
-        "max": 5
-      },
-      {
-        "type": "clearEclipse"
-      },
-      {
-        "type": "spawnPriest"
-      }
-    ],
-    "icon": "shield"
+  "cooldown": 3,
+  "target": "anyTile",
+  "effects": [
+   {
+    "type": "reveal",
+    "radius": 3
+   }
+  ],
+  "icon": "oak",
+  "flavor": "The oak at Dodona rustles, and the priests listen.",
+  "vfx": "oak_whisper"
+ },
+ {
+  "id": "aegis_polis",
+  "faction": "greek",
+  "x": "expand",
+  "name": "Aegis of the Polis",
+  "inspiredBy": "Athena, defender of towns",
+  "sources": [
+   "G2"
+  ],
+  "text": "Target your shrine: +2 Ward, lift any eclipse, and a new priest rises there.",
+  "cost": {
+   "faith": 10,
+   "favor": 0
   },
-  {
-    "id": "gift_of_grain",
-    "faction": "greek",
-    "x": "exploit",
-    "name": "Gift of the Grain",
-    "inspiredBy": "Demeter",
-    "sources": [
-      "G3",
-      "G6"
-    ],
-    "text": "For 3 turns your Faith income is x1.5, and every settlement you control gains +1 population.",
-    "cost": {
-      "faith": 6,
-      "favor": 1
-    },
-    "cooldown": 6,
-    "target": "none",
-    "effects": [
-      {
-        "type": "buff",
-        "stat": "faithMult",
-        "value": 1.5,
-        "turns": 3
-      },
-      {
-        "type": "popControlled",
-        "amount": 1
-      }
-    ],
-    "icon": "sheaf"
+  "cooldown": 5,
+  "target": "ownShrine",
+  "effects": [
+   {
+    "type": "ward",
+    "amount": 2,
+    "max": 5
+   },
+   {
+    "type": "clearEclipse"
+   },
+   {
+    "type": "spawnPriest"
+   }
+  ],
+  "icon": "shield",
+  "flavor": "The goddess stands on the wall of the city.",
+  "vfx": "aegis_wall"
+ },
+ {
+  "id": "gift_of_grain",
+  "faction": "greek",
+  "x": "exploit",
+  "name": "Gift of the Grain",
+  "inspiredBy": "Demeter",
+  "sources": [
+   "G3",
+   "G6"
+  ],
+  "text": "For 3 turns your Faith income is x1.4, and every settlement you control gains +1 population.",
+  "cost": {
+   "faith": 6,
+   "favor": 1
   },
-  {
-    "id": "thunderbolt",
-    "faction": "greek",
-    "x": "exterminate",
-    "name": "Thunderbolt",
-    "inspiredBy": "Zeus's thunderbolt (forged by the Cyclopes)",
-    "sources": [
-      "G1",
-      "G5"
-    ],
-    "text": "Miracle. Strike a revealed settlement: rival priests there are scattered, 3 rival followers fall silent (become unaffiliated) and 3 mortals turn to you.",
-    "cost": {
-      "faith": 10,
-      "favor": 2
-    },
-    "cooldown": 4,
-    "target": "revealedSettlement",
-    "effects": [
-      {
-        "type": "strike",
-        "killPriests": true,
-        "rivalLoss": 3,
-        "gain": 3
-      }
-    ],
-    "icon": "bolt"
+  "cooldown": 6,
+  "target": "none",
+  "effects": [
+   {
+    "type": "buff",
+    "stat": "faithMult",
+    "value": 1.4,
+    "turns": 3
+   },
+   {
+    "type": "popControlled",
+    "amount": 1
+   }
+  ],
+  "icon": "sheaf",
+  "flavor": "She gives the grain, and every hearth is warm.",
+  "vfx": "grain_wave"
+ },
+ {
+  "id": "thunderbolt",
+  "faction": "greek",
+  "x": "exterminate",
+  "name": "Thunderbolt",
+  "inspiredBy": "Zeus's thunderbolt (forged by the Cyclopes)",
+  "sources": [
+   "G1",
+   "G5"
+  ],
+  "text": "Miracle. Strike a revealed settlement: rival priests there are scattered back to their nearest shrine, 2 rival followers fall silent (become unaffiliated) and 2 mortals turn to you.",
+  "cost": {
+   "faith": 10,
+   "favor": 2
   },
-  {
-    "id": "ravens_flight",
-    "faction": "norse",
-    "x": "explore",
-    "name": "Flight of the Ravens",
-    "inspiredBy": "Odin's ravens",
-    "sources": [
-      "N1"
-    ],
-    "text": "Two ravens fly out and return: reveal the 2 nearest hidden settlements and the land around them.",
-    "cost": {
-      "faith": 6,
-      "favor": 0
-    },
-    "cooldown": 3,
-    "target": "none",
-    "effects": [
-      {
-        "type": "revealNearestSettlements",
-        "count": 2,
-        "radius": 2
-      }
-    ],
-    "icon": "raven"
+  "cooldown": 4,
+  "target": "revealedSettlement",
+  "effects": [
+   {
+    "type": "strike",
+    "killPriests": true,
+    "rivalLoss": 2,
+    "gain": 2
+   }
+  ],
+  "icon": "bolt",
+  "flavor": "The Cyclopes made it; Zeus throws it.",
+  "vfx": "bolt_strike"
+ },
+ {
+  "id": "ravens_flight",
+  "faction": "norse",
+  "x": "explore",
+  "name": "Flight of the Ravens",
+  "inspiredBy": "Odin's ravens",
+  "sources": [
+   "N1"
+  ],
+  "text": "Two ravens fly out and return: reveal the 2 nearest hidden settlements and the land around them.",
+  "cost": {
+   "faith": 6,
+   "favor": 0
   },
-  {
-    "id": "rune_hall",
-    "faction": "norse",
-    "x": "expand",
-    "name": "Rune-Carved Hall",
-    "inspiredBy": "Odin winning the runes",
-    "sources": [
-      "N5"
-    ],
-    "text": "Raise a shrine at a revealed settlement within 4 hexes of your land for half cost, even with no followers there.",
-    "cost": {
-      "faith": 0,
-      "favor": 0
-    },
-    "cooldown": 4,
-    "target": "shrineSite",
-    "effects": [
-      {
-        "type": "raiseShrine",
-        "costMult": 0.5,
-        "range": 4
-      }
-    ],
-    "icon": "rune"
+  "cooldown": 3,
+  "target": "none",
+  "effects": [
+   {
+    "type": "revealNearestSettlements",
+    "count": 2,
+    "radius": 2
+   }
+  ],
+  "icon": "raven",
+  "flavor": "Thought and Memory fly out at dawn.",
+  "vfx": "raven_flight"
+ },
+ {
+  "id": "rune_hall",
+  "faction": "norse",
+  "x": "expand",
+  "name": "Rune-Carved Hall",
+  "inspiredBy": "Odin winning the runes",
+  "sources": [
+   "N5"
+  ],
+  "text": "Raise a shrine at a revealed settlement within 4 hexes of your land for 55% of the cost, even with no followers there.",
+  "cost": {
+   "faith": 0,
+   "favor": 0
   },
-  {
-    "id": "rain_and_sun",
-    "faction": "norse",
-    "x": "exploit",
-    "name": "Rain and Sunshine",
-    "inspiredBy": "Freyr",
-    "sources": [
-      "N3"
-    ],
-    "text": "For 3 turns gain +1 Faith per settlement you control, and every settlement you control gains +1 population now.",
-    "cost": {
-      "faith": 6,
-      "favor": 1
-    },
-    "cooldown": 6,
-    "target": "none",
-    "effects": [
-      {
-        "type": "buff",
-        "stat": "faithPerControlled",
-        "value": 1,
-        "turns": 3
-      },
-      {
-        "type": "popControlled",
-        "amount": 1
-      }
-    ],
-    "icon": "sunrain"
+  "cooldown": 4,
+  "target": "shrineSite",
+  "effects": [
+   {
+    "type": "raiseShrine",
+    "costMult": 0.55,
+    "range": 4
+   }
+  ],
+  "icon": "rune",
+  "flavor": "The runes are cut, and the hall stands.",
+  "vfx": "rune_carve"
+ },
+ {
+  "id": "rain_and_sun",
+  "faction": "norse",
+  "x": "exploit",
+  "name": "Rain and Sunshine",
+  "inspiredBy": "Freyr",
+  "sources": [
+   "N3"
+  ],
+  "text": "For 3 turns gain +1 Faith per settlement you control, and every settlement you control gains +1 population now.",
+  "cost": {
+   "faith": 6,
+   "favor": 1
   },
-  {
-    "id": "hammer_thunder",
-    "faction": "norse",
-    "x": "exterminate",
-    "name": "Hammer of Thunder",
-    "inspiredBy": "Thor and Mjollnir",
-    "sources": [
-      "N2"
-    ],
-    "text": "Miracle. Strike a rival shrine within 4 hexes of your shrines or priests: -1 Ward and it is eclipsed for 2 turns. The hammer returns.",
-    "cost": {
-      "faith": 10,
-      "favor": 2
-    },
-    "cooldown": 4,
-    "target": "rivalShrine",
-    "range": 4,
-    "effects": [
-      {
-        "type": "shrineHit",
-        "ward": 1,
-        "eclipse": 2
-      }
-    ],
-    "icon": "hammer"
+  "cooldown": 6,
+  "target": "none",
+  "effects": [
+   {
+    "type": "buff",
+    "stat": "faithPerControlled",
+    "value": 1,
+    "turns": 3
+   },
+   {
+    "type": "popControlled",
+    "amount": 1
+   }
+  ],
+  "icon": "sunrain",
+  "flavor": "Rain and sun from the lord of the Vanir.",
+  "vfx": "sunrain_shower"
+ },
+ {
+  "id": "hammer_thunder",
+  "faction": "norse",
+  "x": "exterminate",
+  "name": "Hammer of Thunder",
+  "inspiredBy": "Thor and Mjollnir",
+  "sources": [
+   "N2"
+  ],
+  "text": "Miracle. Strike a rival shrine within 4 hexes of your shrines or priests: -1 Ward and it is eclipsed for 2 turns. The hammer returns.",
+  "cost": {
+   "faith": 10,
+   "favor": 2
   },
-  {
-    "id": "barque_of_re",
-    "faction": "egyptian",
-    "x": "explore",
-    "name": "Barque of Re",
-    "inspiredBy": "Re's solar bark crossing the sky",
-    "sources": [
-      "E1"
-    ],
-    "text": "The sun's boat sails across the whole sky: reveal a 3-row band across the entire map through the target.",
-    "cost": {
-      "faith": 10,
-      "favor": 0
-    },
-    "cooldown": 4,
-    "target": "anyTile",
-    "effects": [
-      {
-        "type": "revealBand",
-        "rows": 3
-      }
-    ],
-    "icon": "barque"
+  "cooldown": 4,
+  "target": "rivalShrine",
+  "range": 4,
+  "effects": [
+   {
+    "type": "shrineHit",
+    "ward": 1,
+    "eclipse": 2
+   }
+  ],
+  "icon": "hammer",
+  "flavor": "The hammer returns to the hand that threw it.",
+  "vfx": "hammer_arc"
+ },
+ {
+  "id": "barque_of_re",
+  "faction": "egyptian",
+  "x": "explore",
+  "name": "Barque of Re",
+  "inspiredBy": "Re's solar bark crossing the sky",
+  "sources": [
+   "E1"
+  ],
+  "text": "The sun's boat sails across the whole sky: reveal a 3-row band across the entire map through the target, and your Faith income is x1.1 for 2 turns.",
+  "cost": {
+   "faith": 12,
+   "favor": 0
   },
-  {
-    "id": "throne_of_isis",
-    "faction": "egyptian",
-    "x": "expand",
-    "name": "Throne of Isis",
-    "inspiredBy": "Isis, protector and healer",
-    "sources": [
-      "E5"
-    ],
-    "text": "A new priest rises at your target shrine and all your priests preach with double strength for 2 turns.",
-    "cost": {
-      "faith": 12,
-      "favor": 0
-    },
-    "cooldown": 5,
-    "target": "ownShrine",
-    "effects": [
-      {
-        "type": "spawnPriest"
-      },
-      {
-        "type": "buff",
-        "stat": "priestMult",
-        "value": 2,
-        "turns": 2
-      }
-    ],
-    "icon": "throne"
+  "cooldown": 4,
+  "target": "anyTile",
+  "effects": [
+   {
+    "type": "revealBand",
+    "rows": 3
+   },
+   {
+    "type": "buff",
+    "stat": "faithMult",
+    "value": 1.1,
+    "turns": 2
+   }
+  ],
+  "icon": "barque",
+  "flavor": "The bark of millions of years sails the sky.",
+  "vfx": "barque_sail"
+ },
+ {
+  "id": "throne_of_isis",
+  "faction": "egyptian",
+  "x": "expand",
+  "name": "Throne of Isis",
+  "inspiredBy": "Isis, protector and healer",
+  "sources": [
+   "E5"
+  ],
+  "text": "A new priest rises at your target shrine and all your priests preach with double strength for 2 turns.",
+  "cost": {
+   "faith": 12,
+   "favor": 0
   },
-  {
-    "id": "osiris_garden",
-    "faction": "egyptian",
-    "x": "exploit",
-    "name": "Osiris Garden",
-    "inspiredBy": "Osiris and the sprouting grain",
-    "sources": [
-      "E3"
-    ],
-    "text": "Target a settlement where you have followers: +3 population who follow you, and +4 Faith now.",
-    "cost": {
-      "faith": 4,
-      "favor": 1
-    },
-    "cooldown": 5,
-    "target": "ownSettlement",
-    "effects": [
-      {
-        "type": "popTarget",
-        "amount": 3
-      },
-      {
-        "type": "faith",
-        "amount": 4
-      }
-    ],
-    "icon": "sprout"
+  "cooldown": 5,
+  "target": "ownShrine",
+  "effects": [
+   {
+    "type": "spawnPriest"
+   },
+   {
+    "type": "buff",
+    "stat": "priestMult",
+    "value": 2,
+    "turns": 2
+   }
+  ],
+  "icon": "throne",
+  "flavor": "She is the throne, and the throne protects.",
+  "vfx": "throne_wings"
+ },
+ {
+  "id": "osiris_garden",
+  "faction": "egyptian",
+  "x": "exploit",
+  "name": "Osiris Garden",
+  "inspiredBy": "Osiris and the sprouting grain",
+  "sources": [
+   "E3"
+  ],
+  "text": "Target a settlement where you have followers: +3 population who follow you, and +4 Faith now.",
+  "cost": {
+   "faith": 4,
+   "favor": 1
   },
-  {
-    "id": "feather_of_maat",
-    "faction": "egyptian",
-    "x": "exterminate",
-    "name": "Feather of Maat",
-    "inspiredBy": "The weighing of the heart",
-    "sources": [
-      "E2",
-      "E4"
-    ],
-    "text": "Miracle. Weigh a revealed settlement: 35% of each rival's followers there (rounded up) turn to you.",
-    "cost": {
-      "faith": 8,
-      "favor": 2
-    },
-    "cooldown": 4,
-    "target": "revealedSettlement",
-    "effects": [
-      {
-        "type": "weigh",
-        "fraction": 0.35
-      }
-    ],
-    "icon": "feather"
-  }
+  "cooldown": 5,
+  "target": "ownSettlement",
+  "effects": [
+   {
+    "type": "popTarget",
+    "amount": 3
+   },
+   {
+    "type": "faith",
+    "amount": 4
+   }
+  ],
+  "icon": "sprout",
+  "flavor": "Grain sprouts from the god who rose again.",
+  "vfx": "sprout_mound"
+ },
+ {
+  "id": "feather_of_maat",
+  "faction": "egyptian",
+  "x": "exterminate",
+  "name": "Feather of Maat",
+  "inspiredBy": "The weighing of the heart",
+  "sources": [
+   "E2",
+   "E4"
+  ],
+  "text": "Miracle. Weigh a revealed settlement: 25% of each rival's followers there (rounded up) turn to you.",
+  "cost": {
+   "faith": 8,
+   "favor": 2
+  },
+  "cooldown": 4,
+  "target": "revealedSettlement",
+  "effects": [
+   {
+    "type": "weigh",
+    "fraction": 0.25
+   }
+  ],
+  "icon": "feather",
+  "flavor": "The heart is weighed against the feather.",
+  "vfx": "feather_scale"
+ },
+ {
+  "id": "mes_crossing_of_utu",
+  "faction": "mesopotamian",
+  "x": "explore",
+  "name": "Crossing of Utu",
+  "inspiredBy": "Utu/Šamaš's daily path across the sky",
+  "sources": [
+   "M4"
+  ],
+  "flavor": "He leaves his chamber at dawn and looks down on every road.",
+  "text": "Reveal a 3-row band 15 hexes wide through the target, and every waterside hex within 3 of it. Utu, who sees all, grants 1 Favor.",
+  "cost": {
+   "faith": 8,
+   "favor": 0
+  },
+  "cooldown": 4,
+  "target": "anyTile",
+  "effects": [
+   {
+    "type": "revealBand",
+    "rows": 3,
+    "halfWidth": 7
+   },
+   {
+    "type": "revealRiver",
+    "radius": 3
+   },
+   {
+    "type": "favor",
+    "amount": 1
+   }
+  ],
+  "icon": "solar_path",
+  "vfx": "solar_traverse"
+ },
+ {
+  "id": "mes_sages_of_eridu",
+  "faction": "mesopotamian",
+  "x": "expand",
+  "name": "Sages of Eridu",
+  "inspiredBy": "The apkallu sages of Enki, who came from Eridu",
+  "sources": [
+   "M2",
+   "M5"
+  ],
+  "flavor": "Seven came up from the water and taught the cities their crafts.",
+  "text": "A Seer priest rises at your shrine, and that shrine teaches 50% harder for 3 turns.",
+  "cost": {
+   "faith": 8,
+   "favor": 0
+  },
+  "cooldown": 5,
+  "target": "ownShrine",
+  "effects": [
+   {
+    "type": "spawnPriest",
+    "role": "seer"
+   },
+   {
+    "type": "shrineBoost",
+    "stat": "pressure",
+    "value": 1.5,
+    "turns": 3
+   }
+  ],
+  "icon": "sage_tablet",
+  "vfx": "rising_tablets"
+ },
+ {
+  "id": "mes_wells_of_abzu",
+  "faction": "mesopotamian",
+  "x": "exploit",
+  "name": "Wells of the Abzu",
+  "inspiredBy": "Enki's fresh-water deep beneath the earth",
+  "sources": [
+   "M2"
+  ],
+  "flavor": "Sweet water rises in the wells of every town on the canal.",
+  "text": "Target a town with your followers: it and up to 4 of your waterside towns within 3 hexes gain +1 population and +2 prosperity; +1 Faith per town blessed.",
+  "cost": {
+   "faith": 6,
+   "favor": 1
+  },
+  "cooldown": 5,
+  "target": "ownSettlement",
+  "effects": [
+   {
+    "type": "waterBless",
+    "radius": 3,
+    "pop": 1,
+    "prosperity": 2,
+    "faithPer": 1,
+    "max": 5
+   }
+  ],
+  "icon": "abzu_well",
+  "vfx": "spring_rise"
+ },
+ {
+  "id": "mes_star_of_inanna",
+  "faction": "mesopotamian",
+  "x": "exterminate",
+  "name": "Star of Inanna",
+  "inspiredBy": "Inana/Ištar, the bright star",
+  "sources": [
+   "M3"
+  ],
+  "flavor": "The star stands over the gate, and the gate opens to her.",
+  "text": "Miracle. At a contested town where you have followers, a priest or territory, 4 followers of the strongest rival turn to you.",
+  "cost": {
+   "faith": 6,
+   "favor": 2
+  },
+  "cooldown": 4,
+  "target": "contestedSettlement",
+  "effects": [
+   {
+    "type": "sway",
+    "count": 5
+   }
+  ],
+  "icon": "star8",
+  "vfx": "star_descent"
+ },
+ {
+  "id": "irish_omens_of_the_morrigan",
+  "faction": "irish",
+  "x": "explore",
+  "name": "Omens of the Morrígan",
+  "inspiredBy": "The Morrígan's prophecies",
+  "sources": [
+   "I1",
+   "I2"
+  ],
+  "flavor": "She tells of the battle before it is fought.",
+  "text": "Reveal the nearest hidden town, every rival priest within 4 hexes of your shrines, and coming weather within 6 hexes for 4 turns.",
+  "cost": {
+   "faith": 7,
+   "favor": 0
+  },
+  "cooldown": 3,
+  "target": "none",
+  "effects": [
+   {
+    "type": "revealNearestSettlements",
+    "count": 1,
+    "radius": 2
+   },
+   {
+    "type": "revealThreats",
+    "radius": 4
+   },
+   {
+    "type": "forecast",
+    "radius": 6,
+    "turns": 4
+   }
+  ],
+  "icon": "crow_omen",
+  "vfx": "omen_script"
+ },
+ {
+  "id": "irish_assembly_of_lugh",
+  "faction": "irish",
+  "x": "expand",
+  "name": "Assembly of Lugh",
+  "inspiredBy": "Lugh's arrival at the assembly of Tara",
+  "sources": [
+   "I3",
+   "I6"
+  ],
+  "flavor": "Every art is welcome at the gathering.",
+  "text": "At your shrine: +1 Ward and a new priest joins the gathering (an Emissary, or the calling you choose; if you choose one, every priest there takes it), and your followers there are 40% harder to convert for 3 turns.",
+  "cost": {
+   "faith": 10,
+   "favor": 0
+  },
+  "cooldown": 4,
+  "target": "ownShrine",
+  "effects": [
+   {
+    "type": "ward",
+    "amount": 1,
+    "max": 5
+   },
+   {
+    "type": "spawnPriest",
+    "role": "emissary"
+   },
+   {
+    "type": "retrain"
+   },
+   {
+    "type": "siteBoon",
+    "stat": "resist",
+    "value": 1.4,
+    "turns": 3
+   }
+  ],
+  "icon": "gathering",
+  "vfx": "assembly_fires"
+ },
+ {
+  "id": "irish_cauldron_of_plenty",
+  "faction": "irish",
+  "x": "exploit",
+  "name": "Cauldron of Plenty",
+  "inspiredBy": "The Dagda's cauldron",
+  "sources": [
+   "I4"
+  ],
+  "flavor": "The cauldron is passed down the hall and comes back full.",
+  "text": "Up to 4 towns you control gain +1 population and +2 prosperity, and you gain 4 Faith.",
+  "cost": {
+   "faith": 5,
+   "favor": 1
+  },
+  "cooldown": 6,
+  "target": "none",
+  "effects": [
+   {
+    "type": "popControlled",
+    "amount": 1,
+    "max": 4,
+    "prosperity": 2
+   },
+   {
+    "type": "faith",
+    "amount": 4
+   }
+  ],
+  "icon": "cauldron",
+  "vfx": "hearth_steam"
+ },
+ {
+  "id": "irish_sovereignty_challenge",
+  "faction": "irish",
+  "x": "exterminate",
+  "name": "The Sovereignty Challenge",
+  "inspiredBy": "The Morrígan and the sovereignty of the land",
+  "sources": [
+   "I1",
+   "I2"
+  ],
+  "flavor": "The land chooses who holds it; she asks it again.",
+  "text": "Miracle. At a town with rival followers within 3 of your shrines or priests, your pressure there is +1.6 for 3 turns. Rivals can still answer it.",
+  "cost": {
+   "faith": 8,
+   "favor": 2
+  },
+  "cooldown": 4,
+  "target": "rivalInfluenced",
+  "range": 3,
+  "effects": [
+   {
+    "type": "siteBoon",
+    "stat": "pressure",
+    "value": 1.6,
+    "turns": 3
+   }
+  ],
+  "icon": "sovereignty",
+  "vfx": "challenge_rings"
+ },
+ {
+  "id": "mex_breath_of_quetzalcoatl",
+  "faction": "mexica",
+  "x": "explore",
+  "name": "Breath of Quetzalcoatl",
+  "inspiredBy": "Ehecatl-Quetzalcoatl, the wind",
+  "sources": [
+   "X2"
+  ],
+  "flavor": "The wind runs ahead and tells the rain where to fall.",
+  "text": "Near the known world: reveal a 2-row swath 11 hexes wide through the target, and see coming weather within 5 hexes for 4 turns.",
+  "cost": {
+   "faith": 7,
+   "favor": 0
+  },
+  "cooldown": 3,
+  "target": "nearKnown",
+  "range": 4,
+  "effects": [
+   {
+    "type": "revealBand",
+    "rows": 2,
+    "halfWidth": 5
+   },
+   {
+    "type": "forecast",
+    "radius": 5,
+    "turns": 4
+   }
+  ],
+  "icon": "wind_spiral",
+  "vfx": "wind_sweep"
+ },
+ {
+  "id": "mex_gardens_of_water",
+  "faction": "mexica",
+  "x": "expand",
+  "name": "Gardens of Chalchiuhtlicue",
+  "inspiredBy": "Chalchiuhtlicue and the lake gardens (chinampas)",
+  "sources": [
+   "X4",
+   "X5"
+  ],
+  "flavor": "Mud from the lake, reeds for the fence, and a field where there was water.",
+  "text": "Raise a shrine at a revealed waterside town within 4 of your land for 55% of the cost, even with no followers there; that town grows faster for 6 turns (+2 prosperity now).",
+  "cost": {
+   "faith": 0,
+   "favor": 0
+  },
+  "cooldown": 5,
+  "target": "coastalShrineSite",
+  "range": 4,
+  "effects": [
+   {
+    "type": "raiseShrine",
+    "costMult": 0.55,
+    "range": 4
+   },
+   {
+    "type": "siteBoon",
+    "stat": "growth",
+    "value": 1,
+    "turns": 6
+   },
+   {
+    "type": "prosperity",
+    "amount": 2
+   }
+  ],
+  "icon": "lake_garden",
+  "vfx": "garden_rise"
+ },
+ {
+  "id": "mex_rains_of_tlaloc",
+  "faction": "mexica",
+  "x": "exploit",
+  "name": "Rains of Tlaloc",
+  "inspiredBy": "Tlaloc, god of rain",
+  "sources": [
+   "X1"
+  ],
+  "flavor": "The jars of the rain are opened over the thirsty fields.",
+  "text": "Your towns within 2 hexes of the target gain +3 prosperity and +1 population (at most 4), any drought over them breaks, and you gain 0.5 Faith per town.",
+  "cost": {
+   "faith": 6,
+   "favor": 1
+  },
+  "cooldown": 5,
+  "target": "ownSettlement",
+  "effects": [
+   {
+    "type": "rains",
+    "radius": 2,
+    "prosperity": 3,
+    "pop": 1,
+    "max": 4,
+    "faithPer": 0.5,
+    "breakDrought": true
+   }
+  ],
+  "icon": "rain_jar",
+  "vfx": "rain_curtain"
+ },
+ {
+  "id": "mex_zenith_of_tonatiuh",
+  "faction": "mexica",
+  "x": "exterminate",
+  "name": "Zenith of Tonatiuh",
+  "inspiredBy": "Tonatiuh, the sun at its height",
+  "sources": [
+   "X3"
+  ],
+  "flavor": "At noon there are no shadows to hide in.",
+  "text": "Miracle. At a contested town where you have presence, for 3 turns your pressure there doubles and every rival's falls by 30%.",
+  "cost": {
+   "faith": 8,
+   "favor": 2
+  },
+  "cooldown": 4,
+  "target": "contestedSettlement",
+  "effects": [
+   {
+    "type": "siteBoon",
+    "stat": "zenith",
+    "value": 2,
+    "turns": 3
+   }
+  ],
+  "icon": "zenith_sun",
+  "vfx": "noon_glare"
+ },
+ {
+  "id": "hat_omens_of_hatti",
+  "faction": "hittite",
+  "x": "explore",
+  "name": "Omens of Hatti",
+  "inspiredBy": "The Sun goddess of Arinna and the state cult of Hatti",
+  "sources": [
+   "H1"
+  ],
+  "flavor": "The signs are read at every gate before the gate is opened.",
+  "text": "Reveal the 2 nearest hidden towns, and see coming weather within 8 hexes of your shrines for 3 turns.",
+  "cost": {
+   "faith": 6,
+   "favor": 0
+  },
+  "cooldown": 3,
+  "target": "none",
+  "effects": [
+   {
+    "type": "revealNearestSettlements",
+    "count": 2,
+    "radius": 1
+   },
+   {
+    "type": "forecast",
+    "radius": 8,
+    "turns": 3,
+    "fromShrines": true
+   }
+  ],
+  "icon": "omen_disc",
+  "vfx": "sun_disc_omen"
+ },
+ {
+  "id": "hat_gates_of_arinna",
+  "faction": "hittite",
+  "x": "expand",
+  "name": "Gates of Arinna",
+  "inspiredBy": "The stone gates and sanctuaries of Hattusa",
+  "sources": [
+   "H1",
+   "H5"
+  ],
+  "flavor": "Stone on stone, so close a blade will not go between.",
+  "text": "Your shrine: +2 Ward (up to 6), its eclipse lifts, and for 4 turns it loses 1 less Ward to any hit.",
+  "cost": {
+   "faith": 9,
+   "favor": 0
+  },
+  "cooldown": 4,
+  "target": "ownShrine",
+  "effects": [
+   {
+    "type": "ward",
+    "amount": 2,
+    "max": 6
+   },
+   {
+    "type": "clearEclipse"
+   },
+   {
+    "type": "siteBoon",
+    "stat": "shield",
+    "value": 1,
+    "turns": 4
+   }
+  ],
+  "icon": "stone_gate",
+  "vfx": "gate_rebuild"
+ },
+ {
+  "id": "hat_return_of_telipinu",
+  "faction": "hittite",
+  "x": "exploit",
+  "name": "Return of Telipinu",
+  "inspiredBy": "Telipinu's return and the restoring of growth",
+  "sources": [
+   "H3"
+  ],
+  "flavor": "He came home, and the fields remembered how to grow.",
+  "text": "Target your town: it regains up to 3 lost population (never above its peak) and +4 prosperity; your Faith income is ×1.25 for 2 turns.",
+  "cost": {
+   "faith": 5,
+   "favor": 1
+  },
+  "cooldown": 5,
+  "target": "ownSettlement",
+  "effects": [
+   {
+    "type": "restore",
+    "pop": 3,
+    "prosperity": 4
+   },
+   {
+    "type": "buff",
+    "stat": "faithMult",
+    "value": 1.25,
+    "turns": 2
+   }
+  ],
+  "icon": "returning_bee",
+  "vfx": "meadow_wake"
+ },
+ {
+  "id": "hat_tempest_of_tarhunna",
+  "faction": "hittite",
+  "x": "exterminate",
+  "name": "Tempest of Tarḫunna",
+  "inspiredBy": "Tarḫunna, the storm god",
+  "sources": [
+   "H2"
+  ],
+  "flavor": "He overcomes; that is what his name means.",
+  "text": "Miracle. A rival shrine within 4 of your shrines or priests: -1 Ward and eclipsed for 3 turns. Sanctuaries and Wardens blunt it.",
+  "cost": {
+   "faith": 10,
+   "favor": 2
+  },
+  "cooldown": 5,
+  "target": "rivalShrine",
+  "range": 4,
+  "effects": [
+   {
+    "type": "shrineHit",
+    "ward": 1,
+    "eclipse": 3
+   }
+  ],
+  "icon": "storm_axe",
+  "vfx": "tempest_front"
+ },
+ {
+  "id": "yor_mirror_of_the_river",
+  "faction": "yoruba",
+  "x": "explore",
+  "name": "River Mirror",
+  "inspiredBy": "Ọ̀ṣun and the river through her grove",
+  "sources": [
+   "Y1"
+  ],
+  "flavor": "Look into the river and see where it has been.",
+  "text": "Near the known world: reveal every waterside hex within 4 of the target and the land within 1.",
+  "cost": {
+   "faith": 6,
+   "favor": 0
+  },
+  "cooldown": 3,
+  "target": "nearKnown",
+  "range": 4,
+  "effects": [
+   {
+    "type": "revealRiver",
+    "radius": 4
+   },
+   {
+    "type": "reveal",
+    "radius": 1
+   }
+  ],
+  "icon": "river_mirror",
+  "vfx": "mirror_ripple"
+ },
+ {
+  "id": "yor_hands_of_creation",
+  "faction": "yoruba",
+  "x": "expand",
+  "name": "Hands of Creation",
+  "inspiredBy": "Ọbàtálá, who shaped the land",
+  "sources": [
+   "Y3"
+  ],
+  "flavor": "The land was poured out by hand, and by hand it is mended.",
+  "text": "Your shrine's eclipse lifts; it and your shrines within 3 gain +1 Ward (up to 5); its town regains 1 lost population and feels safe again, and a new priest is shaped there.",
+  "cost": {
+   "faith": 11,
+   "favor": 0
+  },
+  "cooldown": 5,
+  "target": "ownShrine",
+  "effects": [
+   {
+    "type": "clearEclipse"
+   },
+   {
+    "type": "wardRadius",
+    "radius": 3,
+    "amount": 1,
+    "max": 5
+   },
+   {
+    "type": "restore",
+    "pop": 1,
+    "safety": 4
+   },
+   {
+    "type": "spawnPriest",
+    "role": "emissary"
+   }
+  ],
+  "icon": "shaping_hands",
+  "vfx": "clay_restore"
+ },
+ {
+  "id": "yor_ironroads",
+  "faction": "yoruba",
+  "x": "exploit",
+  "name": "Iron Roads",
+  "inspiredBy": "Ògún, opener of roads",
+  "sources": [
+   "Y2"
+  ],
+  "flavor": "Open the road and the market comes down it.",
+  "text": "Gain 2 Faith per active pilgrim route now; for 3 turns your routes count double and your priests on them walk 1 further.",
+  "cost": {
+   "faith": 4,
+   "favor": 1
+  },
+  "cooldown": 5,
+  "target": "none",
+  "effects": [
+   {
+    "type": "faithPerRoute",
+    "amount": 2
+   },
+   {
+    "type": "buff",
+    "stat": "routeMult",
+    "value": 2,
+    "turns": 3
+   }
+  ],
+  "icon": "iron_road",
+  "vfx": "forge_sparks"
+ },
+ {
+  "id": "yor_thunder_of_shango",
+  "faction": "yoruba",
+  "x": "exterminate",
+  "name": "Thunder of Ṣàngó",
+  "inspiredBy": "Ṣàngó, òrìṣà of thunder",
+  "sources": [
+   "Y4"
+  ],
+  "flavor": "The stone falls from the cloud; the judgment is quick.",
+  "text": "Miracle. A rival shrine within 3 of your shrines or priests: -1 Ward, eclipsed 1 turn, and 1 rival follower there turns to you. A Sanctuary turns the stone aside.",
+  "cost": {
+   "faith": 9,
+   "favor": 2
+  },
+  "cooldown": 4,
+  "target": "rivalShrine",
+  "range": 3,
+  "effects": [
+   {
+    "type": "shrineHit",
+    "ward": 1,
+    "eclipse": 1
+   },
+   {
+    "type": "strike",
+    "killPriests": false,
+    "rivalLoss": 1,
+    "gain": 1
+   }
+  ],
+  "icon": "thunderstone",
+  "vfx": "thunder_stone"
+ },
+ {
+  "id": "jpn_light_of_amaterasu",
+  "faction": "japanese",
+  "x": "explore",
+  "name": "Light of Amaterasu",
+  "inspiredBy": "Amaterasu, kami of the sun",
+  "sources": [
+   "J1"
+  ],
+  "flavor": "The mirror catches the light and throws it into the valley.",
+  "text": "Near the known world: reveal radius 3; your shrines in that light shed their eclipses; see coming weather there for 2 turns.",
+  "cost": {
+   "faith": 7,
+   "favor": 0
+  },
+  "cooldown": 3,
+  "target": "nearKnown",
+  "range": 4,
+  "effects": [
+   {
+    "type": "reveal",
+    "radius": 3
+   },
+   {
+    "type": "clearEclipseRadius",
+    "radius": 3
+   },
+   {
+    "type": "forecast",
+    "radius": 3,
+    "turns": 2
+   }
+  ],
+  "icon": "mirror_sun",
+  "vfx": "dawn_rays"
+ },
+ {
+  "id": "jpn_shrine_of_the_land",
+  "faction": "japanese",
+  "x": "expand",
+  "name": "Shrine of the Land",
+  "inspiredBy": "Ōkuninushi's making of the land",
+  "sources": [
+   "J3",
+   "J6"
+  ],
+  "flavor": "A gate at the edge of the field says: this land is held.",
+  "text": "Raise a shrine for 75% cost at a revealed town within 3 hexes of a town you control.",
+  "cost": {
+   "faith": 0,
+   "favor": 0
+  },
+  "cooldown": 4,
+  "target": "linkedShrineSite",
+  "range": 3,
+  "effects": [
+   {
+    "type": "raiseShrine",
+    "costMult": 0.75,
+    "range": 3
+   }
+  ],
+  "icon": "torii_gate",
+  "vfx": "gate_raise"
+ },
+ {
+  "id": "jpn_inaris_harvest",
+  "faction": "japanese",
+  "x": "exploit",
+  "name": "Inari's Harvest",
+  "inspiredBy": "Inari, kami of rice",
+  "sources": [
+   "J4"
+  ],
+  "flavor": "The paddies are full to the dikes.",
+  "text": "Up to 5 of your towns on grassland or plains gain +1 population and +2 prosperity; your Faith income is ×1.3 for 2 turns.",
+  "cost": {
+   "faith": 5,
+   "favor": 1
+  },
+  "cooldown": 6,
+  "target": "none",
+  "effects": [
+   {
+    "type": "popControlled",
+    "amount": 1,
+    "max": 5,
+    "prosperity": 2,
+    "terrains": [
+     "grassland",
+     "plains"
+    ]
+   },
+   {
+    "type": "buff",
+    "stat": "faithMult",
+    "value": 1.3,
+    "turns": 2
+   }
+  ],
+  "icon": "rice_sheaf",
+  "vfx": "paddy_glow"
+ },
+ {
+  "id": "jpn_storm_of_susanoo",
+  "faction": "japanese",
+  "x": "exterminate",
+  "name": "Storm of Susanoo",
+  "inspiredBy": "Susanoo, linked with wind and rain",
+  "sources": [
+   "J2"
+  ],
+  "flavor": "The sky darkens over a single valley, and everyone sees it coming.",
+  "text": "Miracle. A storm gathers over a rival shrine within 4 of your shrines or priests and breaks next round: -2 Ward, eclipsed 2 turns. The owner sees it coming and can answer.",
+  "cost": {
+   "faith": 8,
+   "favor": 2
+  },
+  "cooldown": 4,
+  "target": "rivalShrine",
+  "range": 4,
+  "effects": [
+   {
+    "type": "delayedHit",
+    "ward": 2,
+    "eclipse": 2,
+    "delay": 1
+   }
+  ],
+  "icon": "storm_cloud",
+  "vfx": "gathering_storm"
+ },
+ {
+  "id": "ved_ushas_first_dawn",
+  "faction": "vedic",
+  "x": "explore",
+  "name": "Uṣas's First Dawn",
+  "inspiredBy": "Uṣas, the dawn",
+  "sources": [
+   "V4"
+  ],
+  "flavor": "She uncovers the dark like a woman uncovering her face.",
+  "text": "Near the known world: reveal radius 3, see coming weather within 4 for 3 turns, and your next Read Omens this turn or next is free.",
+  "cost": {
+   "faith": 6,
+   "favor": 0
+  },
+  "cooldown": 3,
+  "target": "nearKnown",
+  "range": 4,
+  "effects": [
+   {
+    "type": "reveal",
+    "radius": 3
+   },
+   {
+    "type": "forecast",
+    "radius": 4,
+    "turns": 3
+   },
+   {
+    "type": "buff",
+    "stat": "omenFree",
+    "value": 1,
+    "turns": 2
+   }
+  ],
+  "icon": "dawn_horizon",
+  "vfx": "dawn_unveil"
+ },
+ {
+  "id": "ved_agnis_fire",
+  "faction": "vedic",
+  "x": "expand",
+  "name": "Agni's Fire",
+  "inspiredBy": "Agni, the sacrificial fire and messenger of the gods",
+  "sources": [
+   "V2",
+   "V5"
+  ],
+  "flavor": "The fire is carried east to the offering altar and burns brighter there.",
+  "text": "Your shrine: +1 Ward, a priest is ordained from its fire, and your priests there preach 50% harder for 3 turns.",
+  "cost": {
+   "faith": 9,
+   "favor": 0
+  },
+  "cooldown": 5,
+  "target": "ownShrine",
+  "effects": [
+   {
+    "type": "ward",
+    "amount": 1,
+    "max": 5
+   },
+   {
+    "type": "spawnPriest",
+    "role": "emissary"
+   },
+   {
+    "type": "siteBoon",
+    "stat": "priestPower",
+    "value": 1.5,
+    "turns": 3
+   }
+  ],
+  "icon": "altar_flame",
+  "vfx": "fire_kindle"
+ },
+ {
+  "id": "ved_order_of_varuna",
+  "faction": "vedic",
+  "x": "exploit",
+  "name": "Order of Varuṇa",
+  "inspiredBy": "Varuṇa, upholder of ṛta",
+  "sources": [
+   "V3"
+  ],
+  "flavor": "He measures the earth with the sun as with a rod.",
+  "text": "For 3 turns your followers within 2 hexes of the target are 60% harder to convert; those towns trust you a little more, and you gain 1 Faith per town.",
+  "cost": {
+   "faith": 6,
+   "favor": 1
+  },
+  "cooldown": 5,
+  "target": "ownSettlement",
+  "effects": [
+   {
+    "type": "siteBoon",
+    "stat": "resist",
+    "value": 1.6,
+    "turns": 3,
+    "radius": 2
+   },
+   {
+    "type": "trust",
+    "amount": 1,
+    "radius": 2,
+    "faithPer": 1
+   }
+  ],
+  "icon": "order_rope",
+  "vfx": "water_measure"
+ },
+ {
+  "id": "ved_indras_rainstorm",
+  "faction": "vedic",
+  "x": "exterminate",
+  "name": "Indra's Rainstorm",
+  "inspiredBy": "Indra, who releases the waters",
+  "sources": [
+   "V1"
+  ],
+  "flavor": "The cloud bursts over the fort, and its walls run with water.",
+  "text": "Miracle. At a town with rival followers within 3 of your shrines or priests: 3 rival followers fall silent, 1 mortal turns to you and your pressure there is +1.2 for 2 turns. Warded towns resist.",
+  "cost": {
+   "faith": 9,
+   "favor": 2
+  },
+  "cooldown": 4,
+  "target": "rivalInfluenced",
+  "range": 3,
+  "effects": [
+   {
+    "type": "strike",
+    "killPriests": false,
+    "rivalLoss": 3,
+    "gain": 1
+   },
+   {
+    "type": "siteBoon",
+    "stat": "pressure",
+    "value": 1.2,
+    "turns": 2
+   }
+  ],
+  "icon": "vajra_cloud",
+  "vfx": "monsoon_burst"
+ }
 ]

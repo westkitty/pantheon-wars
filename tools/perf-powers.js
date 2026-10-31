@@ -13,7 +13,9 @@
  * is cast with PW.act — the same validate → step → log → fxFor → playVfx path a click takes. A cast counts only if PW.act returns true, a
  * 'power' log entry for it appears, and the renderer receives playVfx with the power's own VFX id. A power with no legal target is a
  * coverage failure, recorded with the validator's reason.
- * Frames are driven at a fixed 1/60 s step and timed with performance.now() around R.render (renderer CPU time, not frame intervals).
+ * Frames are driven at a fixed 1/60 s step and timed with performance.now() around the renderer's render call (renderer CPU time, not
+ * frame intervals); the app's own loop is silenced and every measured frame yields one animation frame, as perf.js's in-game timing does.
+ * (Rendering frames back to back without yielding lets canvas work pile up into ~200 ms flushes that never happen in play.)
  * Phases by visual time after the cast: anticipation 0–0.35 s, manifestation 0.35–1.15 s, aftermath 1.15 s until the last effect ends
  * (cap 6 s), then 0.5 s of return to idle; idle = 90 frames of the same scene before the cast. A second, separate pass replays the cast
  * with Canvas calls counted (instrumentation never overlaps the timing pass). --smoke: one cast per power, coverage and cleanup only.
@@ -51,7 +53,11 @@ const OUT = path.resolve(arg('out', path.join(__dirname, '..', 'reports', 'perf-
       let base = bases[14];
       const fixture = () => { const x = E.clone(base); const p = x.players[v]; p.faith = 999; p.favor = 99; p.cooldowns = {}; return x; };
       const home = bases[14].map.tiles[bases[14].settlements[bases[14].players[v].home].tile];
-      const frame = () => { const t0 = performance.now(); R.render(1 / 60); return performance.now() - t0; };
+      // the app's own rAF loop is silenced (its render becomes a no-op); each measured frame renders once at a fixed 1/60 s step and then
+      // yields one animation frame, so the browser flushes canvas work between frames exactly as it does in play
+      const realRender = R.render.bind(R); R.render = function () {};
+      const tick = () => new Promise(r => requestAnimationFrame(() => r()));
+      const frame = async () => { const t0 = performance.now(); realRender(1 / 60); const ms = performance.now() - t0; await tick(); return ms; };
       const stats = a => { if (!a.length) return null; const b = a.slice().sort((x, y) => x - y), q = k => b[Math.min(b.length - 1, Math.floor(b.length * k))]; return { n: a.length, median: +q(0.5).toFixed(3), p95: +q(0.95).toFixed(3), p99: a.length >= 100 ? +q(0.99).toFixed(3) : null, max: +b[b.length - 1].toFixed(3) }; };
       const results = [];
       for (const id of ids) {
@@ -68,20 +74,21 @@ const OUT = path.resolve(arg('out', path.join(__dirname, '..', 'reports', 'perf-
         if (err) { rec.ok = false; rec.reason = 'no legal cast in fixtures at turns 14/22/30/38/8/4: ' + err; results.push(rec); continue; }
         rec.targetTile = action.tile === undefined ? null : action.tile;
         const focus = action.tile !== undefined ? action.tile : home.id;
-        const prime = () => { P.focus(focus); R.cam.tz = 1.9; P.settle(); for (let i = 0; i < 20; i++) frame(); };
+        const prime = async () => { P.focus(focus); R.cam.tz = 1.9; P.settle(); for (let i = 0; i < 20; i++) await frame(); };
         // timing pass
         const casts = [];
         for (let k = 0; k < (smoke ? 1 : repeat); k++) {
-          setup(); prime(); const idle = []; for (let i = 0; i < 90; i++) idle.push(frame());
+          setup(); await prime(); const idle = []; for (let i = 0; i < 90; i++) idle.push(await frame());
           const seen = []; const pv = R.playVfx; R.playVfx = function (vid) { seen.push(vid); return pv.apply(this, arguments); };
           const logLen = app.state.log.length, ok = P.act(Object.assign({}, action)); R.playVfx = pv;
           const entry = app.state.log.slice(logLen).find(e => e.k === 'power' && e.x && e.x.power === id);
           const c = { ok: ok && !!entry && seen.indexOf(pw.vfx) >= 0, dispatched: seen, phases: {}, fxPeak: 0 };
           if (!c.ok) { casts.push(c); break; }
           const A = [], M = [], C = [], back = []; let t = 0, frames = 0;
-          while (t < 6) { const ms = frame(); t += 1 / 60; frames++; c.fxPeak = Math.max(c.fxPeak, R.fx.length); (t <= 0.35 ? A : t <= 1.15 ? M : C).push(ms); if (t > 1.2 && R.fx.length === 0) break; }
+          while (t < 6) { const ms = await frame(); t += 1 / 60; frames++; c.fxPeak = Math.max(c.fxPeak, R.fx.length); (t <= 0.35 ? A : t <= 1.15 ? M : C).push(ms); if (t > 1.2 && R.fx.length === 0) break; }
           c.lifetime = +t.toFixed(3); c.left = R.fx.length; c.texts = R.texts.length;
-          for (let i = 0; i < 30; i++) back.push(frame());
+          if (c.left) c.ok = false; // an effect still alive after its lifecycle is a failure
+          for (let i = 0; i < 30; i++) back.push(await frame());
           c.phases = { idle: stats(idle), anticipation: stats(A), manifestation: stats(M), aftermath: stats(C), cast: stats(A.concat(M, C)), returnIdle: stats(back) };
           c.heapMB = performance.memory ? +(performance.memory.usedJSHeapSize / 1048576).toFixed(2) : null;
           casts.push(c);
@@ -90,10 +97,10 @@ const OUT = path.resolve(arg('out', path.join(__dirname, '..', 'reports', 'perf-
         if (!rec.ok) rec.reason = casts.length && !casts[0].ok ? 'cast did not dispatch: dispatched [' + (casts[0].dispatched || []).join(',') + ']' : rec.reason;
         // counting pass (separate): Canvas calls per frame over the cast, on the screen context and every offscreen context
         if (rec.ok && !smoke) {
-          setup(); prime(); const C2 = CanvasRenderingContext2D.prototype, names = ['fill', 'stroke', 'fillRect', 'drawImage', 'createRadialGradient', 'createLinearGradient', 'createPattern', 'save', 'setTransform', 'beginPath'], orig = {}, cnt = {};
+          setup(); await prime(); const C2 = CanvasRenderingContext2D.prototype, names = ['fill', 'stroke', 'fillRect', 'drawImage', 'createRadialGradient', 'createLinearGradient', 'createPattern', 'save', 'setTransform', 'beginPath'], orig = {}, cnt = {};
           names.forEach(n => { orig[n] = C2[n]; cnt[n] = 0; C2[n] = function () { cnt[n]++; return orig[n].apply(this, arguments); }; });
-          const countFrames = n => { names.forEach(k => cnt[k] = 0); for (let i = 0; i < n; i++) R.render(1 / 60); const o = {}; names.forEach(k => o[k] = +(cnt[k] / n).toFixed(1)); return o; };
-          const idleOps = countFrames(30); P.act(Object.assign({}, action)); const castOps = countFrames(60);
+          const countFrames = async n => { names.forEach(k => cnt[k] = 0); for (let i = 0; i < n; i++) { realRender(1 / 60); await tick(); } const o = {}; names.forEach(k => o[k] = +(cnt[k] / n).toFixed(1)); return o; };
+          const idleOps = await countFrames(30); P.act(Object.assign({}, action)); const castOps = await countFrames(60);
           names.forEach(n => { C2[n] = orig[n]; });
           rec.opsPerFrame = { idle: idleOps, cast: castOps };
         }

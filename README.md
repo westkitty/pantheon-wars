@@ -9,14 +9,15 @@ A small browser 4X strategy game. You are a god competing for worshippers on a h
 - All content is data (`data/*.json`). The rules engine is deterministic and seeded; an AI-vs-AI balance harness is included.
 
 ## Play
-Open **`index.html`** in Chrome, Edge or Firefox; double-clicking the file works. The game is entirely offline: no network requests, no external libraries, no image, font or audio files. All art is drawn and all sound synthesised by code (`reports/offline-proof.json`).
+Open **`index.html`** in Chrome, Edge or Firefox; double-clicking the file works. The game is entirely offline: no network requests, no external libraries, no image or font files. All art is drawn by code, and all sound effects, ambience and the generated score are synthesised by code (`reports/offline-proof.json`).
+An optional **recorded soundtrack** of twenty pieces is directed by `ui/music.js` when its files are installed in `audio/music/`. Those files are not in this repository until redistribution rights are confirmed: see `audio/README.md`. Without them the generated score plays and nothing else changes. Cue sheet and evidence: `reports/soundtrack.md`.
 
 - On the title screen pick a pantheon (search, Random, or Compare two), the match (Standard, Sacred Ground, Kept Word, Trials), one or two rivals (or let the seed choose them), rival skill (Acolyte = easy, Hierophant = hard), hot-seat humans and a world seed. **Continue** resumes the autosave.
 - **Click** a place to inspect its people, needs, history and every action you can take there.
 - **Priests:** click your priest's place twice (or press **Send**), then click a destination.
 - **Keys** (remappable in Settings): `1`–`9` rites and powers · `Enter` end turn · `Esc` cancel · `WASD`/arrows pan · wheel or `+`/`−` zoom · `L` log · `E` encyclopedia · `V` envoys · `I` influence layer · `M` menu · `H` help · `Home` jump home.
 - **Touch:** drag to pan, pinch to zoom, tap to select.
-- **Settings:** graphics quality, reduced motion, no flashes, patterned borders, high contrast, sound levels, screen-reader round summaries, action previews, key bindings.
+- **Settings:** graphics quality, reduced motion, no flashes, patterned borders, high contrast, sound levels, soundtrack (recorded or generated), screen-reader round summaries, action previews, key bindings.
 - **URL options:** `?seed=42&faction=yoruba&rivals=norse,vedic&diff=easy&mode=scenario:two_rivers&hotseat=2&autostart=1&quality=low`
 
 Rules, all 40 powers and the sources: **`docs/design.html`** (also in-game: ❦ Encyclopedia). AI rules: **`docs/ai.md`**. Art: **`docs/ART_DIRECTION.md`**. Research and representation: **`docs/RESEARCH_AND_REPRESENTATION.md`**. Requirement traceability: **`docs/TRACEABILITY.md`**.
@@ -55,6 +56,7 @@ Browser tools use Playwright's Chromium. `npm ci` installs the pinned dev-only v
 | `ui/art.js` | procedural pixel art: emblems, patterns, icons, atmospheres, event scenes |
 | `ui/kits.js` | 2× standing-object art: ten architectural kits and the village composer, shrines × 7 conditions × 3 callings, priests × 3 callings × 6 frames, landmarks |
 | `ui/audio.js`, `ui/storage.js`, `ui/chronicle.js`, `ui/encyclopedia.js` | synthesised sound, versioned saves, Chronicle and tapestry, encyclopedia |
+| `ui/music.js`, `audio/soundtrack.json` (`.js`), `tools/prepare-soundtrack.js` | recorded-soundtrack director, manifest, preparation (recordings themselves local only, `audio/README.md`) |
 | `engine/engine.js`, `engine/ai.js`, `engine/rng.js` | deterministic rules, AI, PRNG (UMD: browser and Node) |
 | `engine/legacy/` | frozen v0.1 engine and AI for replaying v0.1 files |
 | `data/*.json` | rules, factions, domains, powers, shrines, events, scenarios, terrain, sources; `data/legacy/v0.1/` frozen v0.1 data; `data/asset-manifest.json` |

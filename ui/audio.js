@@ -1,6 +1,7 @@
 /*
- * Pantheon Wars — original procedural audio (P018). Everything is synthesised with Web Audio oscillators and filtered noise at run time;
- * there are no sound files, samples or recorded music. Nothing plays until the player interacts (browser autoplay rules), the context
+ * Pantheon Wars — original procedural audio (P018). Effects, ambience and the motif score are synthesised with Web Audio oscillators and
+ * filtered noise at run time. The optional recorded soundtrack is directed by ui/music.js; while one of its recordings holds the music
+ * bed, `recordedActive` is set and the motif score yields (it returns whenever no recording is available). Nothing plays until the player interacts (browser autoplay rules), the context
  * suspends when the tab is hidden, and every node is disconnected after use. The game is fully playable with sound off or unavailable;
  * every cue also has a visible equivalent (banner, toast or log line) in ui/app.js.
  * Motifs are short original phrases on pantheon-specific scales and timbres; they are moods, not reconstructions of historical music.
@@ -39,6 +40,7 @@
       this.amb = this.ctx.createGain(); this.amb.connect(this.master);
       this.ready = true; this.apply();
       if (this.wantMusic) this.startMusic(this.faction);
+      if (this.onUnlock) this.onUnlock();
     } catch (e) { this.ready = false; this.error = e.message; }
   };
   P.apply = function () {
@@ -46,7 +48,7 @@
     this.master.gain.setTargetAtTime(m, t, 0.05); this.music.gain.setTargetAtTime(this.s.music * 0.35, t, 0.05); this.sfxBus.gain.setTargetAtTime(this.s.sfx * 0.6, t, 0.05); this.amb.gain.setTargetAtTime(this.s.ambience * 0.25, t, 0.05);
     if (this.s.mute) this.ctx.suspend(); else if (!(root.document && root.document.hidden)) this.ctx.resume();
   };
-  P.set = function (k, v) { this.s[k] = v; this.apply(); };
+  P.set = function (k, v) { this.s[k] = v; this.apply(); if (this.onChange) this.onChange(k, v); };
   P.tone = function (bus, freq, start, dur, wave, gain, lp) {
     var c = this.ctx, o = c.createOscillator(), g = c.createGain(), out = g;
     o.type = wave || 'sine'; o.frequency.setValueAtTime(freq, start);
@@ -75,7 +77,7 @@
   P.startMusic = function (fid) {
     this.faction = fid || this.faction; this.wantMusic = true;
     if (!this.ready) return; this.stopMusic(true); var self = this, n = 0;
-    function loop() { if (!self.ready || !self.wantMusic) return; var t = self.ctx.currentTime + 0.05, oct = self.age === 'dawn' ? 0 : self.age === 'zenith' ? 2 : -3; self.motif(self.faction, self.music, t, n % 4 === 3 ? oct + 5 : oct); n++; self.musicTimer = setTimeout(loop, 5200 + (n % 3) * 1100); }
+    function loop() { if (!self.ready || !self.wantMusic) return; var t = self.ctx.currentTime + 0.05, oct = self.age === 'dawn' ? 0 : self.age === 'zenith' ? 2 : -3; if (!self.recordedActive) self.motif(self.faction, self.music, t, n % 4 === 3 ? oct + 5 : oct); n++; self.musicTimer = setTimeout(loop, 5200 + (n % 3) * 1100); }
     loop(); this.startAmbience();
   };
   P.stopMusic = function (keepWish) { clearTimeout(this.musicTimer); this.musicTimer = null; if (!keepWish) this.wantMusic = false; if (this.ambNode) { try { this.ambNode.stop(); } catch (e) { /* already stopped */ } this.ambNode = null; } };

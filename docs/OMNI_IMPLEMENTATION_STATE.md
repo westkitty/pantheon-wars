@@ -228,3 +228,22 @@ Start: `6e3f629`. No gameplay, data or art change.
   powers; worst 3.5 ms); worst cast p95 21.1 ms. The regression since 34e542d is the idle scene (13.7 vs 11.8 ms p95), not the effects.
 - One optimization tried and rejected (path batching: −88% extra fills, no measurable time gain); details in `reports/perf-powers-findings.md`.
 - Harness defect found and fixed: back-to-back rendering without yielding produced ~200 ms flushes; frames now yield like play.
+
+### Recorded soundtrack (2026-10-31, ninth pass)
+Start: `05a80b8`. No gameplay, data, balance or art change. The game's RNG is untouched: take choice uses the director's own generator.
+- **Source:** 20 MP3s from the owner's Drive folder "macbook > pantheon music", copied privately and only read; the Drive originals were not modified.
+  Analysis: 48 kHz stereo, ~128 kb/s, −14.2 to −19.1 LUFS, true peak ≤ −0.1 dBTP, through-composed arcs with quiet endings (`reports/soundtrack.md`).
+- **Assets:** `tools/prepare-soundtrack.js` removes the cover-art stream by stream copy (audio packets byte-identical, 68.65 → 51.87 MiB)
+  and writes `audio/soundtrack.json`/`.js` (provenance, SHA-256, loudness, gain ≤ 0 dB, in/loopIn/out points, cue, alternate take).
+- **Rights:** public redistribution not established. `audio/music/` is git-ignored and the binaries are not committed. The manifest and code are.
+  The approval needed is stated in `audio/README.md`.
+- **Director:** `ui/music.js` uses HTMLAudioElements (Web Audio routing of media elements is silent under `file://`).
+  - Moods: title, faction, exploration, expansion, omens, conflict (hysteresis), intervention, twilight, end.
+  - Transitions: 4 s crossfades, continuation into the alternate take at `out`, and a ducked miracle accent that never restarts the bed.
+  - Hot-seat: the covered screen gets the public age bed only, and each god's signals are kept separately.
+  - Lifecycle: nothing loads before a gesture; paused while muted, at zero volume or hidden; elements released after use.
+  - Fallback: the generated motif yields while a recording plays and returns when none can.
+  - Settings: Recorded/Generated, persisted.
+- **Evidence:** `tools/soundtrack-check.js` 39/39 file://, 39/39 HTTP (full decode of all 20), 7/7 without recordings. Offline proof now
+  lists optional soundtrack requests separately. CI runs the check in its no-recordings form.
+- **Not verified:** listening quality (no audio output here), browsers other than Chromium, real devices.

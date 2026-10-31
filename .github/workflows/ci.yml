@@ -65,6 +65,8 @@ jobs:
         run: node tools/screenshots.js --seed 11 --faction greek --rivals 2 --diff easy
       - name: Offline proof (file:// and local static server, no external requests)
         run: node tools/offline-proof.js
+      - name: Soundtrack director (no recordings in the repository; checks the generated-music fallback, settings and cleanup)
+        run: node tools/soundtrack-check.js --out reports/soundtrack-check-ci.json
       - name: Weather visual QA (every weather kind distinguishable, controls on top)
         run: node tools/weather-qa.js
       - name: Repeated-game resource check

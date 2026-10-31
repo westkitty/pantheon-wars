@@ -125,6 +125,7 @@
       <fieldset><legend>Sound</legend>
         <label class="slider">Master <input type="range" min="0" max="100" id="vol-master"></label><label class="slider">Music <input type="range" min="0" max="100" id="vol-music"></label>
         <label class="slider">Effects <input type="range" min="0" max="100" id="vol-sfx"></label><label class="slider">Ambience <input type="range" min="0" max="100" id="vol-ambience"></label>
+        <div class="tb-small">Soundtrack</div><div class="seg" id="soundtrack-seg" aria-label="Soundtrack"><button data-st="recorded">Recorded</button><button data-st="procedural">Generated</button></div>
         <label class="check"><input type="checkbox" id="vol-mute"> Mute all</label><div class="tb-small" id="audio-status"></div></fieldset>
       <fieldset><legend>Assistance</legend><label class="check"><input type="checkbox" id="set-sr" checked> Spoken round summaries (screen readers)</label><label class="check"><input type="checkbox" id="set-previews" checked> Show action previews</label></fieldset>
       <fieldset class="span2"><legend>Keys</legend><div id="keymap" class="keymap"></div><button id="keys-reset" class="ghost">Restore defaults</button></fieldset>
@@ -191,6 +192,8 @@
 <script src="ui/terrain-art.js"></script>
 <script src="ui/render.js"></script>
 <script src="ui/audio.js"></script>
+<script src="audio/soundtrack.js"></script>
+<script src="ui/music.js"></script>
 <script src="ui/storage.js"></script>
 <script src="ui/chronicle.js"></script>
 <script src="ui/encyclopedia.js"></script>

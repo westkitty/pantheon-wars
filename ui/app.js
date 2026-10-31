@@ -24,6 +24,7 @@
   function lsSet(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch (e) { return false; } }
   var settings = Object.assign({ quality: 'auto', motion: 'system', flash: 'on', patterns: true, contrast: false, sr: true, previews: true, tutorialDone: false,
     audio: { master: 0.8, music: 0.5, sfx: 0.8, ambience: 0.4, mute: false }, keys: {} }, lsGet('pw.settings', {}));
+  if (settings.audio.soundtrack !== 'procedural') settings.audio.soundtrack = 'recorded';
   settings.keys = Object.assign({}, DEFAULT_KEYS, settings.keys || {});
   if (params.get('motion')) settings.motion = params.get('motion');
   function saveSettings() { lsSet('pw.settings', settings); }
@@ -31,6 +32,9 @@
   var app = { state: null, humans: [0], viewer: 0, cfg: null, mode: null, selTile: null, selPriest: null, busy: false, title: true, aiTimer: null, demo: null, turnHashes: {}, replay: null, tutorial: null, handoff: false, lastSummaryTurn: 0 };
   var canvas = $('world'), R = new PWRenderer(canvas, D); R.setEngine(E); app.renderer = R;
   var audio = new PWAudio(settings.audio); app.audio = audio;
+  // recorded soundtrack (optional local files; absent or failing recordings fall back to the procedural score)
+  var music = new PWMusic(audio, window.PW_SOUNDTRACK || null, { mode: settings.audio.soundtrack }); app.music = music;
+  audio.onUnlock = function () { music.refresh(); }; audio.onChange = function () { music.refresh(); };
   var store = null; try { store = new S.Store(window.localStorage, (sessionStorage.getItem('pw.session') || (function () { var s = 's' + Date.now().toString(36); sessionStorage.setItem('pw.session', s); return s; })())); } catch (e) { store = null; }
   function applyVisualSettings() {
     R.reduced = settings.motion === 'reduced' || (settings.motion === 'system' && R.sysReduced);
@@ -163,10 +167,11 @@
   function cueFor(e) {
     var x = e.x || {}, mine = e.p === app.viewer;
     if (x.tile !== undefined && x.tile !== null && !visible(x.tile) && !mine) return;
+    if (!app.handoff) music.signal(e, { viewer: app.viewer, turn: app.state.turn });
     var map = { shrine: 'shrine', priest: 'priest', eclipse: 'eclipse', topple: 'topple', counter: 'shrine', threat: 'threat', covenant: 'covenant', covenantKept: 'covenant', covenantBroken: 'defeat', age: 'age' };
     if (e.k === 'power') { audio.cue(POWERS[x.power].x, { faction: app.state.players[e.p].faction }); return; }
     if (e.k === 'weather' && !x.ended && visible(x.tile)) { audio.cue(x.kind); return; }
-    if (e.k === 'age') audio.setAge(x.age);
+    if (e.k === 'age') { audio.setAge(x.age); music.setAge(x.age); }
     if (map[e.k]) audio.cue(map[e.k]);
   }
   function diffTexts(a, b) {
@@ -244,7 +249,7 @@
     var s = app.state; if (!s || s.over || !isHuman(s.current) || s.current === app.viewer) return;
     if (app.humans.length < 2) { app.viewer = s.current; return; }
     // the next god is another human at this screen: hide everything until they take the seat (P024)
-    app.handoff = true; R.blackout = true; cancelMode(); deselectPriest(); app.selTile = null;
+    app.handoff = true; R.blackout = true; cancelMode(); deselectPriest(); app.selTile = null; music.handoff(true);
     $('sr-live').textContent = ''; $('toasts').innerHTML = ''; $('tb-alerts').innerHTML = '';
     ['event', 'envoys', 'saves', 'menu', 'logpanel'].forEach(function (id) { $(id).hidden = true; });
     $('panel').innerHTML = ''; $('log').innerHTML = '';
@@ -256,7 +261,7 @@
   }
   $('handoff-go').onclick = function () {
     app.viewer = app.state.current; app.handoff = false; R.blackout = false; R.prevRevealed = null; R.fogKey = null; R.overlayKey = null; R.marksKey = null;
-    $('handoff').hidden = true; R.setState(app.state, app.viewer); rebuildLog(); paintEmblem(); updateHud();
+    $('handoff').hidden = true; R.setState(app.state, app.viewer); rebuildLog(); paintEmblem(); updateHud(); audio.faction = me().faction; music.handoff(false, app.viewer, me().faction);
     var home = app.state.settlements[me().home]; R.focusTile(home.tile, true); select(home.tile);
     var hs = app.state, hp = me(); app.lastSummaryTurn = hs.turn;
     say(hp.name + ', turn ' + hs.turn + ', ' + E.ageOf(hs.turn).name + '. Faith ' + fmt(hp.faith) + ', Favor ' + hp.favor + ', followers ' + H.followersOf(hs, hp.id) + ' of ' + H.totalPop(hs) + '.');
@@ -545,7 +550,7 @@
     });
     $('vic-table').innerHTML = rows;
     $('vic-meta').textContent = 'Seed ' + s.seed + ' · ' + modeName(s.mode) + ' · ' + s.actions.length + ' actions · final state hash ' + E.hash(s) + ' (replaying the same seed and actions reproduces this exactly)';
-    audio.cue(youWon && !lostTrial ? 'victory' : 'defeat');
+    audio.cue(youWon && !lostTrial ? 'victory' : 'defeat'); music.gameOver();
     $('victory').hidden = false; trapFocus($('victory')); $('vic-new').focus();
     autosave(true);
   }
@@ -823,7 +828,7 @@
     R.setMap(state); R.fog = null; R.fogKey = null; R.oldFog = null; R.prevRevealed = null; R.setState(state, app.viewer);
     rebuildLog(); updateHud();
     var home = state.settlements[me().home]; R.cam.tz = R.cam.z = innerWidth < 760 ? 1.45 : 2.1; R.focusTile(home.tile, true); select(home.tile);
-    audio.setAge(state.age); audio.startMusic(me().faction);
+    audio.setAge(state.age); audio.startMusic(me().faction); music.startGame(me().faction, state.age, app.viewer);
     if (me().pendingEvent && state.current === app.viewer) showEvent();
   }
   $('begin').onclick = function () { audio.unlock(); startGame(buildConfig()); };
@@ -875,7 +880,7 @@
   $('vic-export').onclick = function () { var rec = currentRecord('chronicle'); download(S.exportName(rec), 'application/json', JSON.stringify(rec)); };
   $('target-cancel').onclick = function () { cancelMode(); deselectPriest(); };
   $('endturn').onclick = endTurn;
-  function toTitle() { clearTimeout(app.aiTimer); audio.stopMusic(); tutorialEnd(); app.replay = null; ['victory', 'hud', 'chronicle', 'handoff'].forEach(function (id) { $(id).hidden = true; }); $('title').hidden = false; app.title = true; app.state = null; R.blackout = false; buildTitle(); demoWorld(); }
+  function toTitle() { clearTimeout(app.aiTimer); audio.stopMusic(); music.title(); tutorialEnd(); app.replay = null; ['victory', 'hud', 'chronicle', 'handoff'].forEach(function (id) { $(id).hidden = true; }); $('title').hidden = false; app.title = true; app.state = null; R.blackout = false; buildTitle(); demoWorld(); }
 
   /* ------------------------------------------------------------ settings modal */
   function seg(id, attr, val, fn) { document.querySelectorAll('#' + id + ' [data-' + attr + ']').forEach(function (b) { b.classList.toggle('on', b.dataset[attr] === val); b.onclick = function () { fn(b.dataset[attr]); openSettings(true); }; }); }
@@ -888,8 +893,9 @@
     $('set-sr').checked = settings.sr; $('set-sr').onchange = function () { settings.sr = this.checked; saveSettings(); };
     $('set-previews').checked = settings.previews; $('set-previews').onchange = function () { settings.previews = this.checked; saveSettings(); };
     ['master', 'music', 'sfx', 'ambience'].forEach(function (k) { var r = $('vol-' + k); r.value = Math.round(settings.audio[k] * 100); r.oninput = function () { settings.audio[k] = +r.value / 100; audio.unlock(); audio.set(k, settings.audio[k]); saveSettings(); if (k === 'sfx') audio.cue('click'); }; });
+    seg('soundtrack-seg', 'st', settings.audio.soundtrack, function (v) { settings.audio.soundtrack = v; saveSettings(); audio.unlock(); music.setMode(v); });
     $('vol-mute').checked = settings.audio.mute; $('vol-mute').onchange = function () { settings.audio.mute = this.checked; audio.set('mute', this.checked); saveSettings(); };
-    $('audio-status').textContent = !audio.supported() ? 'Sound is not available in this browser; every cue also appears on screen.' : audio.ready ? 'Sound is on (original, generated as you play).' : 'Sound starts after your first click or key press.';
+    $('audio-status').textContent = !audio.supported() ? 'Sound is not available in this browser; every cue also appears on screen.' : audio.ready ? 'Sound is on.' + (settings.audio.soundtrack === 'procedural' ? ' Music is generated as you play.' : !music.hasManifest() ? ' No recorded soundtrack is installed; music is generated as you play.' : music.errors.length ? ' Some recordings could not be loaded (' + music.errors.length + '); generated music stands in for them.' : ' Recorded soundtrack, with generated music for pantheons that have no recorded theme.') : 'Sound starts after your first click or key press.';
     var km = $('keymap'); km.innerHTML = '';
     Object.keys(DEFAULT_KEYS).forEach(function (k) {
       var row = document.createElement('div'); row.className = 'row'; row.innerHTML = '<span>' + esc(KEY_LABELS[k]) + '</span>';
@@ -1000,13 +1006,13 @@
     tileScreen: function (id) { var tp = R.top(app.state.map.tiles[id]), p = R.project(tp.x, tp.y), d = R.dpr || 1, r = canvas.getBoundingClientRect(); return { x: r.left + p.x / d, y: r.top + p.y / d }; },
     focus: function (id) { R.focusTile(id, true); R.cam.z = R.cam.tz; }, settle: function () { R.cam.x = R.cam.tx; R.cam.y = R.cam.ty; R.cam.z = R.cam.tz; },
     suggest: function () { return app.state && app.state.current === app.viewer ? AI.nextAction(E, app.state) : null; },
-    busy: function () { return app.busy; }, renderer: R, audio: audio, settings: settings, record: function () { return currentRecord('save'); }, loadRecord: loadRecord, openChronicle: openChronicle, openTapestry: openTapestry,
+    busy: function () { return app.busy; }, renderer: R, audio: audio, music: music, settings: settings, record: function () { return currentRecord('save'); }, loadRecord: loadRecord, openChronicle: openChronicle, openTapestry: openTapestry,
     openSettings: openSettings, openCodex: openCodex, openEnvoys: openEnvoys, openSaves: openSaves, select: select
   };
 
   buildTitle();
   if (params.get('seed')) $('seed').value = params.get('seed');
   if (params.get('autostart') === '1') { app.tutorialWanted = params.get('tutorial') === '1'; startGame(buildConfig()); }
-  else demoWorld();
+  else { demoWorld(); music.title(); } // the title theme waits for the first click or key press (autoplay rules)
   requestAnimationFrame(frame);
 })();

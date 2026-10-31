@@ -1,0 +1,1076 @@
+{
+ "generated": "2026-10-31T09:25:45.337Z",
+ "tool": "node tools/prepare-soundtrack.js",
+ "origin": "Google Drive > macbook > pantheon music (folder 1_w3X8OUuHHVq7PXIi_QfukqZ0B5RbfAB), 20 MP3 recordings supplied by the owner for Pantheon Wars; originals untouched",
+ "targetLufs": -19.5,
+ "maxTruePeakDbtp": -1,
+ "sourceBytes": 71982708,
+ "runtimeBytes": 54384646,
+ "tracks": [
+  {
+   "id": "title-a",
+   "title": "Pantheon Wars Main Title",
+   "cue": "title",
+   "role": "Title and menus",
+   "alternate": "title-b",
+   "source": {
+    "file": "Pantheon Wars Main Title.mp3",
+    "driveId": "1q6LmFS3KyC_e1iR3xI_a9JUVxKy5sPl-",
+    "bytes": 3582025,
+    "sha256": "dae677756ab9a6f4efda3e1c1a19ae9f6c5894c3335da8a3f6ba2dd0bce0353c",
+    "coverArtStream": true
+   },
+   "file": "audio/music/title-a.mp3",
+   "bytes": 2788305,
+   "sha256": "5b67fcc1c35df1294fd521a7b09a2cc805b9c5a321ae53b22b6659c3adbf45e1",
+   "processing": "cover-art stream removed by stream copy; audio frames unchanged (no re-encode)",
+   "durationS": 174.24,
+   "codec": "mp3",
+   "sampleRate": 48000,
+   "channels": 2,
+   "kbps": 128,
+   "loudness": {
+    "integratedLufs": -15.72,
+    "truePeakDbtp": -0.27,
+    "lraLu": 13
+   },
+   "gainDb": -3.78,
+   "envelope": {
+    "bodyDbfs": -20,
+    "soundStart": 0,
+    "reachesBody": 0,
+    "outroStart": 151,
+    "soundEnd": 171,
+    "fifthsDbfs": [
+     -25.5,
+     -20.4,
+     -22,
+     -16.7,
+     -28.7
+    ],
+    "loudestSecond": 129
+   },
+   "in": 0,
+   "out": 151,
+   "fadeS": 4,
+   "loop": {
+    "mode": "continue",
+    "note": "through-composed: quieter opening, fuller body and a quieter ending (see envelope); sustained states crossfade from `out` into the alternate take, or back to `loopIn` when the cue has a single take"
+   },
+   "loopIn": 0,
+   "listening": "UNVERIFIED (no audio playback available to the build agent; see reports/soundtrack-listening.md)"
+  },
+  {
+   "id": "title-b",
+   "title": "Pantheon Wars Main Title (Take 2)",
+   "cue": "title",
+   "role": "Title and menus (second take)",
+   "alternate": "title-a",
+   "source": {
+    "file": "Pantheon Wars Main Title (Take 2).mp3",
+    "driveId": "1rrg9kA3AD4Gi3s3GrGCq_OyRwG83JzWc",
+    "bytes": 3706492,
+    "sha256": "298cfa2c2de302566f5eca7e6e643601f59e672b79b97d71dc3ee9bfaf3e67fb",
+    "coverArtStream": true
+   },
+   "file": "audio/music/title-b.mp3",
+   "bytes": 2843610,
+   "sha256": "ccb272a9deb28c75ae951bac26df0ad065d7ad8fcbc9911cefefff9f53ab9688",
+   "processing": "cover-art stream removed by stream copy; audio frames unchanged (no re-encode)",
+   "durationS": 177.696,
+   "codec": "mp3",
+   "sampleRate": 48000,
+   "channels": 2,
+   "kbps": 128,
+   "loudness": {
+    "integratedLufs": -15.24,
+    "truePeakDbtp": -0.15,
+    "lraLu": 6.7
+   },
+   "gainDb": -4.26,
+   "envelope": {
+    "bodyDbfs": -18.5,
+    "soundStart": 0,
+    "reachesBody": 0,
+    "outroStart": 173,
+    "soundEnd": 175,
+    "fifthsDbfs": [
+     -20.2,
+     -18.7,
+     -20.4,
+     -18.8,
+     -20.7
+    ],
+    "loudestSecond": 74
+   },
+   "in": 0,
+   "out": 173,
+   "fadeS": 4,
+   "loop": {
+    "mode": "continue",
+    "note": "through-composed: quieter opening, fuller body and a quieter ending (see envelope); sustained states crossfade from `out` into the alternate take, or back to `loopIn` when the cue has a single take"
+   },
+   "loopIn": 0,
+   "listening": "UNVERIFIED (no audio playback available to the build agent; see reports/soundtrack-listening.md)"
+  },
+  {
+   "id": "olympian-a",
+   "title": "Olympian Court Theme",
+   "cue": "faction:greek",
+   "role": "Olympian Court (Greek) faction theme",
+   "alternate": "olympian-b",
+   "source": {
+    "file": "Olympian Court Theme.mp3",
+    "driveId": "1uIqhwOq5rAW6iIbOHBcu9VaAF5HvX4BF",
+    "bytes": 3417619,
+    "sha256": "2a711b90aabaea660ed1343d4e55b24d43337fb567ea5454fc2df71e52be51e1",
+    "coverArtStream": true
+   },
+   "file": "audio/music/olympian-a.mp3",
+   "bytes": 2572493,
+   "sha256": "b8bd75e1481a9f0470292573edd7de0c32dcbc5454981e9e931bbfb5b8731b47",
+   "processing": "cover-art stream removed by stream copy; audio frames unchanged (no re-encode)",
+   "durationS": 160.752,
+   "codec": "mp3",
+   "sampleRate": 48000,
+   "channels": 2,
+   "kbps": 128,
+   "loudness": {
+    "integratedLufs": -16.02,
+    "truePeakDbtp": -0.75,
+    "lraLu": 10.8
+   },
+   "gainDb": -3.48,
+   "envelope": {
+    "bodyDbfs": -21.2,
+    "soundStart": 0,
+    "reachesBody": 3,
+    "outroStart": 151,
+    "soundEnd": 158,
+    "fifthsDbfs": [
+     -26,
+     -21.8,
+     -19.1,
+     -17.7,
+     -30
+    ],
+    "loudestSecond": 123
+   },
+   "in": 0,
+   "out": 151,
+   "fadeS": 4,
+   "loop": {
+    "mode": "continue",
+    "note": "through-composed: quieter opening, fuller body and a quieter ending (see envelope); sustained states crossfade from `out` into the alternate take, or back to `loopIn` when the cue has a single take"
+   },
+   "loopIn": 3,
+   "listening": "UNVERIFIED (no audio playback available to the build agent; see reports/soundtrack-listening.md)"
+  },
+  {
+   "id": "olympian-b",
+   "title": "Olympian Court Theme (Alt Take)",
+   "cue": "faction:greek",
+   "role": "Olympian Court (Greek) faction theme, alternate take",
+   "alternate": "olympian-a",
+   "source": {
+    "file": "Olympian Court Theme (Alt Take).mp3",
+    "driveId": "1cmO9EoW9YYZEG9jE3g02fM5ZSda26afk",
+    "bytes": 3301753,
+    "sha256": "0263294b939927ee8ffee221795b28ef3dbb8791a087293cf4f516e70499944d",
+    "coverArtStream": true
+   },
+   "file": "audio/music/olympian-b.mp3",
+   "bytes": 2403160,
+   "sha256": "3efbd7b02a8d8a3265564cb5915393b5a0dd1821251819c2c53b6d97b6f67405",
+   "processing": "cover-art stream removed by stream copy; audio frames unchanged (no re-encode)",
+   "durationS": 150.168,
+   "codec": "mp3",
+   "sampleRate": 48000,
+   "channels": 2,
+   "kbps": 128,
+   "loudness": {
+    "integratedLufs": -14.59,
+    "truePeakDbtp": -0.31,
+    "lraLu": 8
+   },
+   "gainDb": -4.91,
+   "envelope": {
+    "bodyDbfs": -18.1,
+    "soundStart": 0,
+    "reachesBody": 0,
+    "outroStart": 143,
+    "soundEnd": 147,
+    "fifthsDbfs": [
+     -22,
+     -19.1,
+     -17,
+     -17.2,
+     -23.7
+    ],
+    "loudestSecond": 85
+   },
+   "in": 0,
+   "out": 143,
+   "fadeS": 4,
+   "loop": {
+    "mode": "continue",
+    "note": "through-composed: quieter opening, fuller body and a quieter ending (see envelope); sustained states crossfade from `out` into the alternate take, or back to `loopIn` when the cue has a single take"
+   },
+   "loopIn": 0,
+   "listening": "UNVERIFIED (no audio playback available to the build agent; see reports/soundtrack-listening.md)"
+  },
+  {
+   "id": "ash-a",
+   "title": "Hall of the Ash (Faction Theme)",
+   "cue": "faction:norse",
+   "role": "Hall of the Ash (Norse) faction theme",
+   "alternate": "ash-b",
+   "source": {
+    "file": "Hall of the Ash (Faction Theme).mp3",
+    "driveId": "1kn2a8HS6aM9ZGUvRyV3KLd48LfC4fKjp",
+    "bytes": 3791097,
+    "sha256": "b0bdf910ece92f110d078414f9ff9d8642b4018286b6e6ec0acee9039e810742",
+    "coverArtStream": true
+   },
+   "file": "audio/music/ash-a.mp3",
+   "bytes": 2817880,
+   "sha256": "12a2aac4bb2fe41ca909df277572230bf36aeb25e75ae748353bcc36f95dbbed",
+   "processing": "cover-art stream removed by stream copy; audio frames unchanged (no re-encode)",
+   "durationS": 176.088,
+   "codec": "mp3",
+   "sampleRate": 48000,
+   "channels": 2,
+   "kbps": 128,
+   "loudness": {
+    "integratedLufs": -15.29,
+    "truePeakDbtp": -0.54,
+    "lraLu": 10.3
+   },
+   "gainDb": -4.21,
+   "envelope": {
+    "bodyDbfs": -17.9,
+    "soundStart": 0,
+    "reachesBody": 14,
+    "outroStart": 167,
+    "soundEnd": 172,
+    "fifthsDbfs": [
+     -24.7,
+     -21.5,
+     -17,
+     -16.8,
+     -23
+    ],
+    "loudestSecond": 161
+   },
+   "in": 0,
+   "out": 167,
+   "fadeS": 4,
+   "loop": {
+    "mode": "continue",
+    "note": "through-composed: quieter opening, fuller body and a quieter ending (see envelope); sustained states crossfade from `out` into the alternate take, or back to `loopIn` when the cue has a single take"
+   },
+   "loopIn": 14,
+   "listening": "UNVERIFIED (no audio playback available to the build agent; see reports/soundtrack-listening.md)"
+  },
+  {
+   "id": "ash-b",
+   "title": "Hall of the Ash (Faction Theme2)",
+   "cue": "faction:norse",
+   "role": "Hall of the Ash (Norse) faction theme, second take",
+   "alternate": "ash-a",
+   "source": {
+    "file": "Hall of the Ash (Faction Theme2).mp3",
+    "driveId": "1k-hB5yZYHbYI0YphnkKMUvGl0vk1W3Dz",
+    "bytes": 3178705,
+    "sha256": "360d333b6e96cbfe3c38ca20adc750d1283932a02850c1d9fd751b49e2f29d56",
+    "coverArtStream": true
+   },
+   "file": "audio/music/ash-b.mp3",
+   "bytes": 2414297,
+   "sha256": "40dedb5962792fa524b26484df77b32501da511885f2009892a1bf4ff81214be",
+   "processing": "cover-art stream removed by stream copy; audio frames unchanged (no re-encode)",
+   "durationS": 150.864,
+   "codec": "mp3",
+   "sampleRate": 48000,
+   "channels": 2,
+   "kbps": 128,
+   "loudness": {
+    "integratedLufs": -15.09,
+    "truePeakDbtp": -0.37,
+    "lraLu": 9.9
+   },
+   "gainDb": -4.41,
+   "envelope": {
+    "bodyDbfs": -16.8,
+    "soundStart": 0,
+    "reachesBody": 2,
+    "outroStart": 141,
+    "soundEnd": 147,
+    "fifthsDbfs": [
+     -19.9,
+     -15.6,
+     -24.4,
+     -16.5,
+     -24.4
+    ],
+    "loudestSecond": 62
+   },
+   "in": 0,
+   "out": 141,
+   "fadeS": 4,
+   "loop": {
+    "mode": "continue",
+    "note": "through-composed: quieter opening, fuller body and a quieter ending (see envelope); sustained states crossfade from `out` into the alternate take, or back to `loopIn` when the cue has a single take"
+   },
+   "loopIn": 2,
+   "listening": "UNVERIFIED (no audio playback available to the build agent; see reports/soundtrack-listening.md)"
+  },
+  {
+   "id": "ennead-a",
+   "title": "Ennead of the Two Lands",
+   "cue": "faction:egyptian",
+   "role": "Ennead of the Two Lands (Egyptian) faction theme",
+   "alternate": "ennead-b",
+   "source": {
+    "file": "Ennead of the Two Lands.mp3",
+    "driveId": "1IebP4NmXKiq1clJ9fvs4k1pEEN364M43",
+    "bytes": 3771276,
+    "sha256": "8d6afd2fc91a56fd7869429c53519d6373db9836cc7a78208c3ddcb04b459f91",
+    "coverArtStream": true
+   },
+   "file": "audio/music/ennead-a.mp3",
+   "bytes": 2766800,
+   "sha256": "8cf23c141d6a3c01548565fafc20dfeeb8a5a5fdc537b81d1b226dc9582977cc",
+   "processing": "cover-art stream removed by stream copy; audio frames unchanged (no re-encode)",
+   "durationS": 172.896,
+   "codec": "mp3",
+   "sampleRate": 48000,
+   "channels": 2,
+   "kbps": 128,
+   "loudness": {
+    "integratedLufs": -14.59,
+    "truePeakDbtp": -0.54,
+    "lraLu": 8.6
+   },
+   "gainDb": -4.91,
+   "envelope": {
+    "bodyDbfs": -18.5,
+    "soundStart": 0,
+    "reachesBody": 0,
+    "outroStart": 165,
+    "soundEnd": 169,
+    "fifthsDbfs": [
+     -21.9,
+     -18.2,
+     -17.6,
+     -17.7,
+     -24.2
+    ],
+    "loudestSecond": 99
+   },
+   "in": 0,
+   "out": 165,
+   "fadeS": 4,
+   "loop": {
+    "mode": "continue",
+    "note": "through-composed: quieter opening, fuller body and a quieter ending (see envelope); sustained states crossfade from `out` into the alternate take, or back to `loopIn` when the cue has a single take"
+   },
+   "loopIn": 0,
+   "listening": "UNVERIFIED (no audio playback available to the build agent; see reports/soundtrack-listening.md)"
+  },
+  {
+   "id": "ennead-b",
+   "title": "Ennead of the Two Lands (Alt Take)",
+   "cue": "faction:egyptian",
+   "role": "Ennead of the Two Lands (Egyptian) faction theme, alternate take",
+   "alternate": "ennead-a",
+   "source": {
+    "file": "Ennead of the Two Lands (Alt Take).mp3",
+    "driveId": "1_hBUiqtYmvbvy9z4KjMxMv7DtBx5isWG",
+    "bytes": 3699164,
+    "sha256": "3273dc5df5907e8a824641c9a0c982bb8e9102ceaf9a6d6fb693347e6f7216d9",
+    "coverArtStream": true
+   },
+   "file": "audio/music/ennead-b.mp3",
+   "bytes": 2819035,
+   "sha256": "5c5949a6dc66330b344171e4bea84bd6b74d75898e61a4513815049fd26cae87",
+   "processing": "cover-art stream removed by stream copy; audio frames unchanged (no re-encode)",
+   "durationS": 176.16,
+   "codec": "mp3",
+   "sampleRate": 48000,
+   "channels": 2,
+   "kbps": 128,
+   "loudness": {
+    "integratedLufs": -14.25,
+    "truePeakDbtp": -0.1,
+    "lraLu": 7
+   },
+   "gainDb": -5.25,
+   "envelope": {
+    "bodyDbfs": -18,
+    "soundStart": 1,
+    "reachesBody": 3,
+    "outroStart": 166,
+    "soundEnd": 173,
+    "fifthsDbfs": [
+     -22.2,
+     -18.2,
+     -16.6,
+     -19.3,
+     -23.3
+    ],
+    "loudestSecond": 100
+   },
+   "in": 1,
+   "out": 166,
+   "fadeS": 4,
+   "loop": {
+    "mode": "continue",
+    "note": "through-composed: quieter opening, fuller body and a quieter ending (see envelope); sustained states crossfade from `out` into the alternate take, or back to `loopIn` when the cue has a single take"
+   },
+   "loopIn": 3,
+   "listening": "UNVERIFIED (no audio playback available to the build agent; see reports/soundtrack-listening.md)"
+  },
+  {
+   "id": "explore-a",
+   "title": "Pantheon Wars_ Map Exploration",
+   "cue": "exploration",
+   "role": "Exploration and quiet strategy",
+   "alternate": "explore-b",
+   "source": {
+    "file": "Pantheon Wars_ Map Exploration.mp3",
+    "driveId": "10IPRun-1dLzBtGNmRs7LswUY6qfcThwt",
+    "bytes": 3581492,
+    "sha256": "4bd5ff061a4d58f96b6c977b31addd30e90dadc6c8b1575dd162970644f4c06d",
+    "coverArtStream": true
+   },
+   "file": "audio/music/explore-a.mp3",
+   "bytes": 2811735,
+   "sha256": "eb3f3775d7ee84dad317259f5dec63a2476b34006110d2305d9cbeb4da8103e3",
+   "processing": "cover-art stream removed by stream copy; audio frames unchanged (no re-encode)",
+   "durationS": 175.704,
+   "codec": "mp3",
+   "sampleRate": 48000,
+   "channels": 2,
+   "kbps": 128,
+   "loudness": {
+    "integratedLufs": -15.6,
+    "truePeakDbtp": -0.41,
+    "lraLu": 13.7
+   },
+   "gainDb": -3.9,
+   "envelope": {
+    "bodyDbfs": -19,
+    "soundStart": 0,
+    "reachesBody": 28,
+    "outroStart": 170,
+    "soundEnd": 172,
+    "fifthsDbfs": [
+     -29.1,
+     -19.4,
+     -16.6,
+     -17.5,
+     -26.4
+    ],
+    "loudestSecond": 99
+   },
+   "in": 0,
+   "out": 170,
+   "fadeS": 4,
+   "loop": {
+    "mode": "continue",
+    "note": "through-composed: quieter opening, fuller body and a quieter ending (see envelope); sustained states crossfade from `out` into the alternate take, or back to `loopIn` when the cue has a single take"
+   },
+   "loopIn": 28,
+   "listening": "UNVERIFIED (no audio playback available to the build agent; see reports/soundtrack-listening.md)"
+  },
+  {
+   "id": "explore-b",
+   "title": "Pantheon Wars_ Map Exploration (Take 2)",
+   "cue": "exploration",
+   "role": "Exploration and quiet strategy (second take)",
+   "alternate": "explore-a",
+   "source": {
+    "file": "Pantheon Wars_ Map Exploration (Take 2).mp3",
+    "driveId": "1YOgRcQjSRGAOs9IbRVXJIPnmorGaV-OD",
+    "bytes": 3658348,
+    "sha256": "fea06fdf62fc2ed24f5e346a88f91ed9e297ec7107b550afa34cd027afb878a8",
+    "coverArtStream": true
+   },
+   "file": "audio/music/explore-b.mp3",
+   "bytes": 2648160,
+   "sha256": "7e51f2af6d8053c8b0b7c49036e1ce7ffc64690034fc96e4dc4ca9083847a247",
+   "processing": "cover-art stream removed by stream copy; audio frames unchanged (no re-encode)",
+   "durationS": 165.48,
+   "codec": "mp3",
+   "sampleRate": 48000,
+   "channels": 2,
+   "kbps": 128,
+   "loudness": {
+    "integratedLufs": -16.06,
+    "truePeakDbtp": -0.39,
+    "lraLu": 9.9
+   },
+   "gainDb": -3.44,
+   "envelope": {
+    "bodyDbfs": -20.3,
+    "soundStart": 0,
+    "reachesBody": 4,
+    "outroStart": 153,
+    "soundEnd": 160,
+    "fifthsDbfs": [
+     -26.1,
+     -21.3,
+     -17.2,
+     -17.8,
+     -29.4
+    ],
+    "loudestSecond": 120
+   },
+   "in": 0,
+   "out": 153,
+   "fadeS": 4,
+   "loop": {
+    "mode": "continue",
+    "note": "through-composed: quieter opening, fuller body and a quieter ending (see envelope); sustained states crossfade from `out` into the alternate take, or back to `loopIn` when the cue has a single take"
+   },
+   "loopIn": 4,
+   "listening": "UNVERIFIED (no audio playback available to the build agent; see reports/soundtrack-listening.md)"
+  },
+  {
+   "id": "expansion-a",
+   "title": "Pantheon Wars_ Expansion Theme",
+   "cue": "expansion",
+   "role": "Growth, shrines and the Zenith",
+   "alternate": "expansion-b",
+   "source": {
+    "file": "Pantheon Wars_ Expansion Theme.mp3",
+    "driveId": "1RKyLnppR12Gk8HboiPmcLzkHMj83ZRZz",
+    "bytes": 3510158,
+    "sha256": "462a4600de7cbd8cb61530516dfb1740f5767b3f78e6a9787310491fa96cf38a",
+    "coverArtStream": true
+   },
+   "file": "audio/music/expansion-a.mp3",
+   "bytes": 2563671,
+   "sha256": "c67d30e1d6bb35b67fbc894414a771009a07f19c4349542d4ac365e9b6e59816",
+   "processing": "cover-art stream removed by stream copy; audio frames unchanged (no re-encode)",
+   "durationS": 160.2,
+   "codec": "mp3",
+   "sampleRate": 48000,
+   "channels": 2,
+   "kbps": 128,
+   "loudness": {
+    "integratedLufs": -14.75,
+    "truePeakDbtp": -0.08,
+    "lraLu": 11.1
+   },
+   "gainDb": -4.75,
+   "envelope": {
+    "bodyDbfs": -19,
+    "soundStart": 0,
+    "reachesBody": 4,
+    "outroStart": 154,
+    "soundEnd": 156,
+    "fifthsDbfs": [
+     -24.5,
+     -19.8,
+     -18.3,
+     -16.8,
+     -26
+    ],
+    "loudestSecond": 141
+   },
+   "in": 0,
+   "out": 154,
+   "fadeS": 4,
+   "loop": {
+    "mode": "continue",
+    "note": "through-composed: quieter opening, fuller body and a quieter ending (see envelope); sustained states crossfade from `out` into the alternate take, or back to `loopIn` when the cue has a single take"
+   },
+   "loopIn": 4,
+   "listening": "UNVERIFIED (no audio playback available to the build agent; see reports/soundtrack-listening.md)"
+  },
+  {
+   "id": "expansion-b",
+   "title": "Pantheon Wars_ Expansion Theme (Alt Take)",
+   "cue": "expansion",
+   "role": "Growth, shrines and the Zenith (alternate take)",
+   "alternate": "expansion-a",
+   "source": {
+    "file": "Pantheon Wars_ Expansion Theme (Alt Take).mp3",
+    "driveId": "1mIaWgHVthCdRMsw6cy275HT8J6yxJFmo",
+    "bytes": 3715316,
+    "sha256": "e364aa18e92f077343aab8c2382e8e76145ef59bb402bf89c6f7c83dbe649801",
+    "coverArtStream": true
+   },
+   "file": "audio/music/expansion-b.mp3",
+   "bytes": 2842466,
+   "sha256": "4e93b5c0cd656d2f1ec48fd79469044691016c994ca9828c11f92d5d702621d2",
+   "processing": "cover-art stream removed by stream copy; audio frames unchanged (no re-encode)",
+   "durationS": 177.624,
+   "codec": "mp3",
+   "sampleRate": 48000,
+   "channels": 2,
+   "kbps": 128,
+   "loudness": {
+    "integratedLufs": -14.23,
+    "truePeakDbtp": -0.43,
+    "lraLu": 6
+   },
+   "gainDb": -5.27,
+   "envelope": {
+    "bodyDbfs": -17.3,
+    "soundStart": 0,
+    "reachesBody": 1,
+    "outroStart": 172,
+    "soundEnd": 175,
+    "fifthsDbfs": [
+     -19.5,
+     -17.6,
+     -18.4,
+     -16.4,
+     -22.4
+    ],
+    "loudestSecond": 143
+   },
+   "in": 0,
+   "out": 172,
+   "fadeS": 4,
+   "loop": {
+    "mode": "continue",
+    "note": "through-composed: quieter opening, fuller body and a quieter ending (see envelope); sustained states crossfade from `out` into the alternate take, or back to `loopIn` when the cue has a single take"
+   },
+   "loopIn": 1,
+   "listening": "UNVERIFIED (no audio playback available to the build agent; see reports/soundtrack-listening.md)"
+  },
+  {
+   "id": "omens-a",
+   "title": "Pantheon Wars_ Divine Omens",
+   "cue": "omens",
+   "role": "Omens, ominous events and dangerous weather",
+   "alternate": "omens-b",
+   "source": {
+    "file": "Pantheon Wars_ Divine Omens.mp3",
+    "driveId": "1zJo_3iIAeRaNrwkFTVymFkGosjNPAFIe",
+    "bytes": 3654950,
+    "sha256": "2575c879e0f0d2fa49daf36a0a229a35bf5080193e713e54185122b21ce97bc1",
+    "coverArtStream": true
+   },
+   "file": "audio/music/omens-a.mp3",
+   "bytes": 2810580,
+   "sha256": "ff9a1a9e062ef1ac649df2ca2966a82885f7e5e50c262b39feb18a1518254304",
+   "processing": "cover-art stream removed by stream copy; audio frames unchanged (no re-encode)",
+   "durationS": 175.632,
+   "codec": "mp3",
+   "sampleRate": 48000,
+   "channels": 2,
+   "kbps": 128,
+   "loudness": {
+    "integratedLufs": -17.59,
+    "truePeakDbtp": -0.41,
+    "lraLu": 8.4
+   },
+   "gainDb": -1.91,
+   "envelope": {
+    "bodyDbfs": -21.4,
+    "soundStart": 0,
+    "reachesBody": 0,
+    "outroStart": 169,
+    "soundEnd": 172,
+    "fifthsDbfs": [
+     -25.4,
+     -21.8,
+     -19.9,
+     -18.8,
+     -28.9
+    ],
+    "loudestSecond": 102
+   },
+   "in": 0,
+   "out": 169,
+   "fadeS": 4,
+   "loop": {
+    "mode": "continue",
+    "note": "through-composed: quieter opening, fuller body and a quieter ending (see envelope); sustained states crossfade from `out` into the alternate take, or back to `loopIn` when the cue has a single take"
+   },
+   "loopIn": 0,
+   "listening": "UNVERIFIED (no audio playback available to the build agent; see reports/soundtrack-listening.md)"
+  },
+  {
+   "id": "omens-b",
+   "title": "Pantheon Wars_ Divine Omens (Alt Take)",
+   "cue": "omens",
+   "role": "Omens (alternate take)",
+   "alternate": "omens-a",
+   "source": {
+    "file": "Pantheon Wars_ Divine Omens (Alt Take).mp3",
+    "driveId": "1NXJYPp00Ks77K6vP1sJzhUzXQdkP5Ped",
+    "bytes": 3612413,
+    "sha256": "7faba9618726bf42eec5064b69d814cdf8b1bca411828737c790a03752ee64ed",
+    "coverArtStream": true
+   },
+   "file": "audio/music/omens-b.mp3",
+   "bytes": 2796767,
+   "sha256": "327f9764c7978ec8db1959c0a7ace7a33b9e2956b54bd33c165c81150425a218",
+   "processing": "cover-art stream removed by stream copy; audio frames unchanged (no re-encode)",
+   "durationS": 174.768,
+   "codec": "mp3",
+   "sampleRate": 48000,
+   "channels": 2,
+   "kbps": 128,
+   "loudness": {
+    "integratedLufs": -19.1,
+    "truePeakDbtp": -3.79,
+    "lraLu": 12.6
+   },
+   "gainDb": -0.4,
+   "envelope": {
+    "bodyDbfs": -23.4,
+    "soundStart": 0,
+    "reachesBody": 0,
+    "outroStart": 163,
+    "soundEnd": 172,
+    "fifthsDbfs": [
+     -28.5,
+     -24.2,
+     -22.3,
+     -24.3,
+     -28.6
+    ],
+    "loudestSecond": 114
+   },
+   "in": 0,
+   "out": 163,
+   "fadeS": 4,
+   "loop": {
+    "mode": "continue",
+    "note": "through-composed: quieter opening, fuller body and a quieter ending (see envelope); sustained states crossfade from `out` into the alternate take, or back to `loopIn` when the cue has a single take"
+   },
+   "loopIn": 0,
+   "listening": "UNVERIFIED (no audio playback available to the build agent; see reports/soundtrack-listening.md)"
+  },
+  {
+   "id": "conflict-a",
+   "title": "Pantheon Wars - Strategic Conflict",
+   "cue": "conflict",
+   "role": "Strategic pressure on the viewer's towns and shrines",
+   "alternate": "conflict-b",
+   "source": {
+    "file": "Pantheon Wars - Strategic Conflict.mp3",
+    "driveId": "1DEVwu2sTdFsuF4swJjRBQdwqhJBpYmoJ",
+    "bytes": 3726002,
+    "sha256": "e9ce0b945eee5549a883a49eccc7d4aa08ea5142f5e87e7b5dbb4879ae660694",
+    "coverArtStream": true
+   },
+   "file": "audio/music/conflict-a.mp3",
+   "bytes": 2847835,
+   "sha256": "0777506b7be4517ab75c813d995f3d7573770e7921944031de24cc192f345fbc",
+   "processing": "cover-art stream removed by stream copy; audio frames unchanged (no re-encode)",
+   "durationS": 177.96,
+   "codec": "mp3",
+   "sampleRate": 48000,
+   "channels": 2,
+   "kbps": 128,
+   "loudness": {
+    "integratedLufs": -16.1,
+    "truePeakDbtp": -0.3,
+    "lraLu": 10.1
+   },
+   "gainDb": -3.4,
+   "envelope": {
+    "bodyDbfs": -18.7,
+    "soundStart": 0,
+    "reachesBody": 0,
+    "outroStart": 162,
+    "soundEnd": 175,
+    "fifthsDbfs": [
+     -23.7,
+     -20.9,
+     -16,
+     -18,
+     -24.5
+    ],
+    "loudestSecond": 151
+   },
+   "in": 0,
+   "out": 162,
+   "fadeS": 4,
+   "loop": {
+    "mode": "continue",
+    "note": "through-composed: quieter opening, fuller body and a quieter ending (see envelope); sustained states crossfade from `out` into the alternate take, or back to `loopIn` when the cue has a single take"
+   },
+   "loopIn": 0,
+   "listening": "UNVERIFIED (no audio playback available to the build agent; see reports/soundtrack-listening.md)"
+  },
+  {
+   "id": "conflict-b",
+   "title": "Pantheon Wars - Strategic Conflict (Variation)",
+   "cue": "conflict",
+   "role": "Strategic pressure (variation)",
+   "alternate": "conflict-a",
+   "source": {
+    "file": "Pantheon Wars - Strategic Conflict (Variation).mp3",
+    "driveId": "1ukW-a1iiieE3UiawSbunNly9HZBumCCL",
+    "bytes": 3422845,
+    "sha256": "3630714013af7fbf845af53a384da3d206f787ceb1e8cd695d58bafd74ce4606",
+    "coverArtStream": true
+   },
+   "file": "audio/music/conflict-b.mp3",
+   "bytes": 2529511,
+   "sha256": "48cbd0eb908d7caa86e6e175b650118ee7c8d14c7ac74a7eb1aabbc5a8b8323c",
+   "processing": "cover-art stream removed by stream copy; audio frames unchanged (no re-encode)",
+   "durationS": 158.064,
+   "codec": "mp3",
+   "sampleRate": 48000,
+   "channels": 2,
+   "kbps": 128,
+   "loudness": {
+    "integratedLufs": -16.4,
+    "truePeakDbtp": -0.27,
+    "lraLu": 9.1
+   },
+   "gainDb": -3.1,
+   "envelope": {
+    "bodyDbfs": -20.1,
+    "soundStart": 0,
+    "reachesBody": 0,
+    "outroStart": 148,
+    "soundEnd": 154,
+    "fifthsDbfs": [
+     -22.2,
+     -17.3,
+     -18.2,
+     -21.4,
+     -30.4
+    ],
+    "loudestSecond": 53
+   },
+   "in": 0,
+   "out": 148,
+   "fadeS": 4,
+   "loop": {
+    "mode": "continue",
+    "note": "through-composed: quieter opening, fuller body and a quieter ending (see envelope); sustained states crossfade from `out` into the alternate take, or back to `loopIn` when the cue has a single take"
+   },
+   "loopIn": 0,
+   "listening": "UNVERIFIED (no audio playback available to the build agent; see reports/soundtrack-listening.md)"
+  },
+  {
+   "id": "intervention-a",
+   "title": "Pantheon Wars - Divine Intervention",
+   "cue": "intervention",
+   "role": "Sustained miracle sequences; its loudest passage is the miracle accent",
+   "alternate": "intervention-b",
+   "source": {
+    "file": "Pantheon Wars - Divine Intervention.mp3",
+    "driveId": "17Jj56STQyL9s5PWej7xh0h0ukWN_Rity",
+    "bytes": 3677806,
+    "sha256": "1a436571b9f9bfd217172ee68a9e9c13a66eb33d3239107d1f8906dd27f27d88",
+    "coverArtStream": true
+   },
+   "file": "audio/music/intervention-a.mp3",
+   "bytes": 2888156,
+   "sha256": "fc6990a8392e28d6a34b1b571c94d492e6645da57d71f379156ffeeae5ec74c0",
+   "processing": "cover-art stream removed by stream copy; audio frames unchanged (no re-encode)",
+   "durationS": 180.48,
+   "codec": "mp3",
+   "sampleRate": 48000,
+   "channels": 2,
+   "kbps": 128,
+   "loudness": {
+    "integratedLufs": -14.42,
+    "truePeakDbtp": -0.64,
+    "lraLu": 6.5
+   },
+   "gainDb": -5.08,
+   "envelope": {
+    "bodyDbfs": -17.9,
+    "soundStart": 0,
+    "reachesBody": 0,
+    "outroStart": 175,
+    "soundEnd": 177,
+    "fifthsDbfs": [
+     -20.7,
+     -17,
+     -17.9,
+     -19.6,
+     -21.1
+    ],
+    "loudestSecond": 48
+   },
+   "in": 0,
+   "out": 175,
+   "fadeS": 4,
+   "loop": {
+    "mode": "continue",
+    "note": "through-composed: quieter opening, fuller body and a quieter ending (see envelope); sustained states crossfade from `out` into the alternate take, or back to `loopIn` when the cue has a single take"
+   },
+   "loopIn": 0,
+   "listening": "UNVERIFIED (no audio playback available to the build agent; see reports/soundtrack-listening.md)",
+   "accent": {
+    "from": 44,
+    "to": 56,
+    "note": "the loudest 12 s of the recording, used as the miracle accent"
+   }
+  },
+  {
+   "id": "intervention-b",
+   "title": "Pantheon Wars - Divine Intervention (Variant)",
+   "cue": "intervention",
+   "role": "Sustained miracle sequences (variant)",
+   "alternate": "intervention-a",
+   "source": {
+    "file": "Pantheon Wars - Divine Intervention (Variant).mp3",
+    "driveId": "1GCJUGX8yOD86Jju7HAhoyHZHv-9ofJUs",
+    "bytes": 3771870,
+    "sha256": "753f28435fcfe94c6a0be4867476a711f5a38699dcdde2a5343b872a0daf79f7",
+    "coverArtStream": true
+   },
+   "file": "audio/music/intervention-b.mp3",
+   "bytes": 2839014,
+   "sha256": "2b3401c995bc2355e75e9cb641e065ef99c0c969545ff1d6e5282857d4ab54a0",
+   "processing": "cover-art stream removed by stream copy; audio frames unchanged (no re-encode)",
+   "durationS": 177.408,
+   "codec": "mp3",
+   "sampleRate": 48000,
+   "channels": 2,
+   "kbps": 128,
+   "loudness": {
+    "integratedLufs": -15.11,
+    "truePeakDbtp": -0.55,
+    "lraLu": 7.4
+   },
+   "gainDb": -4.39,
+   "envelope": {
+    "bodyDbfs": -17.3,
+    "soundStart": 0,
+    "reachesBody": 0,
+    "outroStart": 174,
+    "soundEnd": 175,
+    "fifthsDbfs": [
+     -21,
+     -17.5,
+     -17.1,
+     -17.9,
+     -21.5
+    ],
+    "loudestSecond": 112
+   },
+   "in": 0,
+   "out": 174,
+   "fadeS": 4,
+   "loop": {
+    "mode": "continue",
+    "note": "through-composed: quieter opening, fuller body and a quieter ending (see envelope); sustained states crossfade from `out` into the alternate take, or back to `loopIn` when the cue has a single take"
+   },
+   "loopIn": 0,
+   "listening": "UNVERIFIED (no audio playback available to the build agent; see reports/soundtrack-listening.md)"
+  },
+  {
+   "id": "twilight",
+   "title": "Pantheon Wars_ Twilight & Legacy",
+   "cue": "twilight",
+   "role": "The Twilight age",
+   "alternate": null,
+   "source": {
+    "file": "Pantheon Wars_ Twilight & Legacy.mp3",
+    "driveId": "1STBzaylHpQshA5b_LU83DAQQdAIrcSo2",
+    "bytes": 3720782,
+    "sha256": "08e0f7587b19952ad1441eaccf44e36b0ef8b1dbca3fbf175fc5954f91c9aefd",
+    "coverArtStream": true
+   },
+   "file": "audio/music/twilight.mp3",
+   "bytes": 2807897,
+   "sha256": "5ae6a4e309b9b3b1986f0da2e9937527605b23ac257637c627be597299dcf19e",
+   "processing": "cover-art stream removed by stream copy; audio frames unchanged (no re-encode)",
+   "durationS": 175.464,
+   "codec": "mp3",
+   "sampleRate": 48000,
+   "channels": 2,
+   "kbps": 128,
+   "loudness": {
+    "integratedLufs": -14.58,
+    "truePeakDbtp": -0.63,
+    "lraLu": 12.8
+   },
+   "gainDb": -4.92,
+   "envelope": {
+    "bodyDbfs": -19.2,
+    "soundStart": 0,
+    "reachesBody": 0,
+    "outroStart": 167,
+    "soundEnd": 173,
+    "fifthsDbfs": [
+     -29.3,
+     -24.1,
+     -18.5,
+     -16.6,
+     -22.7
+    ],
+    "loudestSecond": 117
+   },
+   "in": 0,
+   "out": 167,
+   "fadeS": 4,
+   "loop": {
+    "mode": "continue",
+    "note": "through-composed: quieter opening, fuller body and a quieter ending (see envelope); sustained states crossfade from `out` into the alternate take, or back to `loopIn` when the cue has a single take"
+   },
+   "loopIn": 0,
+   "listening": "UNVERIFIED (no audio playback available to the build agent; see reports/soundtrack-listening.md)"
+  },
+  {
+   "id": "endgame",
+   "title": "Pantheon Wars_ Endgame Resolution",
+   "cue": "end",
+   "role": "The end of a finished game (victory and defeat alike)",
+   "alternate": null,
+   "source": {
+    "file": "Pantheon Wars_ Endgame Resolution.mp3",
+    "driveId": "1As81BU6CK4JCo_cE4-1gVTunTnYR0oYq",
+    "bytes": 3482595,
+    "sha256": "68243fdfa7b6b68235c337f1a9bdf5c0de79d75158955ca50842c50c56731d35",
+    "coverArtStream": true
+   },
+   "file": "audio/music/endgame.mp3",
+   "bytes": 2573274,
+   "sha256": "5a20ad587e19d47317b5820498f9c671b47dda1e7651eb26ec8435994ead1593",
+   "processing": "cover-art stream removed by stream copy; audio frames unchanged (no re-encode)",
+   "durationS": 160.8,
+   "codec": "mp3",
+   "sampleRate": 48000,
+   "channels": 2,
+   "kbps": 128,
+   "loudness": {
+    "integratedLufs": -16.1,
+    "truePeakDbtp": -1.06,
+    "lraLu": 12.1
+   },
+   "gainDb": -3.4,
+   "envelope": {
+    "bodyDbfs": -22.6,
+    "soundStart": 0,
+    "reachesBody": 4,
+    "outroStart": 154,
+    "soundEnd": 158,
+    "fifthsDbfs": [
+     -27.2,
+     -23.1,
+     -20.5,
+     -20.5,
+     -25.1
+    ],
+    "loudestSecond": 132
+   },
+   "in": 0,
+   "out": 154,
+   "fadeS": 4,
+   "loop": {
+    "mode": "continue",
+    "note": "through-composed: quieter opening, fuller body and a quieter ending (see envelope); sustained states crossfade from `out` into the alternate take, or back to `loopIn` when the cue has a single take"
+   },
+   "loopIn": 4,
+   "listening": "UNVERIFIED (no audio playback available to the build agent; see reports/soundtrack-listening.md)"
+  }
+ ]
+}

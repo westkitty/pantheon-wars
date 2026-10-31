@@ -1,0 +1,592 @@
+{
+ "protocol": "file",
+ "recordings": true,
+ "browser": "Chromium (Playwright 1.63.0)",
+ "at": "2026-10-31T09:37:15.974Z",
+ "pass": 39,
+ "total": 39,
+ "checks": [
+  {
+   "name": "manifest present in page (audio/soundtrack.js)",
+   "ok": true,
+   "evidence": 20
+  },
+  {
+   "name": "all 20 recordings load (media element metadata) with the manifest duration ±0.2 s",
+   "ok": true,
+   "evidence": [
+    "title-a:174.21",
+    "title-b:177.66",
+    "olympian-a:160.73",
+    "olympian-b:150.14",
+    "ash-a:176.06",
+    "ash-b:150.83",
+    "ennead-a:172.86",
+    "ennead-b:176.13",
+    "explore-a:175.66",
+    "explore-b:165.44",
+    "expansion-a:160.17",
+    "expansion-b:177.58",
+    "omens-a:175.59",
+    "omens-b:174.74",
+    "conflict-a:177.92",
+    "conflict-b:158.04",
+    "intervention-a:180.44",
+    "intervention-b:177.37",
+    "twilight:175.42",
+    "endgame:160.77"
+   ]
+  },
+  {
+   "name": "title: nothing plays or downloads before the first gesture (autoplay rules)",
+   "ok": true,
+   "evidence": []
+  },
+  {
+   "name": "title: a Main Title take plays after the first click",
+   "ok": true,
+   "evidence": {
+    "id": "title-b",
+    "paused": false,
+    "advanced": true,
+    "volume": 0.086
+   }
+  },
+  {
+   "name": "setting \"Generated\" stops the recordings and returns the procedural score",
+   "ok": true,
+   "evidence": {
+    "mode": "procedural",
+    "manifest": true,
+    "screen": "title",
+    "mood": null,
+    "frozen": false,
+    "procedural": false,
+    "timer": false,
+    "accent": false,
+    "duck": 1,
+    "endPlayed": false,
+    "missing": [],
+    "decks": [],
+    "viewer": -1,
+    "signals": null,
+    "history": [
+     {
+      "at": 1793439371.444,
+      "id": "title-b",
+      "cue": "title",
+      "mood": "title"
+     }
+    ]
+   }
+  },
+  {
+   "name": "soundtrack mode and music volume persist across reload",
+   "ok": true,
+   "evidence": {
+    "st": "procedural",
+    "music": 0.37,
+    "mode": "procedural"
+   }
+  },
+  {
+   "name": "game start (greek): its faction theme plays",
+   "ok": true,
+   "evidence": {
+    "id": "olympian-a",
+    "paused": false,
+    "advanced": true,
+    "volume": 0.074
+   }
+  },
+  {
+   "name": "game start (norse): its faction theme plays",
+   "ok": true,
+   "evidence": {
+    "id": "ash-b",
+    "paused": false,
+    "advanced": true,
+    "volume": 0.066
+   }
+  },
+  {
+   "name": "game start (egyptian): its faction theme plays",
+   "ok": true,
+   "evidence": {
+    "id": "ennead-a",
+    "paused": false,
+    "advanced": true,
+    "volume": 0.057
+   }
+  },
+  {
+   "name": "game start (mexica, no recording): procedural motif holds the bed, no recording plays",
+   "ok": true,
+   "evidence": {
+    "mood": "faction",
+    "procedural": true,
+    "decks": [
+     {
+      "id": "ennead-a",
+      "cue": "faction:egyptian",
+      "fade": 0.2,
+      "leaving": true,
+      "paused": false,
+      "t": 1.1,
+      "volume": 0.045
+     }
+    ]
+   }
+  },
+  {
+   "name": "after its intro window the Dawn bed (Map Exploration) takes over",
+   "ok": true,
+   "evidence": {
+    "mood": "exploration",
+    "decks": [
+     "ennead-a",
+     "explore-b"
+    ]
+   }
+  },
+  {
+   "name": "Zenith: Expansion bed",
+   "ok": true,
+   "evidence": "expansion"
+  },
+  {
+   "name": "Twilight: Twilight & Legacy bed",
+   "ok": true,
+   "evidence": "twilight"
+  },
+  {
+   "name": "Dawn + the viewer's own growth: Expansion bed (after the Dawn bed's 20 s minimum)",
+   "ok": true,
+   "evidence": {
+    "mood": "expansion",
+    "signals": {
+     "pressure": 0,
+     "omenUntil": 0,
+     "growth": 2,
+     "miracles": [],
+     "interventionUntil": 0,
+     "turn": 1,
+     "factionDone": true
+    }
+   }
+  },
+  {
+   "name": "a threat to the viewer's shrine: Strategic Conflict",
+   "ok": true,
+   "evidence": "conflict"
+  },
+  {
+   "name": "conflict holds while pressure decays above the exit level and inside its 60 s minimum",
+   "ok": true,
+   "evidence": 1.5
+  },
+  {
+   "name": "conflict leaves once pressure falls below 1 and 60 s have passed",
+   "ok": true,
+   "evidence": {
+    "mood": "exploration",
+    "pressure": 0.875
+   }
+  },
+  {
+   "name": "an event card drawn by the viewer: Divine Omens",
+   "ok": true,
+   "evidence": "omens"
+  },
+  {
+   "name": "omens last at least 45 s, then return to the age bed",
+   "ok": true,
+   "evidence": {
+    "at31": "omens",
+    "at51": "exploration"
+   }
+  },
+  {
+   "name": "one miracle: accent plays, bed ducked, same bed continues (not restarted)",
+   "ok": true,
+   "evidence": {
+    "before": {
+     "id": "explore-a",
+     "cue": "exploration",
+     "fade": 0.27,
+     "leaving": false,
+     "paused": false,
+     "t": 0.41,
+     "volume": 0.07
+    },
+    "after": {
+     "id": "explore-a",
+     "cue": "exploration",
+     "fade": 0.68,
+     "leaving": false,
+     "paused": false,
+     "t": 2.08,
+     "volume": 0.06
+    },
+    "accent": true,
+    "duck": 0.35
+   }
+  },
+  {
+   "name": "accent cooldown: a second miracle within 25 s adds no second accent",
+   "ok": true,
+   "evidence": [
+    {
+     "at": 1793439670.576,
+     "id": "intervention-a",
+     "cue": "accent",
+     "mood": "exploration"
+    }
+   ]
+  },
+  {
+   "name": "three miracles within two turns: Divine Intervention as the bed",
+   "ok": true,
+   "evidence": "intervention"
+  },
+  {
+   "name": "at the out point (explore-b @153 s) the bed crossfades to explore-a",
+   "ok": true,
+   "evidence": [
+    {
+     "id": "explore-b",
+     "cue": "exploration",
+     "fade": 0.8,
+     "leaving": true,
+     "paused": false,
+     "t": 153.94,
+     "volume": 0.215
+    },
+    {
+     "id": "explore-a",
+     "cue": "exploration",
+     "fade": 0.2,
+     "leaving": false,
+     "paused": false,
+     "t": 0.71,
+     "volume": 0.051
+    }
+   ]
+  },
+  {
+   "name": "after the crossfade one deck remains (no overlapping tracks)",
+   "ok": true,
+   "evidence": [
+    {
+     "id": "explore-a",
+     "cue": "exploration",
+     "fade": 1,
+     "leaving": false,
+     "paused": false,
+     "t": 5.34,
+     "volume": 0.255
+    }
+   ]
+  },
+  {
+   "name": "mute pauses the recording (nothing plays while muted)",
+   "ok": true,
+   "evidence": [
+    {
+     "id": "explore-a",
+     "cue": "exploration",
+     "fade": 1,
+     "leaving": false,
+     "paused": true,
+     "t": 5.37,
+     "volume": 0
+    }
+   ]
+  },
+  {
+   "name": "unmute resumes the same bed",
+   "ok": true,
+   "evidence": [
+    {
+     "id": "explore-a",
+     "cue": "exploration",
+     "fade": 1,
+     "leaving": false,
+     "paused": false,
+     "t": 5.89,
+     "volume": 0.255
+    }
+   ]
+  },
+  {
+   "name": "music volume 0 pauses the recording",
+   "ok": true,
+   "evidence": [
+    {
+     "id": "explore-a",
+     "cue": "exploration",
+     "fade": 1,
+     "leaving": false,
+     "paused": true,
+     "t": 5.93,
+     "volume": 0
+    }
+   ]
+  },
+  {
+   "name": "tab hidden: playback paused and the timer stopped",
+   "ok": true,
+   "evidence": {
+    "timer": false,
+    "decks": [
+     {
+      "id": "explore-a",
+      "cue": "exploration",
+      "fade": 1,
+      "leaving": false,
+      "paused": true,
+      "t": 5.94,
+      "volume": 0.255
+     }
+    ]
+   }
+  },
+  {
+   "name": "while hidden nothing restarts",
+   "ok": true,
+   "evidence": [
+    {
+     "id": "explore-a",
+     "cue": "exploration",
+     "fade": 1,
+     "leaving": false,
+     "paused": true,
+     "t": 5.94,
+     "volume": 0.255
+    }
+   ]
+  },
+  {
+   "name": "tab restored: the bed that was playing resumes (and nothing else)",
+   "ok": true,
+   "evidence": [
+    {
+     "id": "explore-a",
+     "cue": "exploration",
+     "fade": 1,
+     "leaving": false,
+     "paused": false,
+     "t": 6.43,
+     "volume": 0.255
+    }
+   ]
+  },
+  {
+   "name": "game over: Endgame Resolution plays",
+   "ok": true,
+   "evidence": [
+    {
+     "id": "explore-a",
+     "cue": "exploration",
+     "fade": 0.77,
+     "leaving": true,
+     "paused": false,
+     "t": 7.3,
+     "volume": 0.198
+    },
+    {
+     "id": "endgame",
+     "cue": "end",
+     "fade": 0.22,
+     "leaving": false,
+     "paused": false,
+     "t": 0.58,
+     "volume": 0.061
+    }
+   ]
+  },
+  {
+   "name": "Endgame plays once: no restart or continuation after it ends",
+   "ok": true,
+   "evidence": {
+    "decks": [
+     {
+      "id": "explore-a",
+      "cue": "exploration",
+      "fade": 0.4,
+      "leaving": true,
+      "paused": false,
+      "t": 8.83,
+      "volume": 0.102
+     }
+    ],
+    "mood": null,
+    "endPlayed": true
+   }
+  },
+  {
+   "name": "hot-seat: while the screen is covered the bed is the public age mood, not the previous god's conflict",
+   "ok": true,
+   "evidence": {
+    "first": "conflict",
+    "covered": true,
+    "mood": "exploration",
+    "frozen": true
+   }
+  },
+  {
+   "name": "hot-seat: signals are ignored while covered",
+   "ok": true,
+   "evidence": "exploration"
+  },
+  {
+   "name": "hot-seat: the next god hears their own state (their faction intro, no inherited conflict)",
+   "ok": true,
+   "evidence": {
+    "vw": {
+     "viewer": 1,
+     "faction": "mesopotamian"
+    },
+    "mood": "faction",
+    "signals": {
+     "pressure": 0,
+     "omenUntil": 0,
+     "growth": 0,
+     "miracles": [],
+     "interventionUntil": 0,
+     "turn": -1,
+     "factionDone": false
+    }
+   }
+  },
+  {
+   "name": "a played game (norse vs two AI, 40 turns) moves the music through several moods from real log entries",
+   "ok": true,
+   "evidence": {
+    "moods": [
+     "faction",
+     "intervention",
+     "omens",
+     "conflict"
+    ],
+    "cues": [
+     "title",
+     "faction:norse",
+     "accent",
+     "intervention",
+     "omens",
+     "conflict"
+    ]
+   }
+  },
+  {
+   "name": "missing files: every take marks missing, the director falls back, no exception",
+   "ok": true,
+   "evidence": {
+    "missing": [
+     "title-b",
+     "title-a"
+    ]
+   }
+  },
+  {
+   "name": "stop releases every element and clears the timer",
+   "ok": true,
+   "evidence": {
+    "mode": "recorded",
+    "manifest": true,
+    "screen": "none",
+    "mood": null,
+    "frozen": false,
+    "procedural": true,
+    "timer": false,
+    "accent": false,
+    "duck": 1,
+    "endPlayed": false,
+    "missing": [],
+    "decks": [],
+    "viewer": 0,
+    "signals": null,
+    "history": [
+     {
+      "at": 1793440005.708,
+      "id": "intervention-a",
+      "cue": "accent",
+      "mood": "omens"
+     },
+     {
+      "at": 1793440005.709,
+      "id": "conflict-a",
+      "cue": "conflict",
+      "mood": "conflict"
+     },
+     {
+      "at": 1793440047.851,
+      "id": "intervention-a",
+      "cue": "accent",
+      "mood": "conflict"
+     },
+     {
+      "at": 1793440067.879,
+      "id": "intervention-a",
+      "cue": "intervention",
+      "mood": "intervention"
+     },
+     {
+      "at": 1793440088.811,
+      "id": "conflict-b",
+      "cue": "conflict",
+      "mood": "conflict"
+     },
+     {
+      "at": 1793440089.09,
+      "id": "intervention-a",
+      "cue": "accent",
+      "mood": "conflict"
+     },
+     {
+      "at": 1793440130.22,
+      "id": "intervention-a",
+      "cue": "accent",
+      "mood": "conflict"
+     },
+     {
+      "at": 1793440192.41,
+      "id": "intervention-a",
+      "cue": "accent",
+      "mood": "conflict"
+     },
+     {
+      "at": 1793440192.957,
+      "id": "intervention-b",
+      "cue": "intervention",
+      "mood": "intervention"
+     },
+     {
+      "at": 1793440213.549,
+      "id": "omens-b",
+      "cue": "omens",
+      "mood": "omens"
+     },
+     {
+      "at": 1793440234.124,
+      "id": "intervention-a",
+      "cue": "accent",
+      "mood": "omens"
+     },
+     {
+      "at": 1793440235.81,
+      "id": "title-b",
+      "cue": "title",
+      "mood": "title"
+     }
+    ]
+   }
+  },
+  {
+   "name": "no page errors",
+   "ok": true,
+   "evidence": []
+  }
+ ]
+}

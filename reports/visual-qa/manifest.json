@@ -1,7 +1,7 @@
 {
- "generated": "2026-10-30T23:40:05.375Z",
+ "generated": "2026-10-31T00:46:49.856Z",
  "tool": "node tools/visual-qa.js",
- "before": "checkout at b642",
+ "before": "checkout at b2b2",
  "sheets": [
   {
    "file": "reports/visual-qa/pantheons.jpg",
@@ -22,6 +22,26 @@
   {
    "file": "reports/visual-qa/walk.jpg",
    "content": "a priest walking between two hexes in the running game at zoom 3.2, 0.1 s apart (distance-driven four-frame cycle, no hop)"
+  },
+  {
+   "file": "reports/visual-qa/biomes.jpg",
+   "content": "one tile of every land type at zoom 2.2, same game and camera (map revealed for display only), before vs after"
+  },
+  {
+   "file": "reports/visual-qa/devices.jpg",
+   "content": "one game at turn 12 on desktop 1440×900, tablet 1024×768 and phone 390×844, full screen, before vs after"
+  },
+  {
+   "file": "reports/visual-qa/icons.jpg",
+   "content": "the forty power icons at 48 px and the ten emblems at 48 and 34 px, before vs after"
+  },
+  {
+   "file": "reports/visual-qa/events.jpg",
+   "content": "all nineteen event illustrations (Zenith), before vs after"
+  },
+  {
+   "file": "reports/visual-qa/vfx-compare.jpg",
+   "content": "each of the forty powers at 0.75 s (manifestation), same live map and camera, before vs after"
   },
   {
    "file": "reports/visual-qa/vfx.jpg",

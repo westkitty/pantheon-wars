@@ -91,6 +91,46 @@ async function sheet(browser, cells, cols, cw, ch, file) {
       for (let k = 0; k < 8; k++) { R.render(0.1); const p = PW.tileScreen(pr.tile), d = R.dpr || 1, o = document.createElement('canvas'); o.width = 260; o.height = 170; o.getContext('2d').drawImage(R.canvas, Math.round(p.x * d - 170), Math.round(p.y * d - 120), 260, 170, 0, 0, 260, 170); out.push({ label: 'walk t=' + ((k + 1) / 10).toFixed(1) + ' s', url: o.toDataURL('image/png') }); }
       return out; });
     await ctx.close(); if (walk.length) { await sheet(browser, walk, 4, 260, 170, 'walk.jpg'); manifest.sheets.push({ file: 'reports/visual-qa/walk.jpg', content: 'a priest walking between two hexes in the running game at zoom 3.2, 0.1 s apart (distance-driven four-frame cycle, no hop)' }); } else errors.push('walk: no priest'); }
+  // 2e. every biome, before and after: a live game with the map revealed for display only, one tile of each land type at normal zoom 2.2
+  { const cells = [];
+    for (const [tag, root] of roots) { const { ctx, page } = await play(browser, root, 'greek', 31, 2);
+      const shots = await page.evaluate(() => { const R = PW.renderer, s = PW.state, out = [], seen = {}; s.players[0].revealed = s.players[0].revealed.map(() => 1); R.setState(s, 0);
+        const cx = s.map.w / 2, cy = s.map.h / 2, tiles = s.map.tiles.slice().sort((a, b) => Math.hypot(a.q - cx, a.r - cy) - Math.hypot(b.q - cx, b.r - cy));
+        tiles.forEach(t => { if (seen[t.terrain] || t.settlement >= 0 || t.q < 2 || t.r < 2 || t.q > s.map.w - 3 || t.r > s.map.h - 3) return; seen[t.terrain] = 1;
+          PW.focus(t.id); R.cam.tz = 2.2; PW.settle(); R.time = 12; R.fx = []; R.texts = []; R.revealAnims = []; R.oldFog = null; R.render(0); R.render(0); R.render(0);
+          const p = PW.tileScreen(t.id), d = R.dpr || 1, o = document.createElement('canvas'); o.width = 360; o.height = 220; o.getContext('2d').drawImage(R.canvas, Math.round(p.x * d - 180), Math.round(p.y * d - 140), 360, 220, 0, 0, 360, 220); out.push({ terrain: t.terrain, url: o.toDataURL('image/png') }); });
+        return out; });
+      shots.sort((a, b) => a.terrain < b.terrain ? -1 : 1).forEach(x => cells.push({ terrain: x.terrain, tag, url: x.url })); await ctx.close(); }
+    const order = [...new Set(cells.map(c => c.terrain))], merged = []; order.forEach(tn => roots.forEach(([tag]) => { const c = cells.find(x => x.terrain === tn && x.tag === tag); if (c) merged.push({ label: tn + ' · ' + tag, url: c.url }); }));
+    await sheet(browser, merged, roots.length * 2, 360, 220, 'biomes.jpg'); manifest.sheets.push({ file: 'reports/visual-qa/biomes.jpg', content: 'one tile of every land type at zoom 2.2, same game and camera (map revealed for display only), ' + roots.map(r => r[0]).join(' vs ') }); }
+  // 2f. the same game on desktop, tablet and phone (whole screen, HUD included), before and after
+  { const cells = [];
+    for (const vp of [{ width: 1440, height: 900 }, { width: 1024, height: 768 }, { width: 390, height: 844 }]) for (const [tag, root] of roots) {
+      const { ctx, page } = await play(browser, root, 'egyptian', 33, 12, vp); await page.evaluate(() => { const R = PW.renderer; R.time = 12; R.fx = []; R.texts = []; R.revealAnims = []; R.oldFog = null; R.render(0); });
+      cells.push({ label: vp.width + '×' + vp.height + ' · ' + tag, url: 'data:image/png;base64,' + (await page.screenshot()).toString('base64') }); await ctx.close(); }
+    await sheet(browser, cells, roots.length * 3, 380, 300, 'devices.jpg'); manifest.sheets.push({ file: 'reports/visual-qa/devices.jpg', content: 'one game at turn 12 on desktop 1440×900, tablet 1024×768 and phone 390×844, full screen, ' + roots.map(r => r[0]).join(' vs ') }); }
+  // 2g. interface art, before and after: the forty power icons and ten emblems at their interface sizes, all nineteen event scenes
+  { const sets = {};
+    for (const [tag, root] of roots) { const ctx = await browser.newContext(), page = await ctx.newPage(); await page.goto('file://' + path.join(root, 'index.html') + '?nosave=1'); await page.waitForFunction(() => window.PWArt && window.PW_DATA);
+      sets[tag] = await page.evaluate(() => { const A = PWArt, D = PW_DATA, mk = (draw, w, h) => { const c = document.createElement('canvas'); c.width = w; c.height = h; const g = c.getContext('2d'); g.fillStyle = '#141824'; g.fillRect(0, 0, w, h); g.imageSmoothingEnabled = false; draw(g); return c.toDataURL('image/png'); };
+        const icons = mk(g => D.powers.forEach((p, i) => g.drawImage(A.icon(p.icon, 48), 6 + (i % 10) * 54, 6 + Math.floor(i / 10) * 54, 48, 48)), 546, 222);
+        const emblems = mk(g => D.factions.forEach((f, i) => { g.imageSmoothingEnabled = true; g.drawImage(A.emblem(f.emblem, f.palette, 64), 6 + i * 54, 6, 48, 48); g.drawImage(A.emblem(f.emblem, f.palette, 64), 12 + i * 54, 62, 34, 34); }), 546, 104);
+        const events = D.events.map(e => ({ label: e.art, url: mk(g => g.drawImage(A.eventArt(e.art, 7, 'zenith'), 0, 0, 320, 180), 320, 180) }));
+        return { icons, emblems, events }; });
+      await ctx.close(); }
+    const ui = []; roots.forEach(([tag]) => { ui.push({ label: 'power icons at 48 px · ' + tag, url: sets[tag].icons }); ui.push({ label: 'emblems at 48 and 34 px · ' + tag, url: sets[tag].emblems }); });
+    await sheet(browser, ui, 2, 546, 222, 'icons.jpg'); manifest.sheets.push({ file: 'reports/visual-qa/icons.jpg', content: 'the forty power icons at 48 px and the ten emblems at 48 and 34 px, ' + roots.map(r => r[0]).join(' vs ') });
+    const ev = []; sets[roots[0][0]].events.forEach((e, i) => roots.forEach(([tag]) => ev.push({ label: e.label + ' · ' + tag, url: sets[tag].events[i].url })));
+    await sheet(browser, ev, roots.length * 2, 320, 180, 'events.jpg'); manifest.sheets.push({ file: 'reports/visual-qa/events.jpg', content: 'all nineteen event illustrations (Zenith), ' + roots.map(r => r[0]).join(' vs ') }); }
+  // 2h. the forty manifestations at their peak (0.75 s), before and after, same live map and camera
+  { const per = {};
+    for (const [tag, root] of roots) { const { ctx, page } = await play(browser, root, 'greek', 2, 1);
+      per[tag] = await page.evaluate(async ids => { const R = PW.renderer, s = PW.state, t = s.settlements[s.players[0].home].tile, out = []; PW.focus(t); PW.settle();
+        for (const id of ids) { R.fx = []; R.texts = []; R.flash = null; R.tint = null; R.time = 5; R.playVfx(id, t, { tiles: [t] }); for (let tt = 0; tt < 0.75; tt += 0.05) R.render(0.05);
+          const cp = PW.tileScreen(t), d = R.dpr || 1, o = document.createElement('canvas'); o.width = 300; o.height = 200; o.getContext('2d').drawImage(R.canvas, Math.round(cp.x * d - 150), Math.round(cp.y * d - 140), 300, 200, 0, 0, 300, 200); out.push(o.toDataURL('image/png')); }
+        return out; }, D.powers.map(p => p.vfx)); await ctx.close(); }
+    const vc = []; D.powers.forEach((p, i) => roots.forEach(([tag]) => vc.push({ label: p.vfx + ' · ' + tag, url: per[tag][i] })));
+    await sheet(browser, vc, roots.length * 4, 200, 133, 'vfx-compare.jpg'); manifest.sheets.push({ file: 'reports/visual-qa/vfx-compare.jpg', content: 'each of the forty powers at 0.75 s (manifestation), same live map and camera, ' + roots.map(r => r[0]).join(' vs ') }); }
   // 3. forty power signatures, three beats each (display-only casts on a live map)
   const { ctx, page } = await play(browser, ROOT, 'greek', 2, 1);
   const vfxIds = D.powers.map(p => p.vfx);

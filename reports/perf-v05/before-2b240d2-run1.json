@@ -1,0 +1,128 @@
+{
+ "env": {
+  "label": "before-2b240d2",
+  "root": "/tmp/claude-0/-home-user-pantheon-wars/015ec32e-b372-5d7a-b3c6-43dd986c48db/scratchpad/b2b2",
+  "date": "2026-10-31T00:40:56.669Z",
+  "node": "v22.22.0",
+  "browser": "Playwright Chromium 153.0.8010.12 headless (software rendering, no GPU)",
+  "platform": "linux 6.18.44-fc-v185",
+  "cpus": "4x Intel(R) Xeon(R) Processor @ 2.80GHz",
+  "secondsPerScene": 4
+ },
+ "results": [
+  {
+   "scene": "turn1",
+   "viewport": "1440x900@1",
+   "requestedQuality": "high",
+   "finalQuality": "high",
+   "frames": 125,
+   "timeToStateMs": 687,
+   "renderMs": {
+    "median": 4.7,
+    "p95": 6.7,
+    "max": 7.6
+   },
+   "rafIntervalMs": {
+    "median": 33.3,
+    "p95": 50
+   },
+   "heapMB": 5.8,
+   "errors": []
+  },
+  {
+   "scene": "mid16",
+   "viewport": "1440x900@1",
+   "requestedQuality": "high",
+   "finalQuality": "high",
+   "frames": 107,
+   "timeToStateMs": 672,
+   "renderMs": {
+    "median": 6.5,
+    "p95": 9.7,
+    "max": 14.6
+   },
+   "rafIntervalMs": {
+    "median": 33.4,
+    "p95": 50
+   },
+   "heapMB": 5.3,
+   "errors": []
+  },
+  {
+   "scene": "late30-reveal",
+   "viewport": "1440x900@1",
+   "requestedQuality": "high",
+   "finalQuality": "high",
+   "frames": 103,
+   "timeToStateMs": 685,
+   "renderMs": {
+    "median": 6.7,
+    "p95": 11.9,
+    "max": 14.8
+   },
+   "rafIntervalMs": {
+    "median": 33.4,
+    "p95": 50.1
+   },
+   "heapMB": 5.5,
+   "errors": []
+  },
+  {
+   "scene": "late30-low",
+   "viewport": "1440x900@1",
+   "requestedQuality": "low",
+   "finalQuality": "low",
+   "frames": 126,
+   "timeToStateMs": 664,
+   "renderMs": {
+    "median": 4.6,
+    "p95": 5.9,
+    "max": 11.2
+   },
+   "rafIntervalMs": {
+    "median": 33.3,
+    "p95": 33.4
+   },
+   "heapMB": 8.2,
+   "errors": []
+  },
+  {
+   "scene": "mobile16",
+   "viewport": "390x844@2",
+   "requestedQuality": "high",
+   "finalQuality": "high",
+   "frames": 107,
+   "timeToStateMs": 606,
+   "renderMs": {
+    "median": 5.2,
+    "p95": 10.4,
+    "max": 11.3
+   },
+   "rafIntervalMs": {
+    "median": 33.4,
+    "p95": 66.5
+   },
+   "heapMB": 6.7,
+   "errors": []
+  },
+  {
+   "scene": "miracle-burst",
+   "viewport": "1440x900@1",
+   "requestedQuality": "high",
+   "finalQuality": "high",
+   "frames": 111,
+   "timeToStateMs": 748,
+   "renderMs": {
+    "median": 6.1,
+    "p95": 12.1,
+    "max": 13.3
+   },
+   "rafIntervalMs": {
+    "median": 33.3,
+    "p95": 50
+   },
+   "heapMB": 4.9,
+   "errors": []
+  }
+ ]
+}

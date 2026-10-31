@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-30T23:55:32.919Z",
+ "generated": "2026-10-31T01:07:26.792Z",
  "runs": [
   {
    "base": "file://./index.html",
@@ -13,6 +13,8 @@
     "file://./engine/ai.js",
     "file://./ui/art.js",
     "file://./ui/kits.js",
+    "file://./ui/vfx-art.js",
+    "file://./ui/terrain-art.js",
     "file://./ui/render.js",
     "file://./ui/audio.js",
     "file://./ui/storage.js",
@@ -35,6 +37,8 @@
     "http://127.0.0.1:8765/engine/ai.js",
     "http://127.0.0.1:8765/ui/art.js",
     "http://127.0.0.1:8765/ui/kits.js",
+    "http://127.0.0.1:8765/ui/vfx-art.js",
+    "http://127.0.0.1:8765/ui/terrain-art.js",
     "http://127.0.0.1:8765/ui/render.js",
     "http://127.0.0.1:8765/ui/audio.js",
     "http://127.0.0.1:8765/ui/storage.js",
@@ -65,6 +69,14 @@
   },
   {
    "file": "ui/kits.js",
+   "absoluteUrls": []
+  },
+  {
+   "file": "ui/vfx-art.js",
+   "absoluteUrls": []
+  },
+  {
+   "file": "ui/terrain-art.js",
    "absoluteUrls": []
   },
   {

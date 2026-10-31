@@ -2,7 +2,7 @@
 /*
  * Soundtrack preparation. Takes the twenty original MP3 recordings (a private copy of the owner's Drive folder "pantheon music"),
  * removes only the embedded cover-art stream (lossless stream copy: the audio frames are not re-encoded), measures every file and writes:
- *   audio/music/<id>.mp3     the runtime files (NOT committed while public redistribution is unconfirmed; see audio/README.md)
+ *   audio/music/<id>.mp3     the runtime files, committed with the game (creator's permission and scope in audio/README.md)
  *   audio/soundtrack.json    manifest: identities, provenance, measurements, gains, transition points, cue roles
  *   audio/soundtrack.js      the same manifest as a script (loads under file://, where fetch() of local JSON is blocked)
  * Measurements: ffprobe (codec, rate, channels, bitrate, duration), ffmpeg loudnorm first pass (EBU R128 integrated loudness, true

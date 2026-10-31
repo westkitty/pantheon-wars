@@ -3,6 +3,23 @@
 Generated data: `audio/soundtrack.json` (tool `tools/prepare-soundtrack.js`), per-second RMS envelopes in `reports/soundtrack-envelopes.json`.
 Browser evidence: `reports/soundtrack-check-file.json` (file://) and `reports/soundtrack-check-http.json` (local HTTP server), tool `tools/soundtrack-check.js`.
 
+## Distribution
+
+The twenty recordings are committed in `audio/music/` and ship with the game. The creator authorized their inclusion and
+distribution with Pantheon Wars on 2026-10-31. The music remains the creator's property. See `audio/README.md` for the exact scope.
+Earlier commits on this branch, up to `5ae1fa8`, kept them out of Git while that permission was unconfirmed. Those commits play the generated score.
+
+Source-to-output verification of all twenty files is in `reports/soundtrack-verify.json`. Each file passed these checks:
+
+- Drive file ID and byte size, against the Drive listing. None of the files had been modified since upload.
+- Source SHA-256 against the manifest.
+- Output SHA-256 and size against the manifest.
+- Audio-packet MD5: source equals output.
+- A single MP3 audio stream, with the duration recorded in the manifest.
+- A full decode with `ffmpeg -xerror`, without errors.
+
+Re-running the preparation reproduces 20/20 files byte for byte.
+
 ## Source analysis (all twenty recordings)
 
 - Format: every file is MPEG-1 Layer III, 48 kHz, stereo, about 128 kb/s audio, plus an embedded cover-art picture (mjpeg) of about 0.79 MB.
@@ -92,9 +109,20 @@ Only information the current viewer may know is used. The app passes a log entry
 
 ## Validation evidence
 
-| Check | file:// | HTTP | without recordings |
+| Check | file:// | HTTP | without recordings (temporary copy, repository untouched) |
 |---|---|---|---|
-| `tools/soundtrack-check.js` | 39/39 | 39/39 (includes full `decodeAudioData` of all 20) | 7/7 (fallback, settings, cleanup) |
+| `tools/soundtrack-check.js` | 43/43 | 43/43 (includes full `decodeAudioData` of all 20) | 12/12 file://, 12/12 HTTP |
+| `tools/soundtrack-integrity.js` | 20/20 files: size and SHA-256 match the manifest, MPEG-1 Layer III frames | | |
+
+Added with the committed recordings:
+- **Restarts:** six game restarts in a row leave one bed and at most two elements holding a file.
+- **Save/load:** loading a save restarts the music cleanly.
+- **Sound effects:** they still play alongside the recordings.
+- **Return to the title:** it fades the game bed out and leaves one Main Title take.
+- **Fallback fixture:** one failed request marks the soundtrack absent, with no retries. The generated score holds the bed, a full round of play completes, and mood changes request nothing more.
+- **Strict errors:** a failing committed recording is an error. The only load failures admitted are the deliberate fixtures, and those are counted.
+
+Earlier counts, before the recordings were committed: 39/39 file://, 39/39 HTTP, 7/7 without recordings.
 
 The checks cover the following. Each is a pass/fail check in the reports.
 

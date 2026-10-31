@@ -1,0 +1,183 @@
+{
+ "protocol": "file",
+ "recordings": false,
+ "fixture": "temporary copy without audio/music/",
+ "expectedFailedRequests": [
+  "file://./audio/music/title-a.mp3"
+ ],
+ "browser": "Chromium (Playwright 1.63.0)",
+ "at": "2026-10-31T10:08:36.121Z",
+ "pass": 12,
+ "total": 12,
+ "checks": [
+  {
+   "name": "manifest present in page (audio/soundtrack.js)",
+   "ok": true,
+   "evidence": 20
+  },
+  {
+   "name": "fixture without recordings: audio/music/ absent from the served copy (repository untouched)",
+   "ok": true,
+   "evidence": "/tmp/pw-norec-gtrasR"
+  },
+  {
+   "name": "title: nothing plays or downloads before the first gesture (autoplay rules)",
+   "ok": true,
+   "evidence": []
+  },
+  {
+   "name": "setting \"Generated\" stops the recordings and returns the procedural score",
+   "ok": true,
+   "evidence": {
+    "mode": "procedural",
+    "manifest": true,
+    "screen": "title",
+    "mood": null,
+    "frozen": false,
+    "procedural": false,
+    "timer": false,
+    "installed": false,
+    "absent": true,
+    "accent": false,
+    "duck": 1,
+    "endPlayed": false,
+    "missing": [
+     "title-b",
+     "title-a",
+     "olympian-a",
+     "olympian-b",
+     "ash-a",
+     "ash-b",
+     "ennead-a",
+     "ennead-b",
+     "explore-a",
+     "explore-b",
+     "expansion-a",
+     "expansion-b",
+     "omens-a",
+     "omens-b",
+     "conflict-a",
+     "conflict-b",
+     "intervention-a",
+     "intervention-b",
+     "twilight",
+     "endgame"
+    ],
+    "decks": [],
+    "viewer": -1,
+    "signals": null,
+    "history": [
+     {
+      "at": 1793441308.747,
+      "id": "title-b",
+      "cue": "title",
+      "mood": "title"
+     }
+    ]
+   }
+  },
+  {
+   "name": "soundtrack mode and music volume persist across reload",
+   "ok": true,
+   "evidence": {
+    "st": "procedural",
+    "music": 0.37,
+    "mode": "procedural"
+   }
+  },
+  {
+   "name": "title without recordings: one failed request, then the soundtrack is marked absent (no retries)",
+   "ok": true,
+   "evidence": {
+    "failedRequests": [
+     "file://./audio/music/title-a.mp3"
+    ],
+    "absent": true
+   }
+  },
+  {
+   "name": "game without recordings: the generated score holds the music bed",
+   "ok": true,
+   "evidence": {
+    "procedural": true,
+    "failedRequests": 1
+   }
+  },
+  {
+   "name": "gameplay intact without recordings (a full round completes)",
+   "ok": true,
+   "evidence": {
+    "from": 1,
+    "to": 2
+   }
+  },
+  {
+   "name": "sound effects play without recordings",
+   "ok": true,
+   "evidence": true
+  },
+  {
+   "name": "mood changes without recordings request nothing more",
+   "ok": true,
+   "evidence": {
+    "failedRequests": 1
+   }
+  },
+  {
+   "name": "stop releases every element and clears the timer",
+   "ok": true,
+   "evidence": {
+    "mode": "recorded",
+    "manifest": true,
+    "screen": "none",
+    "mood": null,
+    "frozen": false,
+    "procedural": true,
+    "timer": false,
+    "installed": false,
+    "absent": true,
+    "accent": false,
+    "duck": 1,
+    "endPlayed": false,
+    "missing": [
+     "title-a",
+     "title-b",
+     "olympian-a",
+     "olympian-b",
+     "ash-a",
+     "ash-b",
+     "ennead-a",
+     "ennead-b",
+     "explore-a",
+     "explore-b",
+     "expansion-a",
+     "expansion-b",
+     "omens-a",
+     "omens-b",
+     "conflict-a",
+     "conflict-b",
+     "intervention-a",
+     "intervention-b",
+     "twilight",
+     "endgame"
+    ],
+    "decks": [],
+    "viewer": 0,
+    "signals": null,
+    "history": [
+     {
+      "at": 1793441311.845,
+      "id": "title-a",
+      "cue": "title",
+      "mood": "title"
+     }
+    ]
+   }
+  },
+  {
+   "name": "no page errors and no unexpected failed requests",
+   "ok": true,
+   "evidence": []
+  }
+ ]
+}

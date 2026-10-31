@@ -48,7 +48,7 @@ jobs:
   browser:
     name: Browser journeys, real-input replay and offline proof
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -65,8 +65,14 @@ jobs:
         run: node tools/screenshots.js --seed 11 --faction greek --rivals 2 --diff easy
       - name: Offline proof (file:// and local static server, no external requests)
         run: node tools/offline-proof.js
-      - name: Soundtrack director (no recordings in the repository; checks the generated-music fallback, settings and cleanup)
-        run: node tools/soundtrack-check.js --out reports/soundtrack-check-ci.json
+      - name: Recorded soundtrack integrity (20 committed recordings match the manifest checksums)
+        run: node tools/soundtrack-integrity.js
+      - name: Recorded soundtrack in the page (file://), all 20 recordings decode and every music state plays
+        run: node tools/soundtrack-check.js --out reports/soundtrack-check-ci-file.json
+      - name: Recorded soundtrack over local HTTP (full decodeAudioData of all 20)
+        run: node tools/soundtrack-check.js --http --out reports/soundtrack-check-ci-http.json
+      - name: Generated-music fallback (isolated temporary copy without the recordings)
+        run: node tools/soundtrack-check.js --without-recordings --out reports/soundtrack-check-ci-without.json
       - name: Weather visual QA (every weather kind distinguishable, controls on top)
         run: node tools/weather-qa.js
       - name: Repeated-game resource check
@@ -89,5 +95,6 @@ jobs:
             reports/memory-check.json
             reports/qqq.json
             reports/perf-powers-smoke.json
+            reports/soundtrack-check-ci-*.json
           if-no-files-found: ignore
           retention-days: 7

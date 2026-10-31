@@ -9,8 +9,8 @@ A small browser 4X strategy game. You are a god competing for worshippers on a h
 - All content is data (`data/*.json`). The rules engine is deterministic and seeded; an AI-vs-AI balance harness is included.
 
 ## Play
-Open **`index.html`** in Chrome, Edge or Firefox; double-clicking the file works. The game is entirely offline: no network requests, no external libraries, no image or font files. All art is drawn by code, and all sound effects, ambience and the generated score are synthesised by code (`reports/offline-proof.json`).
-An optional **recorded soundtrack** of twenty pieces is directed by `ui/music.js` when its files are installed in `audio/music/`. Those files are not in this repository until redistribution rights are confirmed: see `audio/README.md`. Without them the generated score plays and nothing else changes. Cue sheet and evidence: `reports/soundtrack.md`.
+Open **`index.html`** in Chrome, Edge or Firefox; double-clicking the file works. The game is entirely offline: no network requests, no external libraries, no image or font files; the only media files are the soundtrack recordings. All art is drawn by code, and all sound effects, ambience and the generated score are synthesised by code (`reports/offline-proof.json`).
+The game ships a **recorded soundtrack**: twenty original pieces in `audio/music/` (51.87 MiB MP3), directed by `ui/music.js`. They are included with the creator's permission; the music remains the creator's property and is not licensed for use outside the game (`audio/README.md`). Settings → Soundtrack switches between Recorded and the generated score, which also takes over whenever a recording cannot play. Cue sheet and evidence: `reports/soundtrack.md`.
 
 - On the title screen pick a pantheon (search, Random, or Compare two), the match (Standard, Sacred Ground, Kept Word, Trials), one or two rivals (or let the seed choose them), rival skill (Acolyte = easy, Hierophant = hard), hot-seat humans and a world seed. **Continue** resumes the autosave.
 - **Click** a place to inspect its people, needs, history and every action you can take there.
@@ -56,7 +56,7 @@ Browser tools use Playwright's Chromium. `npm ci` installs the pinned dev-only v
 | `ui/art.js` | procedural pixel art: emblems, patterns, icons, atmospheres, event scenes |
 | `ui/kits.js` | 2× standing-object art: ten architectural kits and the village composer, shrines × 7 conditions × 3 callings, priests × 3 callings × 6 frames, landmarks |
 | `ui/audio.js`, `ui/storage.js`, `ui/chronicle.js`, `ui/encyclopedia.js` | synthesised sound, versioned saves, Chronicle and tapestry, encyclopedia |
-| `ui/music.js`, `audio/soundtrack.json` (`.js`), `tools/prepare-soundtrack.js` | recorded-soundtrack director, manifest, preparation (recordings themselves local only, `audio/README.md`) |
+| `ui/music.js`, `audio/music/`, `audio/soundtrack.json` (`.js`), `tools/prepare-soundtrack.js` | recorded-soundtrack director, the twenty recordings, manifest, preparation (rights: `audio/README.md`) |
 | `engine/engine.js`, `engine/ai.js`, `engine/rng.js` | deterministic rules, AI, PRNG (UMD: browser and Node) |
 | `engine/legacy/` | frozen v0.1 engine and AI for replaying v0.1 files |
 | `data/*.json` | rules, factions, domains, powers, shrines, events, scenarios, terrain, sources; `data/legacy/v0.1/` frozen v0.1 data; `data/asset-manifest.json` |

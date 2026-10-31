@@ -15,15 +15,15 @@ const ROOT = path.join(__dirname, '..'), PORT = 8765;
   for (const base of ['file://' + path.join(ROOT, 'index.html'), `http://127.0.0.1:${PORT}/index.html`]) {
     const page = await browser.newPage(), external = [], local = [], errors = [], optional = [];
     page.on('request', r => { const u = r.url(); if (/^(file|data|blob):/.test(u) || u.startsWith(`http://127.0.0.1:${PORT}/`)) local.push(u.replace(ROOT, '.')); else external.push(u); });
-    // the recorded soundtrack (audio/music/) is an optional local install: absent files, or loads cancelled when a track is released,
-    // are recorded separately and fall back to the generated score; they are never external requests
-    page.on('requestfailed', r => (/\/audio\/music\/[a-z0-9-]+\.mp3$/.test(r.url()) ? optional : errors).push('failed: ' + r.url().replace(ROOT, '.') + ' ' + (r.failure() || {}).errorText));
+    // a recording whose load is cancelled because the director released that track (net::ERR_ABORTED) is expected and listed apart;
+    // any other failed request, a missing recording included, is an error
+    page.on('requestfailed', r => (/\/audio\/music\/[a-z0-9-]+\.mp3$/.test(r.url()) && /ERR_ABORTED/.test((r.failure() || {}).errorText || '') ? optional : errors).push('failed: ' + r.url().replace(ROOT, '.') + ' ' + (r.failure() || {}).errorText));
     page.on('pageerror', e => errors.push(e.message));
     await page.goto(base + '?seed=3&autostart=1&nosave=1&speed=0'); await page.waitForTimeout(800);
     await page.click('#btn-codex'); await page.waitForTimeout(300); await page.keyboard.press('Escape');
     await page.click('#btn-menu'); await page.click('#menu-chronicle'); await page.waitForTimeout(500);
     const ok = await page.evaluate(() => !!(window.PW && PW.state && PW.state.players.length === 2));
-    out.runs.push({ base: base.replace(ROOT, '.'), started: ok, localRequests: [...new Set(local.map(u => u.split('?')[0]))], externalRequests: external, errors, optionalSoundtrack: optional });
+    out.runs.push({ base: base.replace(ROOT, '.'), started: ok, localRequests: [...new Set(local.map(u => u.split('?')[0]))], externalRequests: external, errors, cancelledSoundtrackLoads: optional, soundtrackRequests: [...new Set(local.filter(u => /\/audio\/music\//.test(u)).map(u => u.split('?')[0]))] });
     await page.close();
   }
   await browser.close(); srv.kill();

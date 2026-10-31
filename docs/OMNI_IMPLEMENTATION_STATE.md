@@ -247,3 +247,20 @@ Start: `05a80b8`. No gameplay, data, balance or art change. The game's RNG is un
 - **Evidence:** `tools/soundtrack-check.js` 39/39 file://, 39/39 HTTP (full decode of all 20), 7/7 without recordings. Offline proof now
   lists optional soundtrack requests separately. CI runs the check in its no-recordings form.
 - **Not verified:** listening quality (no audio output here), browsers other than Chromium, real devices.
+
+### Soundtrack delivered: recordings committed (2026-10-31, tenth pass)
+Start: `5ae1fa8`. The creator authorized inclusion and distribution with the game ("I made them myself. They can be used.").
+The scope is recorded in `audio/README.md`: ownership stays with the creator, and no separate music licence is granted.
+- **Recordings:** the 20 game files are committed in `audio/music/` (54,384,646 bytes); `.gitignore` no longer excludes them.
+- **Verification** (`reports/soundtrack-verify.json`), all 20 files:
+  - Drive ID and size, against the Drive listing; the files are unmodified since upload.
+  - Source SHA-256 and output SHA-256, against the manifest.
+  - Identical audio packets between source and output, a single MP3 stream, the duration, and a full error-checked decode.
+  - Re-running the preparation reproduces 20/20 files byte for byte.
+- **New tool:** `tools/soundtrack-integrity.js` (no ffmpeg; runs in CI).
+- **`tools/soundtrack-check.js`:**
+  - It now fails if a committed recording is missing.
+  - Its fallback runs on a temporary copy without `audio/music/` (`--without-recordings`).
+  - Checks added: restarts, save/load, return to the title, and element release.
+- **Test filters:** journeys and screenshots no longer excuse failed recording loads. The offline proof excuses only cancelled (`ERR_ABORTED`) recording loads.
+- **CI:** integrity, then the recorded check over file:// and HTTP, then the isolated fallback.

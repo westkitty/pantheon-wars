@@ -1,10 +1,14 @@
 {
  "protocol": "http",
  "recordings": true,
+ "fixture": "repository",
+ "expectedFailedRequests": [
+  "http://127.0.0.1:38149/no-such-folder/audio/music/title-a.mp3"
+ ],
  "browser": "Chromium (Playwright 1.63.0)",
- "at": "2026-10-31T09:39:29.071Z",
- "pass": 39,
- "total": 39,
+ "at": "2026-10-31T10:18:25.348Z",
+ "pass": 43,
+ "total": 43,
  "checks": [
   {
    "name": "manifest present in page (audio/soundtrack.js)",
@@ -49,7 +53,7 @@
     "id": "title-b",
     "paused": false,
     "advanced": true,
-    "volume": 0.08
+    "volume": 0.086
    }
   },
   {
@@ -63,6 +67,8 @@
     "frozen": false,
     "procedural": false,
     "timer": false,
+    "installed": true,
+    "absent": false,
     "accent": false,
     "duck": 1,
     "endPlayed": false,
@@ -72,7 +78,7 @@
     "signals": null,
     "history": [
      {
-      "at": 1793439510.81,
+      "at": 1793441823.31,
       "id": "title-b",
       "cue": "title",
       "mood": "title"
@@ -93,10 +99,10 @@
    "name": "game start (greek): its faction theme plays",
    "ok": true,
    "evidence": {
-    "id": "olympian-a",
+    "id": "olympian-b",
     "paused": false,
     "advanced": true,
-    "volume": 0.067
+    "volume": 0.063
    }
   },
   {
@@ -106,17 +112,17 @@
     "id": "ash-a",
     "paused": false,
     "advanced": true,
-    "volume": 0.062
+    "volume": 0.068
    }
   },
   {
    "name": "game start (egyptian): its faction theme plays",
    "ok": true,
    "evidence": {
-    "id": "ennead-b",
+    "id": "ennead-a",
     "paused": false,
     "advanced": true,
-    "volume": 0.055
+    "volume": 0.074
    }
   },
   {
@@ -127,13 +133,13 @@
     "procedural": true,
     "decks": [
      {
-      "id": "ennead-b",
+      "id": "ennead-a",
       "cue": "faction:egyptian",
-      "fade": 0.22,
+      "fade": 0.27,
       "leaving": true,
       "paused": false,
-      "t": 1.99,
-      "volume": 0.049
+      "t": 1.14,
+      "volume": 0.063
      }
     ]
    }
@@ -144,7 +150,7 @@
    "evidence": {
     "mood": "exploration",
     "decks": [
-     "ennead-b",
+     "ennead-a",
      "explore-b"
     ]
    }
@@ -211,22 +217,22 @@
    "ok": true,
    "evidence": {
     "before": {
-     "id": "explore-b",
+     "id": "explore-a",
      "cue": "exploration",
-     "fade": 0.25,
+     "fade": 0.27,
      "leaving": false,
      "paused": false,
-     "t": 0.45,
-     "volume": 0.067
+     "t": 0.44,
+     "volume": 0.07
     },
     "after": {
-     "id": "explore-b",
+     "id": "explore-a",
      "cue": "exploration",
-     "fade": 0.65,
+     "fade": 0.68,
      "leaving": false,
      "paused": false,
-     "t": 2.09,
-     "volume": 0.061
+     "t": 2.1,
+     "volume": 0.06
     },
     "accent": true,
     "duck": 0.35
@@ -237,7 +243,7 @@
    "ok": true,
    "evidence": [
     {
-     "at": 1793439809.331,
+     "at": 1793442122.413,
      "id": "intervention-a",
      "cue": "accent",
      "mood": "exploration"
@@ -256,20 +262,20 @@
     {
      "id": "explore-b",
      "cue": "exploration",
-     "fade": 0.77,
+     "fade": 0.8,
      "leaving": true,
      "paused": false,
-     "t": 153.94,
-     "volume": 0.209
+     "t": 153.93,
+     "volume": 0.215
     },
     {
      "id": "explore-a",
      "cue": "exploration",
-     "fade": 0.22,
+     "fade": 0.2,
      "leaving": false,
      "paused": false,
-     "t": 0.65,
-     "volume": 0.057
+     "t": 0.64,
+     "volume": 0.051
     }
    ]
   },
@@ -283,7 +289,7 @@
      "fade": 1,
      "leaving": false,
      "paused": false,
-     "t": 5.29,
+     "t": 5.25,
      "volume": 0.255
     }
    ]
@@ -298,7 +304,7 @@
      "fade": 1,
      "leaving": false,
      "paused": true,
-     "t": 5.32,
+     "t": 5.25,
      "volume": 0
     }
    ]
@@ -313,7 +319,7 @@
      "fade": 1,
      "leaving": false,
      "paused": false,
-     "t": 5.85,
+     "t": 5.78,
      "volume": 0.255
     }
    ]
@@ -328,7 +334,7 @@
      "fade": 1,
      "leaving": false,
      "paused": true,
-     "t": 5.89,
+     "t": 5.85,
      "volume": 0
     }
    ]
@@ -345,7 +351,7 @@
       "fade": 1,
       "leaving": false,
       "paused": true,
-      "t": 5.93,
+      "t": 5.86,
       "volume": 0.255
      }
     ]
@@ -361,7 +367,7 @@
      "fade": 1,
      "leaving": false,
      "paused": true,
-     "t": 5.93,
+     "t": 5.86,
      "volume": 0.255
     }
    ]
@@ -376,7 +382,7 @@
      "fade": 1,
      "leaving": false,
      "paused": false,
-     "t": 6.4,
+     "t": 6.36,
      "volume": 0.255
     }
    ]
@@ -391,7 +397,7 @@
      "fade": 0.77,
      "leaving": true,
      "paused": false,
-     "t": 7.27,
+     "t": 7.24,
      "volume": 0.198
     },
     {
@@ -400,7 +406,7 @@
      "fade": 0.22,
      "leaving": false,
      "paused": false,
-     "t": 0.62,
+     "t": 0.54,
      "volume": 0.061
     }
    ]
@@ -416,7 +422,7 @@
       "fade": 0.37,
       "leaving": true,
       "paused": false,
-      "t": 8.81,
+      "t": 8.79,
       "volume": 0.096
      }
     ],
@@ -480,12 +486,49 @@
    }
   },
   {
-   "name": "missing files: every take marks missing, the director falls back, no exception",
+   "name": "six game restarts in a row: one bed (the last faction's theme), at most two elements holding a file",
    "ok": true,
    "evidence": {
-    "missing": [
-     "title-a",
+    "decks": [
+     "ash-a"
+    ],
+    "elementsHoldingFiles": 2
+   }
+  },
+  {
+   "name": "loading a save restarts the music cleanly for the loaded game (one bed)",
+   "ok": true,
+   "evidence": {
+    "decks": [
+     "ash-a"
+    ],
+    "mood": "faction",
+    "elementsHoldingFiles": 1
+   }
+  },
+  {
+   "name": "sound effects still play alongside the recordings (cue scheduled)",
+   "ok": true,
+   "evidence": true
+  },
+  {
+   "name": "back to the title: the game bed fades out and only a Main Title take remains",
+   "ok": true,
+   "evidence": {
+    "decks": [
      "title-b"
+    ],
+    "elementsHoldingFiles": 1,
+    "screen": "title"
+   }
+  },
+  {
+   "name": "missing files (isolated no-such-folder fixture): one failed request marks the soundtrack absent and the director falls back",
+   "ok": true,
+   "evidence": {
+    "missing": 20,
+    "failedRequests": [
+     "http://127.0.0.1:38149/no-such-folder/audio/music/title-a.mp3"
     ]
    }
   },
@@ -500,6 +543,8 @@
     "frozen": false,
     "procedural": true,
     "timer": false,
+    "installed": true,
+    "absent": false,
     "accent": false,
     "duck": 1,
     "endPlayed": false,
@@ -509,73 +554,73 @@
     "signals": null,
     "history": [
      {
-      "at": 1793440140.04,
-      "id": "intervention-a",
-      "cue": "accent",
-      "mood": "omens"
-     },
-     {
-      "at": 1793440140.041,
-      "id": "conflict-b",
-      "cue": "conflict",
-      "mood": "conflict"
-     },
-     {
-      "at": 1793440182.026,
+      "at": 1793442539.361,
       "id": "intervention-a",
       "cue": "accent",
       "mood": "conflict"
      },
      {
-      "at": 1793440202.048,
+      "at": 1793442580.383,
       "id": "intervention-a",
+      "cue": "accent",
+      "mood": "conflict"
+     },
+     {
+      "at": 1793442642.218,
+      "id": "intervention-a",
+      "cue": "accent",
+      "mood": "conflict"
+     },
+     {
+      "at": 1793442642.656,
+      "id": "intervention-b",
       "cue": "intervention",
       "mood": "intervention"
      },
      {
-      "at": 1793440222.932,
-      "id": "conflict-a",
-      "cue": "conflict",
-      "mood": "conflict"
-     },
-     {
-      "at": 1793440223.185,
-      "id": "intervention-a",
-      "cue": "accent",
-      "mood": "conflict"
-     },
-     {
-      "at": 1793440264.073,
-      "id": "intervention-a",
-      "cue": "accent",
-      "mood": "conflict"
-     },
-     {
-      "at": 1793440325.911,
-      "id": "intervention-a",
-      "cue": "accent",
-      "mood": "conflict"
-     },
-     {
-      "at": 1793440326.332,
-      "id": "intervention-a",
-      "cue": "intervention",
-      "mood": "intervention"
-     },
-     {
-      "at": 1793440346.878,
+      "at": 1793442663.25,
       "id": "omens-a",
       "cue": "omens",
       "mood": "omens"
      },
      {
-      "at": 1793440367.316,
+      "at": 1793442683.984,
       "id": "intervention-a",
       "cue": "accent",
       "mood": "omens"
      },
      {
-      "at": 1793440368.954,
+      "at": 1793442684.13,
+      "id": "olympian-b",
+      "cue": "faction:greek",
+      "mood": "faction"
+     },
+     {
+      "at": 1793442684.808,
+      "id": "ash-a",
+      "cue": "faction:norse",
+      "mood": "faction"
+     },
+     {
+      "at": 1793442685.413,
+      "id": "ennead-a",
+      "cue": "faction:egyptian",
+      "mood": "faction"
+     },
+     {
+      "at": 1793442686.696,
+      "id": "olympian-a",
+      "cue": "faction:greek",
+      "mood": "faction"
+     },
+     {
+      "at": 1793442687.329,
+      "id": "ash-a",
+      "cue": "faction:norse",
+      "mood": "faction"
+     },
+     {
+      "at": 1793442698.402,
       "id": "title-b",
       "cue": "title",
       "mood": "title"
@@ -584,7 +629,7 @@
    }
   },
   {
-   "name": "no page errors",
+   "name": "no page errors and no unexpected failed requests",
    "ok": true,
    "evidence": []
   }

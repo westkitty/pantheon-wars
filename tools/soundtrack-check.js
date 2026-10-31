@@ -1,24 +1,32 @@
 #!/usr/bin/env node
 /*
  * Recorded-soundtrack checks in the real page (Playwright + the pre-installed Chromium), over file:// and local HTTP.
- * Needs the private local recordings in audio/music/ (tools/prepare-soundtrack.js); without them it checks only the fallback and
- * reports the recordings as absent. Music time is advanced through the director's own clock (PW.music.now), never the game's.
- *   node tools/soundtrack-check.js [--http] [--out reports/soundtrack-check.json]
+ * Default: the committed recordings in audio/music/ must all be present, load, decode and play; a missing one is a failure.
+ * --without-recordings: runs against an isolated temporary copy of the game with no audio/music/ (the repository is not touched) and
+ * checks the generated-music fallback: at most one failed recording request per page load, gameplay intact, no other errors.
+ * Music time is advanced through the director's own clock (PW.music.now), never the game's.
+ *   node tools/soundtrack-check.js [--http] [--without-recordings] [--out reports/soundtrack-check.json]
  */
 const { chromium } = require('playwright');
 const fs = require('fs'), path = require('path'), http = require('http');
-const ROOT = path.join(__dirname, '..'), HTTP = process.argv.includes('--http');
+const ROOT = path.join(__dirname, '..'), HTTP = process.argv.includes('--http'), WITHOUT = process.argv.includes('--without-recordings');
+const os = require('os');
+// the page is served from GAME: the repository itself, or for --without-recordings a temporary copy without audio/music/
+const GAME = WITHOUT ? (() => { const d = fs.mkdtempSync(path.join(os.tmpdir(), 'pw-norec-'));
+  ['index.html', 'ui', 'engine', 'data'].forEach(f => fs.cpSync(path.join(ROOT, f), path.join(d, f), { recursive: true }));
+  fs.mkdirSync(path.join(d, 'audio')); ['soundtrack.js', 'soundtrack.json'].forEach(f => fs.copyFileSync(path.join(ROOT, 'audio', f), path.join(d, 'audio', f)));
+  return d; })() : ROOT;
 const arg = (k, d) => { const i = process.argv.indexOf('--' + k); return i > 0 ? process.argv[i + 1] : d; };
-const OUT = path.resolve(arg('out', path.join(ROOT, 'reports', HTTP ? 'soundtrack-check-http.json' : 'soundtrack-check-file.json')));
+const OUT = path.resolve(arg('out', path.join(ROOT, 'reports', 'soundtrack-check-' + (HTTP ? 'http' : 'file') + (WITHOUT ? '-without-recordings' : '') + '.json')));
 const MANIFEST = JSON.parse(fs.readFileSync(path.join(ROOT, 'audio', 'soundtrack.json'), 'utf8'));
-const HAVE_FILES = MANIFEST.tracks.every(t => fs.existsSync(path.join(ROOT, t.file)));
+const HAVE_FILES = MANIFEST.tracks.every(t => fs.existsSync(path.join(GAME, t.file)));
 const TYPES = { '.html': 'text/html', '.js': 'text/javascript', '.json': 'application/json', '.css': 'text/css', '.mp3': 'audio/mpeg', '.png': 'image/png', '.svg': 'image/svg+xml', '.woff2': 'font/woff2' };
 
 function serve() { // static server with byte ranges (media elements seek with Range requests)
   return new Promise(res => {
     const srv = http.createServer((req, rsp) => {
-      const f = path.join(ROOT, decodeURIComponent(req.url.split('?')[0]));
-      if (!f.startsWith(ROOT) || !fs.existsSync(f) || fs.statSync(f).isDirectory()) { rsp.writeHead(404); rsp.end(); return; }
+      const f = path.join(GAME, decodeURIComponent(req.url.split('?')[0]));
+      if (!f.startsWith(GAME) || !fs.existsSync(f) || fs.statSync(f).isDirectory()) { rsp.writeHead(404); rsp.end(); return; }
       const size = fs.statSync(f).size, type = TYPES[path.extname(f)] || 'application/octet-stream', m = /bytes=(\d*)-(\d*)/.exec(req.headers.range || '');
       if (m) { const a = m[1] ? +m[1] : 0, b = m[2] ? +m[2] : size - 1; rsp.writeHead(206, { 'Content-Type': type, 'Content-Range': `bytes ${a}-${b}/${size}`, 'Content-Length': b - a + 1, 'Accept-Ranges': 'bytes' }); fs.createReadStream(f, { start: a, end: b }).pipe(rsp); }
       else { rsp.writeHead(200, { 'Content-Type': type, 'Content-Length': size, 'Accept-Ranges': 'bytes' }); fs.createReadStream(f).pipe(rsp); }
@@ -31,12 +39,20 @@ const checks = [];
 function check(name, ok, evidence) { checks.push({ name, ok: !!ok, evidence }); console.log((ok ? 'PASS ' : 'FAIL ') + name + (evidence !== undefined ? '  ' + JSON.stringify(evidence).slice(0, 220) : '')); }
 
 (async () => {
-  const srv = HTTP ? await serve() : null, base = HTTP ? `http://127.0.0.1:${srv.address().port}/` : 'file://' + ROOT + '/';
+  const srv = HTTP ? await serve() : null, base = HTTP ? `http://127.0.0.1:${srv.address().port}/` : 'file://' + GAME + '/';
   const browser = await chromium.launch({ args: ['--autoplay-policy=user-gesture-required'] });
   const ctx = await browser.newContext({ viewport: { width: 1280, height: 800 } });
   const page = await ctx.newPage(), errors = [];
   page.on('pageerror', e => errors.push('pageerror: ' + e.message));
-  page.on('console', m => { if (m.type() === 'error' && !/\/audio\/music\/[a-z0-9-]+\.mp3$/.test((m.location() || {}).url || '')) errors.push('console: ' + m.text()); });
+  // Expected load failures, counted rather than hidden: the deliberate missing-folder fixture (check 15), and in --without-recordings mode
+  // the absent recordings. Every other console error, a failed committed recording included, is a failure.
+  const expectedMiss = u => /\/no-such-folder\/audio\/music\/[a-z0-9-]+\.mp3$/.test(u) || (WITHOUT && /\/audio\/music\/[a-z0-9-]+\.mp3$/.test(u));
+  const misses = [];
+  page.on('console', m => { if (m.type() !== 'error') return; const u = (m.location() || {}).url || ''; if (expectedMiss(u)) misses.push(u.replace(GAME, '.')); else errors.push('console: ' + m.text() + ' @ ' + u.replace(GAME, '.')); });
+  page.on('requestfailed', r => { const u = r.url(), why = (r.failure() || {}).errorText || ''; if (!/\.mp3$/.test(u) || expectedMiss(u)) return; if (!/ERR_ABORTED/.test(why)) errors.push('requestfailed: ' + u.replace(GAME, '.') + ' ' + why); });
+  // count every media element the page creates, to prove elements are released (src removed) after use
+  await ctx.addInitScript(() => { const A = window.Audio; window.__audios = []; const W = function (s) { const e = new A(s); window.__audios.push(e); return e; }; W.prototype = A.prototype; window.Audio = W; });
+  const held = () => page.evaluate(() => window.__audios.filter(e => e.getAttribute('src')).length);
   const st = () => page.evaluate(() => PW.music.status());
   const adv = s => page.evaluate(s => { window.__off += s; PW.music.tick(0.1); }, s);
   const playing = async (ms) => { // a deck that is not paused and whose time advances is audibly playing
@@ -69,7 +85,8 @@ function check(name, ok, evidence) { checks.push({ name, ok: !!ok, evidence }); 
       }, HTTP);
       const bad = loads.filter(r => !r.ok || Math.abs(r.dur - r.want) > 0.2 || (HTTP && (!r.decoded || Math.abs(r.decoded - r.want) > 0.2)));
       check('all 20 recordings load' + (HTTP ? ' and fully decode (decodeAudioData)' : ' (media element metadata)') + ' with the manifest duration ±0.2 s', bad.length === 0, bad.length ? bad : loads.map(r => r.id + ':' + (r.decoded || r.dur.toFixed(2))));
-    } else check('recordings absent locally: recorded checks skipped, fallback checked', true, 'audio/music/ missing');
+    } else if (WITHOUT) check('fixture without recordings: audio/music/ absent from the served copy (repository untouched)', !fs.existsSync(path.join(GAME, 'audio', 'music')), GAME);
+    else check('all 20 committed recordings present in audio/music/', false, MANIFEST.tracks.filter(t => !fs.existsSync(path.join(ROOT, t.file))).map(t => t.file));
 
     // 2. no playback before a gesture; the title theme starts on the first click
     let s = await st();
@@ -205,20 +222,45 @@ function check(name, ok, evidence) { checks.push({ name, ok: !!ok, evidence }); 
       s = await st();
       check('a played game (norse vs two AI, 40 turns) moves the music through several moods from real log entries', moods.size >= 3, { moods: [...moods], cues: [...seen] });
 
+      // 14b. restarts and save/load: a new game or a loaded save replaces the bed, never stacks one; released elements drop their files
+      for (let i = 0; i < 6; i++) { await start(['greek', 'norse', 'egyptian', 'yoruba', 'greek', 'norse'][i]); await settle(); await page.waitForTimeout(300); }
+      await page.waitForTimeout(5000); s = await st(); let h = await held();
+      check('six game restarts in a row: one bed (the last faction\'s theme), at most two elements holding a file', s.decks.length === 1 && /^ash-/.test(s.decks[0].id) && h <= 2, { decks: s.decks.map(d => d.id), elementsHoldingFiles: h });
+      await page.evaluate(() => PW.loadRecord(PW.record())); await settle(); await page.waitForTimeout(5000); s = await st(); h = await held();
+      check('loading a save restarts the music cleanly for the loaded game (one bed)', s.decks.filter(d => !d.leaving).length === 1 && s.screen === 'game' && h <= 2, { decks: s.decks.map(d => d.id), mood: s.mood, elementsHoldingFiles: h });
+      const sfx = await page.evaluate(() => PW.audio.cue('shrine')); check('sound effects still play alongside the recordings (cue scheduled)', sfx === true, sfx);
+      await page.evaluate(() => document.getElementById('vic-new').click()); // the real return-to-title path (toTitle)
+      await page.waitForTimeout(5000); s = await st(); h = await held();
+      check('back to the title: the game bed fades out and only a Main Title take remains', s.decks.length === 1 && /^title-/.test(s.decks[0].id) && h <= 2, { decks: s.decks.map(d => d.id), elementsHoldingFiles: h, screen: s.screen });
+
       // 15. missing recordings: silent fallback to the procedural score, no page errors
       const fb = await page.evaluate(async () => {
         const m = new PWMusic(PW.audio, PW_SOUNDTRACK, { base: 'no-such-folder/' }); m.title(); await new Promise(r => setTimeout(r, 1500)); const s = m.status(); m.stop(); return s;
       });
-      check('missing files: every take marks missing, the director falls back, no exception', fb.missing.length >= 2 && fb.decks.length === 0, { missing: fb.missing });
+      check('missing files (isolated no-such-folder fixture): one failed request marks the soundtrack absent and the director falls back', fb.absent && fb.missing.length === 20 && fb.decks.length === 0 && misses.length === 1, { missing: fb.missing.length, failedRequests: misses });
+    }
+    if (WITHOUT) {
+      // fixture without recordings: generated music, bounded failed requests, gameplay intact
+      await loadPage(''); misses.length = 0; await page.mouse.click(5, 5); await page.waitForTimeout(1500);
+      s = await st(); check('title without recordings: one failed request, then the soundtrack is marked absent (no retries)', s.absent && misses.length <= 1 && s.decks.length === 0, { failedRequests: misses, absent: s.absent });
+      await start('greek'); await settle(); await page.waitForTimeout(800); s = await st();
+      check('game without recordings: the generated score holds the music bed', s.procedural && s.decks.length === 0 && misses.length <= 1, { procedural: s.procedural, failedRequests: misses.length });
+      const turn0 = await page.evaluate(() => PW.state.turn); await page.evaluate(() => PW.endTurn());
+      await page.waitForFunction(t => PW.state.turn > t && !PW.busy(), turn0, { timeout: 60000 });
+      check('gameplay intact without recordings (a full round completes)', true, { from: turn0, to: await page.evaluate(() => PW.state.turn) });
+      const sfx = await page.evaluate(() => PW.audio.cue('shrine')); check('sound effects play without recordings', sfx === true, sfx);
+      await page.evaluate(() => { PW.music.setAge('zenith'); PW.music.gameOver(); }); await page.waitForTimeout(500); s = await st();
+      check('mood changes without recordings request nothing more', misses.length <= 1 && s.decks.length === 0, { failedRequests: misses.length });
     }
 
     // 16. cleanup: back to the title, then stop -> no timers, no live elements
     await page.evaluate(() => { PW.app.state && document.getElementById('vic-new') && PW.music.title(); PW.music.stop(); }); s = await st();
     check('stop releases every element and clears the timer', s.decks.length === 0 && !s.timer && !s.accent, s);
-    check('no page errors', errors.length === 0, errors);
+    check('no page errors and no unexpected failed requests', errors.length === 0, errors);
   } catch (e) { check('harness', false, String(e.stack || e).split('\n').slice(0, 3)); }
   await browser.close(); if (srv) srv.close();
-  const rep = { protocol: HTTP ? 'http' : 'file', recordings: HAVE_FILES, browser: 'Chromium (Playwright ' + require('playwright/package.json').version + ')', at: new Date().toISOString(), pass: checks.filter(c => c.ok).length, total: checks.length, checks };
+  if (WITHOUT) fs.rmSync(GAME, { recursive: true, force: true });
+  const rep = { protocol: HTTP ? 'http' : 'file', recordings: HAVE_FILES, fixture: WITHOUT ? 'temporary copy without audio/music/' : 'repository', expectedFailedRequests: misses, browser: 'Chromium (Playwright ' + require('playwright/package.json').version + ')', at: new Date().toISOString(), pass: checks.filter(c => c.ok).length, total: checks.length, checks };
   fs.writeFileSync(OUT, JSON.stringify(rep, null, 1));
   console.log(`${rep.pass}/${rep.total} pass (${rep.protocol}) -> ${path.relative(ROOT, OUT)}`);
   process.exit(rep.pass === rep.total ? 0 : 1);

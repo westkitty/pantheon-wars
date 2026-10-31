@@ -117,6 +117,42 @@ const assert = (c, m) => { if (!c) throw new Error('assertion failed: ' + m); };
     assert(!ev.left.length, 'effects left running: ' + ev.left.join(','));
   }, browser);
 
+  await check('Q10', 'Weather lifecycle: every kind draws on the map, wind follows rain and storm, and nothing lingers once the front is gone', async (page, ev) => {
+    await page.goto(URL0 + '?seed=5&autostart=1&nosave=1&speed=0&quality=high'); await page.waitForTimeout(400);
+    ev.r = await page.evaluate(() => { const R = PW.renderer, s = PW.state, h = s.settlements[s.players[0].home].tile, out = {};
+      PW_DATA.rules.climate && Object.keys(PW_DATA.rules.climate.kinds).forEach(k => { s.climate.fronts = [{ id: 9, kind: k, tile: h, radius: 2, phase: 'active', t0: s.turn, t1: s.turn + 2 }]; R.setState(s, 0); for (let f = 0; f < 6; f++) R.render(0.05); out[k] = Object.keys(R.windAt || {}).length; });
+      s.climate.fronts = []; R.setState(s, 0); R.render(0.05); out.after = Object.keys(R.windAt || {}).length; return out; });
+    assert(ev.r.storm > 0 && ev.r.rains > 0 && ev.r.drought === 0 && ev.r.after === 0, 'wind map follows the fronts: ' + JSON.stringify(ev.r));
+  }, browser);
+
+  await check('Q11', 'Site transitions: a shrine raised plays its choreography and caption; reduced motion keeps only the caption; a hot-seat hand-off plays nothing', async (page, ev) => {
+    await page.goto(URL0 + '?seed=6&autostart=1&nosave=1&speed=0&quality=high'); await page.waitForTimeout(400);
+    ev.r = await page.evaluate(() => { const R = PW.renderer, E = PW.E, s0 = E.clone(PW.state), town = s0.settlements.find(x => s0.players[0].revealed[x.tile] && !x.shrine), out = {};
+      out.normal = (() => { const a = E.clone(s0), b = E.clone(s0); b.turn = a.turn + 1; b.settlements[town.id].shrine = JSON.parse(JSON.stringify(s0.settlements[s0.players[0].home].shrine)); R.reduced = false; R.fx = []; R.texts = []; R.setState(a, 0); R.prevViewer = 0; R.setState(b, 0); return { site: R.fx.filter(e => e.k === 'site').length, texts: R.texts.length }; })();
+      for (let f = 0; f < 40; f++) R.render(0.05); out.cleaned = R.fx.filter(e => e.k === 'site').length;
+      out.reduced = (() => { const a = E.clone(s0), b = E.clone(s0); b.turn = a.turn + 1; b.settlements[town.id].shrine = JSON.parse(JSON.stringify(s0.settlements[s0.players[0].home].shrine)); R.reduced = true; R.fx = []; R.texts = []; R.setState(a, 0); R.prevViewer = 0; R.setState(b, 0); return { site: R.fx.filter(e => e.k === 'site').length, texts: R.texts.length }; })();
+      out.handoff = (() => { const a = E.clone(s0), b = E.clone(s0); b.turn = a.turn + 1; b.settlements[town.id].shrine = JSON.parse(JSON.stringify(s0.settlements[s0.players[0].home].shrine)); R.reduced = false; R.fx = []; R.texts = []; R.setState(a, 0); R.prevViewer = 0; R.setState(b, 1); return { site: R.fx.filter(e => e.k === 'site').length, texts: R.texts.length }; })();
+      R.reduced = false; return out; });
+    const r = ev.r; assert(r.normal.site === 1 && r.normal.texts >= 1 && r.cleaned === 0 && r.reduced.site === 0 && r.reduced.texts >= 1 && r.handoff.site === 0 && r.handoff.texts === 0, JSON.stringify(r));
+  }, browser);
+
+  await check('Q12', 'Art registry coverage: every icon, emblem, pattern, event scene (three ages) and terrain family renders non-empty at its interface size', async (page, ev) => {
+    await page.goto(URL0 + '?nosave=1'); await page.waitForFunction(() => window.PWArt && window.PW_DATA);
+    ev.empty = await page.evaluate(() => { const A = PWArt, D = PW_DATA, bad = [], ink = c => { const d = c.getContext('2d').getImageData(0, 0, c.width, c.height).data; let n = 0; for (let i = 3; i < d.length; i += 4) if (d[i] > 20) n++; return n; };
+      A.ids.icons.forEach(id => { if (ink(A.icon(id, 48)) < 40) bad.push('icon:' + id); });
+      D.factions.forEach(f => { if (ink(A.emblem(f.emblem, f.palette, 64)) < 400) bad.push('emblem:' + f.emblem); if (ink(A.pattern(f.pattern, '#ffffff', 1)) < 6) bad.push('pattern:' + f.pattern); });
+      D.events.forEach(e => ['dawn', 'zenith', 'twilight'].forEach(a => { if (ink(A.eventArt(e.art, 7, a)) < 160 * 90 * 0.9) bad.push('event:' + e.art + ':' + a); }));
+      ['forest:temp:0', 'hills:green:0', 'mountain:heart:1:snow:0', 'ground:grassland:1:0:1:0', 'ground:plains:0:0:0:1', 'ground:desert:0:0:1:2', 'ground:tundra:0:1:0:3'].forEach(k => { if (ink(A.terrain.build(k).c) < 50) bad.push('terrain:' + k); });
+      return bad; });
+    assert(!ev.empty.length, 'empty art: ' + ev.empty.join(','));
+  }, browser);
+
+  await check('Q13', 'Drawing order: terrain features always lie under towns, shrines and priests (a range in front never hides a town)', async (page, ev) => {
+    await page.goto(URL0 + '?seed=31&autostart=1&nosave=1&speed=0&quality=high'); await page.waitForTimeout(400);
+    ev.r = await page.evaluate(() => { const R = PW.renderer; R.cam.tz = R.cam.z = 2; R.render(0.016); const o = R.objs || [], lastDc = o.map(x => !!x.dc).lastIndexOf(true), firstObj = o.findIndex(x => !x.dc); return { n: o.length, dc: o.filter(x => x.dc).length, lastDc, firstObj }; });
+    assert(ev.r.dc > 0 && (ev.r.firstObj < 0 || ev.r.lastDc < ev.r.firstObj), 'terrain sorted first: ' + JSON.stringify(ev.r));
+  }, browser);
+
   await browser.close();
   fs.writeFileSync(path.join(ROOT, 'reports', 'qqq.json'), JSON.stringify({ generated: new Date().toISOString(), results }, null, 1));
   const fails = results.filter(r => !r.ok).length; console.log((results.length - fails) + '/' + results.length + ' QQQ checks passed'); process.exit(fails ? 1 : 0);

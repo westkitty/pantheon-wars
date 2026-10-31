@@ -91,39 +91,89 @@
   }
 
   /* ------------------------------------------------------------------ hills */
+  /* Hills v0.6: not domes but ridged rises. Each knoll is an asymmetric profile (crest off-centre, one long and one short flank) whose
+     ridge leans left or right per variant; the face toward the light is lit, the far face shaded, a crest line catches the light, rock
+     breaks through on the steep flank and the foot fades into the ground without an outline. 12 variants per climate. */
   function knolls(seed, dry) {
-    var w = 112, h = 68, ax = 56, ay = 50, r = A.rng(seed), gC = dry ? '#a8965e' : '#7d9450', gL = shade(gC, 0.22), gD = shade(gC, -0.3);
-    var n = 1 + (r() < 0.7 ? 1 : 0) + (r() < 0.35 ? 1 : 0), ks = []; for (var i = 0; i < n; i++) ks.push({ x: ax + (n === 1 ? (r() - 0.5) * 12 : -26 + i * (52 / (n - 1)) + (r() - 0.5) * 16), y: ay - 2 + (r() - 0.5) * 10, w: 13 + r() * 16, h: 7 + r() * 14 });
+    var w = 112, h = 68, ax = 56, ay = 50, r = A.rng(seed), gC = dry ? '#a8965e' : '#7d9450', gL = shade(gC, 0.2), gD = shade(gC, -0.28), rock = dry ? '#a89c84' : '#8c8678';
+    var n = 1 + (r() < 0.65 ? 1 : 0) + (r() < 0.25 ? 1 : 0), ks = [], lean = r() < 0.5 ? -1 : 1;
+    for (var i = 0; i < n; i++) ks.push({ x: ax + (n === 1 ? (r() - 0.5) * 14 : (i - (n - 1) / 2) * (44 / Math.max(1, n - 1)) * (0.8 + r() * 0.4)), y: ay - 1 + (r() - 0.5) * 10, w: 12 + r() * 14 + (i === 0 ? 4 : 0), h: 8 + r() * 13, c: (r() - 0.5) * 0.7 + lean * 0.25 });
     ks.sort(function (a, b) { return a.y - b.y; });
-    return { c: outline(w, h, 'rgba(30,34,22,0.14)', function (g) {
-      ks.forEach(function (k) {
-        E(g, k.x + 8, k.y + 2, k.w + 4, 5, 'rgba(12,16,26,0.25)');
-        g.fillStyle = gD; g.beginPath(); g.ellipse(k.x, k.y, k.w, k.h, 0, Math.PI, 0); g.fill();
-        g.fillStyle = gC; g.beginPath(); g.ellipse(k.x - k.w * 0.18, k.y, k.w * 0.82, k.h * 0.96, 0, Math.PI, 0); g.fill();
-        g.fillStyle = gL; g.beginPath(); g.ellipse(k.x - k.w * 0.38, k.y - k.h * 0.25, k.w * 0.4, k.h * 0.55, 0, Math.PI, 0); g.fill();
-        for (var j = 0; j < k.w; j++) { var gx = k.x - k.w + j * 2, gy = k.y - Math.sqrt(Math.max(0, 1 - Math.pow((gx - k.x) / k.w, 2))) * k.h * (0.3 + r() * 0.6); L(g, gx, gy, gx + (r() - 0.5) * 2, gy - 2 - r() * 2, r() > 0.5 ? gL : gD, 0.8); }
-        if (r() < 0.7) { var ox = k.x + (r() - 0.3) * k.w * 0.6, oy = k.y - k.h * (0.3 + r() * 0.4); P(g, [ox - 5, oy + 3, ox - 3, oy - 3, ox + 2, oy - 5, ox + 6, oy - 1, ox + 5, oy + 3], '#8c8478'); P(g, [ox - 3, oy - 3, ox + 2, oy - 5, ox + 1, oy, ox - 4, oy + 2], '#b0a898'); }
-      });
-      for (i = 0; i < 3; i++) { var q = inEllipse(r, ax, ay - 2, 44, 8); E(g, q[0], q[1] - 2, 3, 2.4, dry ? '#7a7a3a' : '#3e6a32'); E(g, q[0] - 1, q[1] - 3, 1.6, 1.2, dry ? '#9a9a4a' : '#5a8a40'); }
-    }), ax: ax, ay: ay };
+    var c = cv(w, h), g = c.getContext('2d');
+    ks.forEach(function (k) {
+      var L = k.x - k.w, Rr = k.x + k.w, cx = k.x + k.c * k.w, top = k.y - k.h;
+      E(g, k.x + 6, k.y + 2, k.w + 6, 4.5, 'rgba(12,16,26,0.22)');
+      var prof = function () { g.beginPath(); g.moveTo(L - 4, k.y + 1); g.bezierCurveTo(L + (cx - L) * 0.4, k.y - k.h * 0.15, cx - k.w * 0.35, top, cx, top); g.bezierCurveTo(cx + k.w * 0.25, top, Rr - (Rr - cx) * 0.35, k.y - k.h * 0.2, Rr + 4, k.y + 1); g.closePath(); };
+      prof(); g.fillStyle = gD; g.fill();
+      g.save(); prof(); g.clip(); g.fillStyle = gC; g.beginPath(); g.moveTo(L - 6, k.y + 2); g.lineTo(cx + 1, top - 2); g.lineTo(cx + k.w * 0.18, k.y + 2); g.closePath(); g.fill();
+      g.fillStyle = gL; g.beginPath(); g.moveTo(L + k.w * 0.25, k.y - k.h * 0.2); g.lineTo(cx, top); g.lineTo(cx - k.w * 0.18, k.y - k.h * 0.35); g.closePath(); g.fill();
+      for (var j = 0; j < k.w * 1.6; j++) { var gx = L + r() * k.w * 2, gy = k.y - r() * k.h; L2(g, gx, gy, gx + (r() - 0.5) * 1.5, gy - 1.5 - r() * 1.5, r() > 0.5 ? rgba(gL, 0.8) : rgba(gD, 0.7), 0.8); }
+      var rs = cx + (k.c > 0 ? -1 : 1) * k.w * 0.35, ry = top + k.h * 0.35; if (k.h > 11 && r() < 0.8) { P(g, [rs - 6, ry + 4, rs - 3, ry - 3, rs + 3, ry - 4, rs + 7, ry + 2, rs + 2, ry + 5], rock); P(g, [rs - 3, ry - 3, rs + 3, ry - 4, rs + 1, ry, rs - 4, ry + 2], shade(rock, 0.2)); L2(g, rs - 1, ry, rs + 4, ry + 2, shade(rock, -0.3), 0.8); }
+      g.restore();
+      g.strokeStyle = rgba('#fff4d8', 0.35); g.lineWidth = 1; g.beginPath(); g.moveTo(cx - k.w * 0.5, top + k.h * 0.3); g.quadraticCurveTo(cx - k.w * 0.2, top, cx, top + 0.5); g.stroke();
+    });
+    for (i = 0; i < 2 + (r() * 3 | 0); i++) { var q = inEllipse(r, ax, ay - 1, 46, 8); E(g, q[0], q[1] - 2, 2.6, 2, dry ? '#7a7a3a' : '#3e6a32'); E(g, q[0] - 1, q[1] - 3, 1.4, 1.1, dry ? '#9a9a4a' : '#5a8a40'); }
+    return { c: c, ax: ax, ay: ay };
+  }
+  function L2(g, x0, y0, x1, y1, c, w) { L(g, x0, y0, x1, y1, c, w); }
+
+  /* Flat ground v0.6 (grassland, plains, desert, cold ground; wet, cold and shore variants from the tile's moisture, temperature and coast):
+     authored at 2× inside the hex top and baked at 1× into the static terrain layer. Details cluster in groups instead of a uniform sprinkle. */
+  function ground(seed, kind, wet, cold, coast) {
+    var w = 96, h = 56, ax = 48, ay = 28, r = A.rng(seed), c = cv(w, h), g = c.getContext('2d'), i, j, q;
+    var clump = function (x, y, n, a, b, hgt) { for (var k = 0; k < n; k++) { var dx = (k - n / 2) * 0.9; L(g, x + dx, y, x + dx * 1.8 + (r() - 0.5), y - hgt * (0.6 + r() * 0.5), k % 2 ? a : b, 0.9); } };
+    var stone = function (x, y, s, col) { E(g, x + s * 0.6, y + 1, s * 1.1, s * 0.35, 'rgba(14,12,24,0.28)'); E(g, x, y - s * 0.3, s, s * 0.65, col); E(g, x - s * 0.3, y - s * 0.55, s * 0.5, s * 0.3, shade(col, 0.25)); };
+    var spot = function () { return inEllipse(r, ax, ay, 38, 19); };
+    if (kind === 'grassland') {
+      for (i = 0; i < 3; i++) { q = spot(); E(g, q[0], q[1], 7 + r() * 6, 3 + r() * 2, rgba(r() > 0.5 ? '#9ac25a' : '#5f8a32', 0.35)); } // tonal patches
+      for (i = 0; i < 6 + (r() * 4 | 0); i++) { q = spot(); clump(q[0], q[1], 5 + (r() * 4 | 0), '#4f7a2a', '#a8d06a', 5 + r() * 3); }
+      var fc = ['#f4e070', '#f4f0f4', '#e890b0', '#a8c0f4'][r() * 4 | 0]; for (j = 0; j < 1 + (r() < 0.5 ? 1 : 0); j++) { q = spot(); for (i = 0; i < 7; i++) E(g, q[0] + (r() - 0.5) * 8, q[1] + (r() - 0.5) * 4, 0.9, 0.9, i % 3 ? fc : '#ffffff'); }
+      if (r() < 0.5) { q = spot(); E(g, q[0], q[1], 5, 2.2, '#8a7048'); E(g, q[0] - 1, q[1] - 0.5, 3, 1.2, '#a88a5a'); stone(q[0] + 2, q[1], 1.2, '#9a9488'); }
+      if (wet) { for (j = 0; j < 2; j++) { q = spot(); E(g, q[0], q[1], 6 + r() * 4, 2.4, '#3f6a6a'); E(g, q[0] - 1, q[1] - 0.6, 4, 1, rgba('#bfe0e0', 0.6)); for (i = 0; i < 9; i++) L(g, q[0] - 7 + i * 1.6, q[1] + 1.5, q[0] - 7 + i * 1.6 + (r() - 0.5) * 2, q[1] - 5 - r() * 4, i % 2 ? '#7a8a3a' : '#5a6a2a', 1); } }
+    } else if (kind === 'plains') {
+      g.save(); g.beginPath(); g.ellipse(ax, ay, 40, 20, 0, 0, Math.PI * 2); g.clip(); var dir = r() < 0.5 ? 1 : -1;
+      for (i = -50; i < 50; i += 4) { L(g, ax + i, ay - 22, ax + i + dir * 22, ay + 22, rgba(i % 8 ? '#e8cc6e' : '#8a7a30', 0.28), 2); } g.restore();
+      for (i = 0; i < 5 + (r() * 3 | 0); i++) { q = spot(); clump(q[0], q[1], 4 + (r() * 3 | 0), '#a88a30', '#f0d870', 4 + r() * 2); }
+      if (r() < 0.45) { q = spot(); E(g, q[0] + 3, q[1] + 1, 6, 1.6, 'rgba(14,12,24,0.25)'); g.fillStyle = '#d8b850'; g.beginPath(); g.moveTo(q[0] - 4, q[1]); g.quadraticCurveTo(q[0], q[1] - 10, q[0] + 4, q[1]); g.fill(); L(g, q[0], q[1] - 8, q[0] + 3, q[1], '#a88a30', 1); }
+      for (i = 0; i < 2; i++) { q = spot(); stone(q[0], q[1], 1.3 + r(), '#a09888'); }
+    } else if (kind === 'desert') {
+      for (j = 0; j < 4 + (r() * 3 | 0); j++) { q = spot(); var rw = 10 + r() * 12; g.strokeStyle = rgba('#fff0c8', 0.45); g.lineWidth = 1; g.beginPath(); g.ellipse(q[0], q[1] + 3, rw, 4, -0.08, Math.PI * 1.08, Math.PI * 1.9); g.stroke(); g.strokeStyle = rgba('#a07a40', 0.35); g.beginPath(); g.ellipse(q[0] + 1, q[1] + 4, rw, 4, -0.08, Math.PI * 1.1, Math.PI * 1.85); g.stroke(); }
+      if (r() < 0.5) { q = spot(); for (i = 0; i < 6; i++) { var a = r() * 6.28; L(g, q[0], q[1], q[0] + Math.cos(a) * 5, q[1] + Math.sin(a) * 2.2, 'rgba(110,80,40,0.5)', 0.8); } } // a cracked pan
+      for (i = 0; i < 2 + (r() * 2 | 0); i++) { q = spot(); stone(q[0], q[1], 1.8 + r() * 1.6, '#a07a52'); }
+      if (r() < 0.6) { q = spot(); for (i = 0; i < 6; i++) L(g, q[0], q[1], q[0] + (i - 2.5) * 1.4, q[1] - 3 - r() * 2, '#8a8a4a', 0.9); }
+    } else { // tundra and cold ground
+      for (j = 0; j < 3 + (r() * 3 | 0); j++) { q = spot(); var sw = 5 + r() * 8; g.fillStyle = '#eef3f8'; g.beginPath(); g.ellipse(q[0], q[1], sw, sw * 0.38, (r() - 0.5) * 0.3, 0, 7); g.fill(); g.fillStyle = 'rgba(150,170,205,0.55)'; g.beginPath(); g.ellipse(q[0] + 1, q[1] + 1, sw, sw * 0.3, 0, 0, Math.PI); g.fill(); g.fillStyle = '#ffffff'; g.fillRect(q[0] - sw * 0.5, q[1] - 1, sw * 0.4, 1); }
+      for (i = 0; i < 3; i++) { q = spot(); stone(q[0], q[1], 1.6 + r(), '#7a7a78'); E(g, q[0] - 0.4, q[1] - 1.6, 1.4, 0.6, '#f4f8fc'); }
+      for (i = 0; i < 4; i++) { q = spot(); clump(q[0], q[1], 4, '#6a6a4a', '#8a8a6a', 3); }
+      for (i = 0; i < 2; i++) { q = spot(); L(g, q[0] - 4, q[1], q[0], q[1] - 1, 'rgba(200,220,240,0.7)'); L(g, q[0], q[1] - 1, q[0] + 3, q[1] + 1, 'rgba(200,220,240,0.7)'); }
+    }
+    if (cold && kind !== 'tundra') for (i = 0; i < 3; i++) { q = spot(); E(g, q[0], q[1], 5 + r() * 4, 1.6, 'rgba(236,242,248,0.75)'); }
+    if (coast) for (i = 0; i < 5; i++) { q = spot(); E(g, q[0], q[1], 1.2, 0.8, ['#c8c0b0', '#a89c88', '#e0d8c8'][i % 3]); if (i === 2) L(g, q[0] - 4, q[1] + 1, q[0] + 4, q[1], '#8a6a48', 1.4); } // pebbles and a piece of driftwood
+    return { c: c, ax: ax, ay: ay };
   }
 
-  var POOL = 8;
+  var POOL = 8, HILL_POOL = 12;
   /* the variant for a tile: family by terrain; class, altitude band, climate and a seeded index pick from the pool */
   function keyFor(t, tiles) {
     if (t.terrain === 'forest') return 'forest:' + (t.t < 0.4 ? 'cold' : t.t > 0.75 ? 'dry' : 'temp') + ':' + (t.id * 2654435761 >>> 0) % POOL;
-    if (t.terrain === 'hills') return 'hills:' + (t.t > 0.72 ? 'dry' : 'green') + ':' + (t.id * 2246822519 >>> 0) % POOL;
+    if (t.terrain === 'hills') return 'hills:' + (t.t > 0.72 ? 'dry' : 'green') + ':' + (t.id * 2246822519 >>> 0) % HILL_POOL;
     if (t.terrain === 'mountains') { var mnb = t.n.filter(function (n) { return n >= 0 && tiles[n].terrain === 'mountains'; }).length;
       return 'mountain:' + (mnb >= 5 ? 'heart' : mnb <= 2 ? 'edge' : 'mid') + ':' + (t.e > 0.93 ? 1 : 0) + ':' + (t.t < 0.75 ? 'snow' : 'bare') + ':' + (t.id * 3266489917 >>> 0) % POOL; }
     return null;
+  }
+  /* the flat-ground variant for a tile (baked only): kind, wet (moisture), cold (temperature), shore (coast), seeded index */
+  function groundKey(t) {
+    if (['grassland', 'plains', 'desert', 'tundra'].indexOf(t.terrain) < 0) return null;
+    return 'ground:' + t.terrain + ':' + (t.m > 0.68 && t.terrain === 'grassland' ? 1 : 0) + ':' + (t.t < 0.32 ? 1 : 0) + ':' + (t.coast ? 1 : 0) + ':' + (t.id * 2654435761 >>> 0) % 10;
   }
   function build(key) {
     var k = key.split(':'), seed = 0; for (var i = 0; i < key.length; i++) seed = (seed * 31 + key.charCodeAt(i)) >>> 0;
     if (k[0] === 'forest') return forest(seed, k[1] === 'cold', k[1] === 'dry');
     if (k[0] === 'hills') return knolls(seed, k[1] === 'dry');
     if (k[0] === 'mountain') return massif(seed, k[1], +k[2] ? 1 : 0.35, k[3] === 'snow');
+    if (k[0] === 'ground') return ground(seed, k[1], +k[2], +k[3], +k[4]);
     return null;
   }
-  A.terrain = { keyFor: keyFor, build: build, families: ['forest', 'hills', 'mountain'], POOL: POOL };
-  A.ids.terrain = ['forest', 'hills', 'mountain'];
+  A.terrain = { keyFor: keyFor, groundKey: groundKey, build: build, families: ['forest', 'hills', 'mountain'], POOL: POOL };
+  A.ids.terrain = ['forest', 'hills', 'mountain', 'ground'];
 })(typeof self !== 'undefined' ? self : this);

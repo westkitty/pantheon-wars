@@ -63,12 +63,22 @@
     // woven ground
     g.fillStyle = A.mix(pal.dark, '#2a2418', 0.5); g.fillRect(0, 0, W, Hh);
     var r = A.rng(f.seed * 7 + 1);
-    for (var y = 0; y < Hh; y += 3) { g.fillStyle = 'rgba(255,240,210,' + (0.02 + r() * 0.03).toFixed(3) + ')'; g.fillRect(0, y, W, 1); }
-    for (var x = 0; x < W; x += 3) { g.fillStyle = 'rgba(0,0,0,' + (0.02 + r() * 0.03).toFixed(3) + ')'; g.fillRect(x, 0, 1, Hh); }
-    // border of every pantheon's insignia in play, repeated
-    var emSize = 44, bx = 0, i = 0;
-    for (bx = 20; bx < W - 40; bx += 60) { var pf = D.factions[f.players[i++ % f.players.length].faction]; g.drawImage(A.emblem(pf.emblem, pf.palette, emSize), bx, 14); g.drawImage(A.emblem(pf.emblem, pf.palette, emSize), bx, Hh - 58); }
+    // v0.6 textile: a twill weave (warp and weft threads in two tones, a diagonal rib) instead of flat noise
+    var tw = A.cv(8, 8), twg = tw.getContext('2d'); twg.fillStyle = A.mix(pal.dark, '#2a2418', 0.5); twg.fillRect(0, 0, 8, 8);
+    for (var q = 0; q < 8; q++) { twg.fillStyle = 'rgba(255,240,210,0.07)'; twg.fillRect((q * 2) % 8, q, 3, 1); twg.fillStyle = 'rgba(0,0,0,0.12)'; twg.fillRect(q, (q * 2 + 4) % 8, 1, 2); }
+    g.fillStyle = g.createPattern(tw, 'repeat'); g.fillRect(0, 0, W, Hh);
+    for (var y = 0; y < Hh; y += 6) { g.fillStyle = 'rgba(255,240,210,' + (0.01 + r() * 0.025).toFixed(3) + ')'; g.fillRect(0, y, W, 1); } // irregular weft
+    // woven border bands: each pantheon in play contributes its heraldic pattern in its own colours, framed by gold rules; emblem medallions at the corners and centres
+    var i = 0, bandH = 46;
+    [[0, 12], [0, Hh - 12 - bandH]].forEach(function (b2) { for (var bx = 12, k = 0; bx < W - 12; bx += 120, k++) { var pf = D.factions[f.players[k % f.players.length].faction], seg = Math.min(120, W - 12 - bx);
+      g.fillStyle = A.mix(pf.palette.dark, '#1a140c', 0.3); g.fillRect(bx, b2[1], seg, bandH); g.fillStyle = g.createPattern(A.pattern(pf.pattern, A.mix(pf.palette.secondary, '#f3e6c4', 0.35), 3), 'repeat'); g.globalAlpha = 0.75; g.fillRect(bx, b2[1] + 6, seg, bandH - 12); g.globalAlpha = 1; } 
+      g.fillStyle = pal.accent; g.fillRect(12, b2[1], W - 24, 3); g.fillRect(12, b2[1] + bandH - 3, W - 24, 3); });
+    [[12, 12], [W - 12 - bandH, 12], [12, Hh - 12 - bandH], [W - 12 - bandH, Hh - 12 - bandH]].forEach(function (c2, k) { var pf = D.factions[f.players[k % f.players.length].faction]; g.fillStyle = '#1a140c'; g.fillRect(c2[0], c2[1], bandH, bandH); g.drawImage(A.emblem(pf.emblem, pf.palette, 64), c2[0] + 3, c2[1] + 3, bandH - 6, bandH - 6); });
+    for (var fx = 16; fx < W - 16; fx += 9) { g.fillStyle = fx % 18 ? A.shade(pal.accent, -0.2) : pal.accent; g.fillRect(fx, Hh - 12, 2, 10); g.fillRect(fx, 2, 2, 10); } // fringe
     g.strokeStyle = pal.accent; g.lineWidth = 4; g.strokeRect(10, 70, W - 20, Hh - 140); g.lineWidth = 1; g.strokeRect(18, 78, W - 36, Hh - 156);
+    // title cartouche: a ribbon with folded ends behind the title
+    g.fillStyle = A.mix(pal.dark, '#000000', 0.25); g.beginPath(); g.moveTo(W / 2 - 520, 92); g.lineTo(W / 2 + 520, 92); g.lineTo(W / 2 + 500, 116); g.lineTo(W / 2 + 520, 140); g.lineTo(W / 2 - 520, 140); g.lineTo(W / 2 - 500, 116); g.closePath(); g.fill();
+    g.strokeStyle = pal.accent; g.lineWidth = 2; g.stroke(); g.lineWidth = 1;
     // title
     g.textAlign = 'center'; g.fillStyle = '#f3d98e'; g.font = '600 46px "Palatino Linotype", Palatino, Georgia, serif';
     var title = winner ? winner.name + ' — ' + ({ ascendancy: 'Ascendancy', dominion: 'Dominion', twilight: 'Twilight Judgment', sacred: 'Sacred Ground', covenant: 'The Kept Word', objective: 'Trial Passed', objectiveFailed: 'Trial Lost' }[f.winner.type] || f.winner.type) : 'The Age Unfinished';
@@ -84,11 +94,11 @@
     tiles.forEach(function (t, k) {
       if (k > shown) return;
       var tx = ox + (t.q + (t.r & 1) * 0.5) * cell, ty = oy + t.r * cell * 0.82, water = D.terrain[t.terrain].water;
-      if (water) { g.fillStyle = 'rgba(80,120,150,0.35)'; g.fillRect(tx, ty, cell - 1, cell * 0.82 - 1); return; }
+      var hexP = function () { var hx = tx + cell / 2, hy = ty + cell * 0.41, rx = cell * 0.52, ry = cell * 0.5; g.beginPath(); for (var v = 0; v < 6; v++) { var an = Math.PI / 6 + v * Math.PI / 3; g.lineTo(hx + Math.cos(an) * rx, hy + Math.sin(an) * ry); } g.closePath(); };
+      if (water) { hexP(); g.fillStyle = 'rgba(70,112,146,0.45)'; g.fill(); g.strokeStyle = 'rgba(190,220,236,0.35)'; g.lineWidth = 1; g.beginPath(); for (var wx = 2; wx < cell - 2; wx += 2) g.lineTo(tx + wx, ty + cell * 0.41 + Math.sin(wx * 0.6 + t.id) * 1.5); g.stroke(); return; } // embroidered water
       var col = own[t.id] >= 0 ? D.factions[f.players[own[t.id]].faction].palette.secondary : A.mix(D.terrain[t.terrain].top, '#c8b890', 0.4);
-      g.fillStyle = col; g.fillRect(tx, ty, cell - 1, cell * 0.82 - 1);
-      if (own[t.id] >= 0) { g.globalAlpha = 0.35; g.fillStyle = g.createPattern(A.pattern(D.factions[f.players[own[t.id]].faction].pattern, '#ffffff', 1), 'repeat'); g.fillRect(tx, ty, cell - 1, cell * 0.82 - 1); g.globalAlpha = 1; }
-      g.fillStyle = 'rgba(0,0,0,0.18)'; g.fillRect(tx, ty + cell * 0.82 - 3, cell - 1, 2); // woven stitch
+      hexP(); g.fillStyle = col; g.fill(); g.setLineDash([2, 2]); g.strokeStyle = 'rgba(30,22,12,0.45)'; g.lineWidth = 1; g.stroke(); g.setLineDash([]); // stitched edge
+      if (own[t.id] >= 0) { g.save(); hexP(); g.clip(); g.globalAlpha = 0.4; g.fillStyle = g.createPattern(A.pattern(D.factions[f.players[own[t.id]].faction].pattern, '#ffffff', 1), 'repeat'); g.fillRect(tx, ty, cell, cell); g.restore(); }
     });
     // key settlements: the five largest at the end
     g.font = '600 14px Georgia, serif'; g.textAlign = 'left';

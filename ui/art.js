@@ -90,14 +90,14 @@
     // v0.1 originals
     oak: function (g) { g.fillStyle = '#6a4a2a'; g.fillRect(11, 13, 3, 9); [[12, 9, 6], [7, 11, 4], [17, 11, 4], [12, 5, 4]].forEach(function (d) { disc(g, d[0], d[1], d[2], '#4f7d33'); }); disc(g, 10, 7, 2, '#86b552'); px(g, 15, 9, '#e2b33c', 2, 2); px(g, 8, 12, '#e2b33c', 2, 2); },
     shield: function (g) { poly(g, [12, 3, 20, 6, 19, 15, 12, 21, 5, 15, 4, 6], '#c9a24a'); poly(g, [12, 5, 18, 7, 17, 14, 12, 19, 7, 14, 6, 7], '#2f6fb3'); disc(g, 12, 11, 2.5, '#e9e2cf'); px(g, 11, 10, '#111'); },
-    sheaf: function (g) { for (var i = -3; i <= 3; i++) { line(g, 12, 20, 12 + i * 2, 6, '#c9a23a'); disc(g, 12 + i * 2, 6, 1.4, '#f1d27a'); } g.fillStyle = '#7a5e3a'; g.fillRect(9, 14, 7, 2); },
+    sheaf: function (g) { for (var i = -4; i <= 4; i++) { line(g, 12, 20, 12 + i * 1.8, 5, '#c9a23a'); disc(g, 12 + i * 1.8, 5 + Math.abs(i) * 0.4, 1.5, i % 2 ? '#f1d27a' : '#e0b84a'); } rect(g, 8, 13, 9, 3, '#7a5e3a'); rect(g, 8, 13, 9, 1, '#a88a5a'); for (i = -2; i <= 2; i++) line(g, 12, 16, 12 + i * 2.5, 22, '#b8962e'); },
     bolt: function (g) { poly(g, [14, 2, 6, 13, 11, 13, 8, 22, 18, 9, 13, 9, 17, 2], '#ffd84a'); line(g, 14, 3, 9, 11, '#fff8d0'); },
     raven: function (g) { poly(g, [2, 15, 7, 10, 12, 10, 15, 6, 19, 5, 22, 7, 19, 8, 18, 11, 14, 14, 10, 15, 7, 19, 5, 17], '#22232b'); poly(g, [7, 10, 9, 3, 14, 2, 12, 9], '#30313b'); poly(g, [9, 4, 13, 3, 12, 8], '#4a4c58'); px(g, 18, 6, '#e8e8e8'); poly(g, [22, 7, 24, 8, 21, 9], '#6a6b74'); line(g, 10, 15, 9, 21, '#5a5b64'); line(g, 12, 14, 13, 21, '#5a5b64'); },
     rune: function (g) { poly(g, [7, 3, 17, 3, 18, 21, 6, 21], '#8c8a84'); poly(g, [8, 4, 16, 4, 17, 20, 7, 20], '#a9a7a0'); line(g, 10, 6, 10, 18, '#8a2b22', 2); line(g, 10, 7, 15, 10, '#8a2b22', 2); line(g, 10, 11, 15, 14, '#8a2b22', 2); },
     sunrain: function (g) { disc(g, 8, 8, 4, '#ffd36a'); disc(g, 15, 10, 5, '#c9d6de'); disc(g, 11, 11, 4, '#e4ecf0'); for (var i = 0; i < 4; i++) line(g, 9 + i * 3, 16, 8 + i * 3, 20, '#6fb0e0'); },
     hammer: function (g) { g.fillStyle = '#6a4a2a'; g.fillRect(11, 10, 3, 12); poly(g, [5, 4, 19, 4, 19, 11, 5, 11], '#9aa4ad'); poly(g, [5, 4, 19, 4, 19, 6, 5, 6], '#d6dde2'); line(g, 4, 2, 2, 0, '#ffd84a'); line(g, 20, 2, 22, 0, '#ffd84a'); },
     barque: function (g) { disc(g, 12, 7, 4, '#ffcf4a'); disc(g, 11, 6, 2, '#fff5c0'); poly(g, [2, 14, 22, 14, 19, 19, 5, 19], '#c9a24a'); poly(g, [2, 14, 4, 11, 5, 14], '#c9a24a'); poly(g, [22, 14, 20, 11, 19, 14], '#c9a24a'); line(g, 3, 21, 21, 21, '#2f6fb3'); },
-    throne: function (g) { poly(g, [7, 3, 12, 3, 12, 13, 18, 13, 18, 21, 7, 21], '#c9a24a'); poly(g, [8, 4, 11, 4, 11, 14, 17, 14, 17, 20, 8, 20], '#1f5fa8'); px(g, 9, 6, '#f1d27a', 2, 6); },
+    throne: function (g) { rect(g, 6, 2, 4, 17, '#c9a24a'); rect(g, 6, 2, 1, 17, '#f1d27a'); rect(g, 6, 12, 13, 4, '#c9a24a'); rect(g, 6, 12, 13, 1, '#f1d27a'); rect(g, 7, 16, 2, 6, '#8a6a2a'); rect(g, 16, 16, 2, 6, '#8a6a2a'); rect(g, 10, 4, 3, 8, '#1f5fa8'); poly(g, [13, 4, 22, 2, 20, 8, 13, 10], '#36b3a8'); poly(g, [13, 6, 21, 5, 19, 8, 13, 9], '#9fe0d8'); },
     sprout: function (g) { g.fillStyle = '#5b3a1e'; g.fillRect(4, 17, 16, 4); line(g, 12, 17, 12, 8, '#4f9a3c'); poly(g, [12, 11, 6, 7, 8, 12], '#7cc25a'); poly(g, [12, 9, 18, 5, 16, 10], '#7cc25a'); px(g, 5, 19, '#36b3a8', 14, 1); },
     feather: function (g) { poly(g, [5, 22, 9, 15, 13, 8, 18, 2, 19, 6, 16, 12, 11, 18], '#f4efe0'); poly(g, [9, 15, 13, 8, 18, 2, 17, 7, 14, 12], '#d8d0b8'); line(g, 5, 22, 18, 2, '#8a7a5a'); for (var i = 0; i < 4; i++) line(g, 10 + i * 2, 15 - i * 3, 14 + i * 2, 15 - i * 3, '#36b3a8'); },
     // Mesopotamian
@@ -109,7 +109,7 @@
     crow_omen: function (g) { rect(g, 9, 13, 6, 10, '#8c8a84'); rect(g, 9, 13, 2, 10, '#aaa8a0'); poly(g, [6, 10, 11, 7, 15, 7, 19, 4, 18, 8, 21, 9, 15, 11, 12, 13, 8, 12], '#1e1f26'); px(g, 17, 6, '#d8d8d8'); for (var i = 0; i < 3; i++) rect(g, 1 + i * 8, 20 - (i % 2), 7, 1, '#b6f0c8'); },
     gathering: function (g) { ring(g, 12, 13, 9, '#c9a04a'); ring(g, 12, 13, 7, '#5a4a30'); [[12, 7], [7, 15], [17, 15], [12, 18]].forEach(function (p) { disc(g, p[0], p[1] - 2, 1.3, '#e6c8a0'); rect(g, p[0] - 1, p[1] - 1, 3, 3, '#2e7d4f'); }); disc(g, 12, 13, 1.5, '#ffb04a'); },
     cauldron: function (g) { poly(g, [4, 11, 20, 11, 18, 20, 6, 20], '#2a2a2a'); rect(g, 3, 10, 18, 2, '#555'); rect(g, 6, 20, 2, 2, '#333'); rect(g, 16, 20, 2, 2, '#333'); for (var i = 0; i < 3; i++) line(g, 8 + i * 4, 9, 7 + i * 4, 3, '#e6e1cf'); px(g, 7, 13, '#7a7a7a', 3, 1); },
-    sovereignty: function (g) { ring(g, 12, 12, 9, '#c9a04a'); ring(g, 12, 12, 5, '#2e7d4f'); line(g, 3, 12, 21, 12, '#e6e1cf'); line(g, 12, 3, 12, 21, '#e6e1cf'); disc(g, 12, 12, 2, '#ffd84a'); },
+    sovereignty: function (g) { disc(g, 12, 13, 8, '#2e7d4f'); disc(g, 12, 13, 6, '#3a9a62'); poly(g, [6, 6, 8, 2, 10, 5, 12, 1, 14, 5, 16, 2, 18, 6], '#e0b84a'); rect(g, 6, 6, 12, 2, '#c9a04a'); for (var i = 0; i < 3; i++) disc(g, 9 + i * 3, 4.5, 0.8, '#ffffff'); ring(g, 12, 13, 8, '#c9a04a'); line(g, 7, 18, 17, 8, '#e6e1cf'); },
     // Mexica
     wind_spiral: function (g) { for (var t = 0; t < 12; t += 0.12) { var r = 1 + t * 0.75; px(g, 12 + Math.cos(t) * r, 12 + Math.sin(t) * r * 0.8, '#bff5ea'); } line(g, 2, 19, 22, 17, '#9ff5e4'); line(g, 4, 21, 18, 20, '#6fd8c8'); },
     lake_garden: function (g) { rect(g, 2, 15, 20, 7, '#2f8fa0'); poly(g, [5, 14, 19, 14, 18, 18, 6, 18], '#6a5034'); for (var i = 0; i < 6; i++) { line(g, 7 + i * 2, 14, 7 + i * 2, 9 + (i % 2), '#7cc25a'); px(g, 7 + i * 2, 8 + (i % 2), '#b8e870'); } for (i = 0; i < 4; i++) px(g, 5 + i * 4, 20, '#9ff5e4', 2, 1); },
@@ -122,13 +122,13 @@
     storm_axe: function (g) { line(g, 6, 21, 15, 5, '#6a4a2a', 2); poly(g, [13, 3, 21, 5, 19, 11, 14, 9], '#aab4bc'); poly(g, [3, 4, 9, 9, 6, 9, 10, 15, 4, 9, 7, 9], '#e8eef4'); },
     // Yoruba
     river_mirror: function (g) { disc(g, 12, 12, 8, '#4aa8c8'); disc(g, 12, 12, 6, '#9fd8f0'); ring(g, 12, 12, 8, '#e6b84a'); line(g, 7, 9, 10, 6, '#ffffff'); for (var x = 5; x < 20; x++) px(g, x, 15 + Math.round(Math.sin(x)), '#2f7a9a'); },
-    shaping_hands: function (g) { poly(g, [3, 18, 8, 10, 11, 12, 9, 19], '#c8946a'); poly(g, [21, 18, 16, 10, 13, 12, 15, 19], '#a87a52'); disc(g, 12, 9, 4, '#efe6d2'); px(g, 11, 7, '#ffffff', 2, 1); rect(g, 6, 20, 12, 2, '#8a6a4a'); },
+    shaping_hands: function (g) { poly(g, [6, 20, 9, 12, 11, 15, 11, 21], '#a87a52'); poly(g, [18, 20, 15, 12, 13, 15, 13, 21], '#8a5a3a'); poly(g, [7, 12, 6, 8, 8, 9, 9, 12], '#a87a52'); poly(g, [17, 12, 18, 8, 16, 9, 15, 12], '#8a5a3a'); g.fillStyle = '#c8946a'; g.beginPath(); g.moveTo(9, 13); g.quadraticCurveTo(7, 6, 12, 4); g.quadraticCurveTo(17, 6, 15, 13); g.closePath(); g.fill(); rect(g, 10, 4, 4, 1, '#e0b088'); line(g, 10, 7, 11, 11, '#e0b088'); rect(g, 4, 21, 16, 2, '#6a4a2a'); },
     iron_road: function (g) { poly(g, [2, 22, 9, 10, 15, 10, 22, 22], '#b8a070'); for (var i = 0; i < 4; i++) rect(g, 6 + i * 0.8, 12 + i * 3, 12 - i * 1.6 + i * 3, 1, '#6a5a3a'); rect(g, 7, 4, 10, 3, '#5a5a62'); rect(g, 9, 7, 6, 2, '#4a4a52'); rect(g, 8, 4, 8, 1, '#9a9aa4'); px(g, 18, 2, '#ffd060'); px(g, 20, 4, '#ff9a3a'); px(g, 5, 2, '#ffd060'); },
-    thunderstone: function (g) { poly(g, [12, 2, 7, 11, 11, 11, 9, 15, 15, 8, 12, 8, 14, 2], '#ffe070'); poly(g, [6, 16, 18, 16, 16, 21, 8, 21], '#7a6a5a'); poly(g, [7, 16, 12, 14, 17, 16], '#9a8a78'); },
+    thunderstone: function (g) { poly(g, [11, 1, 6, 9, 10, 9, 8, 14, 15, 6, 11, 6, 13, 1], '#ffe070'); line(g, 11, 2, 8, 8, '#fff8d0'); poly(g, [5, 16, 10, 13, 18, 14, 20, 18, 16, 22, 7, 22, 4, 19], '#6a5a4a'); poly(g, [5, 16, 10, 13, 14, 14, 9, 18, 5, 19], '#9a8a78'); line(g, 10, 17, 16, 19, '#4a3a2a'); },
     // Japanese
     mirror_sun: function (g) { disc(g, 12, 12, 7, '#e9c46a'); ring(g, 12, 12, 7, '#fff2c8'); disc(g, 12, 12, 4, '#fffbe8'); for (var i = 0; i < 8; i++) { var a = i * Math.PI / 4; line(g, 12 + Math.cos(a) * 8.5, 12 + Math.sin(a) * 8.5, 12 + Math.cos(a) * 10.5, 12 + Math.sin(a) * 10.5, '#ffd9c2'); } },
     torii_gate: function (g) { rect(g, 2, 4, 20, 2, '#e5532d'); rect(g, 4, 6, 16, 1, '#2a1512'); rect(g, 4, 8, 16, 2, '#e5532d'); rect(g, 6, 6, 2, 16, '#e5532d'); rect(g, 16, 6, 2, 16, '#e5532d'); rect(g, 11, 6, 2, 2, '#e5532d'); rect(g, 5, 21, 4, 1, '#2a1512'); rect(g, 15, 21, 4, 1, '#2a1512'); },
-    rice_sheaf: function (g) { for (var i = -2; i <= 2; i++) { line(g, 12, 21, 12 + i * 3, 8, '#b89a3a'); for (var k = 0; k < 4; k++) px(g, 12 + i * 3 + (i < 0 ? -1 : 1) * (k % 2), 7 + k * 1.5, '#f0d878'); } rect(g, 9, 15, 6, 2, '#e5532d'); },
+    rice_sheaf: function (g) { for (var i = -2; i <= 2; i++) { var tx = 12 + i * 3; line(g, 12, 21, tx, 6, '#7a9a3a'); for (var k = 0; k < 5; k++) { px(g, tx + (i < 0 ? -1 : 1) + (i === 0 ? (k % 2 ? 1 : -1) : 0), 4 + k * 1.6 + Math.abs(i) * 0.6, '#f0d878', 1, 1); } } rect(g, 9, 15, 7, 2, '#e5532d'); rect(g, 9, 15, 7, 1, '#ff8a6a'); },
     storm_cloud: function (g) { disc(g, 8, 9, 4, '#5a6270'); disc(g, 14, 7, 5, '#6a7282'); disc(g, 18, 10, 3.5, '#5a6270'); rect(g, 5, 10, 16, 3, '#4a5260'); for (var i = 0; i < 4; i++) line(g, 7 + i * 4, 14, 5 + i * 4, 20, '#9fc0e0'); poly(g, [13, 13, 10, 18, 12, 18, 10, 22, 15, 16, 13, 16, 15, 13], '#fff2a0'); },
     // Vedic
     dawn_horizon: function (g) { for (var y = 0; y < 14; y++) rect(g, 1, y + 2, 22, 1, mix('#3a2a5a', '#ffb070', y / 13)); rect(g, 1, 16, 22, 6, '#2c220c'); for (var x = -6; x <= 6; x++) { var h = Math.round(Math.sqrt(36 - x * x) * 0.7); rect(g, 12 + x, 16 - h, 1, h, '#fff0a0'); } },
@@ -169,17 +169,17 @@
   function icon(id, size) { var c = cv(24, 24), g = c.getContext('2d'); if (!ICONS[id]) throw new Error('no icon ' + id); ICONS[id](g); var m = mint(c); return size ? up(m, size) : m; }
 
   /* ---------------- heraldic territory patterns (P046): shape-coded so factions differ in grayscale. 12x12 tiles. */
-  var PATTERNS = {
-    meander: function (g, c) { rect(g, 1, 1, 9, 1, c); rect(g, 9, 1, 1, 7, c); rect(g, 4, 7, 6, 1, c); rect(g, 4, 4, 1, 4, c); rect(g, 4, 4, 3, 1, c); },
-    chevron: function (g, c) { for (var i = 0; i < 6; i++) { px(g, i, 4 + i, c, 1, 2); px(g, 11 - i, 4 + i, c, 1, 2); } },
-    hbar: function (g, c) { rect(g, 0, 2, 12, 2, c); rect(g, 0, 8, 12, 2, c); },
-    grid: function (g, c) { rect(g, 0, 0, 12, 1, c); rect(g, 0, 0, 1, 12, c); rect(g, 6, 6, 1, 1, c); },
-    dots: function (g, c) { rect(g, 2, 2, 2, 2, c); rect(g, 8, 8, 2, 2, c); },
-    zigzag: function (g, c) { for (var x = 0; x < 12; x++) px(g, x, 5 + (x % 4 < 2 ? x % 2 : 1 - x % 2) * 2, c, 1, 2); },
-    cross: function (g, c) { rect(g, 5, 2, 2, 8, c); rect(g, 2, 5, 8, 2, c); },
-    wave: function (g, c) { for (var x = 0; x < 12; x++) px(g, x, 5 + Math.round(Math.sin(x / 12 * Math.PI * 2) * 2), c, 1, 2); },
-    vbar: function (g, c) { rect(g, 2, 0, 2, 12, c); rect(g, 8, 0, 2, 12, c); },
-    ring: function (g, c) { ring(g, 6, 6, 3.5, c); }
+  var PATTERNS = { // v0.6: each a deliberate motif on a 12 px repeat, distinct by shape (greyscale-safe), drawn in one ink
+    meander: function (g, c) { rect(g, 0, 1, 10, 1, c); rect(g, 9, 1, 1, 8, c); rect(g, 3, 8, 7, 1, c); rect(g, 3, 4, 1, 5, c); rect(g, 3, 4, 4, 1, c); rect(g, 6, 4, 1, 2, c); rect(g, 0, 11, 12, 1, c); },                 // Greek key
+    chevron: function (g, c) { for (var i = 0; i < 6; i++) { px(g, i, 3 + i, c); px(g, 11 - i, 3 + i, c); px(g, i, 6 + i > 11 ? 11 : 6 + i, c); px(g, 11 - i, 6 + i > 11 ? 11 : 6 + i, c); } px(g, 5, 0, c, 2, 2); },  // interlaced double chevron
+    hbar: function (g, c) { rect(g, 0, 2, 12, 2, c); rect(g, 0, 9, 12, 1, c); for (var i = 0; i < 3; i++) { poly(g, [1 + i * 4, 8, 3 + i * 4, 5, 5 + i * 4, 8], c); } },                                             // band over a row of buds
+    grid: function (g, c) { rect(g, 0, 0, 12, 1, c); rect(g, 0, 6, 12, 1, c); rect(g, 0, 0, 1, 6, c); rect(g, 6, 6, 1, 6, c); },                                                                                        // brick bond
+    dots: function (g, c) { disc(g, 3, 3, 1.2, c); disc(g, 6, 2, 1.2, c); disc(g, 4.5, 5.5, 1.2, c); disc(g, 9, 9, 1.2, c); },                                                                                         // dot triads
+    zigzag: function (g, c) { rect(g, 0, 9, 3, 1, c); rect(g, 3, 6, 1, 4, c); rect(g, 3, 6, 3, 1, c); rect(g, 6, 3, 1, 4, c); rect(g, 6, 3, 3, 1, c); rect(g, 9, 3, 1, 7, c); rect(g, 9, 9, 3, 1, c); },          // stepped fret
+    cross: function (g, c) { rect(g, 5, 1, 2, 10, c); rect(g, 1, 5, 10, 2, c); rect(g, 0, 0, 2, 2, c); rect(g, 10, 10, 2, 2, c); },                                                                                  // cross lattice
+    wave: function (g, c) { for (var x = 0; x < 12; x++) { px(g, x, 3 + Math.round(Math.sin(x / 12 * Math.PI * 2) * 1.6), c); px(g, x, 8 + Math.round(Math.sin(x / 12 * Math.PI * 2 + Math.PI) * 1.6), c); } },  // double wave
+    vbar: function (g, c) { rect(g, 2, 0, 1, 12, c); rect(g, 8, 0, 1, 12, c); rect(g, 2, 5, 7, 1, c); },                                                                                                                 // lattice screen
+    ring: function (g, c) { ring(g, 6, 6, 3.5, c); px(g, 6, 6, c); }                                                                                                                                                     // ringed dot
   };
   function pattern(id, color, scale) { var c = cv(12, 12), g = c.getContext('2d'); (PATTERNS[id] || (function () { throw new Error('no pattern ' + id); })())(g, color); return scale ? up(c, 12 * scale) : c; }
 
@@ -232,6 +232,22 @@
     if (set !== 'coast' && set !== 'mountain' && art !== 'wave') { var tx = 10 + r() * 30; for (i = 0; i < 4; i++) { var hx = tx + i * 7, hy = 62 + Math.sin(hx * 0.05 + seed) * 4; rect(g, hx, hy - 4, 5, 4, shade(mid, -0.35)); poly(g, [hx - 1, hy - 4, hx + 2.5, hy - 7, hx + 6, hy - 4], shade(mid, -0.45)); if (age === 'twilight' || night) px(g, hx + 2, hy - 2, '#ffd27a'); } }
     if (age === 'dawn') { g.fillStyle = 'rgba(255,230,210,0.16)'; g.fillRect(0, 56, W, 12); }
   }
+  /* small figures and animals for event scenes, drawn on the ground line (x, y = feet), lit from the upper left */
+  function fig(g, x, y, c, pose, s) {
+    s = s || 1; var h = 9 * s, sk = '#d8b088';
+    if (pose === 'sit') { rect(g, x - 2 * s, y - 4 * s, 5 * s, 4 * s, c); rect(g, x - 1.5 * s, y - 7 * s, 3 * s, 3 * s, shade(c, 0.1)); disc(g, x, y - 8.5 * s, 1.6 * s, sk); return; }
+    if (pose === 'bend') { poly(g, [x - 3 * s, y - 5 * s, x + 3 * s, y - 7 * s, x + 4 * s, y - 4 * s, x - 2 * s, y - 2 * s], c); disc(g, x + 4.5 * s, y - 6.5 * s, 1.5 * s, sk); line(g, x - 1, y - 2 * s, x - 1, y, '#3a2a1a'); line(g, x + 2, y - 3 * s, x + 2, y, '#3a2a1a'); line(g, x + 4 * s, y - 4 * s, x + 5 * s, y, sk); return; }
+    var st = pose === 'walk' ? 1.5 * s : 0.6 * s; line(g, x - st, y, x - 0.5, y - 3 * s, '#3a2a1a'); line(g, x + st, y, x + 0.5, y - 3 * s, '#3a2a1a');
+    poly(g, [x - 2 * s, y - 3 * s, x + 2 * s, y - 3 * s, x + 1.5 * s, y - h + 2 * s, x - 1.5 * s, y - h + 2 * s], c); rect(g, x + 0.5 * s, y - h + 2 * s, 1.2 * s, h - 5 * s, shade(c, -0.25));
+    if (pose !== 'back') disc(g, x, y - h + 0.5 * s, 1.6 * s, sk); else disc(g, x, y - h + 0.5 * s, 1.6 * s, '#2a1c14');
+    if (pose === 'arms') { line(g, x - 2 * s, y - h + 3 * s, x - 4 * s, y - h - 1 * s, sk); line(g, x + 2 * s, y - h + 3 * s, x + 4 * s, y - h - 1 * s, sk); }
+    if (pose === 'point') line(g, x + 2 * s, y - h + 3 * s, x + 5 * s, y - h - 2 * s, sk);
+    if (pose === 'work') { line(g, x + 2 * s, y - h + 3 * s, x + 5 * s, y - h + 1 * s, sk); }
+  }
+  function ox(g, x, y) { rect(g, x - 6, y - 6, 12, 5, '#7a5a3a'); rect(g, x - 6, y - 6, 12, 1, '#9a7a52'); rect(g, x + 5, y - 7, 4, 4, '#6a4a2a'); line(g, x + 7, y - 7, x + 9, y - 9, '#e8e0c8'); for (var i = 0; i < 4; i++) line(g, x - 5 + i * 3.4, y - 1, x - 5 + i * 3.4, y + 1, '#4a3420'); }
+  function sheep(g, x, y) { disc(g, x, y - 4, 3.6, '#d8d4c8'); disc(g, x - 2, y - 5, 2.4, '#e8e4d8'); disc(g, x + 4, y - 4, 1.6, '#3a3430'); line(g, x - 2, y - 1, x - 2, y + 1, '#3a3430'); line(g, x + 2, y - 1, x + 2, y + 1, '#3a3430'); }
+  function horse(g, x, y, c) { rect(g, x - 6, y - 8, 12, 4, c); poly(g, [x + 5, y - 8, x + 9, y - 13, x + 11, y - 11, x + 7, y - 6], c); line(g, x - 5, y - 4, x - 7, y, c); line(g, x - 2, y - 4, x - 1, y, c); line(g, x + 3, y - 4, x + 5, y, c); line(g, x + 5, y - 4, x + 7, y - 1, c); line(g, x - 6, y - 7, x - 9, y - 5, shade(c, -0.3)); fig(g, x, y - 8, '#c84a2a', 'stand', 0.6); }
+  function sheafB(g, x, y, i) { for (var k = -2; k <= 2; k++) line(g, x, y, x + k * 1.2, y - 9, '#c9a23a'); disc(g, x, y - 9, 2, i % 2 ? '#f1d27a' : '#e0c050'); rect(g, x - 1.5, y - 5, 3, 1, '#7a5e3a'); }
   function sceneFront(g, W, H, art, age, r) {
     var set = SETTING[art] || 'plain', fg = set === 'coast' || set === 'lake' ? '#6a5a3a' : set === 'mountain' ? '#4a4640' : '#3a5a2a', i, x;
     if (age === 'twilight') fg = mix(fg, '#1a1028', 0.45);
@@ -249,27 +265,80 @@
       canal: ['#7a9ab8', '#e8d8a8'], assembly: ['#5a7a8a', '#d8e0c8'], chinampa: ['#5ab0d0', '#f0e8c0'], meadow: ['#8a9a8a', '#d8d0a8'], forge: ['#3a2a3a', '#c86a3a'], paddy: ['#c8a0a0', '#f8e8d8'], cloudbank: ['#4a4a5a', '#c8a878'] };
     var sk = skies[art] || AGE_TINT[age || 'zenith'];
     sceneBack(g, W, H, art, sk, age || 'zenith', r, seed || 0);
-    var cx = 80, cy = 40;
+    var cx = 80, cy = 40, nt = age === 'twilight';
+    // v0.6 subjects: each scene shows what its event is about, drawn on the scene's ground line with the same light (upper left)
     switch (art) {
-      case 'sheaf': for (i = -6; i <= 6; i++) { line(g, cx, cy + 26, cx + i * 4, cy - 14, '#c9a23a'); disc(g, cx + i * 4, cy - 14, 2.2, '#f1d27a'); } rect(g, cx - 8, cy + 12, 16, 3, '#7a5e3a'); for (i = 0; i < 5; i++) { rect(g, 20 + i * 26, 66, 6, 8, '#c9a23a'); } break;
-      case 'comet': disc(g, 118, 18, 4, '#fff'); for (i = 0; i < 60; i++) px(g, 114 - i * 1.6, 20 + i * 0.7, 'rgba(200,220,255,' + (1 - i / 60).toFixed(2) + ')', 3, 1); for (i = 0; i < 6; i++) { rect(g, 30 + i * 18, 64, 2, 8, '#1a1a22'); disc(g, 31 + i * 18, 62, 1.5, '#1a1a22'); } break;
-      case 'road': poly(g, [76, 50, 84, 50, 110, 90, 50, 90], '#b8a070'); for (i = 0; i < 4; i++) { var fx = 66 + i * 10; rect(g, fx, 60 - i, 3, 10, '#2a2018'); disc(g, fx + 1, 57 - i, 2, '#2a2018'); line(g, fx + 4, 52 - i, fx + 4, 70 - i, '#5a4a30'); } disc(g, 80, 30, 6, '#ffe8a0'); break;
-      case 'sun': disc(g, cx, 30, 16, '#fff1b0'); disc(g, cx, 30, 11, '#ffffff'); for (i = 0; i < 16; i++) { t = i * Math.PI / 8; line(g, cx + Math.cos(t) * 19, 30 + Math.sin(t) * 19, cx + Math.cos(t) * 26, 30 + Math.sin(t) * 26, '#ffd36a'); } g.fillStyle = '#8a6a3a'; for (x = 10; x < 150; x += 9) g.fillRect(x, 76 + (x % 3), 6, 1); for (i = 0; i < 5; i++) line(g, 20 + i * 30, 70, 26 + i * 30, 64, '#6a4a2a'); break;
-      case 'mask': poly(g, [cx - 14, 18, cx + 14, 18, cx + 11, 46, cx, 56, cx - 11, 46], '#d8d0c0'); disc(g, cx - 6, 32, 3, '#111'); disc(g, cx + 6, 32, 3, '#111'); line(g, cx - 5, 45, cx + 5, 45, '#5a3a3a'); for (i = 0; i < 9; i++) { rect(g, 20 + i * 14, 66, 5, 8, '#2a1e2a'); disc(g, 22 + i * 14, 64, 2, '#2a1e2a'); } break;
-      case 'chisel': poly(g, [50, 74, 104, 74, 100, 30, 56, 26], '#b8b0a0'); poly(g, [56, 26, 100, 30, 96, 22, 60, 20], '#d8d0c0'); line(g, 112, 12, 96, 40, '#6a4a2a', 3); line(g, 96, 40, 92, 48, '#c0c8d0', 3); for (i = 0; i < 10; i++) px(g, 84 + r() * 12, 44 + r() * 8, '#fff'); for (i = 0; i < 4; i++) line(g, 62, 34 + i * 9, 92, 36 + i * 9, '#9a9080'); break;
-      case 'drop': for (i = 0; i < 7; i++) { var hx = 18 + i * 19; poly(g, [hx, 72, hx + 12, 72, hx + 12, 62, hx + 6, 56, hx, 62], '#4a3a2a'); px(g, hx + 5, 65, '#ffcf6a', 3, 3); } disc(g, cx, 26, 8, '#7fb3d8'); poly(g, [cx - 8, 24, cx, 10, cx + 8, 24], '#7fb3d8'); break;
-      case 'wave': for (y = 50; y < H; y += 3) for (x = 0; x < W; x++) px(g, x, y + Math.sin(x * 0.12 + y) * 2, y % 2 ? '#2f6f8a' : '#245a72'); poly(g, [66, 48, 94, 48, 88, 54, 72, 54], '#5a3a1a'); line(g, 80, 48, 80, 26, '#5a3a1a', 2); poly(g, [80, 26, 94, 40, 80, 40], '#d8d0c0'); for (i = 0; i < 10; i++) line(g, 10 + i * 16, 2, 4 + i * 16, 22, 'rgba(200,220,255,0.5)'); break;
-      case 'lyre': line(g, cx - 12, 56, cx - 15, 16, '#c9a24a', 3); line(g, cx + 12, 56, cx + 15, 16, '#c9a24a', 3); line(g, cx - 15, 18, cx + 15, 18, '#c9a24a', 3); rect(g, cx - 13, 55, 27, 4, '#c9a24a'); for (i = -3; i <= 3; i++) line(g, cx + i * 3.5, 20, cx + i * 3.5, 54, '#f4efe0'); break;
-      case 'eclipse': disc(g, cx, 32, 18, '#ffcf6a'); disc(g, cx, 32, 15, '#fff1b0'); disc(g, cx + 2, 32, 15, '#0a0810'); ring(g, cx, 32, 20, '#ff8a3a'); for (i = 0; i < 8; i++) { rect(g, 22 + i * 16, 66, 3, 8, '#120c18'); disc(g, 23 + i * 16, 64, 2, '#120c18'); } break;
-      case 'coins': for (i = 0; i < 6; i++) { var bx = 20 + i * 22; g.fillStyle = ['#8a5a3a', '#6a7a4a', '#7a4a6a', '#4a6a8a', '#8a6a3a', '#5a7a6a'][i]; g.fillRect(bx, 56, 16, 12); poly(g, [bx - 2, 56, bx + 8, 48, bx + 18, 56], '#b8a070'); } disc(g, cx, 28, 6, '#f1d27a'); disc(g, cx - 10, 33, 5, '#e2b33c'); disc(g, cx + 10, 33, 5, '#e2b33c'); break;
-      case 'altar': poly(g, [56, 76, 104, 76, 100, 50, 60, 50], '#8a8478'); poly(g, [60, 50, 100, 50, 94, 44, 66, 44], '#a8a294'); for (i = 0; i < 6; i++) px(g, 66 + i * 6, 58, '#3a3530', 3, 8); g.fillStyle = 'rgba(255,220,140,0.35)'; for (i = 0; i < 8; i++) g.fillRect(74 + i, 12 + i * 4, 12 - i, 30 - i * 4); for (i = 0; i < 3; i++) line(g, 30 + i * 6, 76, 34 + i * 6, 64, '#5a4a30', 2); break;
-      case 'canal': for (y = 60; y < 70; y++) rect(g, 0, y, W, 1, mix('#4a8aa0', '#2a6a80', (y - 60) / 10)); rect(g, 0, 58, W, 2, '#8a6a42'); rect(g, 0, 70, W, 2, '#8a6a42'); for (i = 0; i < 6; i++) { rect(g, 14 + i * 24, 48, 4, 10, '#3a2a1a'); disc(g, 16 + i * 24, 46, 2, '#3a2a1a'); line(g, 18 + i * 24, 50, 24 + i * 24, 60, '#6a4a2a', 2); } rect(g, 116, 30, 26, 18, '#c8a878'); rect(g, 122, 22, 14, 8, '#d8bc8c'); break;
-      case 'assembly': g.fillStyle = '#4f7a3a'; g.beginPath(); g.ellipse(80, 66, 60, 14, 0, 0, 7); g.fill(); g.fillStyle = '#2f4a24'; g.beginPath(); g.ellipse(80, 66, 50, 10, 0, 0, 7); g.fill(); g.fillStyle = '#6f9a4a'; g.beginPath(); g.ellipse(80, 64, 40, 8, 0, 0, 7); g.fill(); for (i = 0; i < 12; i++) { var ax = 46 + i * 6; rect(g, ax, 56 - (i % 3), 3, 7, ['#2e7d4f', '#8a3a2a', '#c9a04a'][i % 3]); disc(g, ax + 1, 54 - (i % 3), 1.5, '#e6c8a0'); } disc(g, 80, 50, 3, '#ffb04a'); break;
-      case 'chinampa': for (y = 56; y < H; y++) rect(g, 0, y, W, 1, mix('#3a9ab0', '#1f6a80', (y - 56) / 34)); for (i = 0; i < 5; i++) { var cxx = 14 + i * 30; poly(g, [cxx, 62, cxx + 24, 62, cxx + 22, 70, cxx + 2, 70], '#6a5034'); for (var k = 0; k < 6; k++) line(g, cxx + 3 + k * 3.5, 62, cxx + 3 + k * 3.5, 54 - (k % 2) * 2, '#7cc25a'); } rect(g, 58, 76, 30, 4, '#5a3a20'); disc(g, 72, 72, 2, '#3a2a1a'); break;
-      case 'meadow': for (i = 0; i < 30; i++) line(g, 6 + i * 5, 78, 6 + i * 5 + (r() - 0.5) * 4, 66 + r() * 4, '#9a9a6a'); for (i = 0; i < 4; i++) { disc(g, 30 + i * 30, 70, 4, '#d8d0c0'); disc(g, 28 + i * 30, 67, 2, '#d8d0c0'); } rect(g, 116, 40, 6, 3, '#e0b030'); disc(g, 115, 41, 1.5, '#2a2010'); line(g, 100, 30, 116, 40, 'rgba(255,240,180,0.6)'); break;
-      case 'forge': rect(g, 58, 50, 44, 26, '#5a3a2a'); poly(g, [54, 52, 80, 34, 106, 52], '#3a2a1a'); disc(g, 80, 64, 8, '#ff8a3a'); disc(g, 80, 64, 4, '#ffe070'); for (i = 0; i < 18; i++) px(g, 70 + r() * 20, 40 + r() * 20, '#ffd060'); poly(g, [0, 82, 160, 76, 160, 90, 0, 90], '#8a6a42'); for (i = 0; i < 4; i++) { rect(g, 14 + i * 9, 66, 3, 9, '#2a1a1a'); disc(g, 15 + i * 9, 64, 2, '#2a1a1a'); } break;
-      case 'paddy': for (y = 58; y < H; y += 6) for (x = 0; x < W; x += 20) { rect(g, x + 1, y + 1, 18, 4, '#7ab0c8'); for (k = 0; k < 4; k++) px(g, x + 3 + k * 4, y + 1, '#7cb85a', 1, 3); } for (i = 0; i < 6; i++) { rect(g, 20 + i * 22, 52, 3, 8, '#e5532d'); disc(g, 21 + i * 22, 50, 2.5, '#d8c8a0'); } break;
-      case 'cloudbank': for (i = 0; i < 6; i++) disc(g, 20 + i * 26, 22 + (i % 2) * 6, 16 + (i % 3) * 3, i % 2 ? '#5a6270' : '#6a7282'); rect(g, 0, 30, W, 8, '#4a5260'); for (y = 72; y < H; y++) rect(g, 0, y, W, 1, '#8a6a42'); for (i = 0; i < 4; i++) { rect(g, 30 + i * 30, 66, 10, 5, '#b8a080'); rect(g, 31 + i * 30, 63, 2, 3, '#b8a080'); } for (i = 0; i < 8; i++) line(g, 40 + i * 10, 40, 38 + i * 10, 44, 'rgba(160,190,230,0.5)'); break;
+      case 'sheaf': // the harvest heaped before the altar in the largest town, people singing round it, bunting between poles
+        line(g, 34, 44, 126, 44, '#6a4a2a'); for (i = 0; i < 12; i++) poly(g, [38 + i * 7.5, 44, 42 + i * 7.5, 44, 40 + i * 7.5, 49], ['#d84a28', '#e0b33a', '#2f6fb3'][i % 3]); rect(g, 33, 40, 2, 34, '#5a3a20'); rect(g, 126, 40, 2, 34, '#5a3a20');
+        rect(g, 66, 66, 28, 8, '#9a9080'); rect(g, 66, 66, 28, 2, '#c8c0aa'); for (i = 0; i < 7; i++) sheafB(g, 68 + i * 3.6, 66 - (i % 2) * 3, i);
+        for (i = 0; i < 9; i++) fig(g, 22 + i * (i < 4 ? 9 : 10) + (i >= 4 ? 44 : 0), 80, ['#8a3a2a', '#2f6f8a', '#6a7a3a', '#7a5a8a'][i % 4], i % 2 ? 'arms' : 'stand'); break;
+      case 'comet': // a pale comet over the hills; villagers on the ridge point up
+        for (i = 0; i < 70; i++) px(g, 118 - i * 1.4, 16 + i * 0.55, 'rgba(210,225,255,' + (0.9 - i / 80).toFixed(2) + ')', 2, i < 20 ? 2 : 1); for (i = 0; i < 40; i++) px(g, 118 - i * 1.6, 13 + i * 0.4, 'rgba(255,240,200,' + (0.6 - i / 70).toFixed(2) + ')');
+        disc(g, 119, 16, 3.5, '#ffffff'); disc(g, 119, 16, 6, 'rgba(220,235,255,0.35)');
+        for (i = 0; i < 6; i++) fig(g, 34 + i * 12, 76 - (i % 2), '#1a1a26', 'point'); break;
+      case 'road': // a crossroads with a signpost; pilgrims with staffs and bundles take the roads
+        poly(g, [72, 60, 88, 60, 130, 90, 30, 90], '#c8b080'); poly(g, [0, 72, 160, 66, 160, 74, 0, 82], '#bea676'); for (i = 0; i < 30; i++) px(g, 40 + r() * 80, 70 + r() * 18, '#a89060');
+        rect(g, 108, 52, 2, 22, '#5a3a20'); poly(g, [110, 54, 124, 54, 127, 56, 124, 58, 110, 58], '#8a6a42'); poly(g, [108, 60, 94, 60, 91, 62, 94, 64, 108, 64], '#8a6a42'); poly(g, [110, 66, 121, 66, 124, 68, 121, 70, 110, 70], '#7a5a38');
+        for (i = 0; i < 4; i++) { fig(g, 52 + i * 11, 84 - i * 3, ['#7a6248', '#6a5a4a', '#8a7458', '#5a4a3a'][i], 'walk'); line(g, 56 + i * 11, 85 - i * 3, 57 + i * 11, 72 - i * 3, '#5a3a20'); disc(g, 50 + i * 11, 77 - i * 3, 1.8, '#a88a5a'); } break;
+      case 'sun': // the dry season: a fierce sun, a sunken well with its bucket, the river reduced to stones
+        disc(g, cx, 22, 12, '#fff1b0'); disc(g, cx, 22, 8, '#ffffff'); for (i = 0; i < 16; i++) { t = i * Math.PI / 8; line(g, cx + Math.cos(t) * 15, 22 + Math.sin(t) * 15, cx + Math.cos(t) * 21, 22 + Math.sin(t) * 21, '#ffd36a'); }
+        poly(g, [0, 78, 160, 72, 160, 80, 0, 86], '#b89a68'); for (i = 0; i < 18; i++) { disc(g, 10 + i * 8.5 + r() * 3, 79 - i * 0.35 + r() * 2, 1.6 + r(), i % 2 ? '#8a8070' : '#a89c8a'); }
+        rect(g, 112, 64, 14, 10, '#8a8070'); rect(g, 112, 64, 14, 2, '#a8a294'); rect(g, 113, 52, 2, 12, '#5a3a20'); rect(g, 123, 52, 2, 12, '#5a3a20'); rect(g, 112, 51, 14, 2, '#6a4a2a'); line(g, 119, 53, 119, 60, '#3a2a1a'); rect(g, 117, 60, 4, 3, '#7a5a38');
+        fig(g, 104, 74, '#8a5a3a', 'stand'); fig(g, 134, 74, '#5a6a7a', 'arms'); for (i = 0; i < 4; i++) { line(g, 20 + i * 12, 70, 18 + i * 12, 64, '#8a7a4a'); line(g, 18 + i * 12, 64, 15 + i * 12, 66, '#8a7a4a'); } break;
+      case 'mask': // a rival prophet: a speaker on a crate in the market, arms raised, the crowd turned toward him
+        for (i = 0; i < 3; i++) { rect(g, 14 + i * 50, 56, 30, 12, '#5a4a3a'); poly(g, [12 + i * 50, 56, 29 + i * 50, 48, 46 + i * 50, 56], ['#8a3a2a', '#2f6f6a', '#8a6a2a'][i]); }
+        rect(g, 74, 68, 14, 7, '#8a6a42'); rect(g, 74, 68, 14, 1, '#a88a5a'); fig(g, 81, 68, '#e8e0c8', 'arms', 1.3);
+        for (i = 0; i < 12; i++) fig(g, 24 + i * 10 + (i > 5 ? 8 : 0), 84 + (i % 3), ['#3a2a2a', '#2a3a3a', '#3a3a2a'][i % 3], 'back'); break;
+      case 'chisel': // the sculptor: a mason before a half-carved block, mallet raised; chips fly
+        poly(g, [56, 80, 104, 80, 102, 40, 58, 38], '#c8c0b0'); poly(g, [58, 38, 102, 40, 98, 33, 62, 32], '#e0d8c8'); poly(g, [102, 40, 108, 36, 108, 76, 104, 80], '#9a9282');
+        for (i = 0; i < 3; i++) { rect(g, 64, 50 + i * 9, 32, 1, '#9a9080'); for (var kk = 0; kk < 5; kk++) rect(g, 66 + kk * 6, 52 + i * 9, 3, 5, '#b0a898'); } // a relief band, lower courses finished, the top still rough
+        for (i = 0; i < 8; i++) poly(g, [60 + i * 5, 38, 62 + i * 5, 34 - (i % 3), 64 + i * 5, 38], '#d8d0c0');
+        fig(g, 118, 82, '#6a4a3a', 'work', 1.3); line(g, 112, 62, 106, 58, '#5a3a20', 2); rect(g, 103, 56, 4, 4, '#7a6a5a'); for (i = 0; i < 8; i++) px(g, 104 - r() * 10, 54 + r() * 10, '#ffffff'); break;
+      case 'drop': // fever in the lowlands: low houses in the mist, lamps lit in doorways, a family waiting
+        for (i = 0; i < 6; i++) { var hx = 12 + i * 24, hy = 74; rect(g, hx, hy - 10, 16, 10, '#5a4a3a'); poly(g, [hx - 2, hy - 10, hx + 8, hy - 17, hx + 18, hy - 10], '#3a2e24'); rect(g, hx + 6, hy - 6, 4, 6, '#ffcf6a'); disc(g, hx + 8, hy - 3, 5, 'rgba(255,200,100,0.18)'); }
+        g.fillStyle = 'rgba(220,226,230,0.35)'; for (i = 0; i < 5; i++) g.fillRect(0, 62 + i * 4, 160, 2); fig(g, 64, 84, '#4a3a4a', 'stand'); fig(g, 70, 84, '#5a4a3a', 'stand'); fig(g, 75, 84, '#6a5a4a', 'stand', 0.7); break;
+      case 'wave': // storm on the water: boats tossed under a black sky, women on the headland
+        for (y = 52; y < H; y += 3) for (x = 0; x < W; x += 2) px(g, x, y + Math.sin(x * 0.11 + y * 0.7) * 2.5, y % 2 ? '#2f6f8a' : '#245a72', 2, 1); for (i = 0; i < 14; i++) line(g, r() * 160, 54 + r() * 30, r() * 160 + 6, 54 + r() * 30, '#d8eef8');
+        [[56, 66, -0.3], [92, 72, 0.25]].forEach(function (b) { g.save(); g.translate(b[0], b[1]); g.rotate(b[2]); poly(g, [-10, 0, 10, 0, 7, 4, -7, 4], '#4a2e1a'); line(g, 0, 0, 0, -14, '#3a2a1a'); poly(g, [0, -14, 9, -3, 0, -3], '#e0d8c8'); g.restore(); });
+        poly(g, [120, 90, 128, 58, 140, 52, 160, 54, 160, 90], '#3a4a3a'); for (i = 0; i < 3; i++) fig(g, 138 + i * 6, 54, '#1a1a22', 'arms', 0.9);
+        for (i = 0; i < 10; i++) line(g, 10 + i * 16, 2, 4 + i * 16, 26, 'rgba(200,220,255,0.45)'); line(g, 100, 4, 94, 18, '#fff6c8'); line(g, 94, 18, 98, 22, '#fff6c8'); line(g, 98, 22, 92, 38, '#fff6c8'); break;
+      case 'lyre': // the wandering poet on a stone under a tree, a stringed instrument in his lap; listeners
+        rect(g, 116, 40, 4, 34, '#4a3420'); disc(g, 118, 34, 16, '#3a5a30'); disc(g, 112, 30, 8, '#4a6a3a'); poly(g, [64, 80, 86, 80, 84, 72, 66, 70], '#8a8478');
+        fig(g, 75, 72, '#7a4a8a', 'sit', 1.2); line(g, 79, 66, 82, 58, '#c9a24a', 1.5); line(g, 85, 66, 86, 58, '#c9a24a', 1.5); line(g, 81, 58, 87, 58, '#c9a24a'); for (i = 0; i < 3; i++) line(g, 81 + i * 2, 58, 81 + i * 2, 66, '#f4efe0');
+        for (i = 0; i < 4; i++) fig(g, 34 + i * 9, 82, ['#5a4a3a', '#3a4a5a', '#6a3a3a', '#4a5a3a'][i], 'sit'); break;
+      case 'eclipse': // an eclipse foretold: the sun swallowed, its corona burning; watchers on a stepped platform with a sighting staff
+        disc(g, cx, 30, 18, 'rgba(255,207,106,0.35)'); disc(g, cx, 30, 14, '#ffcf6a'); disc(g, cx, 30, 12.5, '#fff1b0'); disc(g, cx + 2, 30, 12.5, '#0a0810'); for (i = 0; i < 20; i++) { t = i * Math.PI / 10; line(g, cx + Math.cos(t) * 15, 30 + Math.sin(t) * 15, cx + Math.cos(t) * (18 + (i % 3) * 2), 30 + Math.sin(t) * (18 + (i % 3) * 2), 'rgba(255,200,120,0.6)'); }
+        rect(g, 98, 70, 36, 10, '#5a5048'); rect(g, 104, 62, 24, 8, '#6a6058'); rect(g, 110, 56, 12, 6, '#7a7068'); line(g, 118, 56, 112, 40, '#c8a050'); fig(g, 114, 56, '#2a2030', 'point'); fig(g, 106, 62, '#2a2030', 'stand'); break;
+      case 'coins': // a market town swells: stalls under awnings where the roads meet, a cart and new arrivals
+        for (i = 0; i < 5; i++) { var sx = 14 + i * 28; rect(g, sx, 64, 20, 10, '#6a5040'); poly(g, [sx - 3, 64, sx + 10, 57, sx + 23, 64], ['#c84a2a', '#2f8a6a', '#d8a83a', '#3a6ab0', '#8a4a8a'][i]); for (var q2 = 0; q2 < 3; q2++) disc(g, sx + 4 + q2 * 6, 63, 2, ['#e0b33a', '#7cc25a', '#d86a3a'][q2]); }
+        rect(g, 112, 78, 18, 6, '#7a5a38'); disc(g, 115, 84, 3, '#3a2a1a'); disc(g, 127, 84, 3, '#3a2a1a'); fig(g, 106, 84, '#5a4a3a', 'walk'); for (i = 0; i < 5; i++) fig(g, 30 + i * 13, 84 + (i % 2), ['#7a3a2a', '#2a4a6a', '#5a6a2a'][i % 3], i % 2 ? 'walk' : 'stand'); break;
+      case 'altar': // the buried altar: a ploughed hillside, oxen and plough stopped, a carved stone half out of the furrow
+        for (i = 0; i < 9; i++) line(g, 0, 70 + i * 2.4, 160, 64 + i * 2.6, 'rgba(70,50,30,0.5)');
+        poly(g, [70, 80, 96, 80, 94, 62, 72, 60], '#8a8478'); poly(g, [72, 60, 94, 62, 92, 58, 74, 57], '#a8a294'); for (i = 0; i < 3; i++) rect(g, 75, 64 + i * 5, 16, 1, '#5a5650'); for (i = 0; i < 4; i++) rect(g, 76 + i * 4, 65, 2, 3, '#6a6660');
+        ox(g, 26, 78); ox(g, 40, 80); line(g, 50, 76, 60, 72, '#5a3a20', 1.5); line(g, 60, 72, 64, 80, '#5a3a20', 1.5); fig(g, 112, 80, '#6a4a3a', 'point'); fig(g, 122, 80, '#4a3a2a', 'stand'); break;
+      case 'canal': // silt in the canals: a choked channel, workers lifting mud in baskets, dry fields beyond
+        for (y = 66; y < 76; y++) rect(g, 0, y, W, 1, mix('#4a7a80', '#3a5a50', (y - 66) / 10)); for (i = 0; i < 6; i++) { var mx = 10 + i * 26 + r() * 6; poly(g, [mx, 72, mx + 12, 66, mx + 20, 72], '#6a5034'); }
+        rect(g, 0, 64, W, 2, '#8a6a42'); rect(g, 0, 76, W, 2, '#8a6a42'); for (i = 0; i < 5; i++) { fig(g, 18 + i * 30, 66, '#5a4030', 'work'); disc(g, 24 + i * 30, 57, 2.6, '#7a5a38'); }
+        for (i = 0; i < 12; i++) line(g, 6 + i * 13, 88, 8 + i * 13, 82, '#a89a5a'); break;
+      case 'assembly': // the assembly on the hill: a ring of people on the earthwork, horses racing along the foot, a poet on the mound
+        g.fillStyle = '#5f8a42'; g.beginPath(); g.ellipse(80, 66, 54, 12, 0, 0, 7); g.fill(); g.fillStyle = '#4a6a34'; g.beginPath(); g.ellipse(80, 66, 44, 8, 0, 0, 7); g.fill(); g.fillStyle = '#6f9a4a'; g.beginPath(); g.ellipse(80, 64, 18, 5, 0, 0, 7); g.fill();
+        for (i = 0; i < 16; i++) { t = Math.PI + i / 15 * Math.PI; fig(g, 80 + Math.cos(t) * 46, 66 + Math.sin(t) * 10, ['#2e7d4f', '#8a3a2a', '#c9a04a', '#3a4a7a'][i % 4], 'stand', 0.8); } fig(g, 80, 62, '#e8e0c8', 'arms');
+        for (i = 0; i < 3; i++) horse(g, 30 + i * 22 + (i % 2) * 6, 84, ['#5a3a20', '#3a2a1a', '#8a6a42'][i]); break;
+      case 'chinampa': // new fields on the lake: reed fences staked in the shallows, a canoe heaping lake mud, planted rows
+        for (y = 58; y < H; y++) rect(g, 0, y, W, 1, mix('#3a9ab0', '#1f6a80', (y - 58) / 32)); for (i = 0; i < 4; i++) { var bx = 10 + i * 36; poly(g, [bx, 66, bx + 26, 66, bx + 24, 72, bx + 2, 72], i < 3 ? '#6a5034' : '#4a3a2a'); for (var k2 = 0; k2 <= 8; k2++) line(g, bx + k2 * 3.2, 72, bx + k2 * 3.2, 63, '#9a9a5a'); if (i < 3) for (k2 = 0; k2 < 6; k2++) { line(g, bx + 3 + k2 * 4, 66, bx + 3 + k2 * 4, 61 - (k2 % 2), '#7cc25a'); px(g, bx + 3 + k2 * 4, 60 - (k2 % 2), '#b8e870'); } }
+        poly(g, [60, 80, 92, 80, 88, 84, 64, 84], '#5a3a20'); fig(g, 70, 80, '#6a4030', 'work'); fig(g, 82, 80, '#4a5a3a', 'stand'); rect(g, 86, 76, 2, 4, '#3a2a1a'); break;
+      case 'meadow': // the meadows fall silent: grey grain that will not ripen, still sheep, the elders in a row, a bare tree
+        for (i = 0; i < 34; i++) line(g, 4 + i * 4.6, 82, 4 + i * 4.6 + (r() - 0.5) * 3, 70 + r() * 4, '#8a8a6a'); for (i = 0; i < 4; i++) sheep(g, 24 + i * 22, 78 - (i % 2) * 2);
+        line(g, 128, 76, 128, 48, '#5a4a3a', 2); line(g, 128, 56, 118, 48, '#5a4a3a'); line(g, 128, 52, 138, 44, '#5a4a3a'); for (i = 0; i < 3; i++) fig(g, 112 + i * 9, 84, '#4a4a4a', 'stand'); break;
+      case 'forge': // smiths open a road: a forge glowing, an anvil and sparks, a fresh road cut through the bush with stumps
+        rect(g, 20, 54, 38, 22, '#5a3a2a'); poly(g, [16, 56, 39, 40, 62, 56], '#3a2a1a'); disc(g, 39, 66, 6, '#ff8a3a'); disc(g, 39, 66, 3, '#ffe070'); rect(g, 64, 74, 10, 4, '#4a4a52'); rect(g, 66, 70, 6, 4, '#5a5a62'); for (i = 0; i < 16; i++) px(g, 68 + (r() - 0.5) * 16, 66 - r() * 14, '#ffd060');
+        fig(g, 78, 82, '#3a2a2a', 'work'); poly(g, [100, 90, 112, 62, 124, 62, 160, 90], '#a88a5a'); for (i = 0; i < 6; i++) { var sxs = 96 + i * 10; rect(g, sxs, 78 - i * 2, 3, 2, '#6a4a2a'); disc(g, 100 + i * 9, 56 - (i % 2) * 3, 4, '#3a5a2a'); } fig(g, 120, 72, '#6a5a4a', 'walk', 0.8); break;
+      case 'paddy': // planting the paddies: flooded terraces, villagers bent in a row, seedlings set in lines
+        for (y = 0; y < 4; y++) { var ty = 60 + y * 8; rect(g, 0, ty, W, 6, mix('#8ab8c8', '#6a9ab0', y / 4)); rect(g, 0, ty + 6, W, 2, '#6a5a3a'); for (x = 4; x < W; x += 6) if ((x + y * 3) % 12 < 8) line(g, x, ty + 4, x, ty + 1, '#7cb85a'); }
+        for (i = 0; i < 6; i++) fig(g, 26 + i * 20, 76 + (i % 2) * 8, ['#e5532d', '#3a4a7a', '#d8c8a0'][i % 3], 'bend'); break;
+      case 'cloudbank': // the rains are late: clouds piled over the hills that do not break, cattle in a dry riverbed, a herder
+        for (i = 0; i < 7; i++) disc(g, 14 + i * 24, 26 + (i % 2) * 6, 15 + (i % 3) * 3, i % 2 ? '#5a6270' : '#6a7282'); rect(g, 0, 32, W, 8, '#4a5260');
+        poly(g, [0, 82, 160, 76, 160, 84, 0, 90], '#a89070'); for (i = 0; i < 10; i++) disc(g, 8 + i * 16, 82 - i * 0.4, 1.4, '#8a8070'); for (i = 0; i < 4; i++) ox(g, 30 + i * 22, 78); fig(g, 128, 80, '#5a4030', 'stand'); line(g, 132, 80, 133, 68, '#5a3a20'); break;
       default: throw new Error('no event art ' + art);
     }
     sceneFront(g, W, H, art, age || 'zenith', r);

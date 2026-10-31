@@ -125,11 +125,16 @@
   };
 
   P.buildPatterns = function () {
+    // water v0.6: a wave field of crescent wavelets in staggered rows (lit crest, shaded trough, a few sun glints) that tiles seamlessly,
+    // and a second layer of long low swells; both drift at different speeds in composeWorld
     var c = A.cv(128, 64), g = c.getContext('2d'), r = A.rng(99);
-    for (var i = 0; i < 70; i++) { var x = r() * 128, y = r() * 64, w = 2 + r() * 6; g.fillStyle = 'rgba(220,240,255,' + (0.25 + r() * 0.5).toFixed(2) + ')'; g.fillRect(x | 0, y | 0, w | 0, 1); }
+    for (var row = 0; row < 8; row++) for (var col = 0; col < 7; col++) { var x = col * 18 + (row % 2) * 9 + r() * 6, y = row * 8 + 2 + r() * 3, w = 5 + r() * 7;
+      for (var ox = -128; ox <= 0; ox += 128) { g.strokeStyle = 'rgba(232,246,255,' + (0.35 + r() * 0.35).toFixed(2) + ')'; g.lineWidth = 1; g.beginPath(); g.moveTo(x + ox + 128 - w, y); g.quadraticCurveTo(x + ox + 128, y - 2.2, x + ox + 128 + w, y); g.stroke();
+        g.strokeStyle = 'rgba(20,60,90,0.22)'; g.beginPath(); g.moveTo(x + ox + 128 - w + 1, y + 1.4); g.quadraticCurveTo(x + ox + 128, y - 0.4, x + ox + 128 + w - 1, y + 1.4); g.stroke(); }
+      if (r() < 0.12) { g.fillStyle = 'rgba(255,252,236,0.9)'; g.fillRect(x | 0, y - 2 | 0, 2, 1); } }
     this.waterPat = c;
     var c2 = A.cv(128, 64), g2 = c2.getContext('2d'); r = A.rng(7);
-    for (i = 0; i < 40; i++) { g2.fillStyle = 'rgba(160,210,230,' + (0.15 + r() * 0.3).toFixed(2) + ')'; g2.fillRect(r() * 128 | 0, r() * 64 | 0, 3 + r() * 9 | 0, 1); }
+    for (var i = 0; i < 6; i++) { var sy = i * 11 + r() * 4; g2.strokeStyle = 'rgba(170,215,235,' + (0.18 + r() * 0.16).toFixed(2) + ')'; g2.lineWidth = 1.5; g2.beginPath(); for (var sx = 0; sx <= 128; sx += 4) g2.lineTo(sx, sy + Math.sin((sx / 128) * Math.PI * 2 * 2 + i) * 2); g2.stroke(); }
     this.waterPat2 = c2;
     var cc = A.cv(240, 110), cg = cc.getContext('2d'); r = A.rng(5);
     for (i = 0; i < 14; i++) { var bx = 40 + r() * 160, by = 40 + r() * 35, br = 22 + r() * 30, gr = cg.createRadialGradient(bx, by, 0, bx, by, br); gr.addColorStop(0, 'rgba(255,255,255,0.55)'); gr.addColorStop(1, 'rgba(255,255,255,0)'); cg.fillStyle = gr; cg.fillRect(0, 0, 240, 110); }
@@ -188,6 +193,9 @@
     for (var r = 0; r < state.map.h; r++) for (var q = 0; q < W; q++) self.drawTile(g, state, tiles[r * W + q], landNb);
     tiles.forEach(function (t) { self.drawCliffShadow(g, state, t); });
     tiles.forEach(function (t) { self.drawShadows(g, t); });
+    // shore (v0.6): a wet-sand and pebble band where land meets water, darker at the waterline, so coasts read as one continuous edge
+    if (this.foamPath) { g.save(); g.lineCap = 'round'; g.lineJoin = 'round'; g.strokeStyle = 'rgba(214,196,150,0.55)'; g.lineWidth = 6; g.stroke(this.foamPath); g.strokeStyle = 'rgba(120,104,78,0.45)'; g.lineWidth = 2; g.stroke(this.foamPath);
+      g.setLineDash([1, 4]); g.strokeStyle = 'rgba(236,228,208,0.6)'; g.lineWidth = 1.2; g.stroke(this.foamPath); g.restore(); }
     for (r = 0; r < state.map.h; r++) for (q = 0; q < W; q++) self.drawDecor(g, state, tiles[r * W + q]);
     // age grade: multiply the whole miniature by the age's light colour
     g.globalCompositeOperation = 'multiply'; g.fillStyle = light.mul; g.fillRect(0, 0, this.WW, this.WH); g.globalCompositeOperation = 'source-over';
@@ -346,32 +354,10 @@
     var pts = [];
     switch (t.terrain) {
       case 'forest': this.bakeTerrain(g, state, t, x, y); break;
-      case 'tundra':
-        for (i = 0; i < 4; i++) { var sp = inHex(); g.fillStyle = 'rgba(235,240,245,0.85)'; g.beginPath(); g.ellipse(sp[0], sp[1], 4 + rng() * 5, 2 + rng() * 1.5, 0, 0, 7); g.fill(); g.fillStyle = 'rgba(150,170,200,0.5)'; g.fillRect(sp[0] - 3 | 0, sp[1] + 1 | 0, 6, 1); }
-        for (i = 0; i < 3; i++) { sp = inHex(); g.strokeStyle = 'rgba(200,215,230,0.55)'; g.beginPath(); g.moveTo(sp[0] - 4, sp[1]); g.lineTo(sp[0], sp[1] - 1); g.lineTo(sp[0] + 3, sp[1] + 1); g.stroke(); } // frost cracks
-        for (i = 0; i < 3; i++) { sp = inHex(); g.fillStyle = '#6a6a66'; g.fillRect(sp[0] | 0, sp[1] | 0, 2, 1); }
-        if (rng() < 0.6) { n = 1 + (rng() * 3 | 0); for (i = 0; i < n; i++) pts.push(inHex()); pts.sort(function (a, b) { return a[1] - b[1]; }); pts.forEach(function (q) { conifer(g, q[0], q[1], 4 + (rng() * 2 | 0), '#22392c', '#36503e', true); }); }
-        break;
-      case 'hills': case 'mountains': this.bakeTerrain(g, state, t, x, y); break;
-      case 'desert':
-        for (i = 0; i < 4; i++) { var d = inHex(), dw = 8 + rng() * 8; g.strokeStyle = 'rgba(255,240,205,0.28)'; g.lineWidth = 1; g.beginPath(); g.ellipse(d[0], d[1] + 3, dw, 4, 0, Math.PI * 1.1, Math.PI * 1.9); g.stroke(); g.strokeStyle = 'rgba(120,80,40,0.22)'; g.beginPath(); g.ellipse(d[0] + 1, d[1] + 4, dw, 4, 0, Math.PI * 1.2, Math.PI * 1.9); g.stroke(); }
-        if (t.coast && rng() < 0.7) { var pp = inHex(); palm(g, pp[0], pp[1]); pp = inHex(); palm(g, pp[0], pp[1]); }
-        for (i = 0; i < 2; i++) { var rk = inHex(); g.fillStyle = '#8a6a48'; g.fillRect(rk[0] | 0, rk[1] | 0, 3, 2); g.fillStyle = '#b8946a'; g.fillRect(rk[0] | 0, rk[1] | 0, 2, 1); }
-        if (rng() < 0.6) { var sb = inHex(); shrub(g, sb[0], sb[1], '#8a8a4a'); }
-        break;
-      case 'plains':
-        g.save(); this.hexPath(g, x, y, 0.82); g.clip();
-        var fdir = rng() < 0.5 ? 14 : -14, fstep = 4 + (rng() * 2 | 0);
-        for (var sx = -34; sx < 34; sx += fstep) { g.strokeStyle = (sx / fstep | 0) % 2 ? 'rgba(232,206,110,0.20)' : 'rgba(110,100,40,0.15)'; g.lineWidth = 2; g.beginPath(); g.moveTo(x + sx, y - 20); g.lineTo(x + sx + fdir, y + 20); g.stroke(); }
-        g.restore();
-        if (rng() < 0.5) { var hs = inHex(); g.fillStyle = '#d8b850'; g.fillRect(hs[0] | 0, hs[1] - 2 | 0, 3, 3); g.fillStyle = '#a88a30'; g.fillRect(hs[0] + 2 | 0, hs[1] - 1 | 0, 1, 2); }
-        if (rng() < 0.35) { var bt = inHex(); broadleaf(g, bt[0], bt[1], 3.5, '#6a8a32'); }
-        break;
-      case 'grassland':
-        for (i = 0; i < 18; i++) { var gp = inHex(); g.fillStyle = rng() < 0.5 ? '#9ac25a' : '#4f7a2a'; g.fillRect(gp[0] | 0, gp[1] | 0, 1, 2); }
-        for (i = 0; i < 6; i++) { gp = inHex(); g.fillStyle = ['#f0e070', '#f4f0f0', '#d880a0', '#a0c0f0'][i % 4]; g.fillRect(gp[0] | 0, gp[1] | 0, 1, 1); }
-        if (rng() < 0.4) { var cl = inHex(); for (i = 0; i < 4; i++) g.fillRect(cl[0] + i * 2 | 0, cl[1] - (i % 2) | 0, 1, 2); }
-        if (rng() < 0.55) { n = 1 + (rng() * 2 | 0); for (i = 0; i < n; i++) pts.push(inHex()); pts.sort(function (a, b) { return a[1] - b[1]; }); pts.forEach(function (q) { broadleaf(g, q[0], q[1], 4 + rng() * 1.5, '#4f8a2f'); }); }
+      case 'tundra': case 'desert': case 'plains': case 'grassland': // flat ground from the 2× ground library, baked at 1×
+        var gk = A.terrain.groundKey(t); if (gk) { var gs = TERRAIN_SPR[gk] || (TERRAIN_SPR[gk] = A.terrain.build(gk)); g.imageSmoothingEnabled = true; g.drawImage(gs.c, x - gs.ax / 2, y - gs.ay / 2, gs.c.width / 2, gs.c.height / 2); g.imageSmoothingEnabled = false; }
+        if (t.terrain === 'desert' && t.coast && rng() < 0.7) { var pp = inHex(); palm(g, pp[0], pp[1]); pp = inHex(); palm(g, pp[0], pp[1]); }
+        if (t.terrain === 'grassland' && rng() < 0.4) { var bt = inHex(); broadleaf(g, bt[0], bt[1], 4 + rng() * 1.5, '#4f8a2f'); }
         break;
     }
   };
@@ -531,8 +517,29 @@
   P.emblemImage = function (fid, size) { var key = 'em:' + fid + ':' + size; if (!this.spriteCache[key]) { var f = this.fac[fid]; this.spriteCache[key] = A.emblem(f.emblem, f.palette, size); } return this.spriteCache[key]; };
 
   /* ---------------------------------------------------------- state sync */
+  /* Site transitions (v0.6): compare the previous and the new state for the same viewer and play a short, visual-only choreography on
+     revealed towns — never across a hot-seat hand-off (different viewer), a new map, a loaded save or any jump of more than one turn. */
+  P.siteTransitions = function (prev, state, viewer) {
+    if (!prev || prev === state || this.prevViewer !== viewer || prev.seed !== state.seed || state.turn - prev.turn > 1 || state.turn < prev.turn || !prev.settlements || prev.settlements.length !== state.settlements.length) return;
+    var self = this, rev = state.players[viewer].revealed, tier = function (s) { return Math.max(1, Math.min(5, Math.floor(s.pop / 2.6))); };
+    state.settlements.forEach(function (s, i) {
+      var o = prev.settlements[i]; if (!rev[s.tile] || !o) return; var k = null, txt = null, col = null;
+      if (!o.shrine && s.shrine) { k = 'raise'; txt = 'Shrine raised'; }
+      else if (o.shrine && !s.shrine) { k = 'collapse'; txt = 'Shrine falls'; }
+      else if (o.shrine && s.shrine) { var c0 = self.shrineCondition(prev, o), c1 = self.shrineCondition(state, s);
+        if (c1 !== c0) { if (c1 === 'damaged' || c1 === 'nearlyToppled') { k = 'damage'; txt = c1 === 'damaged' ? 'Shrine damaged' : 'Shrine nearly toppled'; } else if (c1 === 'fortified') { k = 'fortify'; txt = 'Shrine fortified'; } else if (c1 === 'restored' || (c1 === 'healthy' && (c0 === 'damaged' || c0 === 'nearlyToppled' || c0 === 'eclipsed'))) { k = 'raise'; txt = 'Shrine restored'; } } }
+      if (!k && s.controlledBy !== o.controlledBy && s.controlledBy >= 0) { k = 'claim'; txt = 'Kneels to ' + self.fac[state.players[s.controlledBy].faction].shortName; col = self.fac[state.players[s.controlledBy].faction].palette.accent; }
+      if (!k && tier(s) > tier(o)) { k = 'grow'; txt = 'The town grows'; }
+      if (!k && tier(s) < tier(o)) { k = 'decline'; txt = 'The town declines'; }
+      if (!k) return;
+      var p = self.top(state.map.tiles[s.tile]);
+      if (!self.reduced) self.fx.push({ k: 'site', s: k, x: p.x, y: p.y, life: 1.5, t: 0, delay: 0, c: col || '#ffe9a0', seed: s.id * 13 + state.turn });
+      self.addText(s.tile, txt, col || '#f3d98e');
+    });
+  };
   P.setState = function (state, viewer) {
     var prev = this.state; this.state = state; this.viewer = viewer;
+    try { this.siteTransitions(prev, state, viewer); } catch (e) { /* visual only */ }
     // the land is regraded for the new age (state objects are new on every engine step, so match the map by seed and size, not identity)
     if (this.staticLayer && this.mapSeed === state.seed && this.map && this.map.tiles.length === state.map.tiles.length && state.age && state.age !== this.staticAge) this.staticLayer = this.buildStatic(state);
     var rev = state.players[viewer].revealed, rk = 0; for (var i = 0; i < rev.length; i++) rk += rev[i] * (i % 97 + 1);
@@ -818,8 +825,10 @@
   };
   P.drawWeather = function (g, st, time, dt) {
     var self = this, E = this.E, rev = st.players[this.viewer].revealed, low = this.quality === 'low' || this.reduced;
+    self.windAt = {};
     st.climate.fronts.forEach(function (f) {
       if (E && !E.helpers.frontKnown(st, self.viewer, f)) return;
+      if (f.phase === 'active' && (f.kind === 'storm' || f.kind === 'rains') && E) E.helpers.inRadius(st, f.tile, f.radius).forEach(function (id) { self.windAt[id] = f.kind === 'storm' ? 2.6 : 1.6; });
       var tiles = E ? E.helpers.inRadius(st, f.tile, f.radius) : [f.tile];
       tiles = tiles.filter(function (id) { return rev[id]; }); if (!tiles.length) return;
       var c = self.top(st.map.tiles[f.tile]);
@@ -828,16 +837,34 @@
         self.weatherGlyph(g, f.kind, c.x, c.y - 30, 0.7); return;
       }
       if (f.phase === 'after') return;
+      // v0.6 weather on the ground, tile by tile (visual-only randomness seeded by tile and front; wind from the west)
+      var wind = f.kind === 'storm' ? 0.55 : 0.18;
       tiles.forEach(function (id) {
-        var p = self.top(st.map.tiles[id]), r = A.rng(id * 31 + f.id), i;
-        if (f.kind === 'drought') { g.fillStyle = 'rgba(255,200,120,0.10)'; self.hexPath(g, p.x, p.y, 0.98); g.fill(); }
-        if (f.kind === 'frost' && st.map.tiles[id].t < 0.4) { g.fillStyle = 'rgba(230,240,255,0.18)'; self.hexPath(g, p.x, p.y, 0.98); g.fill(); }
-        if (f.kind === 'omen') { g.fillStyle = 'rgba(160,120,220,0.08)'; self.hexPath(g, p.x, p.y, 0.98); g.fill(); }
+        var tt = st.map.tiles[id], p = self.top(tt), r = A.rng(id * 31 + f.id), i, ph;
+        if (f.kind === 'drought') {
+          g.fillStyle = 'rgba(255,196,110,0.12)'; self.hexPath(g, p.x, p.y, 0.98); g.fill();
+          g.strokeStyle = 'rgba(110,70,30,0.35)'; g.lineWidth = 0.8; g.beginPath(); for (i = 0; i < 5; i++) { var cx = p.x + (r() - 0.5) * 30, cy = p.y + (r() - 0.5) * 14; g.moveTo(cx, cy); g.lineTo(cx + (r() - 0.5) * 10, cy + (r() - 0.5) * 4); g.lineTo(cx + (r() - 0.5) * 12, cy + (r() - 0.5) * 6); } g.stroke(); // cracked ground
+          if (!low) { g.strokeStyle = 'rgba(255,236,200,0.22)'; g.lineWidth = 1; g.beginPath(); for (i = 0; i < 2; i++) { ph = (time * 0.5 + r()) % 1; var hy = p.y - 4 - ph * 22, hx = p.x - 12 + i * 14; for (var k = 0; k <= 10; k++) { var xx = hx + k * 1.4, yy = hy + Math.sin(k * 0.9 + time * 6 + i) * 1.4; if (k) g.lineTo(xx, yy); else g.moveTo(xx, yy); } } g.stroke(); // heat shimmer rising
+            for (i = 0; i < 2; i++) { ph = (time * 0.15 + r()) % 1; A.px(g, p.x - 24 + ph * 48, p.y - 6 + Math.sin(time + i * 3) * 3, 'rgba(210,170,110,0.6)'); } }
+        }
+        if (f.kind === 'frost') {
+          g.fillStyle = 'rgba(230,240,255,' + (tt.t < 0.4 ? 0.2 : 0.1) + ')'; self.hexPath(g, p.x, p.y, 0.98); g.fill();
+          g.strokeStyle = 'rgba(240,248,255,0.55)'; g.lineWidth = 1.2; self.hexPath(g, p.x, p.y, 0.9); g.stroke(); // rime at the edge
+          for (i = 0; i < 4; i++) { var fx = p.x + (r() - 0.5) * 34, fy = p.y + (r() - 0.5) * 16, tw = low ? 0.7 : 0.4 + 0.6 * Math.max(0, Math.sin(time * 2 + i * 1.7 + id)); g.strokeStyle = 'rgba(255,255,255,' + tw.toFixed(2) + ')'; g.lineWidth = 0.7; g.beginPath(); g.moveTo(fx - 2, fy); g.lineTo(fx + 2, fy); g.moveTo(fx, fy - 2); g.lineTo(fx, fy + 2); g.moveTo(fx - 1.4, fy - 1.4); g.lineTo(fx + 1.4, fy + 1.4); g.stroke(); }
+        }
+        if (f.kind === 'omen') {
+          g.fillStyle = 'rgba(150,110,220,0.09)'; self.hexPath(g, p.x, p.y, 0.98); g.fill();
+          if (!low) for (i = 0; i < 2; i++) { ph = (time * 0.12 + r()) % 1; A.px(g, p.x + (r() - 0.5) * 34, p.y - ph * 36, 'rgba(232,216,255,' + (0.7 * (1 - ph)).toFixed(2) + ')', 1, 1); }
+        }
         if (f.kind === 'rains' || f.kind === 'storm') {
-          g.fillStyle = f.kind === 'storm' ? 'rgba(20,30,50,0.16)' : 'rgba(120,160,200,0.08)'; self.hexPath(g, p.x, p.y, 0.98); g.fill();
-          var n = low ? 3 : 9; g.strokeStyle = f.kind === 'storm' ? 'rgba(190,210,240,0.55)' : 'rgba(170,200,240,0.45)'; g.lineWidth = 1; g.beginPath();
-          for (i = 0; i < n; i++) { var rx = p.x + (r() - 0.5) * 48, ph = low ? r() : ((time * (f.kind === 'storm' ? 1.6 : 1.1) + r()) % 1), ry = p.y - 40 + ph * 44; g.moveTo(rx, ry); g.lineTo(rx - 2, ry + 6); }
+          var storm = f.kind === 'storm';
+          g.fillStyle = storm ? 'rgba(20,30,50,0.18)' : 'rgba(110,150,190,0.09)'; self.hexPath(g, p.x, p.y, 0.98); g.fill();
+          g.strokeStyle = 'rgba(220,235,255,0.16)'; g.lineWidth = 1; g.beginPath(); g.moveTo(p.x - 14, p.y - 2); g.lineTo(p.x + 6, p.y - 6); g.stroke(); // wet sheen
+          var n = low ? 3 : storm ? 11 : 8; g.strokeStyle = storm ? 'rgba(196,214,240,0.6)' : 'rgba(176,204,240,0.5)'; g.lineWidth = storm ? 1.1 : 0.9; g.beginPath();
+          for (i = 0; i < n; i++) { var rx = p.x + (r() - 0.5) * 48, len = 5 + r() * 4; ph = low ? r() : ((time * (storm ? 1.8 : 1.2) + r()) % 1); var ry = p.y - 42 + ph * 44; g.moveTo(rx + ph * 44 * wind, ry); g.lineTo(rx + ph * 44 * wind - len * wind, ry - len); }
           g.stroke();
+          if (!low) for (i = 0; i < 3; i++) { ph = (time * 1.4 + r()) % 1; var sx2 = p.x + (r() - 0.5) * 34, sy2 = p.y + (r() - 0.5) * 14; g.strokeStyle = 'rgba(210,230,255,' + (0.5 * (1 - ph)).toFixed(2) + ')'; g.lineWidth = 0.7; g.beginPath(); g.ellipse(sx2, sy2, 0.5 + ph * 3, 0.2 + ph * 1.1, 0, 0, 7); g.stroke(); } // splashes
+          if (storm && !low) { g.strokeStyle = 'rgba(230,240,255,0.25)'; g.lineWidth = 1; g.beginPath(); ph = (time * 0.9 + r()) % 1; var gx = p.x - 30 + ph * 60, gy = p.y - 18 + r() * 10; g.moveTo(gx, gy); g.quadraticCurveTo(gx + 8, gy - 2, gx + 16, gy); g.stroke(); } // gusts
         }
       });
       if (f.kind === 'storm' && !low) { g.globalAlpha = 0.5; g.drawImage(self.stormSprite, c.x - 120, c.y - 120, 240, 110); g.globalAlpha = 1; if (!self.reducedFlash && Math.sin(time * 1.3 + f.id) > 0.995) self.flashIt('rgba(220,230,255,', 0.12); }
@@ -940,7 +967,9 @@
       var t = o.dc || st.map.tiles[o.s ? o.s.tile : o.lm ? o.lm.tile : o.pr.tile], tp = self.top(t), p = self.project(tp.x, tp.y);
       if (p.x < -160 * p.s || p.x > W + 160 * p.s || p.y < hz || p.y - 120 * p.s > H) return;
       self.localAffine(ctx, tp.x, tp.y); ctx.imageSmoothingEnabled = false; self.objScale = p.s;
-      if (o.dc) { var ts = self.terrainSprite(t, st); self.blit2(ctx, ts.c, tp.x - ts.ax / 2, tp.y + ts.dy - ts.ay / 2, ts.c.width / 2, ts.c.height / 2); }
+      if (o.dc) { var ts = self.terrainSprite(t, st), by = tp.y + ts.dy;
+        if (!self.reduced && t.terrain === 'forest') { var wk = (self.windAt && self.windAt[t.id]) || 1, sw = Math.sin(time * (1.1 + wk * 0.4) + t.id * 0.7) * 0.022 * wk + (wk > 1 ? 0.015 * wk : 0); ctx.transform(1, 0, -sw, 1, sw * by, 0); } // canopies lean with the wind, harder in rain and storm
+        self.blit2(ctx, ts.c, tp.x - ts.ax / 2, by - ts.ay / 2, ts.c.width / 2, ts.c.height / 2); }
       else if (o.s) self.drawSettlement(ctx, st, o.s, time); else if (o.lm) self.drawLandmark(ctx, st, o.lm, time); else self.drawPriest(ctx, st, o.pr, time);
     });
     ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.imageSmoothingEnabled = false;
@@ -954,6 +983,13 @@
      the ground is drawn in screen space over the towns (air = true), each effect under the local projection at its own anchor. */
   var MOTIF = (root.PWVfxArt && root.PWVfxArt.paint) || {};
   var GROUND_FX = { worldlight: 1, shadow: 1, band: 1, ring: 1, ripples: 1, rings: 1, paddy: 1, sprouts: 1 };
+  P.wlSprite = function (kind, c) {
+    var C = this.wlCache || (this.wlCache = {}), key = kind + c; if (C[key]) return C[key];
+    var cv = A.cv(128, 80), g = cv.getContext('2d'), gr;
+    if (kind === 'dim') { gr = g.createRadialGradient(64, 40, 10, 64, 40, 64); gr.addColorStop(0, 'rgba(6,4,16,0)'); gr.addColorStop(1, 'rgba(6,4,16,0.32)'); g.fillStyle = gr; g.fillRect(0, 0, 128, 80); }
+    else { g.setTransform(1, 0, 0, 80 / 128, 0, 0); gr = g.createRadialGradient(64, 64, 0, 64, 64, 64); gr.addColorStop(0, A.rgba(c, 0.42)); gr.addColorStop(0.5, A.rgba(c, 0.14)); gr.addColorStop(1, A.rgba(c, 0)); g.fillStyle = gr; g.fillRect(0, 0, 128, 128); }
+    return (C[key] = cv);
+  };
   P.drawFx = function (g, dt, air) {
     var self = this, keep = [];
     this.fx.forEach(function (e) {
@@ -963,12 +999,20 @@
       e.t += dt; var k = e.t / e.life; if (k >= 1) return; keep.push(e);
       var R = A.rng((e.seed || 1) * 1000 | 0), i, x, y;
       switch (e.k) {
+        case 'site': { // construction, damage, restoration and growth choreography round a town (world units, local projection)
+          var sr = A.rng(e.seed || 1), j2, u2;
+          if (e.s === 'raise') { for (j2 = 0; j2 < 4; j2++) { u2 = Math.min(1, k * 2.2 - j2 * 0.12); if (u2 <= 0) continue; g.fillStyle = 'rgba(200,168,120,' + (1 - k).toFixed(2) + ')'; g.fillRect(e.x - 4 + j2 * 9, e.y - 4 - 30 * u2, 1.5, 30 * u2); } if (k > 0.4) for (j2 = 0; j2 < 10; j2++) A.px(g, e.x + 8 + (sr() - 0.5) * 40, e.y - 20 - sr() * 30 - (k - 0.4) * 20, 'rgba(255,240,180,' + (1 - k).toFixed(2) + ')', 1.2, 1.2); }
+          if (e.s === 'damage' || e.s === 'collapse') { for (j2 = 0; j2 < 9; j2++) { var dx2 = (sr() - 0.5) * 40, vy = sr() * 10; A.px(g, e.x + 8 + dx2 * (0.5 + k), e.y - 30 + vy + k * k * 34, 'rgba(110,96,80,' + (1 - k).toFixed(2) + ')', 2, 2); } for (j2 = 0; j2 < 5; j2++) { g.fillStyle = 'rgba(180,170,150,' + (0.45 * (1 - k)).toFixed(2) + ')'; g.beginPath(); g.ellipse(e.x + 8 + (j2 - 2) * 8 * (0.5 + k), e.y - 2 - k * 8, 5 + k * (e.s === 'collapse' ? 16 : 9), 3 + k * 5, 0, 0, 7); g.fill(); } }
+          if (e.s === 'fortify') { for (j2 = 0; j2 < 5; j2++) { u2 = Math.min(1, k * 2 - j2 * 0.15); if (u2 <= 0) continue; var by2 = e.y + 4 - 26 * (1 - u2 * u2); g.fillStyle = 'rgba(176,170,160,' + Math.min(1, 2 - k * 2).toFixed(2) + ')'; g.fillRect(e.x - 14 + j2 * 9, by2, 7, 4); } g.strokeStyle = 'rgba(255,233,160,' + (0.8 * (1 - k)).toFixed(2) + ')'; g.lineWidth = 1.5; g.beginPath(); g.ellipse(e.x + 8, e.y + 2, 20 + k * 10, 7 + k * 3, 0, 0, 7); g.stroke(); }
+          if (e.s === 'grow' || e.s === 'decline' || e.s === 'claim') { g.strokeStyle = e.s === 'decline' ? 'rgba(120,110,100,' + (0.8 * (1 - k)).toFixed(2) + ')' : A.rgba(e.c, (0.85 * (1 - k)).toFixed(2)); g.lineWidth = 2; g.beginPath(); g.ellipse(e.x, e.y + 2, 10 + k * 26, (10 + k * 26) * 0.38, 0, 0, 7); g.stroke(); if (e.s !== 'claim') for (j2 = 0; j2 < 6; j2++) { g.fillStyle = 'rgba(190,176,150,' + (0.4 * (1 - k)).toFixed(2) + ')'; g.beginPath(); g.ellipse(e.x + (sr() - 0.5) * 50, e.y + (sr() - 0.5) * 12 - k * 6, 3 + k * 5, 2 + k * 2, 0, 0, 7); g.fill(); } }
+          break; }
         case 'motif': g.save(); g.translate(e.x, e.y); g.scale(1.35, 1.35); MOTIF[e.id](g, e.frozen ? 0.6 : k, e.c, e.seed || 1); g.restore(); break;
         case 'worldlight': {
           var dim, lit, f = e.force, rad = 120 + 80 * f;
           if (k < e.a1) { dim = k / e.a1; lit = 0; } else if (k < e.m1) { var u = (k - e.a1) / (e.m1 - e.a1); dim = 1 - u; lit = Math.sin(Math.min(1, u * 1.6) * Math.PI * 0.5); } else { dim = 0; lit = 1 - (k - e.m1) / (1 - e.m1); }
-          if (dim > 0.01) { var dg = g.createRadialGradient(e.x, e.y, rad * 0.25, e.x, e.y, rad * 1.6); dg.addColorStop(0, 'rgba(6,4,16,0)'); dg.addColorStop(1, 'rgba(6,4,16,' + (0.32 * f * dim).toFixed(3) + ')'); g.fillStyle = dg; g.fillRect(e.x - rad * 1.6, e.y - rad, rad * 3.2, rad * 2); }
-          if (lit > 0.01) { g.globalCompositeOperation = 'lighter'; var lg2 = g.createRadialGradient(e.x, e.y - 6, 0, e.x, e.y - 6, rad * 0.8); lg2.addColorStop(0, A.rgba(e.c, (0.42 * f * lit).toFixed(3))); lg2.addColorStop(0.5, A.rgba(e.c, (0.14 * f * lit).toFixed(3))); lg2.addColorStop(1, A.rgba(e.c, 0)); g.fillStyle = lg2; g.beginPath(); g.ellipse(e.x, e.y - 6, rad * 0.8, rad * 0.8 * SQ, 0, 0, 7); g.fill(); g.globalCompositeOperation = 'source-over'; }
+          // cached sprites (one vignette, one light pool per colour) drawn with alpha: no gradient objects per frame
+          if (dim > 0.01) { g.globalAlpha = Math.min(1, 0.32 * f * dim / 0.32); g.drawImage(self.wlSprite('dim', '#06040f'), e.x - rad * 1.6, e.y - rad, rad * 3.2, rad * 2); g.globalAlpha = 1; }
+          if (lit > 0.01) { g.globalCompositeOperation = 'lighter'; g.globalAlpha = Math.min(1, f * lit); g.drawImage(self.wlSprite('lit', e.c), e.x - rad * 0.8, e.y - 6 - rad * 0.8 * SQ, rad * 1.6, rad * 1.6 * SQ); g.globalAlpha = 1; g.globalCompositeOperation = 'source-over'; }
           break; }
         case 'mote': e.x += e.vx * dt; e.y += e.vy * dt; g.fillStyle = A.rgba(e.c, (1 - k).toFixed(3)); g.fillRect(Math.round(e.x), Math.round(e.y), 2, 2); break;
         case 'spark': e.x += e.vx * dt; e.y += e.vy * dt; e.vy += 160 * dt; g.fillStyle = A.rgba(e.c, (1 - k).toFixed(3)); g.fillRect(Math.round(e.x), Math.round(e.y), 1, 1); break;

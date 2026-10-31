@@ -183,3 +183,24 @@ Start: `2b240d2`, draft PR #1, clean tree, CI green on the engine job (browser j
 - **Not done (PARTIAL):** flat ground decor (plains, grassland, desert, marsh, tundra), water and coast, weather overlays, vegetation
   sway and other environmental micro-animation, construction feedback beyond the restored-shrine scaffold, the subjects inside the
   event scenes, rite icons other than the five redrawn glyphs, heraldic patterns, tapestry. No human or real-device review.
+
+### Completing the remaining families (2026-10-31, sixth pass)
+Start: `d6b9393`, draft PR #1, CI green (4/4), clean tree. Gameplay data unchanged (`4b22c717aa09`); P001 stays PARTIAL.
+- **Flat ground and hills (`ui/terrain-art.js`):** grassland, plains, desert and tundra detail at 2× with wet (moisture), cold
+  (temperature) and shore (coast) variants, 10 seeded variants each, baked at 1× into the static layer; hills rebuilt as ridged rises
+  (12 variants per climate). The game has no marsh terrain; wetland detail comes from high-moisture grassland.
+- **Water and coast (`ui/render.js`):** authored wave field and swells; wet-sand and pebble shore band along every coast.
+- **Weather (`ui/render.js` `drawWeather`):** all five kinds redrawn on the ground; still versions under reduced motion and Low quality.
+- **Motion:** forest canopies sway in screen space, harder under rain and storm fronts (`windAt`).
+- **Transitions (`siteTransitions`):** raised, restored, damaged, nearly toppled, ruined, fortified, growth, decline, change of hands —
+  consecutive turns, same viewer only; captions only under reduced motion.
+- **Event subjects:** all nineteen redrawn to show their event. **Icons:** six more redrawn (eleven in all); audit in
+  `docs/ART_DIRECTION.md`. **Heraldry:** ten patterns redesigned. **Tapestry:** woven textile, pattern borders, cartouche, embroidered map.
+- **Performance:** world light uses cached sprites. Numbers: `reports/perf-comparison-v06.md`.
+- **Defect found and fixed:** transition captions fired for a multi-turn jump (a loaded save would have shown a burst of captions);
+  now limited to consecutive turns.
+- **New checks:** QQQ Q10 (weather lifecycle), Q11 (transitions, reduced motion, hot-seat), Q12 (art registry coverage), Q13 (terrain
+  drawn under objects).
+- **Evidence (before/after vs d6b9393):** `reports/visual-qa/{biomes,weather,heraldry,events,icons,tapestry,devices,pantheons,ages,close,vfx-compare}.jpg`,
+  motion sequences `reports/visual-qa/motion.jpg`, atlases `reports/atlas/{terrain,event-art,emblems-patterns,power-icons}.png`.
+- **Still open:** water depth material, lanterns and street activity, banners beyond the waving flag, real-device and human review.

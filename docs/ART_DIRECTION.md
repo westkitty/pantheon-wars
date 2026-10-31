@@ -1,4 +1,4 @@
-# Pantheon Wars — Art Direction (v0.5, the ten pantheons)
+# Pantheon Wars — Art Direction (v0.6, the ten pantheons)
 
 Pantheon Wars ships no image, font or audio files. Every visual is drawn by code at runtime (`ui/art.js`, `ui/render.js`) and every sound is synthesised (`ui/audio.js`). This keeps the game offline, small and free of third-party art, and it means art is reviewable as source. `data/asset-manifest.json` lists every drawing id, where it is drawn and what uses it. `node tools/assets.js` renders all of them into QA contact sheets in `reports/atlas/`.
 
@@ -163,3 +163,27 @@ Power manifestations (each also keeps its own anticipation, world-light colour a
 
 Still v0.3 art after v0.5: flat ground decoration (grass, plains furrows, desert dunes, marsh, tundra), water and coast, the weather
 overlays, the subjects inside the event scenes, the rite icons other than the five redrawn glyphs, the heraldic patterns, the tapestry.
+
+## v0.6 — finishing the remaining families
+| Family | What changed | Source | Integration |
+|---|---|---|---|
+| Flat ground | grassland (tonal patches, grass clumps in groups, one wildflower colour per tile, worn earth with a stone; wet meadow pools with reeds where moisture is high), plains (cross-field furrows in one direction per tile, golden clumps, stooks, stones), desert (wind ripples with lit and shaded lips, cracked pans, wind-worn rocks with contact shadows, dry shrubs), tundra (snow patches with blue undersides, frosted rocks, low shrubs, ice cracks); cold variants get frost, coastal ones pebbles and driftwood. 2×, 10 seeded variants per kind and condition | `ui/terrain-art.js` `ground`, `groundKey` | baked at 1× (smoothed) into the static layer; the game has no marsh terrain, so wetland detail comes from the existing moisture value on grassland |
+| Hills | ridged rises instead of domes: asymmetric profiles, crest leaning left or right per variant, lit and shaded faces, a light-catching crest line, rock breaking through the steep flank, no outline; 12 variants per climate | `ui/terrain-art.js` `knolls` | as v0.5 terrain features |
+| Water and coast | wave field of crescent wavelets (lit crest, shaded trough, sun glints) and long swells, both drifting; a wet-sand and pebble band along every coastline | `ui/render.js` `buildPatterns`, `buildStatic` | static shore, animated water layers as before |
+| Weather | rains: wind-slanted streaks, splash rings, wet sheen; storm: heavier slant, gusts, darker cast (lightning flash still off under no-flash); drought: warm haze, cracked ground, rising heat shimmer, drifting dust; frost: rime on hex edges, twinkling crystals; omen: violet cast and rising pale motes. Reduced motion and Low quality draw still versions | `ui/render.js` `drawWeather` | per tile in the world frame |
+| Environmental motion | forest canopies sway in screen space, harder in rain and storm (wind map from the active fronts), none under reduced motion; soft chimney smoke (v0.5) | `ui/render.js` `drawObjects`, `windAt` | visual time only, no gameplay randomness |
+| Construction and state changes | shrine raised or restored (scaffold poles rise, sparkles), damaged or nearly toppled (debris falls, dust), ruined (dust cloud), fortified (stones drop and settle, a ring), town grows or declines (dust and ring), town changes hands (ring in the new owner's colour); each with a caption. Only between consecutive turns for the same viewer, never across a hot-seat hand-off or a load; reduced motion keeps the caption and the static before/after | `ui/render.js` `siteTransitions`, fx `site` | screen space round the town |
+| Event subjects | all nineteen redrawn to show their event: heaped sheaves before the altar with singers and bunting; villagers pointing at a two-tone comet; a signposted crossroads with pilgrims; a sunken well and a riverbed of stones; a speaker on a crate before a market crowd; a mason at a half-carved block; lamplit doorways in fever mist; boats on a storm sea with women on the headland; a poet under a tree with listeners; watchers on a platform under an eclipse; market stalls and arrivals; a plough stopped at a carved stone; workers clearing a silted canal; the hill assembly with horses racing; reed-fenced plots and a canoe of lake mud; silent grey meadows with still sheep and elders; a forge and a road cut through the bush; villagers bent planting terraces; cattle in a dry riverbed under clouds that do not break. Shared figure, ox, sheep and horse helpers | `ui/art.js` `eventArt`, `fig`, `ox`, `sheep`, `horse`, `sheafB` | event card |
+| Heraldry | ten patterns redesigned as motifs: Greek key, interlaced double chevron, banded bud row, brick bond, dot triads, stepped fret, cross lattice, double wave, lattice screen, ringed dot | `ui/art.js` `PATTERNS` | territory overlay, tapestry, border bands |
+| Tapestry | twill-woven ground, border bands woven from the pantheons' own patterns with emblem medallions at the corners, a fringe, a ribbon cartouche behind the title, the map embroidered as stitched hexes with wavy water; all data elements (title, seed line, map, five towns, era band and score lines, decisive events) unchanged | `ui/chronicle.js` `renderTapestry` | Chronicle, PNG export |
+| Performance | the world-light envelope draws two cached sprites instead of building two radial gradients per active power per frame | `ui/render.js` `wlSprite` | — |
+
+Icon audit (54 registered; all minted since v0.5): **redesigned** — raven, crow_omen, feather, iron_road, order_rope (v0.5); sheaf, throne,
+sovereignty, shaping_hands, thunderstone, rice_sheaf (v0.6). **Preserved** (silhouette reads at 32–48 px, meaning distinct): oak, shield,
+bolt, rune, sunrain, hammer, barque, sprout, solar_path, sage_tablet, abzu_well, star8, gathering, cauldron, wind_spiral, lake_garden,
+rain_jar, zenith_sun, omen_disc, stone_gate, returning_bee, storm_axe, river_mirror, mirror_sun, torii_gate, storm_cloud, dawn_horizon,
+altar_flame, vajra_cloud, and the rite icons omen, dream, shrine, priest, eclipse, spec_oracle, spec_sanctuary, spec_beacon, covenant,
+route, counter, envoy, retrain, landmark. Checked at 48 px and 34 px in `reports/visual-qa/icons.jpg`.
+
+Still not reauthored: water depth colours and the shallow-water material (only the wave layers and the shore band changed), lanterns and
+flames other than shrine light, settlement activity (people in streets), banners beyond the existing waving flag.

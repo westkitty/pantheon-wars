@@ -133,6 +133,7 @@
     var start = at !== null && at !== undefined ? at : t.in;
     d.el.addEventListener('loadedmetadata', function () { try { d.el.currentTime = start; } catch (e) { /* not seekable yet */ } });
     d.el.addEventListener('error', function () { self.fail(d); });
+    d.el.addEventListener('canplay', function () { self.installed = true; });
     d.el.addEventListener('ended', function () { if (d.once) { self.endPlayed = true; } self.release(d); self.update(); });
     this.decks.push(d); this.history.push({ at: this.now(), id: id, cue: cue, mood: this.mood });
     if (this.history.length > 50) this.history.shift();
@@ -141,6 +142,8 @@
   P.resume = function (d) { var p; try { p = d.el.play(); } catch (e) { p = null; } if (p && p.catch) p.catch(function () { /* blocked until a gesture, or file missing: the error event handles that */ }); };
   P.fail = function (d) {
     this.missing[d.id] = true; this.errors.push(d.id); this.release(d);
+    // nothing has ever loaded: the recordings are not installed, so stop asking for them (one failed request, not twenty)
+    if (!this.installed) { var self = this; Object.keys(this.tracks).forEach(function (id) { self.missing[id] = true; }); this.absent = true; }
     if (this.current() === null) this.update();
   };
   P.release = function (d) {
@@ -216,7 +219,7 @@
   P.status = function () {
     var self = this;
     return { mode: this.mode, manifest: this.hasManifest(), screen: this.screen, mood: this.mood, frozen: this.frozen, procedural: !this.audio.recordedActive,
-      timer: !!this.timer, accent: !!this.accentEl, duck: this.accentEl ? +(1 - (1 - DUCK) * (this.accentFade || 0)).toFixed(2) : 1, endPlayed: this.endPlayed, missing: Object.keys(this.missing),
+      timer: !!this.timer, installed: !!this.installed, absent: !!this.absent, accent: !!this.accentEl, duck: this.accentEl ? +(1 - (1 - DUCK) * (this.accentFade || 0)).toFixed(2) : 1, endPlayed: this.endPlayed, missing: Object.keys(this.missing),
       decks: this.decks.map(function (d) { return { id: d.id, cue: d.cue, fade: +d.fade.toFixed(2), leaving: d.leaving, paused: d.el.paused, t: +d.el.currentTime.toFixed(2), volume: +d.el.volume.toFixed(3) }; }),
       viewer: this.viewer, signals: this.viewers[this.viewer] ? JSON.parse(JSON.stringify(this.viewers[this.viewer])) : null, history: this.history.slice(-12) };
   };

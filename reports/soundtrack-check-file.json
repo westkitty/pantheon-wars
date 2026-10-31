@@ -2,7 +2,7 @@
  "protocol": "file",
  "recordings": true,
  "browser": "Chromium (Playwright 1.63.0)",
- "at": "2026-10-31T09:37:15.974Z",
+ "at": "2026-10-31T09:56:16.332Z",
  "pass": 39,
  "total": 39,
  "checks": [
@@ -49,7 +49,7 @@
     "id": "title-b",
     "paused": false,
     "advanced": true,
-    "volume": 0.086
+    "volume": 0.08
    }
   },
   {
@@ -63,6 +63,8 @@
     "frozen": false,
     "procedural": false,
     "timer": false,
+    "installed": true,
+    "absent": false,
     "accent": false,
     "duck": 1,
     "endPlayed": false,
@@ -72,7 +74,7 @@
     "signals": null,
     "history": [
      {
-      "at": 1793439371.444,
+      "at": 1793440514.75,
       "id": "title-b",
       "cue": "title",
       "mood": "title"
@@ -96,7 +98,7 @@
     "id": "olympian-a",
     "paused": false,
     "advanced": true,
-    "volume": 0.074
+    "volume": 0.067
    }
   },
   {
@@ -106,17 +108,17 @@
     "id": "ash-b",
     "paused": false,
     "advanced": true,
-    "volume": 0.066
+    "volume": 0.06
    }
   },
   {
    "name": "game start (egyptian): its faction theme plays",
    "ok": true,
    "evidence": {
-    "id": "ennead-a",
+    "id": "ennead-b",
     "paused": false,
     "advanced": true,
-    "volume": 0.057
+    "volume": 0.06
    }
   },
   {
@@ -127,13 +129,13 @@
     "procedural": true,
     "decks": [
      {
-      "id": "ennead-a",
+      "id": "ennead-b",
       "cue": "faction:egyptian",
-      "fade": 0.2,
+      "fade": 0.22,
       "leaving": true,
       "paused": false,
-      "t": 1.1,
-      "volume": 0.045
+      "t": 2.02,
+      "volume": 0.049
      }
     ]
    }
@@ -144,8 +146,8 @@
    "evidence": {
     "mood": "exploration",
     "decks": [
-     "ennead-a",
-     "explore-b"
+     "ennead-b",
+     "explore-a"
     ]
    }
   },
@@ -211,22 +213,22 @@
    "ok": true,
    "evidence": {
     "before": {
-     "id": "explore-a",
+     "id": "explore-b",
      "cue": "exploration",
-     "fade": 0.27,
+     "fade": 0.25,
      "leaving": false,
      "paused": false,
-     "t": 0.41,
-     "volume": 0.07
+     "t": 0.42,
+     "volume": 0.067
     },
     "after": {
-     "id": "explore-a",
+     "id": "explore-b",
      "cue": "exploration",
      "fade": 0.68,
      "leaving": false,
      "paused": false,
-     "t": 2.08,
-     "volume": 0.06
+     "t": 2.06,
+     "volume": 0.064
     },
     "accent": true,
     "duck": 0.35
@@ -237,7 +239,7 @@
    "ok": true,
    "evidence": [
     {
-     "at": 1793439670.576,
+     "at": 1793440813.279,
      "id": "intervention-a",
      "cue": "accent",
      "mood": "exploration"
@@ -250,26 +252,26 @@
    "evidence": "intervention"
   },
   {
-   "name": "at the out point (explore-b @153 s) the bed crossfades to explore-a",
+   "name": "at the out point (explore-a @170 s) the bed crossfades to explore-b",
    "ok": true,
    "evidence": [
     {
-     "id": "explore-b",
+     "id": "explore-a",
      "cue": "exploration",
      "fade": 0.8,
      "leaving": true,
      "paused": false,
-     "t": 153.94,
-     "volume": 0.215
+     "t": 170.93,
+     "volume": 0.204
     },
     {
-     "id": "explore-a",
+     "id": "explore-b",
      "cue": "exploration",
      "fade": 0.2,
      "leaving": false,
      "paused": false,
-     "t": 0.71,
-     "volume": 0.051
+     "t": 0.66,
+     "volume": 0.054
     }
    ]
   },
@@ -278,13 +280,13 @@
    "ok": true,
    "evidence": [
     {
-     "id": "explore-a",
+     "id": "explore-b",
      "cue": "exploration",
      "fade": 1,
      "leaving": false,
      "paused": false,
-     "t": 5.34,
-     "volume": 0.255
+     "t": 5.28,
+     "volume": 0.269
     }
    ]
   },
@@ -293,12 +295,12 @@
    "ok": true,
    "evidence": [
     {
-     "id": "explore-a",
+     "id": "explore-b",
      "cue": "exploration",
      "fade": 1,
      "leaving": false,
      "paused": true,
-     "t": 5.37,
+     "t": 5.36,
      "volume": 0
     }
    ]
@@ -308,13 +310,13 @@
    "ok": true,
    "evidence": [
     {
-     "id": "explore-a",
+     "id": "explore-b",
      "cue": "exploration",
      "fade": 1,
      "leaving": false,
      "paused": false,
-     "t": 5.89,
-     "volume": 0.255
+     "t": 5.87,
+     "volume": 0.269
     }
    ]
   },
@@ -323,12 +325,12 @@
    "ok": true,
    "evidence": [
     {
-     "id": "explore-a",
+     "id": "explore-b",
      "cue": "exploration",
      "fade": 1,
      "leaving": false,
      "paused": true,
-     "t": 5.93,
+     "t": 5.91,
      "volume": 0
     }
    ]
@@ -340,13 +342,13 @@
     "timer": false,
     "decks": [
      {
-      "id": "explore-a",
+      "id": "explore-b",
       "cue": "exploration",
       "fade": 1,
       "leaving": false,
       "paused": true,
-      "t": 5.94,
-      "volume": 0.255
+      "t": 5.96,
+      "volume": 0.269
      }
     ]
    }
@@ -356,13 +358,13 @@
    "ok": true,
    "evidence": [
     {
-     "id": "explore-a",
+     "id": "explore-b",
      "cue": "exploration",
      "fade": 1,
      "leaving": false,
      "paused": true,
-     "t": 5.94,
-     "volume": 0.255
+     "t": 5.96,
+     "volume": 0.269
     }
    ]
   },
@@ -371,13 +373,13 @@
    "ok": true,
    "evidence": [
     {
-     "id": "explore-a",
+     "id": "explore-b",
      "cue": "exploration",
      "fade": 1,
      "leaving": false,
      "paused": false,
-     "t": 6.43,
-     "volume": 0.255
+     "t": 6.44,
+     "volume": 0.269
     }
    ]
   },
@@ -386,13 +388,13 @@
    "ok": true,
    "evidence": [
     {
-     "id": "explore-a",
+     "id": "explore-b",
      "cue": "exploration",
      "fade": 0.77,
      "leaving": true,
      "paused": false,
-     "t": 7.3,
-     "volume": 0.198
+     "t": 7.32,
+     "volume": 0.209
     },
     {
      "id": "endgame",
@@ -411,13 +413,13 @@
    "evidence": {
     "decks": [
      {
-      "id": "explore-a",
+      "id": "explore-b",
       "cue": "exploration",
-      "fade": 0.4,
+      "fade": 0.37,
       "leaving": true,
       "paused": false,
-      "t": 8.83,
-      "volume": 0.102
+      "t": 8.86,
+      "volume": 0.101
      }
     ],
     "mood": null,
@@ -484,8 +486,26 @@
    "ok": true,
    "evidence": {
     "missing": [
+     "title-a",
      "title-b",
-     "title-a"
+     "olympian-a",
+     "olympian-b",
+     "ash-a",
+     "ash-b",
+     "ennead-a",
+     "ennead-b",
+     "explore-a",
+     "explore-b",
+     "expansion-a",
+     "expansion-b",
+     "omens-a",
+     "omens-b",
+     "conflict-a",
+     "conflict-b",
+     "intervention-a",
+     "intervention-b",
+     "twilight",
+     "endgame"
     ]
    }
   },
@@ -500,6 +520,8 @@
     "frozen": false,
     "procedural": true,
     "timer": false,
+    "installed": true,
+    "absent": false,
     "accent": false,
     "duck": 1,
     "endPlayed": false,
@@ -509,73 +531,73 @@
     "signals": null,
     "history": [
      {
-      "at": 1793440005.708,
+      "at": 1793441146.775,
       "id": "intervention-a",
       "cue": "accent",
       "mood": "omens"
      },
      {
-      "at": 1793440005.709,
-      "id": "conflict-a",
-      "cue": "conflict",
-      "mood": "conflict"
-     },
-     {
-      "at": 1793440047.851,
-      "id": "intervention-a",
-      "cue": "accent",
-      "mood": "conflict"
-     },
-     {
-      "at": 1793440067.879,
-      "id": "intervention-a",
-      "cue": "intervention",
-      "mood": "intervention"
-     },
-     {
-      "at": 1793440088.811,
+      "at": 1793441146.777,
       "id": "conflict-b",
       "cue": "conflict",
       "mood": "conflict"
      },
      {
-      "at": 1793440089.09,
+      "at": 1793441189.006,
       "id": "intervention-a",
       "cue": "accent",
       "mood": "conflict"
      },
      {
-      "at": 1793440130.22,
-      "id": "intervention-a",
-      "cue": "accent",
-      "mood": "conflict"
-     },
-     {
-      "at": 1793440192.41,
-      "id": "intervention-a",
-      "cue": "accent",
-      "mood": "conflict"
-     },
-     {
-      "at": 1793440192.957,
+      "at": 1793441209.027,
       "id": "intervention-b",
       "cue": "intervention",
       "mood": "intervention"
      },
      {
-      "at": 1793440213.549,
-      "id": "omens-b",
+      "at": 1793441229.759,
+      "id": "conflict-a",
+      "cue": "conflict",
+      "mood": "conflict"
+     },
+     {
+      "at": 1793441230.075,
+      "id": "intervention-a",
+      "cue": "accent",
+      "mood": "conflict"
+     },
+     {
+      "at": 1793441271.059,
+      "id": "intervention-a",
+      "cue": "accent",
+      "mood": "conflict"
+     },
+     {
+      "at": 1793441332.81,
+      "id": "intervention-a",
+      "cue": "accent",
+      "mood": "conflict"
+     },
+     {
+      "at": 1793441333.21,
+      "id": "intervention-b",
+      "cue": "intervention",
+      "mood": "intervention"
+     },
+     {
+      "at": 1793441353.882,
+      "id": "omens-a",
       "cue": "omens",
       "mood": "omens"
      },
      {
-      "at": 1793440234.124,
+      "at": 1793441374.396,
       "id": "intervention-a",
       "cue": "accent",
       "mood": "omens"
      },
      {
-      "at": 1793440235.81,
+      "at": 1793441376.197,
       "id": "title-b",
       "cue": "title",
       "mood": "title"

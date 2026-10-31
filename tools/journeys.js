@@ -15,7 +15,7 @@ async function newPage(browser, vp, opts) {
   const ctx = await browser.newContext(Object.assign({ viewport: vp || { width: 1440, height: 900 }, acceptDownloads: true }, opts || {}));
   const page = await ctx.newPage(), errors = [];
   page.on('pageerror', e => errors.push('pageerror: ' + e.message));
-  page.on('console', m => { if (m.type() === 'error') errors.push('console: ' + m.text()); });
+  page.on('console', m => { if (m.type() === 'error' && !/\/audio\/music\/[a-z0-9-]+\.mp3$/.test((m.location() || {}).url || '')) errors.push('console: ' + m.text()); });
   return { ctx, page, errors };
 }
 const q = s => new URLSearchParams(Object.assign({ speed: '0', follow: '0' }, s)).toString();

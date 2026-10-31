@@ -22,7 +22,7 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
   const page = await browser.newPage();
   const errors = [];
   page.on('pageerror', e => errors.push('pageerror: ' + e.message));
-  page.on('console', m => { if (m.type() === 'error') errors.push('console: ' + m.text()); });
+  page.on('console', m => { if (m.type() === 'error' && !/\/audio\/music\/[a-z0-9-]+\.mp3$/.test((m.location() || {}).url || '')) errors.push('console: ' + m.text()); });
   page.on('request', r => { if (!r.url().startsWith('file://') && !r.url().startsWith('data:')) errors.push('NETWORK REQUEST: ' + r.url()); });
   await page.setViewport({ width: 1600, height: 900 });
   const url = 'file://' + path.join(ROOT, 'index.html');

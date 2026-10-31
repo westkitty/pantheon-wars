@@ -36,7 +36,7 @@ function check(name, ok, evidence) { checks.push({ name, ok: !!ok, evidence }); 
   const ctx = await browser.newContext({ viewport: { width: 1280, height: 800 } });
   const page = await ctx.newPage(), errors = [];
   page.on('pageerror', e => errors.push('pageerror: ' + e.message));
-  page.on('console', m => { if (m.type() === 'error' && !/audio\/music|ERR_FILE_NOT_FOUND|404/.test(m.text())) errors.push('console: ' + m.text()); });
+  page.on('console', m => { if (m.type() === 'error' && !/\/audio\/music\/[a-z0-9-]+\.mp3$/.test((m.location() || {}).url || '')) errors.push('console: ' + m.text()); });
   const st = () => page.evaluate(() => PW.music.status());
   const adv = s => page.evaluate(s => { window.__off += s; PW.music.tick(0.1); }, s);
   const playing = async (ms) => { // a deck that is not paused and whose time advances is audibly playing

@@ -327,9 +327,9 @@
   "kind": "chronicle",
   "engine": "0.2.0",
   "dataHash": "714b6ce1",
-  "created": "2026-10-31T04:19:15.927Z",
+  "created": "2026-10-31T09:40:51.291Z",
   "label": "The Fifth Sun · turn 45",
-  "session": "smvvw69dq",
+  "session": "smvw7nsx0",
   "cfg": {
    "seed": 23,
    "players": [
@@ -3604,6 +3604,6 @@
    "44": "43c4007c",
    "45": "fd6394be"
   },
-  "checksum": "45f163b8"
+  "checksum": "2d4c4c0b"
  }
 }

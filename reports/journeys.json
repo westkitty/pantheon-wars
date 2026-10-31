@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-31T04:20:02.425Z",
+ "generated": "2026-10-31T09:41:45.547Z",
  "browser": "Chromium (Playwright, pre-installed)",
  "launch": "file:// index.html",
  "results": [
@@ -26,7 +26,7 @@
     ],
     "errors": []
    },
-   "ms": 13728
+   "ms": 14176
   },
   {
    "id": "J02",
@@ -36,7 +36,7 @@
     "revealedGain": 15,
     "turn": 2
    },
-   "ms": 2574
+   "ms": 2666
   },
   {
    "id": "J03",
@@ -52,7 +52,7 @@
      "title": "The Council of the Òrìṣà Prevails"
     }
    },
-   "ms": 47670
+   "ms": 49926
   },
   {
    "id": "J04",
@@ -66,7 +66,7 @@
     "slotHash": "d4c904da",
     "continuedTo": 8
    },
-   "ms": 8467
+   "ms": 8784
   },
   {
    "id": "J05",
@@ -75,7 +75,7 @@
    "evidence": {
     "hash": "234aacfb"
    },
-   "ms": 2529
+   "ms": 2591
   },
   {
    "id": "J06",
@@ -100,7 +100,7 @@
      "record"
     ]
    },
-   "ms": 12348
+   "ms": 15395
   },
   {
    "id": "J07",
@@ -113,7 +113,7 @@
     "p2": 1,
     "p2Faction": "egyptian"
    },
-   "ms": 3378
+   "ms": 5147
   },
   {
    "id": "J08",
@@ -125,7 +125,7 @@
     "docOverflow": 0,
     "tapSelected": true
    },
-   "ms": 8316
+   "ms": 9190
   },
   {
    "id": "J09",
@@ -142,7 +142,7 @@
     "codexSections": 10,
     "envoyOpen": true
    },
-   "ms": 11408
+   "ms": 12582
   },
   {
    "id": "J10",
@@ -153,7 +153,7 @@
     "expected": "6a3687d9",
     "turns": 45
    },
-   "ms": 4537
+   "ms": 6193
   },
   {
    "id": "J11",
@@ -220,7 +220,7 @@
      "state": "suspended"
     }
    },
-   "ms": 8612
+   "ms": 8909
   }
  ]
 }

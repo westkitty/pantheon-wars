@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-31T01:07:25.383Z",
+ "generated": "2026-10-31T02:27:54.030Z",
  "results": [
   {
    "id": "Q01",
@@ -156,6 +156,64 @@
    "ok": true,
    "evidence": {
     "left": []
+   }
+  },
+  {
+   "id": "Q10",
+   "title": "Weather lifecycle: every kind draws on the map, wind follows rain and storm, and nothing lingers once the front is gone",
+   "ok": true,
+   "evidence": {
+    "r": {
+     "drought": 0,
+     "storm": 16,
+     "rains": 16,
+     "frost": 0,
+     "omen": 0,
+     "after": 0
+    }
+   }
+  },
+  {
+   "id": "Q11",
+   "title": "Site transitions: a shrine raised plays its choreography and caption; reduced motion keeps only the caption; a hot-seat hand-off plays nothing",
+   "ok": true,
+   "evidence": {
+    "r": {
+     "normal": {
+      "site": 1,
+      "texts": 1
+     },
+     "cleaned": 0,
+     "reduced": {
+      "site": 0,
+      "texts": 1
+     },
+     "handoff": {
+      "site": 0,
+      "texts": 0
+     }
+    }
+   }
+  },
+  {
+   "id": "Q12",
+   "title": "Art registry coverage: every icon, emblem, pattern, event scene (three ages) and terrain family renders non-empty at its interface size",
+   "ok": true,
+   "evidence": {
+    "empty": []
+   }
+  },
+  {
+   "id": "Q13",
+   "title": "Drawing order: terrain features always lie under towns, shrines and priests (a range in front never hides a town)",
+   "ok": true,
+   "evidence": {
+    "r": {
+     "n": 18,
+     "dc": 14,
+     "lastDc": 13,
+     "firstObj": 14
+    }
    }
   }
  ]

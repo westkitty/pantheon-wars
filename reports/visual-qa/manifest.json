@@ -1,7 +1,7 @@
 {
- "generated": "2026-10-31T00:46:49.856Z",
+ "generated": "2026-10-31T02:03:58.107Z",
  "tool": "node tools/visual-qa.js",
- "before": "checkout at b2b2",
+ "before": "checkout at bd6b",
  "sheets": [
   {
    "file": "reports/visual-qa/pantheons.jpg",
@@ -42,6 +42,22 @@
   {
    "file": "reports/visual-qa/vfx-compare.jpg",
    "content": "each of the forty powers at 0.75 s (manifestation), same live map and camera, before vs after"
+  },
+  {
+   "file": "reports/visual-qa/weather.jpg",
+   "content": "each weather kind staged over the same town at zoom 2.0 (display-only front), before vs after"
+  },
+  {
+   "file": "reports/visual-qa/heraldry.jpg",
+   "content": "the ten territory patterns (as the overlay draws them) over light, dark, wet and rocky ground, before vs after"
+  },
+  {
+   "file": "reports/visual-qa/motion.jpg",
+   "content": "frame sequences in the running game (after): forest canopies and rain in a storm (staged front), and the shrine-raised transition (staged state change)"
+  },
+  {
+   "file": "reports/visual-qa/tapestry.jpg",
+   "content": "the exported tapestry image of one finished game (same seed and moves), before vs after"
   },
   {
    "file": "reports/visual-qa/vfx.jpg",

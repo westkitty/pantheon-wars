@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-31T01:07:40.529Z",
+ "generated": "2026-10-31T02:24:52.229Z",
  "tool": "node tools/weather-qa.js",
  "kinds": [
   "drought",
@@ -33,35 +33,35 @@
  "metrics": {
   "desktop": {
    "vsClear": {
-    "drought": 3.14,
-    "storm": 7.99,
-    "rains": 2.61,
-    "frost": 8.66,
-    "omen": 2.09
+    "drought": 3.89,
+    "storm": 9.21,
+    "rains": 2.83,
+    "frost": 12.36,
+    "omen": 2.44
    },
-   "pairwiseMin": 1.97,
+   "pairwiseMin": 2.43,
    "pairwiseMinPair": "rains/omen"
   },
   "reduced": {
    "vsClear": {
-    "drought": 3.24,
-    "storm": 6.07,
-    "rains": 2.27,
-    "frost": 8.93,
-    "omen": 2.09
+    "drought": 3.79,
+    "storm": 7.04,
+    "rains": 2.39,
+    "frost": 12.82,
+    "omen": 2.41
    },
-   "pairwiseMin": 1.58,
+   "pairwiseMin": 1.96,
    "pairwiseMinPair": "rains/omen"
   },
   "phone": {
    "vsClear": {
-    "drought": 1.91,
-    "storm": 4.81,
-    "rains": 1.58,
-    "frost": 5.37,
-    "omen": 1.28
+    "drought": 2.36,
+    "storm": 5.58,
+    "rains": 1.72,
+    "frost": 7.77,
+    "omen": 1.51
    },
-   "pairwiseMin": 1.18,
+   "pairwiseMin": 1.46,
    "pairwiseMinPair": "rains/omen"
   }
  },

@@ -131,6 +131,40 @@ async function sheet(browser, cells, cols, cw, ch, file) {
         return out; }, D.powers.map(p => p.vfx)); await ctx.close(); }
     const vc = []; D.powers.forEach((p, i) => roots.forEach(([tag]) => vc.push({ label: p.vfx + ' · ' + tag, url: per[tag][i] })));
     await sheet(browser, vc, roots.length * 4, 200, 133, 'vfx-compare.jpg'); manifest.sheets.push({ file: 'reports/visual-qa/vfx-compare.jpg', content: 'each of the forty powers at 0.75 s (manifestation), same live map and camera, ' + roots.map(r => r[0]).join(' vs ') }); }
+  // 2i. weather, staged for display only: each of the five kinds placed over the home town of a live game at zoom 2.0, before and after
+  { const cells = [];
+    for (const kind of Object.keys(D.rules.climate.kinds)) for (const [tag, root] of roots) { const { ctx, page } = await play(browser, root, 'egyptian', 33, 6);
+      const url = await page.evaluate(k => { const R = PW.renderer, s = PW.state, h = s.settlements[s.players[0].home].tile; s.climate.fronts = [{ id: 99, kind: k, tile: h, radius: 3, phase: 'active', t0: s.turn, t1: s.turn + 3 }]; R.setState(s, 0);
+        PW.focus(h); R.cam.tz = 2.0; PW.settle(); R.fx = []; R.texts = []; R.flash = null; R.revealAnims = []; R.oldFog = null; R.time = 12; for (let i = 0; i < 3; i++) R.render(0.05);
+        const p = PW.tileScreen(h), d = R.dpr || 1, o = document.createElement('canvas'); o.width = 520; o.height = 320; o.getContext('2d').drawImage(R.canvas, Math.round(p.x * d - 260), Math.round(p.y * d - 200), 520, 320, 0, 0, 520, 320); return o.toDataURL('image/png'); }, kind);
+      cells.push({ label: kind + ' · ' + tag + ' (staged)', url }); await ctx.close(); }
+    await sheet(browser, cells, roots.length * 2, 390, 240, 'weather.jpg'); manifest.sheets.push({ file: 'reports/visual-qa/weather.jpg', content: 'each weather kind staged over the same town at zoom 2.0 (display-only front), ' + roots.map(r => r[0]).join(' vs ') }); }
+  // 2j. heraldry: every pantheon's territory pattern over light grass, dark forest, wet shore and mountain rock, before and after
+  { const cells = [];
+    for (const [tag, root] of roots) { const ctx = await browser.newContext(), page = await ctx.newPage(); await page.goto('file://' + path.join(root, 'index.html') + '?nosave=1'); await page.waitForFunction(() => window.PWArt && window.PW_DATA);
+      cells.push({ label: 'territory patterns over four grounds · ' + tag, url: await page.evaluate(() => { const A = PWArt, D = PW_DATA, c = document.createElement('canvas'); c.width = 600; c.height = 250; const g = c.getContext('2d'); g.fillStyle = '#141824'; g.fillRect(0, 0, 600, 250);
+        ['#8ab84e', '#2f5a30', '#5a8a9a', '#8a8478'].forEach((bg, row) => D.factions.forEach((f, i) => { const x = 6 + i * 59, y = 6 + row * 60; g.fillStyle = bg; g.fillRect(x, y, 54, 54); g.fillStyle = A.rgba(f.palette.secondary, 0.25); g.fillRect(x, y, 54, 54); g.globalAlpha = 0.6; g.fillStyle = g.createPattern(A.pattern(f.pattern, A.shade(f.palette.secondary, 0.45), 2), 'repeat'); g.fillRect(x, y, 54, 54); g.globalAlpha = 1; }));
+        return c.toDataURL('image/png'); }) }); await ctx.close(); }
+    await sheet(browser, cells, roots.length, 600, 250, 'heraldry.jpg'); manifest.sheets.push({ file: 'reports/visual-qa/heraldry.jpg', content: 'the ten territory patterns (as the overlay draws them) over light, dark, wet and rocky ground, ' + roots.map(r => r[0]).join(' vs ') }); }
+  // 2k. motion: forest canopies in a storm and the rain, six frames 0.15 s apart (after); a shrine-raised transition, six frames (after, staged)
+  { const { ctx, page } = await play(browser, ROOT, 'norse', 33, 4);
+    const frames = await page.evaluate(() => { const R = PW.renderer, s = PW.state, E = PW.E, out = [], t = s.map.tiles.find(x => x.terrain === 'forest' && s.players[0].revealed[x.id] && x.n.every(n => n < 0 || s.players[0].revealed[n])) || s.map.tiles[s.settlements[s.players[0].home].tile];
+      s.climate.fronts = [{ id: 98, kind: 'storm', tile: t.id, radius: 2, phase: 'active', t0: s.turn, t1: s.turn + 3 }]; R.setState(s, 0); PW.focus(t.id); R.cam.tz = 3; PW.settle(); R.fx = []; R.texts = []; R.flash = null; R.reducedFlash = true;
+      const grab = (lbl, id) => { const p = PW.tileScreen(id), d = R.dpr || 1, o = document.createElement('canvas'); o.width = 360; o.height = 240; o.getContext('2d').drawImage(R.canvas, Math.round(p.x * d - 180), Math.round(p.y * d - 170), 360, 240, 0, 0, 360, 240); out.push({ label: lbl, url: o.toDataURL('image/png') }); };
+      for (let k = 0; k < 6; k++) { R.render(0.15); grab('forest in a storm t=' + (0.15 * (k + 1)).toFixed(2) + ' s', t.id); }
+      s.climate.fronts = []; const town = s.settlements.find(x => s.players[0].revealed[x.tile] && !x.shrine) || s.settlements[s.players[0].home], a = E.clone(s), b = E.clone(s); b.turn = a.turn + 1; if (!b.settlements[town.id].shrine) b.settlements[town.id].shrine = JSON.parse(JSON.stringify(s.settlements[s.players[0].home].shrine));
+      R.setState(a, 0); R.prevViewer = 0; R.setState(b, 0); PW.focus(town.tile); R.cam.tz = 3; PW.settle();
+      for (let k = 0; k < 6; k++) { R.render(0.25); grab('shrine raised t=' + (0.25 * (k + 1)).toFixed(2) + ' s (staged)', town.tile); }
+      return out; });
+    await ctx.close(); await sheet(browser, frames, 6, 360, 240, 'motion.jpg'); manifest.sheets.push({ file: 'reports/visual-qa/motion.jpg', content: 'frame sequences in the running game (after): forest canopies and rain in a storm (staged front), and the shrine-raised transition (staged state change)' }); }
+  // 2l. the tapestry of one finished game (Hierophant suggestions as the human's moves to turn 45), before and after
+  { const cells = [];
+    for (const [tag, root] of roots) { const { ctx, page } = await play(browser, root, 'mexica', 61, 99);
+      const ok = await page.evaluate(() => !!PW.state.over); if (!ok) { errors.push('tapestry: game did not finish (' + tag + ')'); await ctx.close(); continue; }
+      await page.evaluate(() => { document.getElementById('victory').hidden = true; PW.openChronicle(); }); await page.waitForSelector('#chronicle:not([hidden])', { timeout: 120000 });
+      await page.click('#chron-tapestry'); await page.waitForTimeout(3200);
+      cells.push({ label: 'tapestry · ' + tag, url: await page.evaluate(() => { const c = document.querySelector('#tapestry canvas'); return c.toDataURL('image/png'); }) }); await ctx.close(); }
+    if (cells.length) { await sheet(browser, cells, cells.length, 800, 500, 'tapestry.jpg'); manifest.sheets.push({ file: 'reports/visual-qa/tapestry.jpg', content: 'the exported tapestry image of one finished game (same seed and moves), ' + roots.map(r => r[0]).join(' vs ') }); } }
   // 3. forty power signatures, three beats each (display-only casts on a live map)
   const { ctx, page } = await play(browser, ROOT, 'greek', 2, 1);
   const vfxIds = D.powers.map(p => p.vfx);

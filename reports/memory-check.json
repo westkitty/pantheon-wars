@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-31T01:08:25.552Z",
+ "generated": "2026-10-31T02:25:35.914Z",
  "games": 10,
  "heapGrowth": 0,
  "canvasesStable": true,
@@ -39,7 +39,7 @@
    "heapMB": 9.5,
    "screenLayers": 3,
    "villageCache": 20,
-   "spriteCache": 40,
+   "spriteCache": 39,
    "canvases": 46
   },
   {

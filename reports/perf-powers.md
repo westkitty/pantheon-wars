@@ -86,3 +86,13 @@ Environment: Playwright Chromium headless, software rendering (no GPU), viewport
 | head | 13.70 | 14.00 | 0.60 | 13.10 | 21.10 |
 | 2b240d2 | 10.70 | 11.70 | 0.90 | 11.60 | 16.20 |
 | 34e542d | 11.80 | 11.80 | 0.10 | 11.60 | 17.50 |
+
+## Other configurations (head, one run each)
+
+| Configuration | coverage | idle p95 | cast p95 | incremental cast p95 | worst cast p95 | effects left | heap after last cast (MB, min → max) |
+|---|---|---|---|---|---|---|---|
+| head-phone (390x844@2, high, motion full, flash on, repeat 1) | 40/40 | 9.70 | 10.50 | 0.90 | 12.30 | 0 | 7.04 → 14.54 |
+| head-low (1440x900@1, low, motion full, flash on, repeat 1) | 40/40 | 9.30 | 9.50 | 0.30 | 14.70 | 0 | 6.63 → 14.65 |
+| head-reduced (1440x900@1, high, motion reduced, flash on, repeat 1) | 40/40 | 12.10 | 12.90 | 0.90 | 19.40 | 0 | 6.77 → 13.25 |
+| head-noflash (1440x900@1, high, motion full, flash off, repeat 1) | 40/40 | 14.70 | 15.50 | 1.00 | 25.40 | 0 | 7.20 → 14.63 |
+| head-repeat (1440x900@1, high, motion full, flash on, repeat 5) | 40/40 | 14.20 | 15.10 | 0.90 | 22.60 | 0 | 6.68 → 21.28 |

@@ -218,3 +218,13 @@ Start: `fc8eb8a`, draft PR #1, clean tree (CI engine jobs green, browser jobs ru
 - **Real devices:** UNVERIFIED — no hardware available; handoff in `reports/visual-qa/device-review.md`.
 - **Evidence (before/after vs fc8eb8a):** `reports/visual-qa/{water,towns,burst,close,ages,devices,weather}.jpg`, town-life frames in
   `motion.jpg`.
+
+### Forty-power performance audit (2026-10-31, eighth pass)
+Start: `6e3f629`. No gameplay, data or art change.
+- `tools/perf-powers.js` casts every faction power through `PW.act` on a deterministic fixture and measures its full visual lifecycle by
+  phase, against the same scene's idle frames; `--smoke` runs in CI (all forty must cast, dispatch and end). `tools/perf-powers-report.js`
+  pools runs into `reports/perf-powers.md`.
+- Result: 40/40 casts in HEAD, 2b240d2 and 34e542d; 0 effects left. The forty manifestations add 0.6 ms p95 per frame (median over
+  powers; worst 3.5 ms); worst cast p95 21.1 ms. The regression since 34e542d is the idle scene (13.7 vs 11.8 ms p95), not the effects.
+- One optimization tried and rejected (path batching: −88% extra fills, no measurable time gain); details in `reports/perf-powers-findings.md`.
+- Harness defect found and fixed: back-to-back rendering without yielding produced ~200 ms flushes; frames now yield like play.

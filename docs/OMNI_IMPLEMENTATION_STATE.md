@@ -162,3 +162,24 @@ stays PARTIAL (no balance work in this pass).
 
 NEXT ACTION: a person reviews the towns, shrines and priests on real devices; a further pass reauthors terrain decor and the forty VFX
 motifs; the duel balance gap needs its own focused pass. Do not merge or deploy without the owner's decision.
+
+### Finishing pass: terrain, forty manifestations, icons, events, roads (2026-10-31, fifth pass)
+Start: `2b240d2`, draft PR #1, clean tree, CI green on the engine job (browser job still running at start). Gameplay data unchanged
+(`4b22c717aa09`); P001 stays PARTIAL.
+- **Terrain features (`ui/terrain-art.js`, new):** forest stands, mountain massifs (heart, middle, edge forms) and hill knolls at 2×,
+  seeded pools of 8 variants per family and climate. Baked at 1× into the static layer and drawn at 2× in screen space at normal
+  zoom, under every object; tiles on the fog border or carrying a highlight (target, selection, hover, path) keep the baked copy.
+- **Forty power manifestations (`ui/vfx-art.js`, new):** one authored painter per power, drawn live in screen space inside the
+  existing three beats; reduced motion holds each power's own form still. Glows use cached sprites.
+- **Icons and emblems (`ui/art.js`):** minting pass (doubled, lit and shaded edges, one-pixel silhouette) for every icon and emblem;
+  five weak glyphs redrawn; emblems as bevelled 64 px medallions; downscales are smoothed.
+- **Event scenes (`ui/art.js`):** all nineteen recomposed in depth with subject-specific settings; subjects are the earlier drawings.
+- **Roads and travellers:** worn-earth roads with verge, crown, pebbles and cairns; 2× pilgrims (`ui/kits.js`) in screen space.
+  Chimney smoke as soft puffs.
+- **New checks:** QQQ Q08 (staggered town rebuilds never leave an obsolete sprite), Q09 (all forty effects end).
+- **Evidence:** `reports/atlas/{terrain,vfx-motifs,power-icons,emblems-patterns,event-art}.png`; before/after vs 2b240d2 in
+  `reports/visual-qa/{biomes,devices,icons,events,vfx-compare,pantheons,ages,close,sprites,walk}.jpg`; performance
+  `reports/perf-comparison-v05.md` (p95 +3% … +18%, all ≤ 12.2 ms; median up to +21% in the burst scene).
+- **Not done (PARTIAL):** flat ground decor (plains, grassland, desert, marsh, tundra), water and coast, weather overlays, vegetation
+  sway and other environmental micro-animation, construction feedback beyond the restored-shrine scaffold, the subjects inside the
+  event scenes, rite icons other than the five redrawn glyphs, heraldic patterns, tapestry. No human or real-device review.

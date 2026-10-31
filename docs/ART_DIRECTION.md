@@ -1,4 +1,4 @@
-# Pantheon Wars — Art Direction (v0.4, the ten pantheons)
+# Pantheon Wars — Art Direction (v0.5, the ten pantheons)
 
 Pantheon Wars ships no image, font or audio files. Every visual is drawn by code at runtime (`ui/art.js`, `ui/render.js`) and every sound is synthesised (`ui/audio.js`). This keeps the game offline, small and free of third-party art, and it means art is reviewable as source. `data/asset-manifest.json` lists every drawing id, where it is drawn and what uses it. `node tools/assets.js` renders all of them into QA contact sheets in `reports/atlas/`.
 
@@ -130,3 +130,36 @@ distance covered (no foot sliding, no hop), and a gesture. Callings read by silh
 Not reauthored in v0.4 (still v0.3 art): terrain decor (trees, mountains, desert, marsh, water), roads and travellers, the forty power
 icons and other UI icons, emblems, event illustrations, tapestry, and the VFX motifs (they are now drawn at screen resolution, which
 sharpens them, but their shapes are unchanged).
+
+## v0.5 — finishing the remaining art families
+New source files (original procedural art; no image files): `ui/terrain-art.js` (terrain features), `ui/vfx-art.js` (forty power
+manifestations). Reworked in place: `ui/art.js` (minted icons and emblems, five redrawn icon glyphs, event scene compositions),
+`ui/kits.js` (pilgrims), `ui/render.js` (integration, roads, smoke).
+
+| Family | What changed | Source | How it reaches the game |
+|---|---|---|---|
+| Terrain features | Forest stands (conifers with tiered lit/shaded crowns and snow in the cold, broadleaves with clustered canopies, birches, undergrowth, stand shadow); mountain massifs (broken ridgelines with shoulders and notches, lit and shaded faces, hollow shadow, gullies, strata, cliff bands, broken snow caps, scree fans; separate forms for the heart, middle and foothill edge of a range); hill knolls (grassy relief, rock outcrops, shrubs, dry and green). 2×, one-pixel outline, cast shadow; a seeded pool of 8 variants per family and climate (up to 88 sprites, built on first use and shared across games) | `ui/terrain-art.js` | Baked at 1× into the static layer (overview zoom, Low quality, fog border, highlighted tiles) and drawn at 2× in screen space at normal zoom over the baked copy, under all towns, shrines and priests |
+| Power manifestations | All forty powers have their own authored form and motion (see table below); the old shared motifs no longer play for faction powers. Anticipation, world light and aftermath keep the three-beat choreography. Reduced motion holds each power's own form still for 0.9 s with the ring and label | `ui/vfx-art.js` | Drawn live in screen space round the target |
+| Icons | Every icon is minted: doubled on its pixel grid, lit edge toward the light, shaded edge away from it, one-pixel dark silhouette. Five weak glyphs redrawn (raven, crow omen, feather, iron road, order rope) | `ui/art.js` `mint`, `ICONS` | Power bar, place panel, title gallery, encyclopedia |
+| Emblems | 64 px medallion: bevelled metal rim lit from the upper left, deep field, minted device | `ui/art.js` `emblem` | Top bar, hand-off, events, victory, Chronicle, tapestry |
+| Event scenes | All nineteen recomposed in depth with a setting that follows the subject (coast, river plain, lake, terraces, mountains, forest, town, meadow, plain): sky with the age's sun or moon and cloud bands, a hazy far range, a mid-ground with its own features and a settlement (lit windows at Twilight), the subject, and a framing foreground. The subjects themselves are the v0.3 drawings | `ui/art.js` `sceneBack`, `sceneFront` | Event card |
+| Roads and travellers | Roads are worn into the land: smoothed through the hex centres, dark verge, packed earth, pale crown and pebbles, cairns at both ends lit while open. Three pilgrims per open road (hooded cloak, the owner's colour as a sash, bundle and staff, four walk frames by distance, facing their direction), some walking each way | `ui/render.js` `drawRoutes`, `ui/kits.js` `pilgrim` | Screen space, depth-sorted with towns and priests |
+| Smoke | Soft puffs that swell, drift and thin out instead of square pixels | `ui/render.js` | Towns |
+
+Power manifestations (each also keeps its own anticipation, world-light colour and aftermath):
+
+| Pantheon | Explore | Expand | Exploit | Exterminate |
+|---|---|---|---|---|
+| Olympian Court | an oak of light grows; leaves spiral out | a faceted bronze-rimmed shield dome rises | a wave of ripening grain runs outward | a branching bolt, impact flash, scorch |
+| Hall of the Ash | two ravens beat out and back | a stone rises; carved strokes burn in | sun through a rain cloud, a bow over the fields | a hammer wheels down a thunder arc, ground cracks |
+| Ennead | the sun's boat crosses the sky | two great wings unfold over a stepped seat | a black-earth mound sprouts | a balance tips with a feather on one pan |
+| Assembly of the Gods | the sun crosses on a high arc, waters glint | three clay tablets rise and stack | a fountain bursts, rings run out | an eight-pointed star descends and sets |
+| Tuatha Dé Danann | mist rolls in, three crows rise | a ring of fires lights one by one | a cauldron steams toward the towns | two rings turn against each other |
+| Fifth Sun | spiralling gusts sweep with streamers | a reed-bound garden plot rises from the lake | a cloud lets down a curtain of rain | the zenith sun pins the town in a shaft; heat shimmer |
+| Thousand Gods of Hatti | a banded disc turns; an omen bird crosses | dressed stones fly in and lock into a gate | flowers open in a widening ring; bees | a storm wall rolls in and throws lightning |
+| Council of the Òrìṣà | a river mirror opens with rings | clay shards fly together into a vessel | sparks fountain from an anvil and run along the roads | a stone falls on twin bolts |
+| Shrines of the Kami | a fan of first light opens | red posts rise, beams drop onto them | flooded plots light up, rice stands | a dark vortex tightens, lit from inside |
+| Vedic Hymns | night draws back like a curtain from a rose horizon | a flame climbs into a tall standing fire | a golden cord loops round the land, waters settle | a cloud wall breaks into a forked downpour |
+
+Still v0.3 art after v0.5: flat ground decoration (grass, plains furrows, desert dunes, marsh, tundra), water and coast, the weather
+overlays, the subjects inside the event scenes, the rite icons other than the five redrawn glyphs, the heraldic patterns, the tapestry.

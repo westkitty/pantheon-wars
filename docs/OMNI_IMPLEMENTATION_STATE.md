@@ -264,3 +264,18 @@ The scope is recorded in `audio/README.md`: ownership stays with the creator, an
   - Checks added: restarts, save/load, return to the title, and element release.
 - **Test filters:** journeys and screenshots no longer excuse failed recording loads. The offline proof excuses only cancelled (`ERR_ABORTED`) recording loads.
 - **CI:** integrity, then the recorded check over file:// and HTTP, then the isolated fallback.
+
+### P001 balance repair attempt (2026-10-31, eleventh pass)
+Start: `b158b1a`. Result **PARTIAL**: no gameplay change shipped; data stays `4b22c717aa09`, engine/AI unchanged.
+- **Diagnosis:** duel ablations with the real AI, plus mode-split telemetry. Details in `reports/balance-repair-p001.md`.
+- **Candidates:** A–D tested on matched development seeds 520000. Combination E was frozen (`abde6382dbab`) and validated on untouched seeds 800000 and 900000, each against the shipped data on the same seeds.
+- **Why E was rejected:** it fails on 800000 (duel 15.8, three-god 15.8) and widens three-god balance on both sets. All code and data were reverted.
+- **Kept:** `tools/simulate.js --keep-games` (per-player telemetry). Evidence is in `reports/balance-repair-dev/` and `reports/balance-*-seed{8,9}00000.*`.
+- **Regression on the final tree:**
+  - Unit tests 55/55, validator, and bundle and design-page checks.
+  - Balance smoke: 0 illegal actions, Hierophant 39/40.
+  - No game code changed. Browser suites run in CI; the replay hashes `47cef0c2` and `6a3687d9` are unaffected because engine and data are unchanged.
+- **Open for a future pass:**
+  - A mode-aware lever for the Olympian Court.
+  - A redesign of a dead Vedic piece (Varuna's Order or Indra's Storm).
+  - Whether to raise `--duel-seeds` to 40 in the gate. At 360 duels per faction the same data measures 14.7–20.3.

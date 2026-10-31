@@ -1,0 +1,4 @@
+Candidate E (data abde6382dbab) differs from the shipped data (4b22c717aa09) in exactly two places:
+  data/rules.json    + "aiTargeting": { "trailingRivalMult": 0.4, "resistByLoss": true }      (switches on the two AI corrections in candidate-E-ai.diff)
+  data/domains.json  sky_oath.effect.n: 2 -> 3; text "1 Favor every 2 turns" -> "1 Favor every 3 turns"
+Both were reverted (candidate rejected); the shipped data is unchanged.

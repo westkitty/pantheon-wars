@@ -121,3 +121,37 @@ release candidate (`4b22c717aa09`). Across three independent 9000-game seed sets
 16.1, 18.9 and 18.3 points — consistently over the 15-point target — while overall (9.3–11.5) and three-god (12.0–14.2) pass.
 The duel gap is a real, persistent Olympian Court (56–60%) vs Vedic Hymns (39–41%) asymmetry; no data change tried in two bounded
 cycles fixed it without breaking three-god balance. **Balance gate: PARTIAL.**
+
+## Third pass: causal diagnosis and frozen candidate E (2026-10-31)
+
+Full report: `reports/balance-repair-p001.md`. Diagnosis and development evidence: `reports/balance-repair-dev/`.
+
+**Diagnosis**, from about 30,000 diagnostic games and duel ablations with the real AI:
+- The Olympian Court's problem is a mode split: 61.5% in duels and 21.1% with three gods on the same seeds.
+  - Its duel strength rests on its whole economic kit; the largest data lever is the Sky & Oath Favor stream (−14.5 points when removed).
+  - Strikes are not the driver: Thunderbolt is worth about 2.7 points, and the Court loses followers on balance in duels.
+  - With three gods the AI over-values strikes on trailing rivals.
+- The Vedic Hymns have one working pillar: without Agni's Fire their duel rate falls 38 → 8.5%. Their resistance and storm domains add nothing measurable, and Order of Varuna and Indra's Rainstorm lose games when cast.
+- Oracle Oak is an AI value trap. The AI counts empty hidden tiles; without the power the Court's duel rate goes 57 → 70%. Not fixed, because fixing it would widen the gap.
+
+**Candidates** (matched development seeds 520000; duel / three-god spread):
+
+| Candidate | Change | Duel / three-god spread |
+|---|---|---|
+| base | shipped data | 20.0 / 18.5 |
+| A | resistance raises the bar to convert | 19.6 / 18.4 — no effect |
+| B | Gift of the Grain capped at 5 towns | 20.0 / 18.7 — no effect |
+| C | AI discounts strikes on non-leading rivals | 20.0 / 18.5 — three-god Court +3 |
+| D | AI values resistance boons by losses prevented | 21.1 / 18.8 — no effect |
+| E | C + D + Sky & Oath every 3 turns | 12.8 / 19.8 |
+
+**Validation of the frozen candidate E** (data `abde6382dbab`) on untouched seeds, 9,000 games each, matched against the shipped data:
+
+| Seeds | Shipped data (overall / three-god / duel) | E (overall / three-god / duel) |
+|---|---|---|
+| 800000 | 9.8 / 12.5 / 20.3 | 13.4 / 15.8 / 15.8 — fails |
+| 900000 | 8.9 / 12.2 / 14.7 | 11.2 / 14.8 / 14.4 |
+
+E improves duels but consistently worsens three-god balance by about 3 points. **E was rejected and reverted.** The shipped data stays `4b22c717aa09`.
+
+**Balance gate: PARTIAL.** The shipped data has now measured duel spreads of 16.1, 18.9, 18.3, 20.3 and 14.7 across five independent sets.

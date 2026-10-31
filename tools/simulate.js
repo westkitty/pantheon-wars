@@ -188,7 +188,7 @@ function markdown(label, a, easy, meta, data) {
     seconds: ((Date.now() - t0) / 1000).toFixed(0), plan: legacy3 ? 'legacy three-pantheon mix' : opts.plan === 'full' ? `full ordered coverage, ${opts.duelSeeds} seeds per ordered duel, ${opts.ffaSeeds} per ordered triple` : 'stratified sample cycling ordered configurations', noLookahead, ai };
   fs.writeFileSync(out + '.json', JSON.stringify({ label, meta, analysis: a, easy, games: results.map(g => ({ seed: g.seed, factions: g.players.map(p => p.faction), winner: g.winnerFaction, type: g.type, turn: g.turn, hash: g.hash })) }, null, 1));
   fs.writeFileSync(out + '.md', markdown(label, a, easy, meta, data));
-  fs.unlinkSync(partial);
+  if (flag('keep-games')) fs.renameSync(partial, out + '.games.jsonl'); else fs.unlinkSync(partial); // --keep-games: per-player telemetry for diagnosis
   console.log(`${a.games} games in ${meta.seconds}s | avg turns ${a.avgTurns} | types ${JSON.stringify(a.types)}`);
   a.rows.forEach(r => { const S = a.facStats[r.id]; console.log(`  ${r.id.padEnd(13)} overall ${pct(r.overall)}  ffa ${pct(r.ffa)}  duel ${pct(r.duel)}  | faith ${S.faithEarned} shrines ${S.shrinesBuilt} share ${pct(S.share)} fromRivals ${S.convertedFromRivals}`); });
   console.log(`  spread overall ${pct(a.spreadOverall)} ffa ${pct(a.spread3)} duel ${pct(a.spread2)}`);

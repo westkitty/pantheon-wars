@@ -204,3 +204,17 @@ Start: `d6b9393`, draft PR #1, CI green (4/4), clean tree. Gameplay data unchang
 - **Evidence (before/after vs d6b9393):** `reports/visual-qa/{biomes,weather,heraldry,events,icons,tapestry,devices,pantheons,ages,close,vfx-compare}.jpg`,
   motion sequences `reports/visual-qa/motion.jpg`, atlases `reports/atlas/{terrain,event-art,emblems-patterns,power-icons}.png`.
 - **Still open:** water depth material, lanterns and street activity, banners beyond the waving flag, real-device and human review.
+
+### Final polish: water, town life, effect cost (2026-10-31, seventh pass)
+Start: `fc8eb8a`, draft PR #1, clean tree (CI engine jobs green, browser jobs running at start). Gameplay data unchanged; P001 PARTIAL.
+- **Water material:** per-age six-step depth palette, seabed through the shallows, sky reflection toward the horizon, key-light sheen,
+  current lines; two corrective passes after visual comparison: the first version made the shallows read greyer than before (a warm
+  reflection mixed into teal, sand patches too opaque), fixed with a lighter reflection and an additive turquoise glow in the shallows.
+- **Town life (`drawTownLife`):** people, lanterns, culture-specific cloth and hearths on the town's front ground, by tier, decline,
+  shrine damage, weather and quality; still under reduced motion; visual only (QQQ Q14).
+- **Effect cost:** profiled the burst benchmark (it never plays the forty manifestations; the cost is spread over the screen-space
+  passes); closed-form local projection. Burst scene +3% median / +1% p95 against fc8eb8a; the v0.5 regression is not recovered
+  (`reports/perf-comparison-v07.md`).
+- **Real devices:** UNVERIFIED — no hardware available; handoff in `reports/visual-qa/device-review.md`.
+- **Evidence (before/after vs fc8eb8a):** `reports/visual-qa/{water,towns,burst,close,ages,devices,weather}.jpg`, town-life frames in
+  `motion.jpg`.

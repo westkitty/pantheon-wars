@@ -1,4 +1,4 @@
-# Pantheon Wars — Art Direction (v0.6, the ten pantheons)
+# Pantheon Wars — Art Direction (v0.7, the ten pantheons)
 
 Pantheon Wars ships no image, font or audio files. Every visual is drawn by code at runtime (`ui/art.js`, `ui/render.js`) and every sound is synthesised (`ui/audio.js`). This keeps the game offline, small and free of third-party art, and it means art is reviewable as source. `data/asset-manifest.json` lists every drawing id, where it is drawn and what uses it. `node tools/assets.js` renders all of them into QA contact sheets in `reports/atlas/`.
 
@@ -187,3 +187,25 @@ route, counter, envoy, retrain, landmark. Checked at 48 px and 34 px in `reports
 
 Still not reauthored: water depth colours and the shallow-water material (only the wave layers and the shore band changed), lanterns and
 flames other than shrine light, settlement activity (people in streets), banners beyond the existing waving flag.
+
+## v0.7 — water material, town life, effect cost
+**Water** (`ui/render.js` `buildStatic`, rebuilt per age): a six-step depth palette per age — warm teal at Dawn, clear turquoise at
+Zenith, violet-blue at Twilight — painted per hex by distance to land and blurred into one body; inside the water only: the seabed seen
+through the two shallowest steps (sand patches, ripples, stones, fading with depth), the sky reflected more strongly toward the far
+horizon in the age's sky colour, light scattered up through the two shallowest steps (an additive turquoise glow, so coasts read bright
+and clear), a warm-to-cool sheen from the upper-left key light, and long current lines in place of v0.3 speckle.
+The v0.6 wave field, swells, foam and shore band ride on top. The pantheon atmospheres grade it with the rest of the land on screen.
+
+**Town life** (`ui/render.js` `drawTownLife`), drawn after the town sprite and before its shrine, on the open ground in front of the
+houses where the lanes leave the town, so it never covers a shrine or the plaque:
+- people (1–6 by tier, fewer in a declining town, under a damaged or eclipsed shrine and in rain or storm; halved in Low quality) walk
+  short arcs, some carrying bundles; in a town without a shrine over its plaza one draws water at the well;
+- lantern posts (tier 2+) that glow at Twilight and faintly at Dawn and flicker;
+- cloth in the patron culture's own form — awnings (Greek, Egyptian, Mesopotamian), drying racks (Norse, Hittite), cloth lines (Irish,
+  Mexica, Yoruba, Vedic), a noren curtain (Japanese) — stirring with the wind, harder in rain and storm;
+- a hearth fire on the town's front ground for the hearth cultures (Norse, Irish, Yoruba, Vedic).
+Reduced motion keeps the people standing and the lights lit. Positions come from the town id and visual time only, never from game
+state or game randomness (QQQ Q14). These are ordinary townsfolk; no ceremony or sacred object is shown.
+
+**Effect cost:** the local projection used for every screen-space object and airborne effect is now the closed-form derivative of the
+perspective (no three `project()` calls and allocations per object). See `reports/perf-comparison-v07.md` for the measured result.

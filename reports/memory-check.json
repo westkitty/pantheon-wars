@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-31T02:25:35.914Z",
+ "generated": "2026-10-31T04:27:52.850Z",
  "games": 10,
  "heapGrowth": 0,
  "canvasesStable": true,
@@ -20,8 +20,8 @@
    "turn": 6,
    "heapMB": 9.5,
    "screenLayers": 3,
-   "villageCache": 14,
-   "spriteCache": 16,
+   "villageCache": 13,
+   "spriteCache": 17,
    "canvases": 46
   },
   {
@@ -39,7 +39,7 @@
    "heapMB": 9.5,
    "screenLayers": 3,
    "villageCache": 20,
-   "spriteCache": 39,
+   "spriteCache": 40,
    "canvases": 46
   },
   {
@@ -47,7 +47,7 @@
    "turn": 6,
    "heapMB": 9.5,
    "screenLayers": 3,
-   "villageCache": 13,
+   "villageCache": 14,
    "spriteCache": 20,
    "canvases": 46
   },
@@ -57,7 +57,7 @@
    "heapMB": 9.5,
    "screenLayers": 3,
    "villageCache": 16,
-   "spriteCache": 27,
+   "spriteCache": 26,
    "canvases": 46
   },
   {

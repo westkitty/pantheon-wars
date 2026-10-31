@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-31T02:27:54.030Z",
+ "generated": "2026-10-31T04:27:09.580Z",
  "results": [
   {
    "id": "Q01",
@@ -213,6 +213,18 @@
      "dc": 14,
      "lastDc": 13,
      "firstObj": 14
+    }
+   }
+  },
+  {
+   "id": "Q14",
+   "title": "Town life is visual only: it draws only at towns the viewer has revealed and leaves the game state byte-for-byte unchanged",
+   "ok": true,
+   "evidence": {
+    "r": {
+     "towns": 1,
+     "hidden": [],
+     "same": true
     }
    }
   }

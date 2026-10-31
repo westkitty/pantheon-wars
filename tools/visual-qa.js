@@ -155,8 +155,9 @@ async function sheet(browser, cells, cols, cw, ch, file) {
       s.climate.fronts = []; const town = s.settlements.find(x => s.players[0].revealed[x.tile] && !x.shrine) || s.settlements[s.players[0].home], a = E.clone(s), b = E.clone(s); b.turn = a.turn + 1; if (!b.settlements[town.id].shrine) b.settlements[town.id].shrine = JSON.parse(JSON.stringify(s.settlements[s.players[0].home].shrine));
       R.setState(a, 0); R.prevViewer = 0; R.setState(b, 0); PW.focus(town.tile); R.cam.tz = 3; PW.settle();
       for (let k = 0; k < 6; k++) { R.render(0.25); grab('shrine raised t=' + (0.25 * (k + 1)).toFixed(2) + ' s (staged)', town.tile); }
+      const home = s.settlements[s.players[0].home]; R.setState(b, 0); PW.focus(home.tile); R.cam.tz = 3.2; PW.settle(); for (let k = 0; k < 6; k++) { R.render(0.4); grab('town life t=' + (0.4 * (k + 1)).toFixed(1) + ' s', home.tile); }
       return out; });
-    await ctx.close(); await sheet(browser, frames, 6, 360, 240, 'motion.jpg'); manifest.sheets.push({ file: 'reports/visual-qa/motion.jpg', content: 'frame sequences in the running game (after): forest canopies and rain in a storm (staged front), and the shrine-raised transition (staged state change)' }); }
+    await ctx.close(); await sheet(browser, frames, 6, 360, 240, 'motion.jpg'); manifest.sheets.push({ file: 'reports/visual-qa/motion.jpg', content: 'frame sequences in the running game (after): forest canopies and rain in a storm (staged front), the shrine-raised transition (staged state change), and town life at the home town' }); }
   // 2l. the tapestry of one finished game (Hierophant suggestions as the human's moves to turn 45), before and after
   { const cells = [];
     for (const [tag, root] of roots) { const { ctx, page } = await play(browser, root, 'mexica', 61, 99);
@@ -165,6 +166,32 @@ async function sheet(browser, cells, cols, cw, ch, file) {
       await page.click('#chron-tapestry'); await page.waitForTimeout(3200);
       cells.push({ label: 'tapestry · ' + tag, url: await page.evaluate(() => { const c = document.querySelector('#tapestry canvas'); return c.toDataURL('image/png'); }) }); await ctx.close(); }
     if (cells.length) { await sheet(browser, cells, cells.length, 800, 500, 'tapestry.jpg'); manifest.sheets.push({ file: 'reports/visual-qa/tapestry.jpg', content: 'the exported tapestry image of one finished game (same seed and moves), ' + roots.map(r => r[0]).join(' vs ') }); } }
+  // 2m. water at overview (1.1), normal (2.0) and close (3.2) zoom over the same coast, before and after
+  { const cells = [];
+    for (const z of [1.1, 2.0, 3.2]) for (const [tag, root] of roots) { const { ctx, page } = await play(browser, root, 'egyptian', 33, 6);
+      const url = await page.evaluate(z => { const R = PW.renderer, s = PW.state, rev = s.players[0].revealed, home = s.map.tiles[s.settlements[s.players[0].home].tile];
+        const t = s.map.tiles.filter(x => x.terrain === 'sea' && rev[x.id]).sort((a, b) => Math.hypot(a.q - home.q, a.r - home.r) - Math.hypot(b.q - home.q, b.r - home.r))[0] || home;
+        PW.focus(t.id); R.cam.tz = z; PW.settle(); R.time = 12; R.fx = []; R.texts = []; R.revealAnims = []; R.oldFog = null; R.render(0); R.render(0);
+        const p = PW.tileScreen(t.id), d = R.dpr || 1, o = document.createElement('canvas'); o.width = 560; o.height = 340; o.getContext('2d').drawImage(R.canvas, Math.round(p.x * d - 280), Math.round(p.y * d - 170), 560, 340, 0, 0, 560, 340); return o.toDataURL('image/png'); }, z);
+      cells.push({ label: 'water, zoom ' + z + ' · ' + tag, url }); await ctx.close(); }
+    await sheet(browser, cells, roots.length * 3, 420, 255, 'water.jpg'); manifest.sheets.push({ file: 'reports/visual-qa/water.jpg', content: 'the nearest sea to the home town at zoom 1.1, 2.0 and 3.2, same game and camera, ' + roots.map(r => r[0]).join(' vs ') }); }
+  // 2n. towns by growth tier in one late game (turn 28), plus a declining town and a damaged shrine where the game has them, before and after
+  { const cells = [], pick = {};
+    for (const [tag, root] of roots) { const { ctx, page } = await play(browser, root, 'yoruba', 41, 28);
+      const shots = await page.evaluate(() => { const R = PW.renderer, s = PW.state, rev = s.players[0].revealed, out = [], tier = x => Math.max(1, Math.min(5, Math.floor(x.pop / 2.6)));
+        const want = [1, 2, 3, 4, 5].map(k => ({ k: 'tier ' + k, t: s.settlements.find(x => rev[x.tile] && tier(x) === k) })).concat([{ k: 'declining', t: s.settlements.find(x => rev[x.tile] && (x.peak || x.pop) - x.pop >= 3) }, { k: 'damaged shrine', t: s.settlements.find(x => rev[x.tile] && x.shrine && x.shrine.ward < (R.shrineDefs[x.shrine.type] || {}).ward) }]);
+        want.forEach(w => { if (!w.t) return; PW.focus(w.t.tile); R.cam.tz = 3; PW.settle(); R.time = 12; R.fx = []; R.texts = []; R.revealAnims = []; R.oldFog = null; R.render(0); R.render(0); R.render(0);
+          const p = PW.tileScreen(w.t.tile), d = R.dpr || 1, o = document.createElement('canvas'); o.width = 360; o.height = 240; o.getContext('2d').drawImage(R.canvas, Math.round(p.x * d - 180), Math.round(p.y * d - 170), 360, 240, 0, 0, 360, 240); out.push({ k: w.k + ' (' + w.t.name + ')', url: o.toDataURL('image/png') }); });
+        return out; });
+      pick[tag] = shots; await ctx.close(); }
+    pick[roots[0][0]].forEach((c, i) => roots.forEach(([tag]) => { const x = pick[tag][i]; if (x) cells.push({ label: x.k + ' · ' + tag, url: x.url }); }));
+    await sheet(browser, cells, roots.length * 2, 360, 240, 'towns.jpg'); manifest.sheets.push({ file: 'reports/visual-qa/towns.jpg', content: 'towns of each growth tier, a declining town and a damaged shrine in one real game at turn 28, zoom 3, ' + roots.map(r => r[0]).join(' vs ') }); }
+  // 2o. the miracle-burst benchmark scene (six towns struck at once) at 0.3 s, before and after
+  { const cells = [];
+    for (const [tag, root] of roots) { const { ctx, page } = await play(browser, root, 'greek', 11, 16);
+      cells.push({ label: 'miracle burst t=0.3 s · ' + tag, url: await page.evaluate(() => { const R = PW.renderer, s = PW.state; R.fx = []; const st = s.settlements.filter(x => s.players[0].revealed[x.tile]).slice(0, 6); PW.focus(st[0].tile); R.cam.tz = 1.9; PW.settle();
+        st.forEach((x, i) => { R.addFx(i % 2 ? 'bolt' : 'topple', x.tile, {}); R.addFx('reveal', x.tile, { color: '#ffe08a', radius: 3 }); }); for (let k = 0; k < 6; k++) R.render(0.05); return R.canvas.toDataURL('image/png'); }) }); await ctx.close(); }
+    await sheet(browser, cells, cells.length, 640, 400, 'burst.jpg'); manifest.sheets.push({ file: 'reports/visual-qa/burst.jpg', content: 'the perf benchmark burst scene (bolt, topple and reveal effects on six towns) at 0.3 s, ' + roots.map(r => r[0]).join(' vs ') }); }
   // 3. forty power signatures, three beats each (display-only casts on a live map)
   const { ctx, page } = await play(browser, ROOT, 'greek', 2, 1);
   const vfxIds = D.powers.map(p => p.vfx);

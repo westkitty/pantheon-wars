@@ -1,7 +1,7 @@
 {
- "generated": "2026-10-31T02:03:58.107Z",
+ "generated": "2026-10-31T04:00:19.901Z",
  "tool": "node tools/visual-qa.js",
- "before": "checkout at bd6b",
+ "before": "checkout at bfc8",
  "sheets": [
   {
    "file": "reports/visual-qa/pantheons.jpg",
@@ -53,11 +53,23 @@
   },
   {
    "file": "reports/visual-qa/motion.jpg",
-   "content": "frame sequences in the running game (after): forest canopies and rain in a storm (staged front), and the shrine-raised transition (staged state change)"
+   "content": "frame sequences in the running game (after): forest canopies and rain in a storm (staged front), the shrine-raised transition (staged state change), and town life at the home town"
   },
   {
    "file": "reports/visual-qa/tapestry.jpg",
    "content": "the exported tapestry image of one finished game (same seed and moves), before vs after"
+  },
+  {
+   "file": "reports/visual-qa/water.jpg",
+   "content": "the nearest sea to the home town at zoom 1.1, 2.0 and 3.2, same game and camera, before vs after"
+  },
+  {
+   "file": "reports/visual-qa/towns.jpg",
+   "content": "towns of each growth tier, a declining town and a damaged shrine in one real game at turn 28, zoom 3, before vs after"
+  },
+  {
+   "file": "reports/visual-qa/burst.jpg",
+   "content": "the perf benchmark burst scene (bolt, topple and reveal effects on six towns) at 0.3 s, before vs after"
   },
   {
    "file": "reports/visual-qa/vfx.jpg",

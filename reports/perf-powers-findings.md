@@ -55,3 +55,14 @@ scenery plus generic bolt/topple/reveal effects; it says nothing about the forty
 Heap figures in the configuration runs are taken without forcing garbage collection and swing −8.7 … +12.9 MB between the first and fifth
 cast of a power: collection timing, not a trend. A forced-collection check is recorded below. `node tools/memory-check.js` (ten games in
 one page) stays flat.
+Forced-collection check (`--js-flags=--expose-gc`, the three powers with the largest unforced swings, 20 casts each, 200 frames per cast,
+heap read after `gc()`): Gates of Arinna 5.18 → 5.60 → 5.65 MB at casts 1/10/20; Assembly of Lugh 5.21 → 5.64 → 5.69; Rain and Sun
+5.18 → 5.62 → 5.66. The first casts warm the glow and sprite caches; casts 10–20 add 0.05 MB. No effect left alive. No leak found.
+
+## Verdict
+- Forty-power coverage: **40/40** real engine casts in HEAD, 2b240d2 and 34e542d and in all five extra configurations.
+- Phase measurements: complete for all forty, every build, three runs.
+- The forty authored manifestations are not a performance problem (≈0.6 ms p95 per frame on top of the scene; worst 3.5 ms; worst
+  absolute cast p95 25.4 ms across all configurations, under 33 ms). The scene-wide growth since 34e542d (≈+2 ms p95 in this fixture,
+  ≈+3 ms in the generic control) remains and belongs to the scenery art, not to the powers.
+- No optimization was accepted; the one tried showed no reproducible time gain and was reverted.

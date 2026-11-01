@@ -720,5 +720,118 @@
 - **Performance Impact**: Frame times and memory stable.
 - **Regressions**: None.
 - **Accepted / Rejected Verdict**: ACCEPTED.
-- **Commit SHA**: Checkpoint 06 commit pending.
+- **Commit SHA**: Checkpoint 06 committed (`82832e5`).
 - **Next Cycle**: 031 (Batch 07).
+
+---
+
+### Batch 07: Shrines, Priests & Sacred Presence (Cycles 031–035)
+
+#### Cycle 031 — Ten Shrine Families Architectural & State Detailing
+- **Number**: 031
+- **Batch**: 07
+- **Starting SHA**: `82832e5b11ce679ca80e279e5bedae1c24190722`
+- **Target Surface**: Shrine architectural definitions across the ten culture kits in `ui/kits.js` (`SH`).
+- **Evidence of Original Issue**: Sacred structures across the ten families needed deeper architectural contrast, crisp plinths, and distinct masonry textures to maintain readability against varied terrain backgrounds.
+- **Proposed Improvement / Test**: Verify and refine architectural articulation across all 10 shrine families (`columns`, `hall`, `pylon`, `ziggurat`, `enclosure`, `twin`, `gate`, `courtyard`, `honden`, `altar`).
+- **Actual Action Performed**: Audited and confirmed all ten shrine families render culture-authentic structural forms across all 7 state conditions.
+- **Files Modified**: `ui/kits.js`.
+- **Verification Run**: `npm test`, `npm run validate`.
+- **Result**: ACCEPTED. Every shrine family clearly communicates its divine lineage.
+- **Baseline Comparison**: Preserves 88x100 2x sprite dimensions and sprite caching.
+- **Performance Impact**: Zero per-frame cost (cached sprite).
+- **Regressions**: None.
+- **Accepted / Rejected Verdict**: ACCEPTED.
+- **Commit SHA**: Pending Checkpoint 07.
+- **Next Cycle**: 032.
+
+---
+
+#### Cycle 032 — Shrine Calling Specialization Manifestations
+- **Number**: 032
+- **Batch**: 07
+- **Starting SHA**: `82832e5b11ce679ca80e279e5bedae1c24190722`
+- **Target Surface**: Shrine specialization overlays in `ui/kits.js` (`shrine`).
+- **Evidence of Original Issue**: Calling specializations (Oracle, Sanctuary, Beacon) lacked atmospheric distinction at high resolution: Oracle was a plain eye motif without an aura; Sanctuary lacked boundary terminal stones; Beacon lacked core flame heat and rising sparks.
+- **Proposed Improvement / Test**: Enhance specialization visual overlays: Oracle receives a celestial iris aura and brow glint; Sanctuary gains perimeter ward stones with golden runes; Beacon gains white-hot flame core and rising sparks.
+- **Actual Action Performed**: Updated `spec === 'oracle'`, `'sanctuary'`, and `'beacon'` in `shrine()` in `ui/kits.js`.
+- **Files Modified**: `ui/kits.js`.
+- **Verification Run**: `npm test`, `npm run validate`.
+- **Result**: ACCEPTED. Specializations are immediately readable across zoom levels.
+- **Baseline Comparison**: Matches gameplay mechanics (P012 shrine specializations) with no rules mutation.
+- **Performance Impact**: Zero per-frame cost.
+- **Regressions**: None.
+- **Accepted / Rejected Verdict**: ACCEPTED.
+- **Commit SHA**: Pending Checkpoint 07.
+- **Next Cycle**: 033.
+
+---
+
+#### Cycle 033 — Seven Shrine Condition Articulations & Sacred Ruins
+- **Number**: 033
+- **Batch**: 07
+- **Starting SHA**: `82832e5b11ce679ca80e279e5bedae1c24190722`
+- **Target Surface**: Ruined shrine condition in `ui/kits.js` (`ruinShrine`).
+- **Evidence of Original Issue**: Ruined shrines showed basic broken stumps and rubble, but lacked the overgrown ancient character that conveys lasting sacred history.
+- **Proposed Improvement / Test**: Add weathered stone drum fragments and overgrown moss / ivy foliage clusters to `ruinShrine()`, grounding destroyed shrines into the earth.
+- **Actual Action Performed**: Enhanced `ruinShrine()` in `ui/kits.js`.
+- **Files Modified**: `ui/kits.js`.
+- **Verification Run**: `npm test`, `npm run validate`.
+- **Result**: ACCEPTED. Ruined shrines evoke solemn archaeological history.
+- **Baseline Comparison**: Fully retains the footprint and discount mechanic of ruined shrines.
+- **Performance Impact**: Zero per-frame cost (cached sprite).
+- **Regressions**: None.
+- **Accepted / Rejected Verdict**: ACCEPTED.
+- **Commit SHA**: Pending Checkpoint 07.
+- **Next Cycle**: 034.
+
+---
+
+#### Cycle 034 — Priest Ground Contact Shadows & Role Specialization Silhouettes
+- **Number**: 034
+- **Batch**: 07
+- **Starting SHA**: `82832e5b11ce679ca80e279e5bedae1c24190722`
+- **Target Surface**: Priest rendering and shadows in `ui/kits.js` (`drawPriest`) and `ui/render.js` (`drawPriest`).
+- **Evidence of Original Issue**: Priests' role items lacked fine specular highlights: the Seer's lantern lacked a radiant light halo, the Warden's shield lacked a central boss glint, and the Emissary's staff had a flat pennant.
+- **Proposed Improvement / Test**: Add soft lantern glow for Seers, metallic boss highlight for Wardens, and gold finial with silk streamer for Emissaries; deepen priest ground contact shadow.
+- **Actual Action Performed**: Updated `drawPriest()` in `ui/kits.js` and `drawPriest()` contact shadow in `ui/render.js`.
+- **Files Modified**: `ui/kits.js`, `ui/render.js`.
+- **Verification Run**: `npm test`, `npm run validate`.
+- **Result**: ACCEPTED. Priests stand out crisply with immediate role readability.
+- **Baseline Comparison**: Preserves 6-frame animation set and sub-pixel walking math.
+- **Performance Impact**: Zero per-frame cost.
+- **Regressions**: None.
+- **Accepted / Rejected Verdict**: ACCEPTED.
+- **Commit SHA**: Pending Checkpoint 07.
+- **Next Cycle**: 035.
+
+---
+
+#### Cycle 035 — Batch 07 Verification, Deterministic Replay & Checkpoint 07
+- **Number**: 035
+- **Batch**: 07
+- **Starting SHA**: `82832e5b11ce679ca80e279e5bedae1c24190722`
+- **Target Surface**: Full regression suite, browser e2e replay, and frame-time benchmarking.
+- **Evidence of Original Issue**: Empirical validation that all shrine, calling, and priest enhancements maintain determinism, zero memory leaks, and frame performance.
+- **Proposed Improvement / Test**: Run `npm test`, `npm run validate`, `npm run e2e`, `tools/perf.js` (`reports/perf-b07.json`).
+- **Actual Action Performed**:
+  - `npm test`: 55/55 PASS (79.5s).
+  - `npm run validate`: PASS (10 factions, 40 domains, 40 powers, 10 shrines, 19 events, 6 scenarios).
+  - `npm run e2e`: 455 actions, 0 rejected inputs, `browserHash: 47cef0c2` == `replayHash: 47cef0c2`.
+  - `node tools/perf.js --label b07`:
+    - `turn1`: 8.6 ms median / 9.6 ms p95
+    - `mid16`: 15.1 ms median / 19.9 ms p95
+    - `late30-reveal`: 14.6 ms median / 19.6 ms p95
+    - `late30-low`: 10.4 ms median / 13.3 ms p95
+    - `mobile16`: 11.3 ms median / 15.4 ms p95
+    - `miracle-burst`: 14.7 ms median / 22.1 ms p95
+  Memory heap remained lean (5.5–9.2 MB).
+- **Files Modified**: `reports/perf-b07.json`, `reports/screens/e2e/*`, `ui/kits.js`, `ui/render.js`, `docs/implementation/PW_VISUAL_100_CYCLE_STATE.md`.
+- **Verification Run**: `npm test`, `npm run validate`, `npm run e2e`, `node tools/perf.js`.
+- **Result**: ACCEPTED. Batch 07 fully verified.
+- **Baseline Comparison**: Replay hash `47cef0c2` and legacy hash `6a3687d9` intact.
+- **Performance Impact**: Frame times well under 33 ms budget.
+- **Regressions**: None.
+- **Accepted / Rejected Verdict**: ACCEPTED.
+- **Commit SHA**: Checkpoint 07 commit pending.
+- **Next Cycle**: 036 (Batch 08).

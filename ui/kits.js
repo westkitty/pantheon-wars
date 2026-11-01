@@ -503,9 +503,34 @@
       for (i = 0; i < 3; i++) L(g, 12 + i * 22, 38, 32 + i * 22, 60, rgba('#a88858', 0.9), 1.5); for (i = 40; i < 90; i += 5) R(g, 76, i, 8, 1.5, '#d8b888'); R(g, 76, 40, 1.5, 52, '#c8a878'); R(g, 83, 40, 1.5, 52, '#c8a878');
       for (i = 0; i < 9; i++) { E(g, 14 + i * 8, 34 + Math.sin(i * 1.3) * 2, 2, 2, i % 2 ? '#9fe07a' : '#ffd060'); }
     }
-    if (spec === 'oracle') { R(g, 43, 4, 2, 12, '#8a6a3a'); L(g, 38, 16, 44, 8, '#8a6a3a', 1.5); L(g, 50, 16, 44, 8, '#8a6a3a', 1.5); E(g, 44, 6, 5, 4, '#efe6d2'); E(g, 44, 6, 3, 3, '#8a5ad8'); E(g, 44, 6, 1.4, 1.4, '#1a1020'); R(g, 42, 4, 1, 1, '#ffffff'); }
-    if (spec === 'sanctuary') { g.strokeStyle = '#bab4a8'; g.lineWidth = 3; g.beginPath(); g.ellipse(44, 88, 42, 10, 0, Math.PI * 0.06, Math.PI * 0.94); g.stroke(); g.strokeStyle = '#e2dccf'; g.lineWidth = 1; g.beginPath(); g.ellipse(44, 86.5, 42, 10, 0, Math.PI * 0.06, Math.PI * 0.94); g.stroke(); R(g, 40, 95, 8, 4, '#6a6258'); }
-    if (spec === 'beacon') { R(g, 82, 12, 3, 80, '#c8bca0'); R(g, 82, 12, 1, 80, '#e8dcc0'); R(g, 78, 8, 11, 5, '#6a5a48'); P(g, [79, 8, 83.5, -2, 88, 8], '#ffb040'); P(g, [81, 8, 83.5, 1, 86, 8], '#fff0a0'); }
+    if (spec === 'oracle') {
+      R(g, 43, 4, 2, 12, '#8a6a3a');
+      L(g, 38, 16, 44, 8, '#8a6a3a', 1.5);
+      L(g, 50, 16, 44, 8, '#8a6a3a', 1.5);
+      E(g, 44, 6, 9, 7, 'rgba(150,110,230,0.25)'); // mystic aura
+      E(g, 44, 6, 5, 4, '#efe6d2');
+      E(g, 44, 6, 3, 3, '#8a5ad8');
+      E(g, 44, 6, 1.4, 1.4, '#1a1020');
+      R(g, 42, 4, 1, 1, '#ffffff');
+      R(g, 43.5, 2.5, 1, 1, '#ffd76a'); // celestial glint
+    }
+    if (spec === 'sanctuary') {
+      g.strokeStyle = '#bab4a8'; g.lineWidth = 3; g.beginPath(); g.ellipse(44, 88, 42, 10, 0, Math.PI * 0.06, Math.PI * 0.94); g.stroke();
+      g.strokeStyle = '#e2dccf'; g.lineWidth = 1; g.beginPath(); g.ellipse(44, 86.5, 42, 10, 0, Math.PI * 0.06, Math.PI * 0.94); g.stroke();
+      R(g, 40, 95, 8, 4, '#6a6258');
+      // Consecration ward stones at boundary terminals
+      E(g, 5, 87, 3, 2, '#cfc8b8'); E(g, 83, 87, 3, 2, '#cfc8b8');
+      R(g, 4.5, 86, 1, 2, '#ffd76a'); R(g, 82.5, 86, 1, 2, '#ffd76a');
+    }
+    if (spec === 'beacon') {
+      R(g, 82, 12, 3, 80, '#c8bca0');
+      R(g, 82, 12, 1, 80, '#e8dcc0');
+      R(g, 78, 8, 11, 5, '#6a5a48');
+      P(g, [79, 8, 83.5, -2, 88, 8], '#ffb040');
+      P(g, [81, 8, 83.5, 1, 86, 8], '#fff0a0');
+      P(g, [82, 6, 83.5, 0, 85, 6], '#ffffff'); // core heat
+      R(g, 82, 2, 1, 1, '#ffe08a'); R(g, 85, -1, 1, 1, '#ffc060'); // floating sparks
+    }
     if (cond === 'eclipsed') { g.globalCompositeOperation = 'source-atop'; g.fillStyle = 'rgba(14,10,30,0.6)'; g.fillRect(0, 0, 88, 100); g.fillStyle = grad(g, 0, 0, 88, 0, [[0, 'rgba(150,170,255,0.18)'], [0.5, 'rgba(150,170,255,0)']]); g.fillRect(0, 0, 88, 100); g.globalCompositeOperation = 'source-over';
       E(g, 44, 12, 9, 9, 'rgba(255,200,120,0.75)'); E(g, 46, 12, 8.4, 8.4, '#0a0812'); }
     return c;
@@ -527,6 +552,8 @@
     });
     if (art === 'hall' || art === 'enclosure' || art === 'courtyard' || art === 'altar' || art === 'honden') for (var i = 0; i < 6; i++) L(g, 16 + i * 10, 88, 22 + i * 10, 80 - (i % 3) * 3, '#2a1e16', 2); // burnt timbers
     for (i = 0; i < 12; i++) R(g, 10 + r() * 68, 80 + r() * 12, 2, 1, '#5f8a3a');
+    for (i = 0; i < 8; i++) E(g, 12 + r() * 64, 86 + r() * 6, 2.5, 1.2, shade(m.s, -0.15));
+    for (i = 0; i < 6; i++) { var mx = 12 + r() * 62, my = 82 + r() * 8; E(g, mx, my, 2, 1.5, '#4a6e30'); E(g, mx + 1, my - 1, 1.5, 1, '#689440'); }
   }
 
   /* ---------------------------------------------------------------- priest families (P042), 28×40 (2×), feet on y = 38
@@ -592,9 +619,27 @@
     if (S.head === 'plume') { R(g, cx - 3.5, top - 2, 8, 2, trim); for (k = 0; k < 4; k++) L(g, cx + 1, top - 2, cx - 2 + k * 2.5, top - 9 - (k % 2) * 2, k % 2 ? pal.glow : '#3aa890', 1.5); }
     // the calling, held in the near (right) hand
     var hx = cx + 6 + armF * 0.3, hy = top + 15 + armY + armF * 0.2;
-    if (role === 'seer') { L(g, hx + 1, hy + 18 - armY, hx + 1, hy - 14, '#8a6a3a', 1.6); L(g, hx + 1, hy - 14, hx + 4, hy - 12, '#8a6a3a', 1.6); R(g, hx + 3, hy - 12, 3, 4, '#c8a050'); E(g, hx + 4.5, hy - 9.5, 2.2, 2.2, pal.glow); R(g, hx + 4, hy - 10, 1, 1, '#ffffff'); }
-    else if (role === 'warden') { L(g, hx + 2, hy + 14 - armY, hx + 2, hy - 16, '#6a4a2a', 1.4); P(g, [hx + 1, hy - 16, hx + 2, hy - 20, hx + 3, hy - 16], '#c8ccd0'); E(g, cx - 7, top + 14 + armY * 0.3, 4.5, 5.5, shade(pal.secondary, -0.1)); E(g, cx - 7, top + 14 + armY * 0.3, 3, 4, pal.accent); E(g, cx - 7, top + 14 + armY * 0.3, 1.2, 1.2, '#e8e2d0'); }
-    else { L(g, hx + 1, hy + 18 - armY, hx + 1, hy - 18, '#6a4a2a', 1.6); P(g, [hx + 2, hy - 18, hx + 9, hy - 16, hx + 2, hy - 13], trim); R(g, hx, hy - 19, 3, 2, '#c8a050'); }
+    if (role === 'seer') {
+      L(g, hx + 1, hy + 18 - armY, hx + 1, hy - 14, '#8a6a3a', 1.6);
+      L(g, hx + 1, hy - 14, hx + 4, hy - 12, '#8a6a3a', 1.6);
+      R(g, hx + 3, hy - 12, 3, 4, '#c8a050');
+      E(g, hx + 4.5, hy - 9.5, 4.5, 4.5, 'rgba(255,230,140,0.30)');
+      E(g, hx + 4.5, hy - 9.5, 2.2, 2.2, pal.glow);
+      R(g, hx + 4, hy - 10, 1, 1, '#ffffff');
+    }
+    else if (role === 'warden') {
+      L(g, hx + 2, hy + 14 - armY, hx + 2, hy - 16, '#6a4a2a', 1.4);
+      P(g, [hx + 1, hy - 16, hx + 2, hy - 20, hx + 3, hy - 16], '#c8ccd0');
+      E(g, cx - 7, top + 14 + armY * 0.3, 4.5, 5.5, shade(pal.secondary, -0.1));
+      E(g, cx - 7, top + 14 + armY * 0.3, 3, 4, pal.accent);
+      E(g, cx - 7, top + 14 + armY * 0.3, 1.2, 1.2, '#ffffff');
+    }
+    else {
+      L(g, hx + 1, hy + 18 - armY, hx + 1, hy - 18, '#6a4a2a', 1.6);
+      P(g, [hx + 2, hy - 18, hx + 9, hy - 16, hx + 2, hy - 13], trim);
+      R(g, hx, hy - 19, 3, 2, '#c8a050');
+      L(g, hx + 2, hy - 18, hx + 8, hy - 14, trim, 1.2);
+    }
     L(g, cx + 5, top + 7, hx, hy, body, 2.2); R(g, hx - 1, hy - 1, 2.5, 2.5, S.skin);
   }
 

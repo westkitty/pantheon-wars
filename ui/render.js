@@ -1074,7 +1074,7 @@
     var frame = this.reduced ? 0 : walking ? 1 + Math.floor(dist / 2.5) % 4 : (st.settlements[t.settlement] && Math.sin(time * 1.3 + pr.id) > 0.82 ? 5 : 0);
     var x = p.x - 20 + (pr.id % 3) * 6, y = p.y - 12;
     var bob = (!walking && !this.reduced) ? Math.max(0, Math.sin(time * 1.7 + pr.id * 1.3)) * -0.5 : 0; // a slow half-pixel breath
-    g.fillStyle = 'rgba(12,10,22,0.38)'; g.beginPath(); g.ellipse(x + 7.5, y + 19.2, walking ? 4.2 : 5, 1.6, 0, 0, 7); g.fill(); // contact shadow under the feet
+    g.fillStyle = 'rgba(12,10,22,0.40)'; g.beginPath(); g.ellipse(x + 7.5, y + 19.2, walking ? 4.5 : 5.2, 1.8, 0, 0, 7); g.fill(); // contact shadow under the feet
     var img = this.priestImage(fid, role, frame);
     if (walking && an && this.top(st.map.tiles[an.from]).x > this.top(t).x + 1) { g.save(); g.translate(x + 14, y + bob); g.scale(-1, 1); this.blit2(g, img, 0, 0, 14, 20); g.restore(); } // faces the way it walks
     else this.blit2(g, img, x, y + bob, 14, 20);

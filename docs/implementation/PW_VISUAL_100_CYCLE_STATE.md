@@ -8,9 +8,10 @@
 - **Parent Draft PR**: [PR #1](https://github.com/westkitty/pantheon-wars/pull/1) (`claude/vibrant-feynman-x1fjq9`)
 - **Starting Base SHA**: `82cab369adf471cde79bc6471e05253a3a225b14`
 - **Current Active Batch**: Batch 01 (Cycles 001–005)
-- **Active Cycle Number**: 005 (Checkpoint 01 ready)
+- **Active Cycle Number**: 010 (Checkpoint 02 ready)
 - **Known-Good Checkpoints**:
   - `82cab36` (Initial Verified HEAD from PR #1)
+  - `97fe0d7` (Checkpoint 01: Batch 01 — Preflight, Baselines & Opportunity Ledger)
 - **Unresolved Gates (Historical Invariants)**:
   - `P001` (Balance Partial: duel spread ~16–18 pp across held-out sets; preserved without alteration)
   - `P019` (Source Verification Partial: 39 v0.2 sources verified via search index summaries; preserved)
@@ -145,5 +146,124 @@
 - **Performance Impact**: Verified within software rendering budget.
 - **Regressions**: None.
 - **Accepted / Rejected Verdict**: ACCEPTED.
-- **Commit SHA**: Checkpoint 01 commit pending.
+- **Commit SHA**: Checkpoint 01 committed (`97fe0d7`).
 - **Next Cycle**: 006 (Batch 02).
+
+---
+
+### Batch 02: Visual Coherence, Palettes & Symbolic Hierarchy (Cycles 006–010)
+
+#### Cycle 006 — World Subject Dominance & Obsidian Glass UI Framing
+- **Number**: 006
+- **Batch**: 02
+- **Starting SHA**: `97fe0d7903b9320b33672571256cba4064920e6d`
+- **Target Surface**: Viewport composition, HUD chrome footprint, ambient vignette overlay.
+- **Evidence of Original Issue**: Section 8 requires at least 85% visual emphasis on the interactive world. Flat viewport boundaries lacked diorama framing and the persistent topbar/powerbar lacked consistent engraved corner brackets.
+- **Proposed Improvement / Test**: Add a fixed soft celestial diorama vignette overlay (`body::after`) with `pointer-events: none`, add engraved gilded corner brackets on `#topbar` and `#powerbar`, and ensure chrome remains compact and non-obtrusive.
+- **Actual Action Performed**: Modified `ui/style.css` adding the diorama vignette and gilded corner brackets to `#topbar` and `#powerbar`.
+- **Files Modified**: `ui/style.css`.
+- **Verification Run**: `npm run journeys`, `npm run e2e`.
+- **Result**: ACCEPTED. World dominates the composition with enhanced diorama depth.
+- **Baseline Comparison**: Matches visual target, HUD controls remain fully functional.
+- **Performance Impact**: Zero overhead (pure CSS styling).
+- **Regressions**: None.
+- **Accepted / Rejected Verdict**: ACCEPTED.
+- **Commit SHA**: Pending Checkpoint 02.
+- **Next Cycle**: 007.
+
+---
+
+#### Cycle 007 — Faction Palettes & Sculpted Dual-Bevel Medallions
+- **Number**: 007
+- **Batch**: 02
+- **Starting SHA**: `97fe0d7903b9320b33672571256cba4064920e6d`
+- **Target Surface**: Faction emblems, 64 px medallions in `ui/art.js` (`emblem`).
+- **Evidence of Original Issue**: Faction emblems had a single linear gradient rim, appearing somewhat flat against dark panel headers.
+- **Proposed Improvement / Test**: Sculpt the 64 px medallion with an outer bevel rim lit from the upper left and an inner chamfer step at radius 28, creating an authentic minted coin aesthetic that catches divine light.
+- **Actual Action Performed**: Updated `emblem()` in `ui/art.js` with dual-bevel gradients and adjusted field gradient depth.
+- **Files Modified**: `ui/art.js`.
+- **Verification Run**: `npm test` (55/55 PASS), `node tools/qqq.js` (14/14 PASS).
+- **Result**: ACCEPTED. Emblems read with crisp metallic dimensionality.
+- **Baseline Comparison**: Medallions display richer depth across title, topbar, and victory screens.
+- **Performance Impact**: Rendered once on creation and cached; no per-frame cost.
+- **Regressions**: None.
+- **Accepted / Rejected Verdict**: ACCEPTED.
+- **Commit SHA**: Pending Checkpoint 02.
+- **Next Cycle**: 008.
+
+---
+
+#### Cycle 008 — Symbolic Hierarchy & Immediate State Indicators
+- **Number**: 008
+- **Batch**: 02
+- **Starting SHA**: `97fe0d7903b9320b33672571256cba4064920e6d`
+- **Target Surface**: Power bar cards (`.pw`), cost displays, unaffordable cues.
+- **Evidence of Original Issue**: Unaffordable powers previously only grayed out slightly (`opacity: 0.5`), leaving cost numbers ambiguous.
+- **Proposed Improvement / Test**: Style `.pw.off .cst` with a clear warning red (`#ff9a8a`), sharpen hover transform and active press scaling (`transform: scale(0.97)`), and reinforce faction power borders.
+- **Actual Action Performed**: Updated `.pw` rules in `ui/style.css`.
+- **Files Modified**: `ui/style.css`.
+- **Verification Run**: `npm run journeys`, `node tools/qqq.js`.
+- **Result**: ACCEPTED. Tactical affordances immediately visible at a glance.
+- **Baseline Comparison**: Enhanced readability without altering button sizes or layout bounds.
+- **Performance Impact**: Negligible (CSS).
+- **Regressions**: None.
+- **Accepted / Rejected Verdict**: ACCEPTED.
+- **Commit SHA**: Pending Checkpoint 02.
+- **Next Cycle**: 009.
+
+---
+
+#### Cycle 009 — In-World Selection, Consecrated Targets & Reduced-Motion Invariants
+- **Number**: 009
+- **Batch**: 02
+- **Starting SHA**: `97fe0d7903b9320b33672571256cba4064920e6d`
+- **Target Surface**: World-space tile selection, valid-target highlights, and path lines in `ui/render.js`.
+- **Evidence of Original Issue**: Target hexes had a single thin stroke and pulse ran `Math.sin` even under `this.reduced`; priest path dash animated under reduced motion.
+- **Proposed Improvement / Test**:
+  1. Guard pulse under `this.reduced` (`this.reduced ? 0.75 : 0.5 + 0.5 * Math.sin(time * 4)`).
+  2. Add an inner precision hairline (`0.82`) to target hexes, forming a sacred consecrated zone.
+  3. Freeze path dash animation under reduced motion (`this.reduced ? 0 : -time * 12`).
+  4. Sharpen hover seam with pearl hue (`rgba(242,246,255,0.7)`).
+  5. Add an inner gold accent ring (`0.88`) to the selected hex.
+- **Actual Action Performed**: Modified `ui/render.js` lines 767–771.
+- **Files Modified**: `ui/render.js`.
+- **Verification Run**: `npm run e2e` (455 actions, deterministic `47cef0c2`), `node tools/qqq.js` (14/14 PASS).
+- **Result**: ACCEPTED. In-world selection feels tactile, grounded, and fully respects reduced motion.
+- **Baseline Comparison**: Replay hash `47cef0c2` preserved 100%.
+- **Performance Impact**: Zero measurable impact (canvas path commands within existing draw loop).
+- **Regressions**: None.
+- **Accepted / Rejected Verdict**: ACCEPTED.
+- **Commit SHA**: Pending Checkpoint 02.
+- **Next Cycle**: 010.
+
+---
+
+#### Cycle 010 — Batch 02 Verification, Frame Timing Audit & Checkpoint 02
+- **Number**: 010
+- **Batch**: 02
+- **Starting SHA**: `97fe0d7903b9320b33672571256cba4064920e6d`
+- **Target Surface**: Comprehensive regression suite, frame time sampler across 6 scenes, git checkpoint.
+- **Evidence of Original Issue**: Need empirical verification that visual changes maintain all game invariants, produce deterministic replay, and preserve performance under budget.
+- **Proposed Improvement / Test**: Execute `npm test`, `npm run validate`, `tools/qqq.js`, `tools/screenshots.js` (e2e), `tools/perf.js` (`reports/perf-b02.json`).
+- **Actual Action Performed**:
+  - `npm test`: 55/55 PASS.
+  - `npm run validate`: PASS.
+  - `node tools/qqq.js`: 14/14 PASS.
+  - `npm run e2e`: 455 actions, `47cef0c2` browser == Node replay, 0 rejected inputs.
+  - `node tools/perf.js --label b02`:
+    - `turn1`: 4.2 ms median / 5.6 ms p95
+    - `mid16`: 6.7 ms median / 8.6 ms p95
+    - `late30-reveal`: 7.2 ms median / 10.6 ms p95
+    - `late30-low`: 5.8 ms median / 11.5 ms p95
+    - `mobile16`: 6.3 ms median / 8.0 ms p95
+    - `miracle-burst`: 8.5 ms median / 14.9 ms p95
+  All scenes under the 33 ms budget.
+- **Files Modified**: `reports/perf-b02.json`, `reports/qqq.json`, `reports/screens/e2e/*`, `docs/implementation/PW_VISUAL_100_CYCLE_STATE.md`.
+- **Verification Run**: `npm test`, `npm run validate`, `node tools/qqq.js`, `npm run e2e`, `node tools/perf.js`.
+- **Result**: ACCEPTED. Batch 02 fully verified and ready for Checkpoint 02.
+- **Baseline Comparison**: Replay hash `47cef0c2` and legacy hash `6a3687d9` verified.
+- **Performance Impact**: Frame times matched or improved vs baseline.
+- **Regressions**: None.
+- **Accepted / Rejected Verdict**: ACCEPTED.
+- **Commit SHA**: Checkpoint 02 commit pending.
+- **Next Cycle**: 011 (Batch 03).

@@ -764,11 +764,49 @@
     g.drawImage(this.overlay, 0, 0);
     g.drawImage(this.marksLayer, 0, 0);
     this.walkers = []; this.drawRoutes(g, st, time);
-    var pulse = 0.5 + 0.5 * Math.sin(time * 4);
-    if (this.targets) this.targets.forEach(function (id) { var p = self.top(st.map.tiles[id]); self.hexPath(g, p.x, p.y, 0.92); g.fillStyle = 'rgba(255,220,120,' + (0.12 + pulse * 0.16).toFixed(3) + ')'; g.fill(); g.strokeStyle = 'rgba(255,230,150,' + (0.5 + pulse * 0.4).toFixed(3) + ')'; g.lineWidth = 1.5; g.stroke(); });
-    if (this.path && this.path.length > 1) { g.save(); g.strokeStyle = 'rgba(255,240,200,0.9)'; g.lineWidth = 2; g.setLineDash([3, 3]); g.lineDashOffset = -time * 12; g.beginPath(); this.path.forEach(function (id, i) { var p = self.top(st.map.tiles[id]); if (i) g.lineTo(p.x, p.y); else g.moveTo(p.x, p.y); }); g.stroke(); g.restore(); }
-    if (this.hover >= 0) { var hp = this.top(st.map.tiles[this.hover]); this.hexPath(g, hp.x, hp.y, 0.96); g.strokeStyle = 'rgba(255,255,255,0.55)'; g.lineWidth = 1.5; g.stroke(); }
-    if (this.selected >= 0) { var sp = this.top(st.map.tiles[this.selected]); this.hexPath(g, sp.x, sp.y, 0.96 + pulse * 0.04); g.strokeStyle = 'rgba(255,215,110,0.95)'; g.lineWidth = 2; g.stroke(); }
+    var pulse = this.reduced ? 0.75 : 0.5 + 0.5 * Math.sin(time * 4);
+    if (this.targets) this.targets.forEach(function (id) {
+      var p = self.top(st.map.tiles[id]);
+      self.hexPath(g, p.x, p.y, 0.92);
+      g.fillStyle = 'rgba(255,220,120,' + (0.12 + pulse * 0.16).toFixed(3) + ')';
+      g.fill();
+      g.strokeStyle = 'rgba(255,230,150,' + (0.5 + pulse * 0.4).toFixed(3) + ')';
+      g.lineWidth = 1.5;
+      g.stroke();
+      self.hexPath(g, p.x, p.y, 0.82);
+      g.strokeStyle = 'rgba(255,240,180,' + (0.22 + pulse * 0.22).toFixed(3) + ')';
+      g.lineWidth = 1;
+      g.stroke();
+    });
+    if (this.path && this.path.length > 1) {
+      g.save();
+      g.strokeStyle = 'rgba(255,240,200,0.9)';
+      g.lineWidth = 2;
+      g.setLineDash([3, 3]);
+      g.lineDashOffset = this.reduced ? 0 : -time * 12;
+      g.beginPath();
+      this.path.forEach(function (id, i) { var p = self.top(st.map.tiles[id]); if (i) g.lineTo(p.x, p.y); else g.moveTo(p.x, p.y); });
+      g.stroke();
+      g.restore();
+    }
+    if (this.hover >= 0) {
+      var hp = this.top(st.map.tiles[this.hover]);
+      self.hexPath(g, hp.x, hp.y, 0.96);
+      g.strokeStyle = 'rgba(242,246,255,0.7)';
+      g.lineWidth = 1.5;
+      g.stroke();
+    }
+    if (this.selected >= 0) {
+      var sp = this.top(st.map.tiles[this.selected]);
+      self.hexPath(g, sp.x, sp.y, 0.96 + (this.reduced ? 0 : pulse * 0.04));
+      g.strokeStyle = 'rgba(255,215,110,0.95)';
+      g.lineWidth = 2;
+      g.stroke();
+      self.hexPath(g, sp.x, sp.y, 0.88);
+      g.strokeStyle = 'rgba(255,235,160,0.55)';
+      g.lineWidth = 1;
+      g.stroke();
+    }
     var rev = st.players[this.viewer].revealed, objs = [];
     st.landmarks.forEach(function (l) { if (rev[l.tile]) objs.push({ y: self.top(st.map.tiles[l.tile]).y, lm: l }); });
     st.settlements.forEach(function (s) { if (rev[s.tile]) objs.push({ y: self.top(st.map.tiles[s.tile]).y, s: s }); });

@@ -74,13 +74,14 @@
     }
   };
   function emblem(id, pal, size) {
-    // v0.5: a 64 px medallion (bevelled rim lit from the upper left, a deep field) carrying the minted 32 px device
+    // a 64 px sculpted medallion: dual-bevel rim lit from the upper left, deep field, carrying the minted 32 px device
     var m = cv(32, 32), mg = m.getContext('2d'); (EMBLEMS[id] || function () { throw new Error('no emblem ' + id); })(mg, pal);
     var c = cv(64, 64), g = c.getContext('2d'), field = mix(pal.dark, pal.secondary, 0.55);
     g.fillStyle = '#100c16'; g.beginPath(); g.arc(32, 32, 31.5, 0, 7); g.fill();
-    var rim = g.createLinearGradient(8, 6, 56, 58); rim.addColorStop(0, shade(pal.accent, 0.45)); rim.addColorStop(0.5, pal.accent); rim.addColorStop(1, shade(pal.accent, -0.45)); g.fillStyle = rim; g.beginPath(); g.arc(32, 32, 30, 0, 7); g.fill();
-    var fg = g.createRadialGradient(24, 22, 2, 32, 32, 27); fg.addColorStop(0, shade(field, 0.18)); fg.addColorStop(1, shade(pal.dark, -0.2)); g.fillStyle = fg; g.beginPath(); g.arc(32, 32, 26.5, 0, 7); g.fill();
-    g.strokeStyle = 'rgba(0,0,0,0.45)'; g.lineWidth = 1; g.beginPath(); g.arc(32, 32, 26.5, 0, 7); g.stroke();
+    var rim = g.createLinearGradient(8, 6, 56, 58); rim.addColorStop(0, shade(pal.accent, 0.48)); rim.addColorStop(0.5, pal.accent); rim.addColorStop(1, shade(pal.accent, -0.48)); g.fillStyle = rim; g.beginPath(); g.arc(32, 32, 30, 0, 7); g.fill();
+    var chamfer = g.createLinearGradient(12, 10, 52, 54); chamfer.addColorStop(0, shade(pal.accent, -0.28)); chamfer.addColorStop(0.5, pal.accent); chamfer.addColorStop(1, shade(pal.accent, 0.32)); g.fillStyle = chamfer; g.beginPath(); g.arc(32, 32, 28, 0, 7); g.fill();
+    var fg = g.createRadialGradient(24, 22, 2, 32, 32, 27); fg.addColorStop(0, shade(field, 0.22)); fg.addColorStop(1, shade(pal.dark, -0.2)); g.fillStyle = fg; g.beginPath(); g.arc(32, 32, 26.5, 0, 7); g.fill();
+    g.strokeStyle = 'rgba(0,0,0,0.55)'; g.lineWidth = 1; g.beginPath(); g.arc(32, 32, 26.5, 0, 7); g.stroke();
     g.imageSmoothingEnabled = false; g.drawImage(mint(m, 170), 0, 0);
     return size ? up(c, size) : c;
   }

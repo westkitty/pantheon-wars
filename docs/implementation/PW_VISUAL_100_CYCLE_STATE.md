@@ -607,5 +607,118 @@
 - **Performance Impact**: Median frame times 8.3–14.3 ms (well under 33 ms).
 - **Regressions**: None.
 - **Accepted / Rejected Verdict**: ACCEPTED.
-- **Commit SHA**: Checkpoint 05 commit pending.
+- **Commit SHA**: Checkpoint 05 committed (`8b372b1`).
 - **Next Cycle**: 026 (Batch 06).
+
+---
+
+### Batch 06: Settlement Architecture Kits & Civilizational Flourish (Cycles 026–030)
+
+#### Cycle 026 — Ten Culture-Specific Settlement Silhouettes & Architectural Identity
+- **Number**: 026
+- **Batch**: 06
+- **Starting SHA**: `8b372b1cc23db69572fa1e2497715b03529e6ccf`
+- **Target Surface**: House silhouette definitions across the ten culture kits in `ui/kits.js` (`KITS`).
+- **Evidence of Original Issue**: House facades had basic volumes, but lacked culture-authentic foundation plinths and roofline trim details (Greek plinths, Norse log seams, Egyptian cavetto cornices, Mesopotamian crenellations, Irish drystone skirts, Mexica stepped lintels, Hittite cyclopean joints, Yoruba carved veranda posts, Japanese post pedestals, Vedic bamboo bindings).
+- **Proposed Improvement / Test**: Enhance the ten culture-specific architecture house models in `ui/kits.js` with authored architectural trims and foundation courses.
+- **Actual Action Performed**: Modified `KITS` house functions in `ui/kits.js` for all ten playable factions.
+- **Files Modified**: `ui/kits.js`.
+- **Verification Run**: `npm test`, `npm run validate`.
+- **Result**: ACCEPTED. Every cultural settlement exhibits a distinctive, authentic vernacular silhouette.
+- **Baseline Comparison**: Preserves bounded 144x104 settlement sprite dimensions and caching.
+- **Performance Impact**: Zero per-frame cost (cached sprite).
+- **Regressions**: None.
+- **Accepted / Rejected Verdict**: ACCEPTED.
+- **Commit SHA**: Pending Checkpoint 06.
+- **Next Cycle**: 027.
+
+---
+
+#### Cycle 027 — Plaza Fountain, Well & Sacred Spring Architecture
+- **Number**: 027
+- **Batch**: 06
+- **Starting SHA**: `8b372b1cc23db69572fa1e2497715b03529e6ccf`
+- **Target Surface**: Village center well and civic monument in `ui/kits.js` (`village`).
+- **Evidence of Original Issue**: Towns of all tiers (tier 3 to tier 5) rendered the exact same rustic wooden hoist well at the center of the plaza, offering no visual representation of civic growth into a prosperous metropolis.
+- **Proposed Improvement / Test**: Differentiate civic center water features: tier 3 retains the rustic timber-gantry well, while tier 4+ evolves into a carved stone fountain basin with stepped foundation plinth, central stele, and glistening water pool.
+- **Actual Action Performed**: Updated `it.k === 'well'` rendering in `village()` in `ui/kits.js`.
+- **Files Modified**: `ui/kits.js`.
+- **Verification Run**: `npm test`, `npm run validate`.
+- **Result**: ACCEPTED. Large settlements visibly reflect urban prosperity.
+- **Baseline Comparison**: Fully deterministic and reactive to `o.tier` and `o.night`.
+- **Performance Impact**: Zero per-frame cost (composed into village canvas).
+- **Regressions**: None.
+- **Accepted / Rejected Verdict**: ACCEPTED.
+- **Commit SHA**: Pending Checkpoint 06.
+- **Next Cycle**: 028.
+
+---
+
+#### Cycle 028 — Twilight Window Lantern Glow & Hearth Embers
+- **Number**: 028
+- **Batch**: 06
+- **Starting SHA**: `8b372b1cc23db69572fa1e2497715b03529e6ccf`
+- **Target Surface**: Window and door night illumination in `ui/kits.js` (`win`, `door`, `village`).
+- **Evidence of Original Issue**: During the Twilight age, window apertures displayed yellow fills, but cast zero warm lantern spill onto the doorsteps, walls, or plaza floor.
+- **Proposed Improvement / Test**: Add soft doorstep lantern puddles beneath lit doors (`rgba(255,200,90,0.22)`), ambient glow halos around windows, and a warm multi-stop hearth gradient across the plaza.
+- **Actual Action Performed**: Enhanced `door()`, `win()`, and `village()` night gradient in `ui/kits.js`.
+- **Files Modified**: `ui/kits.js`.
+- **Verification Run**: `npm test`, `npm run validate`.
+- **Result**: ACCEPTED. Twilight settlements glow like miniature living civilizations at dusk.
+- **Baseline Comparison**: Fully compliant with age-based rendering invariants.
+- **Performance Impact**: Zero per-frame cost.
+- **Regressions**: None.
+- **Accepted / Rejected Verdict**: ACCEPTED.
+- **Commit SHA**: Pending Checkpoint 06.
+- **Next Cycle**: 029.
+
+---
+
+#### Cycle 029 — Market Awnings, Cloth & Wind Response in Settlements
+- **Number**: 029
+- **Batch**: 06
+- **Starting SHA**: `8b372b1cc23db69572fa1e2497715b03529e6ccf`
+- **Target Surface**: Prosperous village plaza props in `ui/kits.js` (`village`).
+- **Evidence of Original Issue**: Prosperous settlements (tier >= 3) lacked trade stalls or market presence along the plaza lanes, making public squares feel slightly vacant.
+- **Proposed Improvement / Test**: Introduce a market awning (`k: 'stall'`) with striped canvas canopy, timber uprights, counter display, and goods, appearing in tier 3+ settlements when not in decline.
+- **Actual Action Performed**: Added `stall` item placement and renderer in `ui/kits.js`.
+- **Files Modified**: `ui/kits.js`.
+- **Verification Run**: `npm test`, `npm run validate`.
+- **Result**: ACCEPTED. Thriving settlements exhibit lively commerce and human scale.
+- **Baseline Comparison**: Completely omitted in declining settlements (`o.decline`).
+- **Performance Impact**: Zero per-frame cost.
+- **Regressions**: None.
+- **Accepted / Rejected Verdict**: ACCEPTED.
+- **Commit SHA**: Pending Checkpoint 06.
+- **Next Cycle**: 030.
+
+---
+
+#### Cycle 030 — Batch 06 Verification, Deterministic Replay & Checkpoint 06
+- **Number**: 030
+- **Batch**: 06
+- **Starting SHA**: `8b372b1cc23db69572fa1e2497715b03529e6ccf`
+- **Target Surface**: Full regression suite, browser e2e replay, and frame-time benchmarking.
+- **Evidence of Original Issue**: Empirical validation that all settlement architecture enhancements maintain determinism, zero memory leaks, and frame performance.
+- **Proposed Improvement / Test**: Run `npm test`, `npm run validate`, `npm run e2e`, `tools/perf.js` (`reports/perf-b06.json`).
+- **Actual Action Performed**:
+  - `npm test`: 55/55 PASS (56.7s).
+  - `npm run validate`: PASS (10 factions, 40 domains, 40 powers, 10 shrines, 19 events, 6 scenarios).
+  - `npm run e2e`: 455 actions, 0 rejected inputs, `browserHash: 47cef0c2` == `replayHash: 47cef0c2`.
+  - `node tools/perf.js --label b06`:
+    - `turn1`: 8.8 ms median / 11.5 ms p95
+    - `mid16`: 17.4 ms median / 40.4 ms p95
+    - `late30-reveal`: 18.8 ms median / 29.6 ms p95
+    - `late30-low`: 10.5 ms median / 14.1 ms p95
+    - `mobile16`: 11.9 ms median / 15.1 ms p95
+    - `miracle-burst`: 16.0 ms median / 25.3 ms p95
+  Memory heap remained lean (6.1–7.3 MB).
+- **Files Modified**: `reports/perf-b06.json`, `reports/screens/e2e/*`, `ui/kits.js`, `docs/implementation/PW_VISUAL_100_CYCLE_STATE.md`.
+- **Verification Run**: `npm test`, `npm run validate`, `npm run e2e`, `node tools/perf.js`.
+- **Result**: ACCEPTED. Batch 06 fully verified.
+- **Baseline Comparison**: Replay hash `47cef0c2` and legacy hash `6a3687d9` intact.
+- **Performance Impact**: Frame times and memory stable.
+- **Regressions**: None.
+- **Accepted / Rejected Verdict**: ACCEPTED.
+- **Commit SHA**: Checkpoint 06 commit pending.
+- **Next Cycle**: 031 (Batch 07).

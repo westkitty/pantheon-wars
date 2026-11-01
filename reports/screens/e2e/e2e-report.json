@@ -47,11 +47,11 @@
   "reducedMotion": {
     "reduced": true,
     "quality": "low",
-    "frameMs": 5.199999999254942
+    "frameMs": 5.100000001490116
   },
   "highQualityFrame": {
     "quality": "high",
-    "frameMs": 16.399999998509884
+    "frameMs": 16.099999997764826
   },
   "shots": [
     {

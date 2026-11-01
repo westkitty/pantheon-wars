@@ -77,8 +77,22 @@
     if (!o.noTop) { P(g, [x, y - h, x + w, y - h, x + w + dx, y - h - dy, x + dx, y - h - dy], m.t); R(g, x, y - h, w, 1, shade(m.t, 0.1)); }
     return { x: x, y: y - h, w: w, dx: dx, dy: dy };
   }
-  function door(g, x, y, w, h, night, col) { R(g, x, y - h, w, h, col || '#2c1e14'); R(g, x, y - h, w, 1, '#1b120c'); if (night) R(g, x + 1, y - h + 1, w - 2, h - 1, rgba('#ffcf7a', 0.55)); }
-  function win(g, x, y, night, w, h) { w = w || 2; h = h || 2; R(g, x, y, w, h, night ? '#ffd27a' : '#2a2230'); if (night) R(g, x - 1, y - 1, w + 2, h + 2, rgba('#ffc060', 0.25)); }
+  function door(g, x, y, w, h, night, col) {
+    R(g, x, y - h, w, h, col || '#2c1e14');
+    R(g, x, y - h, w, 1, '#1b120c');
+    if (night) {
+      R(g, x + 1, y - h + 1, w - 2, h - 1, rgba('#ffcf7a', 0.65));
+      E(g, x + w / 2, y + 1, w * 0.8, 1.2, 'rgba(255,200,90,0.22)');
+    }
+  }
+  function win(g, x, y, night, w, h) {
+    w = w || 2; h = h || 2;
+    R(g, x, y, w, h, night ? '#ffd27a' : '#2a2230');
+    if (night) {
+      R(g, x - 1, y - 1, w + 2, h + 2, rgba('#ffc060', 0.30));
+      R(g, x - 2, y - 2, w + 4, h + 4, 'rgba(255,180,60,0.12)');
+    }
+  }
   /* Roofs over a box frame f */
   function gable(g, f, rh, c, cR, o) { // ridge runs along the front; the near slope faces the viewer, gable end on the right
     o = o || {}; var x = f.x - 1, y = f.y, w = f.w + 2, dx = f.dx, dy = f.dy, ry = y - rh - Math.round(dy * 0.5), rx = Math.round(dx * 0.5);
@@ -143,6 +157,7 @@
   var KITS = {
     greek: { ground: '#c8b88a', lane: '#e0d4ae', wall: 'stoneWall', props: ['cypress', 'column', 'jar'],
       house: function (g, x, y, v, o) { var f = box(g, x, y, v.w, v.h, v.dep, MAT.lime, v.r); if (o.ruined) return ruinTop(g, f, MAT.lime, v.r);
+        R(g, x, y - 1, v.w, 1, '#b8b09c');
         gable(g, f, 4 + (v.w > 14 ? 1 : 0), '#c2603e', '#8e3e28'); door(g, x + 2, y, 3, 5, o.night); win(g, x + v.w - 5, y - v.h + 3, o.night); if (v.w > 13) R(g, x + v.w - 1, y - 6, 1, 6, '#d8d0bc'); },
       big: function (g, x, y, tier, o) { var w = tier >= 5 ? 34 : 28, f = box(g, x, y - 3, w, 13, 9, MAT.marble, rng(7));
         R(g, x - 3, y - 3, w + 6, 3, '#d8d0b8'); R(g, x - 3, y - 3, w + 6, 1, '#f4f0e2'); R(g, x - 1, y - 6, w + 2, 3, '#e6e0cc');      // stylobate steps
@@ -156,7 +171,8 @@
         var top = gable(g, f, 8, '#5d6a52', '#3c4636', { horns: true }); // turf-and-shingle roof almost to the ground, crossed gable horns
         for (var i = 0; i < 6; i++) R(g, f.x + v.r() * f.w, f.y - 1 - v.r() * 6, 2, 1, rgba('#9aa880', 0.6));
         if (o.cold) { P(g, [f.x, f.y - 2, f.x + f.w + 2, f.y - 2, top.rx + top.w, top.ry + 2, top.rx, top.ry + 2], 'rgba(240,246,252,0.75)'); }
-        door(g, x + 3, y, 3, 4, o.night, '#2a1a10'); R(g, x + 2, y - 5, 5, 1, '#3a2616'); win(g, x + w - 4, y - 3, o.night, 2, 1); },
+        door(g, x + 3, y, 3, 4, o.night, '#2a1a10'); R(g, x + 2, y - 5, 5, 1, '#3a2616'); win(g, x + w - 4, y - 3, o.night, 2, 1);
+        R(g, x + 2, y - 1, w - 4, 1, '#2c1e14'); },
       big: function (g, x, y, tier, o) { var w = tier >= 5 ? 36 : 30, f = box(g, x, y, w, 7, 12, MAT.oak, rng(11), { noTop: true });
         for (var i = 3; i < w; i += 5) R(g, x + i, y - 7, 1.5, 7, '#3a2616');
         var t = gable(g, f, 14, '#56624c', '#353f30', { horns: true }); L(g, t.rx - 1, t.ry, t.rx - 4, t.ry - 5, '#3b2a1e', 1.5); L(g, t.rx - 1, t.ry, t.rx + 2, t.ry - 5, '#3b2a1e', 1.5);
@@ -165,7 +181,8 @@
     },
     egyptian: { ground: '#d8c08a', lane: '#ead7a8', wall: 'mudWall', props: ['palm', 'palm', 'canal'],
       house: function (g, x, y, v, o) { var f = box(g, x, y, v.w, v.h, v.dep, MAT.mud, v.r); if (o.ruined) return ruinTop(g, f, MAT.mud, v.r);
-        R(g, f.x, f.y - 1, f.w, 1, shade(MAT.mud.t, 0.08)); R(g, x, y - v.h + 1, v.w, 1, '#b08a50');                        // parapet and cornice
+        R(g, f.x, f.y - 1, f.w, 1, shade(MAT.mud.t, 0.08)); R(g, x, y - v.h + 1, v.w, 1, '#b08a50');
+        R(g, x - 1, y - v.h, v.w + 2, 1, '#d8b068'); // cavetto cornice crown
         if (v.w > 12) { R(g, f.x + f.dx + 2, f.y - f.dy - 4, 1, 4, '#7a5a34'); R(g, f.x + f.dx + 7, f.y - f.dy - 4, 1, 4, '#7a5a34'); R(g, f.x + f.dx + 1, f.y - f.dy - 5, 8, 1, '#9a8a50'); } // roof-terrace shelter
         door(g, x + 2, y, 3, 5, o.night); win(g, x + v.w - 4, y - v.h + 2, o.night, 2, 1); R(g, x + 1, y - v.h + 4, v.w - 2, 1, rgba('#2f6fb3', 0.35)); },
       big: function (g, x, y, tier, o) { var w = tier >= 5 ? 36 : 30, half = w / 2 - 4; // pylon gateway: two battered towers and a lintel
@@ -178,6 +195,7 @@
     mesopotamian: { ground: '#cdb27e', lane: '#e2cc9a', wall: 'mudWall', props: ['reeds', 'palm', 'reeds'],
       house: function (g, x, y, v, o) { var f = box(g, x, y, v.w, v.h, v.dep, MAT.adobe, v.r); if (o.ruined) return ruinTop(g, f, MAT.adobe, v.r);
         for (var i = 2; i < v.w - 1; i += 3) R(g, x + i, y - v.h + 1, 1, v.h - 2, shade(MAT.adobe.f, -0.12)); // niched buttress pattern
+        for (var bi = 1; bi < v.w - 1; bi += 3) R(g, x + bi, y - v.h - 1, 1.5, 1, shade(MAT.adobe.t, 0.15)); // crenellated parapet
         R(g, f.x - 1, f.y - 1, f.w + 2, 1, shade(MAT.adobe.t, 0.1)); door(g, x + v.w / 2 - 1, y, 3, 5, o.night); },
       big: function (g, x, y, tier, o) { var w = tier >= 5 ? 38 : 32, m = MAT.mud, r = rng(5); // stepped terraces with a central stair and a top shrine
         for (var k = 0; k < 3; k++) { var ww = w - k * 10, xx = x + k * 5; box(g, xx, y - k * 7, ww, 7, 8 - k, m, r); for (var i = 2; i < ww; i += 3) R(g, xx + i, y - k * 7 - 6, 1, 5, shade(m.f, -0.14)); R(g, xx, y - k * 7 - 7, ww, 1, '#4b3d9a'); }
@@ -186,6 +204,7 @@
     },
     irish: { ground: '#7f9a5a', lane: '#a8b07a', wall: 'bank', props: ['broadleaf', 'stele', 'fence'],
       house: function (g, x, y, v, o) { var rx = Math.round(v.w / 2) + 1, cx = x + rx, h = Math.max(4, v.h - 4);
+        E(g, cx, y, rx + 1, (rx + 1) * 0.35, '#5c6454', 0, Math.PI); // drystone footing skirt
         g.fillStyle = grad(g, cx - rx, 0, cx + rx, 0, [[0, MAT.wattle.t], [0.5, MAT.wattle.f], [1, MAT.wattle.s]]); g.fillRect(cx - rx, y - h, rx * 2, h); E(g, cx, y, rx, rx * 0.35, MAT.wattle.s, 0, Math.PI);
         texture(g, 'wattle', cx - rx, y - h, rx * 2, h, MAT.wattle.f, v.r);
         if (o.ruined) { R(g, cx - rx, y - h - 1, rx * 2, 1, '#3a2e20'); return; }
@@ -196,6 +215,7 @@
     },
     mexica: { ground: '#c8b48a', lane: '#e6dcc0', wall: 'paintWall', props: ['maize', 'canal', 'jar'],
       house: function (g, x, y, v, o) { var f = box(g, x, y, v.w, v.h, v.dep, MAT.paint, v.r); if (o.ruined) return ruinTop(g, f, MAT.paint, v.r);
+        R(g, x, y - 1, v.w, 1, '#e4dbc8');
         R(g, x, y - v.h + 1, v.w, 1, '#12a38c'); R(g, x, y - v.h + 2, v.w, 1, '#d84a28'); R(g, x, y - 2, v.w, 1, '#c8a040');      // painted bands
         R(g, f.x, f.y - 1, f.w, 1, '#fffaf0'); door(g, x + 2, y, 3, 5, o.night); },
       big: function (g, x, y, tier, o) { var w = tier >= 5 ? 36 : 30, r = rng(13); // stepped platform with a twin stair and two small temples (dual shrine form, no rite shown)
@@ -207,6 +227,7 @@
     hittite: { ground: '#a8a08a', lane: '#c2baa2', wall: 'stoneWall', props: ['stele', 'broadleaf', 'stele'],
       house: function (g, x, y, v, o) { var f = box(g, x, y, v.w, v.h, v.dep, MAT.grey, v.r); if (o.ruined) return ruinTop(g, f, MAT.grey, v.r);
         R(g, x, y - 3, v.w, 3, '#7e796f'); R(g, x, y - 3, v.w, 1, '#a8a296');                                              // stone socle under the upper wall
+        for (var sj = 3; sj < v.w; sj += 4) R(g, x + sj, y - 3, 0.8, 3, '#5e5a52'); // cyclopean joint
         R(g, f.x - 1, f.y - 1, f.w + 2, 1, '#c8c2b6'); for (var i = 0; i < 3; i++) R(g, f.x + 2 + i * 4, f.y - 2, 2, 1, '#6a5a48'); // roof beam ends
         door(g, x + 2, y, 3, 5, o.night); win(g, x + v.w - 4, y - v.h + 3, o.night, 2, 1); },
       big: function (g, x, y, tier, o) { var w = tier >= 5 ? 38 : 32, r = rng(17); // gate between two crenellated towers, polygonal masonry
@@ -217,6 +238,7 @@
     },
     yoruba: { ground: '#b88a5a', lane: '#d0a878', wall: 'earthWall', props: ['broadleaf', 'jar', 'broadleaf'],
       house: function (g, x, y, v, o) { var f = box(g, x, y, v.w, v.h - 1, v.dep, MAT.mudred, v.r, { noTop: true }); if (o.ruined) return ruinTop(g, f, MAT.mudred, v.r);
+        R(g, x - 1, y - 1, v.w + 2, 1, '#8c4826');
         hip(g, f, 5, '#8a6a3a', '#5e4424', 2); for (var i = 0; i <= v.w; i += Math.max(4, v.w / 3)) { R(g, x + i - 0.5, y - v.h + 2, 1.5, v.h - 2, '#5a3a20'); R(g, x + i - 0.5, y - v.h + 4, 1.5, 1, '#e0b84a'); } // veranda on carved posts
         door(g, x + v.w / 2 - 1, y, 3, 5, o.night); },
       big: function (g, x, y, tier, o) { var w = tier >= 5 ? 38 : 32, r = rng(19); // compound: walls round an open courtyard, hipped roofs on carved posts
@@ -228,6 +250,7 @@
     },
     japanese: { ground: '#9aa078', lane: '#c8c0a0', wall: 'hedge', props: ['pine', 'torii', 'pine'],
       house: function (g, x, y, v, o) { R(g, x, y - 2, v.w + v.dep, 2, '#5a4030'); var f = box(g, x, y - 2, v.w, v.h - 2, v.dep, MAT.plaster, v.r, { noTop: true }); if (o.ruined) return ruinTop(g, f, MAT.plaster, v.r);
+        R(g, x + 1, y - 1, 2, 1, '#3a281c'); R(g, x + v.w - 3, y - 1, 2, 1, '#3a281c'); // stone post pedestals
         var h = hip(g, f, 5, '#3c3a3a', '#262424', 3); L(g, h.x - 1, f.y + 1, h.x - 3, f.y - 2, '#3c3a3a', 1.5); L(g, h.x + h.w + f.dx + 1, f.y - f.dy + 1, h.x + h.w + f.dx + 3, f.y - f.dy - 2, '#262424', 1.5); // upturned eaves
         if (o.night) R(g, x + 2, y - v.h + 2, v.w - 4, 3, rgba('#ffd890', 0.7)); door(g, x + 2, y - 2, 3, 4, false, '#4a3626'); },
       big: function (g, x, y, tier, o) { var w = tier >= 5 ? 32 : 28, r = rng(23); // raised hall with a two-tier hip-and-gable roof
@@ -242,6 +265,7 @@
         var rh = 6, x0 = f.x - 2, w = f.w + 4; g.fillStyle = grad(g, 0, f.y - rh, 0, f.y + 1, [[0, '#d4b870'], [1, '#9a7e42']]); g.beginPath(); g.moveTo(x0, f.y + 1); g.quadraticCurveTo(x0 + w / 2, f.y - rh * 2, x0 + w, f.y + 1); g.fill();
         P(g, [x0 + w, f.y + 1, x0 + w + f.dx, f.y - f.dy + 1, x0 + w / 2 + f.dx, f.y - rh - f.dy, x0 + w / 2, f.y - rh], '#8a6e38');
         for (var i = 0; i < w; i += 2) L(g, x0 + i, f.y, x0 + w / 2, f.y - rh + 1, rgba('#6a5228', 0.35));
+        for (var vi = 2; vi < w - 2; vi += 4) R(g, x0 + vi, f.y - rh - 1, 1, 2, '#6a5228'); // bamboo ridge ties
         door(g, x + v.w / 2 - 1, y, 3, 4, o.night); },
       big: function (g, x, y, tier, o) { var w = tier >= 5 ? 36 : 30, r = rng(29); // open hall on posts sheltering the three fires
         R(g, x - 3, y - 2, w + 10, 2, '#a8905a'); [[x + 5, 'round'], [x + w / 2 + 2, 'square'], [x + w - 2, 'half']].forEach(function (a) {
@@ -308,6 +332,7 @@
     }
     if (o.tier >= 3) items.push({ k: 'big', x: o.shrine ? VX2 - 66 : VX2 - 15, y: o.shrine ? VY2 - 2 : VY2 - 9, style: o.current || o.biome, tier: o.tier });
     if (o.tier >= 3) items.push({ k: 'well', x: VX2, y: VY2 + 1 });
+    if (o.tier >= 3 && !o.decline) items.push({ k: 'stall', x: VX2 + (o.shrine ? 20 : -22), y: VY2 + 10 });
     (cur.props || []).forEach(function (pk, j) { if (j < Math.min(3, o.tier)) items.push({ k: 'prop', p: pk, x: VX2 + [-46, 44, -30][j] + (r() - 0.5) * 6, y: VY2 + [6, 4, 16][j] }); });
     items.sort(function (a, b) { return a.y - b.y; });
     // contact shadows first, so they sit under every neighbour
@@ -318,11 +343,43 @@
       var kit = KITS[it.style] || base, opt = { night: o.night, ruined: it.ruined, cold: o.cold };
       if (it.k === 'house') { var hr = rng(it.seed); outlined(g, it.w + 22, it.h + 30, 'rgba(26,18,22,0.55)', function (s) { kit.house(s, it.x, it.y, { w: it.w, h: it.h, dep: it.dep, r: hr }, opt); }, it.x - 8, it.y - it.h - 24); if (!it.ruined && chim.length < 3) chim.push([it.x + it.w / 2 + 2, it.y - it.h - 6]); }
       else if (it.k === 'big') { var bk = KITS[it.style] && KITS[it.style].big ? KITS[it.style] : null; if (bk) outlined(g, 64, 48, 'rgba(26,18,22,0.55)', function (s) { bk.big(s, it.x, it.y, it.tier, opt); }, it.x - 10, it.y - 40); else outlined(g, 64, 48, 'rgba(26,18,22,0.55)', function (s) { base.house(s, it.x + 4, it.y, { w: 22, h: 13, dep: 9, r: rng(3) }, opt); }, it.x - 10, it.y - 40); }
-      else if (it.k === 'well') { E(g, it.x, it.y, 4, 2, '#8a8070'); E(g, it.x, it.y - 0.5, 2.8, 1.2, o.night ? '#ffe2a0' : '#4a8aa8'); R(g, it.x - 4, it.y - 4, 1, 4, '#5a4030'); R(g, it.x + 3, it.y - 4, 1, 4, '#5a4030'); R(g, it.x - 4, it.y - 5, 8, 1, '#6a4a30'); }
+      else if (it.k === 'well') {
+        if (o.tier >= 4) {
+          E(g, it.x, it.y + 1, 6, 3, '#746e66');
+          E(g, it.x, it.y, 5, 2.5, '#a49e94');
+          E(g, it.x, it.y - 0.5, 3.8, 1.8, o.night ? '#ffe498' : '#3d86a4');
+          R(g, it.x - 1, it.y - 6, 2, 6, '#b4aea2');
+          R(g, it.x - 1.5, it.y - 7, 3, 1.5, '#d6cebf');
+          if (!o.night) E(g, it.x, it.y - 0.5, 1.2, 0.6, 'rgba(235,250,255,0.85)');
+        } else {
+          E(g, it.x, it.y, 4, 2, '#8a8070');
+          E(g, it.x, it.y - 0.5, 2.8, 1.2, o.night ? '#ffe2a0' : '#4a8aa8');
+          R(g, it.x - 4, it.y - 4, 1, 4, '#5a4030');
+          R(g, it.x + 3, it.y - 4, 1, 4, '#5a4030');
+          R(g, it.x - 4, it.y - 5, 8, 1, '#6a4a30');
+        }
+      }
+      else if (it.k === 'stall') {
+        E(g, it.x + 5, it.y + 0.5, 6, 1.5, 'rgba(16,12,28,0.25)');
+        R(g, it.x, it.y - 7, 1, 7, '#5a4230');
+        R(g, it.x + 9, it.y - 7, 1, 7, '#5a4230');
+        R(g, it.x - 1, it.y - 3, 12, 1.5, '#7a5a3a');
+        P(g, [it.x - 2, it.y - 6, it.x + 11, it.y - 6, it.x + 9, it.y - 10, it.x, it.y - 10], '#c44830');
+        P(g, [it.x + 1, it.y - 6, it.x + 4, it.y - 6, it.x + 3, it.y - 10, it.x + 1, it.y - 10], '#f2ecd8');
+        P(g, [it.x + 6, it.y - 6, it.x + 9, it.y - 6, it.x + 8, it.y - 10, it.x + 5, it.y - 10], '#f2ecd8');
+        E(g, it.x + 2, it.y - 3.5, 1, 0.8, '#d89040');
+        E(g, it.x + 7, it.y - 3.5, 1, 0.8, '#3a8a60');
+      }
       else if (it.k === 'prop' && PROP[it.p]) PROP[it.p](g, Math.round(it.x), Math.round(it.y), { night: o.night, w: 14 });
     });
     // night: a warm lamp glow pooled on the plaza
-    if (o.night) { var ng = g.createRadialGradient(VX2, VY2, 1, VX2, VY2, 26); ng.addColorStop(0, 'rgba(255,190,110,0.22)'); ng.addColorStop(1, 'rgba(255,190,110,0)'); g.fillStyle = ng; g.fillRect(VX2 - 30, VY2 - 20, 60, 34); }
+    if (o.night) {
+      var ng = g.createRadialGradient(VX2, VY2, 1, VX2, VY2, 28);
+      ng.addColorStop(0, 'rgba(255,190,110,0.25)');
+      ng.addColorStop(0.5, 'rgba(255,170,80,0.12)');
+      ng.addColorStop(1, 'rgba(255,170,80,0)');
+      g.fillStyle = ng; g.fillRect(VX2 - 32, VY2 - 22, 64, 38);
+    }
     return { c: c, chim: chim, tier: o.tier, night: o.night };
   }
 

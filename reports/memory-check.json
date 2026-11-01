@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-31T09:47:58.334Z",
+ "generated": "2026-11-01T03:20:17.318Z",
  "games": 10,
  "heapGrowth": 0,
  "canvasesStable": true,
@@ -12,7 +12,7 @@
    "heapMB": 9.5,
    "screenLayers": 3,
    "villageCache": 15,
-   "spriteCache": 27,
+   "spriteCache": 28,
    "canvases": 46
   },
   {
@@ -20,8 +20,8 @@
    "turn": 6,
    "heapMB": 9.5,
    "screenLayers": 3,
-   "villageCache": 13,
-   "spriteCache": 16,
+   "villageCache": 14,
+   "spriteCache": 17,
    "canvases": 46
   },
   {
@@ -29,8 +29,8 @@
    "turn": 6,
    "heapMB": 9.5,
    "screenLayers": 3,
-   "villageCache": 16,
-   "spriteCache": 30,
+   "villageCache": 17,
+   "spriteCache": 33,
    "canvases": 46
   },
   {
@@ -48,7 +48,7 @@
    "heapMB": 9.5,
    "screenLayers": 3,
    "villageCache": 14,
-   "spriteCache": 21,
+   "spriteCache": 22,
    "canvases": 46
   },
   {
@@ -66,7 +66,7 @@
    "heapMB": 9.5,
    "screenLayers": 3,
    "villageCache": 17,
-   "spriteCache": 26,
+   "spriteCache": 29,
    "canvases": 46
   },
   {
@@ -74,8 +74,8 @@
    "turn": 6,
    "heapMB": 9.5,
    "screenLayers": 3,
-   "villageCache": 12,
-   "spriteCache": 28,
+   "villageCache": 13,
+   "spriteCache": 29,
    "canvases": 46
   },
   {

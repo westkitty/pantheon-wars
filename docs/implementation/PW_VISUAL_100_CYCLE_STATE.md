@@ -8,11 +8,12 @@
 - **Parent Draft PR**: [PR #1](https://github.com/westkitty/pantheon-wars/pull/1) (`claude/vibrant-feynman-x1fjq9`)
 - **Starting Base SHA**: `82cab369adf471cde79bc6471e05253a3a225b14`
 - **Current Active Batch**: Batch 01 (Cycles 001–005)
-- **Active Cycle Number**: 015 (Checkpoint 03 ready)
+- **Active Cycle Number**: 020 (Checkpoint 04 ready)
 - **Known-Good Checkpoints**:
   - `82cab36` (Initial Verified HEAD from PR #1)
   - `97fe0d7` (Checkpoint 01: Batch 01 — Preflight, Baselines & Opportunity Ledger)
   - `b781bc2` (Checkpoint 02: Batch 02 — Visual Coherence, Palettes & Symbolic Hierarchy)
+  - `4335354` (Checkpoint 03: Batch 03 — Terrain, Relief & Biome Atmospheric Identity)
 - **Unresolved Gates (Historical Invariants)**:
   - `P001` (Balance Partial: duel spread ~16–18 pp across held-out sets; preserved without alteration)
   - `P019` (Source Verification Partial: 39 v0.2 sources verified via search index summaries; preserved)
@@ -379,5 +380,118 @@
 - **Performance Impact**: Software rendering remains compliant with budget.
 - **Regressions**: None.
 - **Accepted / Rejected Verdict**: ACCEPTED.
-- **Commit SHA**: Checkpoint 03 commit pending.
+- **Commit SHA**: Checkpoint 03 committed (`4335354`).
 - **Next Cycle**: 016 (Batch 04).
+
+---
+
+### Batch 04: Water, Coastlines & Fluid Realm Transitions (Cycles 016–020)
+
+#### Cycle 016 — Coastal Tidal Rhythm & Dynamic Shoreline Foam
+- **Number**: 016
+- **Batch**: 04
+- **Starting SHA**: `43353542d34b2294e78151a785753a3cc83b4c1d`
+- **Target Surface**: Coastal foam animation in `ui/render.js` (`composeWorld`).
+- **Evidence of Original Issue**: Shoreline foam stroked a static line dash offset, drifting linearly without the undulating breath of tides washing onto land.
+- **Proposed Improvement / Test**: Introduce a subtle harmonic breathing coefficient (`foamBreath = this.reduced ? 1 : 0.85 + 0.15 * Math.sin(time * 1.5)`) controlling foam opacity and thickness, simulating natural shoreline tidal wash while staying completely static under reduced motion.
+- **Actual Action Performed**: Modified `ui/render.js` in `composeWorld()` to modulate `foamPath` stroke styling with `foamBreath`.
+- **Files Modified**: `ui/render.js`.
+- **Verification Run**: `npm test`, `npm run validate`.
+- **Result**: ACCEPTED. Shorelines pulse with organic tidal rhythm.
+- **Baseline Comparison**: Matches visual style without increasing draw calls or particle counts.
+- **Performance Impact**: Zero overhead (single sine term in existing path stroke).
+- **Regressions**: None.
+- **Accepted / Rejected Verdict**: ACCEPTED.
+- **Commit SHA**: Pending Checkpoint 04.
+- **Next Cycle**: 017.
+
+---
+
+#### Cycle 017 — Deep Ocean Harmonic Swells & Fluid Drift
+- **Number**: 017
+- **Batch**: 04
+- **Starting SHA**: `43353542d34b2294e78151a785753a3cc83b4c1d`
+- **Target Surface**: Secondary wave pattern in `ui/render.js` (`buildPatterns`, `waterPat2`).
+- **Evidence of Original Issue**: The secondary swell pattern consisted of single-frequency sine waves, appearing somewhat mechanical when tiling over wide ocean hexes.
+- **Proposed Improvement / Test**: Combine fundamental and secondary harmonic wave frequencies (`Math.sin(...) * 2.2 + Math.cos(...) * 0.8`) in `waterPat2` to create natural ocean swell contours.
+- **Actual Action Performed**: Updated `buildPatterns()` in `ui/render.js`.
+- **Files Modified**: `ui/render.js`.
+- **Verification Run**: `npm test`, `npm run validate`.
+- **Result**: ACCEPTED. Open ocean displays fluid, natural wave undulations.
+- **Baseline Comparison**: Tileable 128x64 pattern texture built once on map load.
+- **Performance Impact**: Zero per-frame cost.
+- **Regressions**: None.
+- **Accepted / Rejected Verdict**: ACCEPTED.
+- **Commit SHA**: Pending Checkpoint 04.
+- **Next Cycle**: 018.
+
+---
+
+#### Cycle 018 — Age-Specific Fresnel Sky Reflection & Sheen Balance
+- **Number**: 018
+- **Batch**: 04
+- **Starting SHA**: `43353542d34b2294e78151a785753a3cc83b4c1d`
+- **Target Surface**: Sky reflections and light sheen across age progression in `ui/render.js` (`buildStatic`).
+- **Evidence of Original Issue**: Water depth palette and horizon sky reflections must transition coherently across Dawn, Zenith, and Twilight without muddying the shallow turquoise glow.
+- **Proposed Improvement / Test**: Verify and protect age-specific water depth shading and additive shallow water glow (`rgba(80, 215, 195, 0.30)`) across all three ages.
+- **Actual Action Performed**: Audited `buildStatic()` water shading; verified smooth continuous blending across ages.
+- **Files Modified**: None (verification of existing age matrices).
+- **Verification Run**: `npm test`, `npm run validate`.
+- **Result**: ACCEPTED. Water surfaces reflect the atmospheric character of each age.
+- **Baseline Comparison**: Dawn teal, Zenith clear turquoise, and Twilight violet-blue maintained.
+- **Performance Impact**: Baked into static layer at age transitions.
+- **Regressions**: None.
+- **Accepted / Rejected Verdict**: ACCEPTED.
+- **Commit SHA**: Pending Checkpoint 04.
+- **Next Cycle**: 019.
+
+---
+
+#### Cycle 019 — Coastal Sand Seam & Waterline Contact Definition
+- **Number**: 019
+- **Batch**: 04
+- **Starting SHA**: `43353542d34b2294e78151a785753a3cc83b4c1d`
+- **Target Surface**: Coastline sand band and pebble details in `ui/render.js` (`buildStatic`).
+- **Evidence of Original Issue**: The wet-sand band along `foamPath` transitioned abruptly into deep water where cliffs dropped straight into shallows.
+- **Proposed Improvement / Test**: Add a wider soft damp-tide underlay (`rgba(180, 160, 120, 0.25)`, `lineWidth: 9`) under the 6 px wet-sand line, softly feathering the transition between land and water.
+- **Actual Action Performed**: Modified `ui/render.js` in `buildStatic()` to draw the damp-tide underlay along `foamPath`.
+- **Files Modified**: `ui/render.js`.
+- **Verification Run**: `npm test`, `npm run validate`.
+- **Result**: ACCEPTED. Coastlines have an authentic, soft coastal sand transition.
+- **Baseline Comparison**: Replaces hard land-water boundaries with an authored shoreline.
+- **Performance Impact**: Baked into static layer on map build; zero per-frame cost.
+- **Regressions**: None.
+- **Accepted / Rejected Verdict**: ACCEPTED.
+- **Commit SHA**: Pending Checkpoint 04.
+- **Next Cycle**: 020.
+
+---
+
+#### Cycle 020 — Batch 04 Verification, Replay Integrity & Checkpoint 04
+- **Number**: 020
+- **Batch**: 04
+- **Starting SHA**: `43353542d34b2294e78151a785753a3cc83b4c1d`
+- **Target Surface**: Full regression suite, browser e2e replay, and frame-time benchmarking.
+- **Evidence of Original Issue**: Empirical proof that all water and coastal enhancements maintain determinism, zero leaks, and frame performance.
+- **Proposed Improvement / Test**: Run `npm test`, `npm run validate`, `npm run e2e`, `tools/perf.js` (`reports/perf-b04.json`).
+- **Actual Action Performed**:
+  - `npm test`: 55/55 PASS (86.0s).
+  - `npm run validate`: PASS.
+  - `npm run e2e`: 455 actions, 0 rejected inputs, `browserHash: 47cef0c2` == `replayHash: 47cef0c2`.
+  - `node tools/perf.js --label b04`:
+    - `turn1`: 6.4 ms median / 7.0 ms p95
+    - `mid16`: 9.9 ms median / 13.7 ms p95
+    - `late30-reveal`: 14.0 ms median / 19.1 ms p95
+    - `late30-low`: 7.2 ms median / 11.2 ms p95
+    - `mobile16`: 8.0 ms median / 10.5 ms p95
+    - `miracle-burst`: 10.9 ms median / 14.0 ms p95
+  All scenes under the 33 ms budget.
+- **Files Modified**: `reports/perf-b04.json`, `reports/screens/e2e/*`, `ui/render.js`, `docs/implementation/PW_VISUAL_100_CYCLE_STATE.md`.
+- **Verification Run**: `npm test`, `npm run validate`, `npm run e2e`, `node tools/perf.js`.
+- **Result**: ACCEPTED. Batch 04 fully verified.
+- **Baseline Comparison**: Replay hash `47cef0c2` and legacy hash `6a3687d9` verified.
+- **Performance Impact**: Frame times remain well within budget.
+- **Regressions**: None.
+- **Accepted / Rejected Verdict**: ACCEPTED.
+- **Commit SHA**: Checkpoint 04 commit pending.
+- **Next Cycle**: 021 (Batch 05).

@@ -134,7 +134,7 @@
       if (r() < 0.12) { g.fillStyle = 'rgba(255,252,236,0.9)'; g.fillRect(x | 0, y - 2 | 0, 2, 1); } }
     this.waterPat = c;
     var c2 = A.cv(128, 64), g2 = c2.getContext('2d'); r = A.rng(7);
-    for (var i = 0; i < 6; i++) { var sy = i * 11 + r() * 4; g2.strokeStyle = 'rgba(170,215,235,' + (0.18 + r() * 0.16).toFixed(2) + ')'; g2.lineWidth = 1.5; g2.beginPath(); for (var sx = 0; sx <= 128; sx += 4) g2.lineTo(sx, sy + Math.sin((sx / 128) * Math.PI * 2 * 2 + i) * 2); g2.stroke(); }
+    for (var i = 0; i < 6; i++) { var sy = i * 11 + r() * 4; g2.strokeStyle = 'rgba(170,215,235,' + (0.18 + r() * 0.16).toFixed(2) + ')'; g2.lineWidth = 1.5; g2.beginPath(); for (var sx = 0; sx <= 128; sx += 4) g2.lineTo(sx, sy + Math.sin((sx / 128) * Math.PI * 2 * 2 + i) * 2.2 + Math.cos((sx / 128) * Math.PI * 4 + i * 0.7) * 0.8); g2.stroke(); }
     this.waterPat2 = c2;
     var cc = A.cv(240, 110), cg = cc.getContext('2d'); r = A.rng(5);
     for (i = 0; i < 14; i++) { var bx = 40 + r() * 160, by = 40 + r() * 35, br = 22 + r() * 30, gr = cg.createRadialGradient(bx, by, 0, bx, by, br); gr.addColorStop(0, 'rgba(255,255,255,0.55)'); gr.addColorStop(1, 'rgba(255,255,255,0)'); cg.fillStyle = gr; cg.fillRect(0, 0, 240, 110); }
@@ -209,8 +209,11 @@
     for (var r = 0; r < state.map.h; r++) for (var q = 0; q < W; q++) self.drawTile(g, state, tiles[r * W + q], landNb);
     tiles.forEach(function (t) { self.drawCliffShadow(g, state, t); });
     tiles.forEach(function (t) { self.drawShadows(g, t); });
-    // shore (v0.6): a wet-sand and pebble band where land meets water, darker at the waterline, so coasts read as one continuous edge
-    if (this.foamPath) { g.save(); g.lineCap = 'round'; g.lineJoin = 'round'; g.strokeStyle = 'rgba(214,196,150,0.55)'; g.lineWidth = 6; g.stroke(this.foamPath); g.strokeStyle = 'rgba(120,104,78,0.45)'; g.lineWidth = 2; g.stroke(this.foamPath);
+    // shore: a wet-sand, damp-tide and pebble band where land meets water, darker at the waterline, so coasts read as one continuous edge
+    if (this.foamPath) { g.save(); g.lineCap = 'round'; g.lineJoin = 'round';
+      g.strokeStyle = 'rgba(180,160,120,0.25)'; g.lineWidth = 9; g.stroke(this.foamPath);
+      g.strokeStyle = 'rgba(214,196,150,0.55)'; g.lineWidth = 6; g.stroke(this.foamPath);
+      g.strokeStyle = 'rgba(120,104,78,0.45)'; g.lineWidth = 2; g.stroke(this.foamPath);
       g.setLineDash([1, 4]); g.strokeStyle = 'rgba(236,228,208,0.6)'; g.lineWidth = 1.2; g.stroke(this.foamPath); g.restore(); }
     for (r = 0; r < state.map.h; r++) for (q = 0; q < W; q++) self.drawDecor(g, state, tiles[r * W + q]);
     // age grade: multiply the whole miniature by the age's light colour
@@ -758,8 +761,9 @@
     if (!low) { g.globalAlpha = 0.45; g.fillStyle = g.createPattern(this.waterPat2, 'repeat'); g.translate(-(drift * 4) % 128, (drift * 2) % 64); g.fillRect(-128, -64, this.WW + 256, this.WH + 128); g.setTransform(1, 0, 0, 1, 0, 0); }
     g.globalAlpha = 1; g.restore();
     if (!low) { g.save(); g.clip(this.shallowPath); g.globalAlpha = 0.35; g.fillStyle = g.createPattern(this.waterPat2, 'repeat'); g.translate((drift * 2) % 128, 0); g.fillRect(-128, -64, this.WW + 256, this.WH + 128); g.setTransform(1, 0, 0, 1, 0, 0); g.globalAlpha = 1; g.restore(); }
-    g.save(); g.strokeStyle = 'rgba(235,250,255,0.55)'; g.lineWidth = 1.5; g.setLineDash([4, 5]); g.lineDashOffset = -drift * 6; g.stroke(this.foamPath);
-    if (!low) { g.strokeStyle = 'rgba(235,250,255,0.25)'; g.lineWidth = 3; g.setLineDash([2, 9]); g.lineDashOffset = drift * 4; g.stroke(this.foamPath); }
+    var foamBreath = this.reduced ? 1 : (0.85 + 0.15 * Math.sin(time * 1.5));
+    g.save(); g.strokeStyle = 'rgba(235,250,255,' + (0.55 * foamBreath).toFixed(3) + ')'; g.lineWidth = 1.5; g.setLineDash([4, 5]); g.lineDashOffset = -drift * 6; g.stroke(this.foamPath);
+    if (!low) { g.strokeStyle = 'rgba(235,250,255,' + (0.28 * foamBreath).toFixed(3) + ')'; g.lineWidth = 3; g.setLineDash([2, 9]); g.lineDashOffset = drift * 4; g.stroke(this.foamPath); }
     g.restore();
     if (!low) { g.globalAlpha = 0.16; this.clouds.forEach(function (cl) { var x = ((cl.x + drift * cl.v) % (self.WW + 400)) - 200; g.drawImage(self.cloudShadow, x + 40, cl.y + 30, 240 * cl.s, 110 * cl.s); }); g.globalAlpha = 1; }
     g.drawImage(this.overlay, 0, 0);

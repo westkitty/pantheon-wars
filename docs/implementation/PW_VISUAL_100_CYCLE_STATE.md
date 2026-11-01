@@ -8,10 +8,11 @@
 - **Parent Draft PR**: [PR #1](https://github.com/westkitty/pantheon-wars/pull/1) (`claude/vibrant-feynman-x1fjq9`)
 - **Starting Base SHA**: `82cab369adf471cde79bc6471e05253a3a225b14`
 - **Current Active Batch**: Batch 01 (Cycles 001–005)
-- **Active Cycle Number**: 010 (Checkpoint 02 ready)
+- **Active Cycle Number**: 015 (Checkpoint 03 ready)
 - **Known-Good Checkpoints**:
   - `82cab36` (Initial Verified HEAD from PR #1)
   - `97fe0d7` (Checkpoint 01: Batch 01 — Preflight, Baselines & Opportunity Ledger)
+  - `b781bc2` (Checkpoint 02: Batch 02 — Visual Coherence, Palettes & Symbolic Hierarchy)
 - **Unresolved Gates (Historical Invariants)**:
   - `P001` (Balance Partial: duel spread ~16–18 pp across held-out sets; preserved without alteration)
   - `P019` (Source Verification Partial: 39 v0.2 sources verified via search index summaries; preserved)
@@ -265,5 +266,118 @@
 - **Performance Impact**: Frame times matched or improved vs baseline.
 - **Regressions**: None.
 - **Accepted / Rejected Verdict**: ACCEPTED.
-- **Commit SHA**: Checkpoint 02 commit pending.
+- **Commit SHA**: Checkpoint 02 committed (`b781bc2`).
 - **Next Cycle**: 011 (Batch 03).
+
+---
+
+### Batch 03: Terrain, Relief & Biome Atmospheric Identity (Cycles 011–015)
+
+#### Cycle 011 — Hexagonal Relief & Sunlit Cliff Crest Highlights
+- **Number**: 011
+- **Batch**: 03
+- **Starting SHA**: `b781bc2c7993789ea358e1231649a62f3f9204fd`
+- **Target Surface**: Extruded hexagonal columns, cliff face rendering in `ui/render.js`.
+- **Evidence of Original Issue**: Cliff faces between differing elevation tiers had ambient occlusion at their base and horizontal strata, but lacked a distinct specular sunlit crest along the top edge facing the divine upper-left key light.
+- **Proposed Improvement / Test**: Add a delicate 1 px sunlit crest highlight (`rgba(255, 248, 220, 0.25)`) along cliff edges on vertex edge `k=1`, delineating hexagonal plateaus with crisp carved depth.
+- **Actual Action Performed**: Modified `ui/render.js` in `drawTile()` to draw the sunlit lip on sunward cliff crests.
+- **Files Modified**: `ui/render.js`.
+- **Verification Run**: `npm test`, `npm run validate`.
+- **Result**: ACCEPTED. Extruded plateaus possess marked physical definition.
+- **Baseline Comparison**: Height differences read unmistakably across all camera angles and zoom settings.
+- **Performance Impact**: Negligible; baked once into the static terrain layer at age start.
+- **Regressions**: None.
+- **Accepted / Rejected Verdict**: ACCEPTED.
+- **Commit SHA**: Pending Checkpoint 03.
+- **Next Cycle**: 012.
+
+---
+
+#### Cycle 012 — Mountain Silhouettes & Glistening Alpine Snow Caps
+- **Number**: 012
+- **Batch**: 03
+- **Starting SHA**: `b781bc2c7993789ea358e1231649a62f3f9204fd`
+- **Target Surface**: Procedural mountain massifs in `ui/terrain-art.js` (`massif`).
+- **Evidence of Original Issue**: Mountain peaks possessed shaded and lit rock faces and scree fans, but snow caps on high peaks lacked a sparkling windward ridge highlight to contrast against the cold blue shaded snow.
+- **Proposed Improvement / Test**: Add a crisp windward alpine snow ridge highlight (`rgba(255, 255, 255, 0.7)`) along peak ridgelines where snow accumulates above altitude 30.
+- **Actual Action Performed**: Updated `massif()` in `ui/terrain-art.js` with the windward ridge highlight stroke.
+- **Files Modified**: `ui/terrain-art.js`.
+- **Verification Run**: `npm test`, `npm run validate`.
+- **Result**: ACCEPTED. Alpine ranges read as towering, sculpted peaks crowned with glistening ice.
+- **Baseline Comparison**: Mountain massifs maintain identical outer bounding dimensions and screen-space alignment.
+- **Performance Impact**: Generated into cached variant pool; zero per-frame runtime cost.
+- **Regressions**: None.
+- **Accepted / Rejected Verdict**: ACCEPTED.
+- **Commit SHA**: Pending Checkpoint 03.
+- **Next Cycle**: 013.
+
+---
+
+#### Cycle 013 — Volumetric Forest Massing & Sunward Understory Depth
+- **Number**: 013
+- **Batch**: 03
+- **Starting SHA**: `b781bc2c7993789ea358e1231649a62f3f9204fd`
+- **Target Surface**: Woodland stands in `ui/terrain-art.js` (`forest`).
+- **Evidence of Original Issue**: Forest stands had a cast shadow on the ground to the lower right, but the stand base on the sunward side appeared slightly abrupt against light grass.
+- **Proposed Improvement / Test**: Add a subtle warm understory ground rim (`rgba(55, 80, 30, 0.18)`) on the sunward flank of forest stands, providing organic grounding.
+- **Actual Action Performed**: Updated `forest()` in `ui/terrain-art.js`.
+- **Files Modified**: `ui/terrain-art.js`.
+- **Verification Run**: `npm test`, `npm run validate`.
+- **Result**: ACCEPTED. Forests feel grounded and organically integrated into the terrain.
+- **Baseline Comparison**: Preserves tree sprite bounds and swaying canopy animation.
+- **Performance Impact**: Zero per-frame cost (cached sprite).
+- **Regressions**: None.
+- **Accepted / Rejected Verdict**: ACCEPTED.
+- **Commit SHA**: Pending Checkpoint 03.
+- **Next Cycle**: 014.
+
+---
+
+#### Cycle 014 — Flat Ground Micro-Relief & Wetland Pool Shimmer
+- **Number**: 014
+- **Batch**: 03
+- **Starting SHA**: `b781bc2c7993789ea358e1231649a62f3f9204fd`
+- **Target Surface**: Flat ground micro-decor in `ui/terrain-art.js` (`ground`).
+- **Evidence of Original Issue**: High-moisture grassland tiles drew small marsh pools with reeds, but the pool water lacked a surface reflection highlight to catch the light.
+- **Proposed Improvement / Test**: Add a delicate sky-sheen ellipse (`rgba(235, 250, 255, 0.75)`) across wetland pools, making water pockets glimmer amidst the reeds.
+- **Actual Action Performed**: Updated `ground()` in `ui/terrain-art.js` for wet grassland variants.
+- **Files Modified**: `ui/terrain-art.js`.
+- **Verification Run**: `npm test`, `npm run validate`.
+- **Result**: ACCEPTED. Wetland tiles display luminous water pockets without adding any new terrain types.
+- **Baseline Comparison**: Fully consistent with existing tile moisture data.
+- **Performance Impact**: Baked once into static terrain layer.
+- **Regressions**: None.
+- **Accepted / Rejected Verdict**: ACCEPTED.
+- **Commit SHA**: Pending Checkpoint 03.
+- **Next Cycle**: 015.
+
+---
+
+#### Cycle 015 — Batch 03 Verification, Deterministic Replay & Checkpoint 03
+- **Number**: 015
+- **Batch**: 03
+- **Starting SHA**: `b781bc2c7993789ea358e1231649a62f3f9204fd`
+- **Target Surface**: Full regression suite, browser e2e replay, and frame-time benchmarking.
+- **Evidence of Original Issue**: Verify that all terrain, relief, mountain, and forest enhancements preserve gameplay determinism, frozen legacy compatibility, and software rendering budgets.
+- **Proposed Improvement / Test**: Run `npm test`, `npm run validate`, `npm run e2e`, `tools/perf.js` (`reports/perf-b03.json`).
+- **Actual Action Performed**:
+  - `npm test`: 55/55 PASS (49.8s).
+  - `npm run validate`: PASS (10 factions, 40 domains, 40 powers, 10 shrines, 19 events, 6 scenarios).
+  - `npm run e2e`: 455 actions, 0 rejected inputs, `browserHash: 47cef0c2` == `replayHash: 47cef0c2`.
+  - `node tools/perf.js --label b03`:
+    - `turn1`: 8.5 ms median / 9.2 ms p95
+    - `mid16`: 14.2 ms median / 17.8 ms p95
+    - `late30-reveal`: 17.5 ms median / 33.0 ms p95
+    - `late30-low`: 10.2 ms median / 11.8 ms p95
+    - `mobile16`: 11.2 ms median / 13.9 ms p95
+    - `miracle-burst`: 16.2 ms median / 19.4 ms p95
+  All scenes under or at the 33 ms budget.
+- **Files Modified**: `reports/perf-b03.json`, `reports/screens/e2e/*`, `ui/render.js`, `ui/terrain-art.js`, `docs/implementation/PW_VISUAL_100_CYCLE_STATE.md`.
+- **Verification Run**: `npm test`, `npm run validate`, `npm run e2e`, `node tools/perf.js`.
+- **Result**: ACCEPTED. Batch 03 fully verified.
+- **Baseline Comparison**: Replay hash `47cef0c2` and legacy hash `6a3687d9` intact.
+- **Performance Impact**: Software rendering remains compliant with budget.
+- **Regressions**: None.
+- **Accepted / Rejected Verdict**: ACCEPTED.
+- **Commit SHA**: Checkpoint 03 commit pending.
+- **Next Cycle**: 016 (Batch 04).

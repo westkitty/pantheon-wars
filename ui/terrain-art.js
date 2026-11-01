@@ -48,6 +48,7 @@
     var w = 112, h = 76, ax = 56, ay = 54, r = A.rng(seed);
     return { c: outline(w, h, 'rgba(14,22,16,0.55)', function (g) {
       E(g, ax + 4, ay + 2, 42, 14, 'rgba(10,20,10,0.22)'); // stand shadow and undergrowth
+      E(g, ax - 3, ay - 1, 38, 11, 'rgba(55,80,30,0.18)'); // sunward understory rim
       for (var i = 0; i < 30; i++) { var u = inEllipse(r, ax, ay, 40, 14); E(g, u[0], u[1], 2 + r() * 2, 1.2, r() > 0.5 ? 'rgba(40,70,30,0.6)' : 'rgba(90,110,50,0.45)'); }
       var n = 8 + (r() * 5 | 0), pts = []; for (i = 0; i < n; i++) pts.push(inEllipse(r, ax, ay - 2, 38, 13)); pts.sort(function (a, b) { return a[1] - b[1]; });
       pts.forEach(function (q) { var k = r(), s = 14 + r() * 8 + (q[1] - ay + 13) * 0.25; if (cold || k < (dry ? 0.25 : 0.45)) conifer(g, q[0], q[1], s, r, cold); else if (!dry && k < 0.55) birch(g, q[0], q[1], s * 0.8, r); else broadleaf(g, q[0], q[1], s * 0.75, r, dry ? '#6a7a32' : null); });
@@ -83,6 +84,7 @@
         if (snow && pk.hh > 30) { var sd = pk.hh * (0.22 + alt * 0.2);
           P(g, [tx, top, tx - pk.bw * 0.32 * sd / pk.hh * 2.2, top + sd + r() * 3, tx - pk.bw * 0.2, top + sd * 0.65, tx - pk.bw * 0.1, top + sd * 1.05, tx + 1, top + sd * 0.7, tx + pk.bw * 0.05, top + pk.hh * 0.3], '#f2f5f8');
           P(g, [tx + 1, top + 1, tx + pk.bw * 0.05, top + pk.hh * 0.3, tx + pk.bw * 0.22, top + sd * 0.95, tx + pk.bw * 0.3 * sd / pk.hh * 2.4, top + sd * 0.7], '#aebcd4');
+          L(g, tx, top, tx - pk.bw * 0.32 * sd / pk.hh * 2.2, top + sd + r() * 3, 'rgba(255,255,255,0.7)', 1.2);
           for (f = 0; f < 3; f++) L(g, tx - pk.bw * (0.08 + f * 0.1), top + sd * (0.9 + f * 0.1), tx - pk.bw * (0.12 + f * 0.1), top + sd * (1.3 + f * 0.15), 'rgba(242,245,248,0.8)', 1.5); }
         L(g, tx, top, lx + pk.bw * 0.5, by - pk.hh * 0.42, rgba('#fff0d0', 0.35), 1);
       });
@@ -129,7 +131,7 @@
       for (i = 0; i < 6 + (r() * 4 | 0); i++) { q = spot(); clump(q[0], q[1], 5 + (r() * 4 | 0), '#4f7a2a', '#a8d06a', 5 + r() * 3); }
       var fc = ['#f4e070', '#f4f0f4', '#e890b0', '#a8c0f4'][r() * 4 | 0]; for (j = 0; j < 1 + (r() < 0.5 ? 1 : 0); j++) { q = spot(); for (i = 0; i < 7; i++) E(g, q[0] + (r() - 0.5) * 8, q[1] + (r() - 0.5) * 4, 0.9, 0.9, i % 3 ? fc : '#ffffff'); }
       if (r() < 0.5) { q = spot(); E(g, q[0], q[1], 5, 2.2, '#8a7048'); E(g, q[0] - 1, q[1] - 0.5, 3, 1.2, '#a88a5a'); stone(q[0] + 2, q[1], 1.2, '#9a9488'); }
-      if (wet) { for (j = 0; j < 2; j++) { q = spot(); E(g, q[0], q[1], 6 + r() * 4, 2.4, '#3f6a6a'); E(g, q[0] - 1, q[1] - 0.6, 4, 1, rgba('#bfe0e0', 0.6)); for (i = 0; i < 9; i++) L(g, q[0] - 7 + i * 1.6, q[1] + 1.5, q[0] - 7 + i * 1.6 + (r() - 0.5) * 2, q[1] - 5 - r() * 4, i % 2 ? '#7a8a3a' : '#5a6a2a', 1); } }
+      if (wet) { for (j = 0; j < 2; j++) { q = spot(); E(g, q[0], q[1], 6 + r() * 4, 2.4, '#3f6a6a'); E(g, q[0] - 1, q[1] - 0.6, 4, 1, rgba('#bfe0e0', 0.6)); E(g, q[0] - 1.5, q[1] - 0.8, 3, 0.7, 'rgba(235,250,255,0.75)'); for (i = 0; i < 9; i++) L(g, q[0] - 7 + i * 1.6, q[1] + 1.5, q[0] - 7 + i * 1.6 + (r() - 0.5) * 2, q[1] - 5 - r() * 4, i % 2 ? '#7a8a3a' : '#5a6a2a', 1); } }
     } else if (kind === 'plains') {
       g.save(); g.beginPath(); g.ellipse(ax, ay, 40, 20, 0, 0, Math.PI * 2); g.clip(); var dir = r() < 0.5 ? 1 : -1;
       for (i = -50; i < 50; i += 4) { L(g, ax + i, ay - 22, ax + i + dir * 22, ay + 22, rgba(i % 8 ? '#e8cc6e' : '#8a7a30', 0.28), 2); } g.restore();

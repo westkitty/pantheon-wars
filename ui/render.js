@@ -254,6 +254,7 @@
       for (var s = 3; s < d; s += 4) { g.fillStyle = k === 1 ? 'rgba(0,0,0,0.10)' : 'rgba(0,0,0,0.14)'; var t0 = 0.08 + rng() * 0.1, t1 = 0.92 - rng() * 0.1; g.beginPath(); g.moveTo(x + a[0] + (b[0] - a[0]) * t0, y + a[1] + (b[1] - a[1]) * t0 + s); g.lineTo(x + a[0] + (b[0] - a[0]) * t1, y + a[1] + (b[1] - a[1]) * t1 + s); g.lineTo(x + a[0] + (b[0] - a[0]) * t1, y + a[1] + (b[1] - a[1]) * t1 + s + 1); g.lineTo(x + a[0] + (b[0] - a[0]) * t0, y + a[1] + (b[1] - a[1]) * t0 + s + 1); g.fill(); }
       if (d > 8 && (t.terrain === 'hills' || t.terrain === 'mountains')) for (var sc = 0; sc < 3; sc++) { g.fillStyle = 'rgba(200,190,170,0.25)'; g.fillRect(x + a[0] + (b[0] - a[0]) * (0.2 + rng() * 0.6) | 0, y + Math.max(a[1], b[1]) + d - 2 - rng() * 3 | 0, 2, 1); } // scree
       g.fillStyle = A.shade(self.tileColor(t), k === 1 ? -0.25 : -0.45); g.beginPath(); g.moveTo(x + a[0], y + a[1]); g.lineTo(x + b[0], y + b[1]); g.lineTo(x + b[0], y + b[1] + 2); g.lineTo(x + a[0], y + a[1] + 2); g.closePath(); g.fill();
+      if (k === 1) { g.fillStyle = 'rgba(255,248,220,0.25)'; g.beginPath(); g.moveTo(x + a[0], y + a[1]); g.lineTo(x + b[0], y + b[1]); g.lineTo(x + b[0], y + b[1] + 1); g.lineTo(x + a[0], y + a[1] + 1); g.closePath(); g.fill(); }
       if (nh < 0) { g.fillStyle = 'rgba(255,255,255,0.18)'; g.fillRect(Math.min(x + a[0], x + b[0]), Math.max(y + a[1], y + b[1]) + d - 1, Math.abs(b[0] - a[0]), 1); }
     });
     var col2 = this.tileColor(t);

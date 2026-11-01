@@ -139,7 +139,18 @@
     var cc = A.cv(240, 110), cg = cc.getContext('2d'); r = A.rng(5);
     for (i = 0; i < 14; i++) { var bx = 40 + r() * 160, by = 40 + r() * 35, br = 22 + r() * 30, gr = cg.createRadialGradient(bx, by, 0, bx, by, br); gr.addColorStop(0, 'rgba(255,255,255,0.55)'); gr.addColorStop(1, 'rgba(255,255,255,0)'); cg.fillStyle = gr; cg.fillRect(0, 0, 240, 110); }
     this.cloudSprite = cc;
-    var cs = A.cv(240, 110), csg = cs.getContext('2d'); csg.drawImage(cc, 0, 0); csg.globalCompositeOperation = 'source-in'; csg.fillStyle = 'rgba(10,20,30,1)'; csg.fillRect(0, 0, 240, 110);
+    var cs = A.cv(240, 110), csg = cs.getContext('2d');
+    csg.drawImage(cc, 0, 0);
+    csg.globalCompositeOperation = 'source-in';
+    csg.fillStyle = 'rgba(20,28,45,0.70)';
+    csg.fillRect(0, 0, 240, 110);
+    var cscore = A.cv(240, 110), cgcore = cscore.getContext('2d');
+    cgcore.drawImage(cc, 14, 6, 212, 98);
+    cgcore.globalCompositeOperation = 'source-in';
+    cgcore.fillStyle = 'rgba(8,12,22,0.55)';
+    cgcore.fillRect(0, 0, 240, 110);
+    csg.globalCompositeOperation = 'source-over';
+    csg.drawImage(cscore, 0, 0);
     this.cloudShadow = cs;
     var dk = A.cv(240, 110), dkg = dk.getContext('2d'); dkg.drawImage(cc, 0, 0); dkg.globalCompositeOperation = 'source-in'; dkg.fillStyle = 'rgba(40,46,60,1)'; dkg.fillRect(0, 0, 240, 110);
     this.stormSprite = dk;
@@ -148,7 +159,14 @@
     function blob(fx, fy, fr, col) { for (var ox = -256; ox <= 256; ox += 256) for (var oy = -256; oy <= 256; oy += 256) { var gr = fgc.createRadialGradient(fx + ox, fy + oy, 0, fx + ox, fy + oy, fr); gr.addColorStop(0, col); gr.addColorStop(1, 'rgba(0,0,0,0)'); fgc.fillStyle = gr; fgc.fillRect(fx + ox - fr, fy + oy - fr, fr * 2, fr * 2); } }
     // a painted cloud sea seen from above: deep cool hollows, billows with shadowed undersides and sunlit cream crowns (C/D)
     for (i = 0; i < 18; i++) blob(r() * 256, r() * 256, 40 + r() * 50, 'rgba(26,34,58,0.30)');
-    for (i = 0; i < 70; i++) { var bx2 = r() * 256, by2 = r() * 256, br2 = 14 + r() * 30; blob(bx2 + br2 * 0.15, by2 + br2 * 0.35, br2, 'rgba(28,36,62,0.28)'); blob(bx2, by2, br2, 'rgba(164,178,204,0.38)'); blob(bx2 - br2 * 0.3, by2 - br2 * 0.32, br2 * 0.55, 'rgba(242,234,216,0.30)'); }
+    for (i = 0; i < 70; i++) {
+      var bx2 = r() * 256, by2 = r() * 256, br2 = 14 + r() * 30;
+      blob(bx2 + br2 * 0.15, by2 + br2 * 0.35, br2, 'rgba(28,36,62,0.28)');
+      blob(bx2, by2, br2, 'rgba(164,178,204,0.38)');
+      blob(bx2 - br2 * 0.3, by2 - br2 * 0.32, br2 * 0.55, 'rgba(242,234,216,0.30)');
+      blob(bx2 - br2 * 0.36, by2 - br2 * 0.38, br2 * 0.32, 'rgba(255,246,220,0.22)');
+      if (r() < 0.28) blob(bx2 - br2 * 0.42, by2 - br2 * 0.44, br2 * 0.18, 'rgba(255,235,180,0.26)');
+    }
     this.fogTex = fc;
   };
 
@@ -765,7 +783,7 @@
     g.save(); g.strokeStyle = 'rgba(235,250,255,' + (0.55 * foamBreath).toFixed(3) + ')'; g.lineWidth = 1.5; g.setLineDash([4, 5]); g.lineDashOffset = -drift * 6; g.stroke(this.foamPath);
     if (!low) { g.strokeStyle = 'rgba(235,250,255,' + (0.28 * foamBreath).toFixed(3) + ')'; g.lineWidth = 3; g.setLineDash([2, 9]); g.lineDashOffset = drift * 4; g.stroke(this.foamPath); }
     g.restore();
-    if (!low) { g.globalAlpha = 0.16; this.clouds.forEach(function (cl) { var x = ((cl.x + drift * cl.v) % (self.WW + 400)) - 200; g.drawImage(self.cloudShadow, x + 40, cl.y + 30, 240 * cl.s, 110 * cl.s); }); g.globalAlpha = 1; }
+    if (!low) { g.globalAlpha = 0.18; this.clouds.forEach(function (cl) { var x = ((cl.x + drift * cl.v) % (self.WW + 400)) - 200; g.drawImage(self.cloudShadow, x + 40, cl.y + 30, 240 * cl.s, 110 * cl.s); }); g.globalAlpha = 1; }
     g.drawImage(this.overlay, 0, 0);
     g.drawImage(this.marksLayer, 0, 0);
     this.walkers = []; this.drawRoutes(g, st, time);
@@ -896,6 +914,25 @@
         self.weatherGlyph(g, f.kind, c.x, c.y - 30, 0.7); return;
       }
       if (f.phase === 'after') return;
+      if (!low) {
+        var frad = f.radius * 52 + 14, fgrad = g.createRadialGradient(c.x, c.y, 0, c.x, c.y, frad);
+        if (f.kind === 'storm') {
+          fgrad.addColorStop(0, 'rgba(18,26,44,0.18)');
+          fgrad.addColorStop(0.7, 'rgba(18,26,44,0.10)');
+          fgrad.addColorStop(1, 'rgba(18,26,44,0)');
+          g.fillStyle = fgrad; g.beginPath(); g.ellipse(c.x, c.y, frad, frad * SQ, 0, 0, 7); g.fill();
+        } else if (f.kind === 'drought') {
+          fgrad.addColorStop(0, 'rgba(255,180,70,0.10)');
+          fgrad.addColorStop(0.65, 'rgba(255,180,70,0.05)');
+          fgrad.addColorStop(1, 'rgba(255,180,70,0)');
+          g.fillStyle = fgrad; g.beginPath(); g.ellipse(c.x, c.y, frad, frad * SQ, 0, 0, 7); g.fill();
+        } else if (f.kind === 'frost') {
+          fgrad.addColorStop(0, 'rgba(215,235,255,0.12)');
+          fgrad.addColorStop(0.7, 'rgba(215,235,255,0.04)');
+          fgrad.addColorStop(1, 'rgba(215,235,255,0)');
+          g.fillStyle = fgrad; g.beginPath(); g.ellipse(c.x, c.y, frad, frad * SQ, 0, 0, 7); g.fill();
+        }
+      }
       // v0.6 weather on the ground, tile by tile (visual-only randomness seeded by tile and front; wind from the west)
       var wind = f.kind === 'storm' ? 0.55 : 0.18;
       tiles.forEach(function (id) {
@@ -1205,8 +1242,25 @@
     ctx.imageSmoothingEnabled = true;
     ctx.drawImage(this.screenLayer('sky', [W, H, hzR, top, mid, sky.sun, sky.sunX.toFixed(3), sky.sunH.toFixed(3)].join('|'), W, H, function (g, w, h) {
       g.fillStyle = '#1b3044'; g.fillRect(0, 0, w, h);
-      if (hzR > 0) { var hy = hzR / 2, skyg = g.createLinearGradient(0, 0, 0, hy); skyg.addColorStop(0, top); skyg.addColorStop(0.7, mid); skyg.addColorStop(1, '#2a4258'); g.fillStyle = skyg; g.fillRect(0, 0, w, hy);
-        var sx0 = w * sky.sunX, sy0 = hy * (1 - 0.8 * sky.sunH), sun = g.createRadialGradient(sx0, sy0, 0, sx0, sy0, w * 0.25); sun.addColorStop(0, A.rgba(sky.sun, 0.6)); sun.addColorStop(1, A.rgba(sky.sun, 0)); g.fillStyle = sun; g.fillRect(0, 0, w, hy); }
+      if (hzR > 0) {
+        var hy = hzR / 2, skyg = g.createLinearGradient(0, 0, 0, hy);
+        skyg.addColorStop(0, top);
+        skyg.addColorStop(0.65, mid);
+        skyg.addColorStop(0.92, '#23374a');
+        skyg.addColorStop(1, '#1b3044');
+        g.fillStyle = skyg; g.fillRect(0, 0, w, hy);
+        var sx0 = w * sky.sunX, sy0 = hy * (1 - 0.8 * sky.sunH);
+        var corona = g.createRadialGradient(sx0, sy0, 0, sx0, sy0, w * 0.32);
+        corona.addColorStop(0, A.rgba(sky.sun, 0.45));
+        corona.addColorStop(0.4, A.rgba(sky.sun, 0.18));
+        corona.addColorStop(1, A.rgba(sky.sun, 0));
+        g.fillStyle = corona; g.fillRect(0, 0, w, hy);
+        var disk = g.createRadialGradient(sx0, sy0, 0, sx0, sy0, Math.max(8, w * 0.05));
+        disk.addColorStop(0, A.rgba(sky.sun, 0.85));
+        disk.addColorStop(0.35, A.rgba(sky.sun, 0.5));
+        disk.addColorStop(1, A.rgba(sky.sun, 0));
+        g.fillStyle = disk; g.fillRect(0, 0, w, hy);
+      }
     }), 0, 0, W, H);
     ctx.imageSmoothingEnabled = false;
     var sx = 0, sy = 0; if (this.shake > 0.05) { sx = (this.rand() - 0.5) * this.shake * this.dpr; sy = (this.rand() - 0.5) * this.shake * this.dpr; this.shake *= Math.pow(0.02, dt); } else this.shake = 0;

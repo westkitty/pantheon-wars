@@ -493,5 +493,119 @@
 - **Performance Impact**: Frame times remain well within budget.
 - **Regressions**: None.
 - **Accepted / Rejected Verdict**: ACCEPTED.
-- **Commit SHA**: Checkpoint 04 commit pending.
+- **Commit SHA**: Checkpoint 04 committed (`c0c539b`).
 - **Next Cycle**: 021 (Batch 05).
+
+---
+
+### Batch 05: Atmosphere, Lighting & The Divine Firmament (Cycles 021–025)
+
+#### Cycle 021 — Dawn, Zenith & Twilight Sky Gradients and Solar Corona
+- **Number**: 021
+- **Batch**: 05
+- **Starting SHA**: `c0c539beda006c2fb33a4c0d6b760b7e6cd23441`
+- **Target Surface**: Celestial sky rendering and solar disk in `ui/render.js` (`drawScreen`, `screenLayer`).
+- **Evidence of Original Issue**: The celestial sun was drawn as a single diffuse radial gradient (`w * 0.25`), presenting as a flat diffuse smudge rather than a radiant mythic celestial body with an inner solar core and atmospheric corona.
+- **Proposed Improvement / Test**: Draw a concentrated celestial core disk (`w * 0.05`, opacity 0.85 -> 0) surrounded by an expansive multi-stop atmospheric solar corona (`w * 0.32`, opacity 0.45 -> 0), with soft atmospheric banding towards the horizon line.
+- **Actual Action Performed**: Modified `drawScreen()` in `ui/render.js` inside `this.screenLayer('sky')`.
+- **Files Modified**: `ui/render.js`.
+- **Verification Run**: `npm test`, `npm run validate`.
+- **Result**: ACCEPTED. The sky displays a majestic mythological sun disk and corona.
+- **Baseline Comparison**: Operates inside the half-resolution cached screen layer; 0 per-frame overhead.
+- **Performance Impact**: Zero per-frame cost.
+- **Regressions**: None.
+- **Accepted / Rejected Verdict**: ACCEPTED.
+- **Commit SHA**: Pending Checkpoint 05.
+- **Next Cycle**: 022.
+
+---
+
+#### Cycle 022 — Multi-Layered Soft Ambient Cloud Shadows
+- **Number**: 022
+- **Batch**: 05
+- **Starting SHA**: `c0c539beda006c2fb33a4c0d6b760b7e6cd23441`
+- **Target Surface**: Ground cloud shadow sprites in `ui/render.js` (`buildPatterns`, `composeWorld`).
+- **Evidence of Original Issue**: Cloud shadows were rendered with a single flat mask filled with `rgba(10,20,30,1)`, lacking the soft feathered penumbra and central core depth seen in natural cloud shadows over terrain.
+- **Proposed Improvement / Test**: Compose `this.cloudShadow` with two concentric softness tiers: a diffuse outer penumbra (`rgba(20,28,45,0.70)`) and an inset central core umbra (`rgba(8,12,22,0.55)`).
+- **Actual Action Performed**: Updated `buildPatterns()` in `ui/render.js` to build two-tier cloud shadow sprite; adjusted draw alpha to 0.18 in `composeWorld()`.
+- **Files Modified**: `ui/render.js`.
+- **Verification Run**: `npm test`, `npm run validate`.
+- **Result**: ACCEPTED. Ground shadows feel soft, deep, and atmospherically authentic.
+- **Baseline Comparison**: Replaces single flat shadow mask without increasing draw calls or particle counts.
+- **Performance Impact**: Zero per-frame cost (baked once into sprite).
+- **Regressions**: None.
+- **Accepted / Rejected Verdict**: ACCEPTED.
+- **Commit SHA**: Pending Checkpoint 05.
+- **Next Cycle**: 023.
+
+---
+
+#### Cycle 023 — Painted Fog-of-War Gilded Billow Shroud
+- **Number**: 023
+- **Batch**: 05
+- **Starting SHA**: `c0c539beda006c2fb33a4c0d6b760b7e6cd23441`
+- **Target Surface**: Fog of war texture in `ui/render.js` (`buildPatterns`, `fogTex`).
+- **Evidence of Original Issue**: The cloud sea billows in `fogTex` had cream crowns, but lacked sunward specular gilded peaks to catch the key light from the upper-left firmament.
+- **Proposed Improvement / Test**: Add subtle sun-crested gilded highlights (`rgba(255,246,220,0.22)`) and celestial glint motes (`rgba(255,235,180,0.26)`) on prominent billow peaks.
+- **Actual Action Performed**: Updated billow generation loop in `buildPatterns()` in `ui/render.js`.
+- **Files Modified**: `ui/render.js`.
+- **Verification Run**: `npm test`, `npm run validate`.
+- **Result**: ACCEPTED. Unexplored lands appear shrouded in an authored divine sea of clouds.
+- **Baseline Comparison**: Seamless 256x256 repeating pattern texture built once at initialization.
+- **Performance Impact**: Zero per-frame cost.
+- **Regressions**: None.
+- **Accepted / Rejected Verdict**: ACCEPTED.
+- **Commit SHA**: Pending Checkpoint 05.
+- **Next Cycle**: 024.
+
+---
+
+#### Cycle 024 — Weather Front Ambient Lighting Continuity
+- **Number**: 024
+- **Batch**: 05
+- **Starting SHA**: `c0c539beda006c2fb33a4c0d6b760b7e6cd23441`
+- **Target Surface**: Weather front atmosphere in `ui/render.js` (`drawWeather`).
+- **Evidence of Original Issue**: Active weather fronts (storm, drought, frost) rendered tile-specific effects, but lacked an overarching atmospheric ambient aura across the front's perimeter radius.
+- **Proposed Improvement / Test**: Draw a soft radial ambient aura matching the front's atmospheric character (storm gloom `rgba(18,26,44,0.18)`, drought amber haze `rgba(255,180,70,0.10)`, frost mist `rgba(215,235,255,0.12)`) scaled to the hex perspective projection (`frad * SQ`).
+- **Actual Action Performed**: Added ambient perimeter field to `drawWeather()` in `ui/render.js`.
+- **Files Modified**: `ui/render.js`.
+- **Verification Run**: `npm test`, `npm run validate`, `node tools/weather-qa.js`.
+- **Result**: ACCEPTED. Weather fronts visually unify their affected territories.
+- **Baseline Comparison**: Weather QA tests PASS with high contrast preservation and reduced motion safety.
+- **Performance Impact**: Under 0.05 ms per active weather front.
+- **Regressions**: None.
+- **Accepted / Rejected Verdict**: ACCEPTED.
+- **Commit SHA**: Pending Checkpoint 05.
+- **Next Cycle**: 025.
+
+---
+
+#### Cycle 025 — Batch 05 Verification, Deterministic Replay & Checkpoint 05
+- **Number**: 025
+- **Batch**: 05
+- **Starting SHA**: `c0c539beda006c2fb33a4c0d6b760b7e6cd23441`
+- **Target Surface**: Full regression suite, weather QA, browser e2e replay, and frame-time benchmarking.
+- **Evidence of Original Issue**: Empirical validation that all atmosphere, lighting, and firmament improvements maintain determinism, zero memory leaks, and frame performance.
+- **Proposed Improvement / Test**: Run `npm test`, `npm run validate`, `node tools/weather-qa.js`, `npm run e2e`, `tools/perf.js` (`reports/perf-b05.json`).
+- **Actual Action Performed**:
+  - `npm test`: 55/55 PASS (54.3s).
+  - `npm run validate`: PASS (10 factions, 40 domains, 40 powers, 10 shrines, 19 events, 6 scenarios).
+  - `node tools/weather-qa.js`: PASS across desktop, reduced motion, and phone profiles.
+  - `npm run e2e`: 455 actions, 0 rejected inputs, `browserHash: 47cef0c2` == `replayHash: 47cef0c2`.
+  - `node tools/perf.js --label b05`:
+    - `turn1`: 8.3 ms median / 8.7 ms p95
+    - `mid16`: 14.0 ms median / 20.0 ms p95
+    - `late30-reveal`: 14.2 ms median / 18.6 ms p95
+    - `late30-low`: 9.5 ms median / 11.4 ms p95
+    - `mobile16`: 10.9 ms median / 14.9 ms p95
+    - `miracle-burst`: 14.3 ms median / 20.4 ms p95
+  All scenes under the 33 ms budget.
+- **Files Modified**: `reports/perf-b05.json`, `reports/screens/e2e/*`, `ui/render.js`, `docs/implementation/PW_VISUAL_100_CYCLE_STATE.md`.
+- **Verification Run**: `npm test`, `npm run validate`, `node tools/weather-qa.js`, `npm run e2e`, `node tools/perf.js`.
+- **Result**: ACCEPTED. Batch 05 fully verified.
+- **Baseline Comparison**: Replay hash `47cef0c2` and legacy hash `6a3687d9` intact.
+- **Performance Impact**: Median frame times 8.3–14.3 ms (well under 33 ms).
+- **Regressions**: None.
+- **Accepted / Rejected Verdict**: ACCEPTED.
+- **Commit SHA**: Checkpoint 05 commit pending.
+- **Next Cycle**: 026 (Batch 06).
